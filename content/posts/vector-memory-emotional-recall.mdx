@@ -1,0 +1,12 @@
+---
+title: "A vector memory engine for AI with emotional recall — what I learned"
+date: "2026-07-10"
+dek: "Building state-aware memory traces for an AI that needed to remember how conversations felt, not just what they said."
+readTime: "7 min read"
+---
+
+Most AI memory systems answer one question: what did the user say before? For a brand-experience system I architected, that was not enough. The product needed the AI to remember how past interactions felt — whether the person was frustrated last time, what tone landed, which topics they kept returning to. Semantic similarity search over transcripts does not capture any of that.
+
+The design that worked paired a vector memory engine (Mistral embeddings in Weaviate) with what we called memory traces: structured records that stored not just the content of an interaction but its state — emotional register, engagement level, symbolic anchors the person responded to. Retrieval became two-stage: vectors found what was relevant, traces re-ranked by what mattered in this person's history. The AI stopped treating every conversation as a cold start with good notes and started behaving like something with a relationship.
+
+Two lessons survived the project. First, memory quality is a writing problem, not a reading problem — the effort goes into deciding what to store and how to compress an interaction into a trace, because retrieval can only ever be as good as what you wrote down. Second, emotional metadata ages differently from factual metadata. A person's address is true until it changes; their frustration decays in days. Memory traces needed decay functions, and tuning them taught me more about the product than any embedding benchmark did.

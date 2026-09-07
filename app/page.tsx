@@ -1,101 +1,82 @@
-import Image from "next/image";
+import Link from "next/link";
+import { getAllPosts, formatDate } from "@/lib/posts";
 
 export default function Home() {
+  const posts = getAllPosts().slice(0, 3);
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <main className="mx-auto max-w-wide px-6">
+      {/* Hero */}
+      <section className="py-20 sm:py-28">
+        <p className="font-mono text-xs text-muted">
+          <span className="text-accent">▸</span> currently: building AI agents ·
+          57 countries and counting
+        </p>
+        <h1 className="mt-6 font-serif text-5xl font-medium leading-[1.05] tracking-tight sm:text-7xl">
+          Ostap Kovalisko<span className="text-accent">.</span>
+        </h1>
+        <p className="mt-5 font-serif text-xl text-muted sm:text-2xl">
+          Chief Architect · I build AI agents that run business operations.
+        </p>
+        <p className="mt-8 max-w-prose text-lg">
+          I build production AI agent platforms end-to-end — multi-model
+          consensus, approval gates, full audit trails — currently as Chief
+          Architect at a US professional-services firm. Before that: founder or
+          CTO of three startups (one acquired) and founder of a software agency
+          that has shipped 50+ projects since 2019.
+        </p>
+        <div className="mt-10 flex flex-wrap gap-4">
+          <Link
+            href="/writing"
+            className="border border-ink bg-ink px-5 py-2.5 text-sm text-paper transition-colors hover:border-accent hover:bg-accent"
           >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            Read the writing
+          </Link>
+          <Link
+            href="/contact"
+            className="border border-line px-5 py-2.5 text-sm transition-colors hover:border-accent hover:text-accent"
           >
-            Read our docs
-          </a>
+            Work with me
+          </Link>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </section>
+
+      {/* Selected writing */}
+      <section className="border-t border-line py-16">
+        <div className="flex items-baseline justify-between">
+          <h2 className="font-mono text-xs uppercase tracking-widest text-muted">
+            Selected writing
+          </h2>
+          <Link href="/writing" className="text-sm text-accent hover:underline">
+            All articles →
+          </Link>
+        </div>
+        <div className="mt-8 grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-3">
+          {posts.map((post) => (
+            <Link
+              key={post.slug}
+              href={`/writing/${post.slug}`}
+              className="group flex flex-col bg-paper p-6 transition-colors hover:bg-[#F3EFE8]"
+            >
+              <p className="font-mono text-xs text-muted">
+                {formatDate(post.date)} · {post.readTime}
+              </p>
+              <h3 className="mt-3 font-serif text-xl font-medium leading-snug group-hover:text-accent">
+                {post.title}
+              </h3>
+              <p className="mt-2 text-sm text-muted">{post.dek}</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Now strip */}
+      <section className="border-t border-line py-10">
+        <p className="font-mono text-xs text-muted">
+          <span className="text-accent">now</span> — Chief Architect @ a US firm
+          · Founder @ <a href="https://eucalipse.com" className="underline decoration-line underline-offset-4 hover:text-accent">Eucalipse</a> · writing
+          about AI agents in production
+        </p>
+      </section>
+    </main>
   );
 }

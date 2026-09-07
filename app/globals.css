@@ -3,25 +3,138 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  color-scheme: light;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply bg-paper text-ink font-sans antialiased;
+  font-size: 1.0625rem;
+  line-height: 1.65;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+::selection {
+  background: rgba(192, 86, 33, 0.18);
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid #c05621;
+  outline-offset: 3px;
+}
+
+/* Editorial article body */
+.article-body {
+  @apply text-ink;
+}
+.article-body p {
+  margin: 1.25rem 0;
+}
+.article-body h2 {
+  @apply font-serif;
+  font-size: 1.65rem;
+  line-height: 1.25;
+  margin: 2.5rem 0 0.75rem;
+  font-weight: 500;
+}
+.article-body h3 {
+  @apply font-serif;
+  font-size: 1.3rem;
+  margin: 2rem 0 0.5rem;
+  font-weight: 500;
+}
+.article-body a {
+  color: #c05621;
+  text-decoration: underline;
+  text-decoration-color: rgba(192, 86, 33, 0.4);
+  text-underline-offset: 3px;
+}
+.article-body a:hover {
+  text-decoration-color: #c05621;
+}
+.article-body ul,
+.article-body ol {
+  margin: 1.25rem 0;
+  padding-left: 1.4rem;
+}
+.article-body ul {
+  list-style: disc;
+}
+.article-body ol {
+  list-style: decimal;
+}
+.article-body li {
+  margin: 0.4rem 0;
+}
+.article-body blockquote {
+  border-left: 2px solid #c05621;
+  padding-left: 1.25rem;
+  margin: 1.75rem 0;
+  color: #6e675f;
+}
+.article-body code {
+  @apply font-mono;
+  font-size: 0.85em;
+  background: rgba(26, 24, 21, 0.05);
+  border: 1px solid rgba(26, 24, 21, 0.08);
+  border-radius: 3px;
+  padding: 0.1em 0.35em;
+}
+.article-body pre {
+  background: #1a1815;
+  color: #faf8f4;
+  border-radius: 6px;
+  padding: 1.1rem 1.3rem;
+  overflow-x: auto;
+  margin: 1.75rem 0;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+.article-body pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+  font-size: inherit;
+}
+.article-body hr {
+  border: none;
+  border-top: 1px solid rgba(26, 24, 21, 0.12);
+  margin: 2.5rem 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Print: the /cv page is the PDF */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+    color: #000;
+    font-size: 10.5pt;
+    line-height: 1.45;
+  }
+  main {
+    max-width: none !important;
+    padding: 0 !important;
+  }
+  a {
+    color: #000;
+    text-decoration: none;
+  }
+  .print-tight section {
+    break-inside: avoid;
+  }
+  @page {
+    size: A4;
+    margin: 16mm 18mm;
   }
 }

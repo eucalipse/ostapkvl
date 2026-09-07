@@ -1,0 +1,12 @@
+---
+title: "Approval gates: letting AI agents act without letting them loose"
+date: "2026-08-28"
+dek: "The propose/confirm/execute pattern that makes autonomous agents safe enough for real operations."
+readTime: "7 min read"
+---
+
+The question every operations team asks about AI agents is the same: what happens when it gets something wrong? The honest answer is that it will. The design question is not how to build an agent that never makes mistakes — it is how to build a system where a mistake costs a click instead of a client.
+
+The pattern I keep coming back to is a three-stage state machine: propose, confirm, execute. The agent watches incoming work, decides what should happen, and drafts the action — an email reply, a billing adjustment, a task reassignment. Then it stops. A human sees the proposal in a review queue with full context: what triggered it, what the agent read, what it wants to do, and how confident it is. One click approves, one click rejects, and every decision lands in an audit trail.
+
+This sounds slower than full autonomy. In practice it is the thing that makes autonomy possible at all. Teams that trust the queue start approving in seconds, then start marking whole action categories as pre-approved. The gate does not disappear — it moves to where the risk actually lives. That migration path, from everything-reviewed to only-the-expensive-things-reviewed, is the real product. Full autonomy on day one is a demo; graduated autonomy is a system people keep using after the novelty wears off.

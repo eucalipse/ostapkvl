@@ -1,0 +1,12 @@
+---
+title: "What agent observability actually looks like in production"
+date: "2026-07-30"
+dek: "Logs tell you what the code did. An agent audit trail has to tell you what the system decided, and why."
+readTime: "8 min read"
+---
+
+Traditional observability answers "what did the code do?" Agent observability has to answer a harder question: "what did the system decide, based on what, and who signed off?" Those are different problems, and teams that bolt agents onto a normal logging stack discover the difference the first time someone asks why the agent sent that email.
+
+A production agent audit trail needs four things per action. First, the trigger: the exact message, task, or schedule tick that started the run. Second, the context the agent assembled — which documents it retrieved, which prior conversations it read, what the knowledge graph returned. Third, the decision: the proposed action, the confidence, and the reasoning trace. Fourth, the human layer: who approved or rejected it, when, and whether it was later reverted. Store all four and every incident becomes a five-minute lookup. Store fewer and every incident becomes an archaeology project.
+
+The surprising part is who uses this data. I built our audit trail for engineers and it became a tool for operations leads. They do not read stack traces; they read the review queue history the way a manager reads a new hire's work — spotting the categories where the agent is reliably right and expanding its autonomy there, and the categories where it keeps proposing nonsense, which usually points at missing context rather than a bad model. Observability for agents is not a debugging feature. It is the management interface for a new kind of employee.

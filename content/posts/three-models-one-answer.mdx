@@ -1,0 +1,12 @@
+---
+title: "Three models, one answer: consensus as a reliability primitive"
+date: "2026-08-14"
+dek: "When a wrong answer is expensive, one model is a guess. Three models with a synthesis pass is a system."
+readTime: "6 min read"
+---
+
+Every LLM will confidently give you a wrong answer at some rate. For a chatbot that rate is a UX problem. For a system that answers questions about contracts, billing, or compliance, it is a liability. The mitigation that has worked best in my production systems is embarrassingly direct: ask three different models the same question, in parallel, and run a synthesis pass over their answers.
+
+The mechanics matter. The three calls go to models from different vendors — different training data, different failure modes. The synthesis pass is not a vote counter; it is a fourth call that receives all three answers with their sources and is asked to reconcile them: where do they agree, where do they diverge, and what does the divergence tell us? Agreement across independently trained models is strong evidence. Divergence is a flag that routes the question to a human instead of returning a confident-sounding blend.
+
+The objection is always cost — three calls instead of one, plus synthesis. But run the numbers against the alternative. Consensus triples the cost of a query that would have cost a fraction of a cent, on exactly the queries where a wrong answer costs real money. You do not run consensus on everything; you run it where mistakes are expensive, the same way you do not put two engineers on every code review but you do on the migration that touches billing. Reliability is a budget, and consensus is one of the cheapest ways to spend it.

@@ -1,0 +1,12 @@
+---
+title: "Processing 500k data points a week without melting the database"
+date: "2026-06-19"
+dek: "Distributed job queues, batch windows, and the unglamorous engineering behind 200k personalized emails a week."
+readTime: "6 min read"
+---
+
+The healthcare platform ingested half a million clinical data points a week and turned them into 200,000+ personalized analytics emails. The naive architecture — compute on write, query on send — died in staging. The database that comfortably served the product could not simultaneously be an analytics engine, and the fix was not a bigger instance.
+
+The architecture that shipped separated the three workloads completely. Ingestion wrote raw data points and did nothing else. A BullMQ worker fleet consumed the backlog in scheduled batch windows, computing statistics into pre-aggregated tables — every expensive join and window function ran once, off-peak, instead of 200,000 times at send time. The email pipeline then read only from those aggregates, which turned personalization into cheap key lookups plus chart rendering. Redis-backed queues gave us retries, rate limiting, and — critically — backpressure visibility: when a batch fell behind, we saw a growing queue depth hours before users would have seen a late email.
+
+The general lesson is boring and durable: throughput problems are usually coupling problems. Nothing in the system was individually hard — no exotic database, no streaming framework. The work was drawing hard lines between write paths, compute paths, and read paths, then refusing to let convenience blur them. Most scaling war stories, examined closely, are the same story.
