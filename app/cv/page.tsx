@@ -90,9 +90,7 @@ export default function Cv() {
               <span className="w-16 shrink-0 font-mono text-xs leading-6 text-muted">
                 {row.years}
               </span>
-              <span className="text-muted">
-                <span className="text-ink">{row.role}</span> — {row.description}
-              </span>
+              <span className="text-muted">{row.description}</span>
             </li>
           ))}
         </ul>

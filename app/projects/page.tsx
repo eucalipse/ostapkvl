@@ -104,7 +104,6 @@ export default function Projects() {
             <thead>
               <tr className="border-b border-line font-mono text-xs uppercase tracking-wider text-muted">
                 <th className="py-3 pr-6 font-medium">Year</th>
-                <th className="py-3 pr-6 font-medium">Role</th>
                 <th className="py-3 pr-6 font-medium">Project</th>
                 <th className="py-3 font-medium">Domain</th>
               </tr>
@@ -115,10 +114,7 @@ export default function Projects() {
                   <td className="whitespace-nowrap py-4 pr-6 align-top font-mono text-xs text-muted">
                     {row.years}
                   </td>
-                  <td className="whitespace-nowrap py-4 pr-6 align-top text-sm">
-                    {row.role}
-                  </td>
-                  <td className="py-4 pr-6 align-top text-sm text-muted">
+                  <td className="py-4 pr-6 align-top text-sm">
                     {row.description}
                     <span className="mt-1.5 block font-mono text-xs text-muted/80">
                       {row.stack.join(" · ")}
