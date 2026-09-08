@@ -37,6 +37,7 @@ export type ArchiveRow = {
   role: string;
   description: string;
   domain: string;
+  stack: string[];
 };
 
 export const archive: ArchiveRow[] = [
@@ -46,6 +47,7 @@ export const archive: ArchiveRow[] = [
     description:
       "Emotionally intelligent AI system: vector memory engine (Mistral + Weaviate), symbolic interaction layer, state-aware memory traces",
     domain: "AI",
+    stack: ["Mistral", "LangChain", "Weaviate", "TypeScript", "Supabase", "PostgreSQL"],
   },
   {
     years: "2024–25",
@@ -53,6 +55,7 @@ export const archive: ArchiveRow[] = [
     description:
       "Healthcare analytics platform (USA/Canada): 500k+ data points/week, 200k+ personalized emails/week, LLM-anonymized patient reviews",
     domain: "Healthcare",
+    stack: ["Next.js", "PostgreSQL", "BullMQ", "Redis", "AWS", "Twilio", "OpenAI"],
   },
   {
     years: "2022–25",
@@ -60,18 +63,21 @@ export const archive: ArchiveRow[] = [
     description:
       "Open-data platform for a regional government in Ukraine: municipality statistics, dashboards, public medical directories",
     domain: "Govtech",
+    stack: ["Next.js", "Nest.js", "React", "Prisma", "MySQL"],
   },
   {
     years: "2023–24",
     role: "Front-End Developer",
     description: "Dynamic form SaaS + tablet product-presentation platform",
     domain: "SaaS",
+    stack: ["React", "Next.js", "i18next", "Tailwind", "Material UI"],
   },
   {
     years: "2023–24",
     role: "Front-End Developer",
     description: "Cargo container management system for a major logistics company",
     domain: "Logistics",
+    stack: ["React", "TypeScript", "Supabase", "Tailwind"],
   },
   {
     years: "2023",
@@ -79,30 +85,42 @@ export const archive: ArchiveRow[] = [
     description:
       "Platform helping asylum seekers and refugees in Canada access rights and services",
     domain: "Social impact",
+    stack: ["React", "MobX", "Tailwind", "Material UI"],
   },
   {
     years: "2022",
     role: "Full-Stack Developer",
     description: "Nurse-coach video platform, MVP shipped on a tight deadline",
     domain: "Healthcare",
+    stack: ["Next.js", "React", "Prisma", "Twilio", "MySQL", "GCP"],
+  },
+  {
+    years: "2022",
+    role: "Front-End Developer",
+    description: "AI-driven student portfolio platform — skills-based portfolios backed by real evidence",
+    domain: "Edtech",
+    stack: ["React", "Next.js", "Tailwind"],
   },
   {
     years: "2022",
     role: "Front-End Developer",
     description: "Clinical trials discovery SaaS",
     domain: "Medtech",
+    stack: ["Next.js", "TypeScript", "Tailwind"],
   },
   {
     years: "2021–22",
     role: "Lead Developer",
     description: "SaaS learning platform for startup education content",
     domain: "Edtech",
+    stack: ["Next.js", "React", "PostgreSQL", "Prisma", "Notion API"],
   },
   {
     years: "2021",
     role: "Full-Stack Developer",
     description: "DeFi/NFT asset-pool platform, Python→TypeScript migration",
     domain: "Web3",
+    stack: ["Next.js", "TypeScript", "PostgreSQL", "TypeORM", "i18next"],
   },
   {
     years: "2021",
@@ -110,6 +128,7 @@ export const archive: ArchiveRow[] = [
     description:
       "Video coaching platform for medical professionals (standardized patient training)",
     domain: "Medtech",
+    stack: ["React", "Next.js", "Node.js", "MongoDB"],
   },
   {
     years: "2019–21",
@@ -117,6 +136,7 @@ export const archive: ArchiveRow[] = [
     description:
       "ERP for a global agriscience leader: 80+ interrelated data models, tens of millions of records, weather/crop system integrations",
     domain: "Agritech",
+    stack: ["Laravel", "PHP", "React", "PHPUnit"],
   },
   {
     years: "2020–21",
@@ -124,11 +144,13 @@ export const archive: ArchiveRow[] = [
     description:
       "B2B/B2C precious-metals trading marketplace (Germany), real-time pricing",
     domain: "E-commerce",
+    stack: ["Laravel", "PHP", "MySQL", "Stripe", "PayPal"],
   },
   {
     years: "2020–21",
     role: "Lead Front-End Developer",
     description: "AI visual content analysis platform for retail/advertising",
     domain: "AI",
+    stack: ["React", "CSS", "HTML"],
   },
 ];

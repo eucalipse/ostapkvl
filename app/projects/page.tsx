@@ -120,6 +120,9 @@ export default function Projects() {
                   </td>
                   <td className="py-4 pr-6 align-top text-sm text-muted">
                     {row.description}
+                    <span className="mt-1.5 block font-mono text-xs text-muted/80">
+                      {row.stack.join(" · ")}
+                    </span>
                   </td>
                   <td className="whitespace-nowrap py-4 align-top font-mono text-xs text-muted">
                     {row.domain}
