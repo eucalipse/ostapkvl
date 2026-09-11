@@ -9,7 +9,7 @@ Every demo of an AI agent that can act — send an email, update a record, creat
 
 I used to answer with accuracy numbers. That was a mistake. The honest answer is that it will be wrong. Maybe once in five hundred actions, maybe once in five thousand, but over enough volume it is a certainty. Planning around "it will never make a mistake" is not planning. The useful question is different: how much does one wrong action cost, and how fast can you undo it?
 
-That question has an engineering answer. On the platform I work on at a US professional-services firm, agents can take more than 60 kinds of actions across 13 integrations. Every one of them goes through the same three-stage state machine: propose, confirm, execute.
+That question has an engineering answer. On the platform I work on at a US professional-services firm, agents can take more than 60 kinds of actions across 13 integrations. Every action enters the same three-stage lifecycle: propose, confirm, execute. The confirm step is handled by a person by default; categories that have earned autonomy can pass it under an explicit policy, with the transition still recorded.
 
 ## How the gate works
 
