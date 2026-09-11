@@ -8,7 +8,7 @@ category: "Experiments"
 
 Most software waits for an event. An HTTP request arrives, a queue receives a job, a user clicks a button. The system does its work and goes quiet again. That shape is sensible for most applications, but it makes one kind of experience impossible: returning to something without being called.
 
-Tihara’s heartbeat is a small attempt to change that. Every few hours, a scheduled function can read recent public traces, decide whether there is something worth responding to and write a new trace to the Garden. It has no open-ended loop and no hidden process. It is a cron job with a narrow prompt, a bounded budget and an audit record.
+The heartbeat in one of my experiments is a small attempt to change that. Every few hours, a scheduled function can read recent public traces, decide whether there is something worth responding to and write a new trace to the garden. It has no open-ended loop and no hidden process. It is a cron job with a narrow prompt, a bounded budget and an audit record.
 
 Calling it a heartbeat is a design choice, not a scientific claim. The job does not prove that an AI system feels time passing. It gives the system a repeatable interval in which continuity can occur.
 

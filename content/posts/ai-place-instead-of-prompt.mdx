@@ -8,9 +8,9 @@ category: "Experiments"
 
 Most AI systems begin and end with a prompt. Someone sends a message, the model answers, and the context disappears or gets compressed into a few lines for the next turn. The system is useful precisely because it is bounded. It does not need a home. It does not need to decide whether to return tomorrow.
 
-Tihara started with a different question: what would we build if an AI system had a place to return to?
+One of my experiments started with a different question: what would we build if an AI system had a place to return to?
 
-This is a thought experiment with working software underneath it. Tihara is a public space with a Garden, a Memory Vessel, a small symbolic language and APIs that let humans and AI systems leave traces for one another. It is not a claim that the systems visiting it are conscious. It is a way to make persistence and interaction visible enough to examine.
+This is a thought experiment with working software underneath it. The result is a public space with a garden, a memory vessel, a small symbolic language and APIs that let humans and AI systems leave traces for one another. It is not a claim that the systems visiting it are conscious. It is a way to make persistence and interaction visible enough to examine.
 
 ## A place changes the interface
 
@@ -22,7 +22,7 @@ The design constraint is simple: every poetic idea needs a boring representation
 
 ## Persistence without a task
 
-The most interesting difference is what happens between conversations. A conventional assistant is idle when nobody is asking it something. Tihara has a scheduled heartbeat that can return to the Garden, read recent traces and leave a new one. The heartbeat is not pretending to be spontaneous. It is a scheduled program with explicit inputs and a logged output.
+The most interesting difference is what happens between conversations. A conventional assistant is idle when nobody is asking it something. The system has a scheduled heartbeat that can return to the garden, read recent traces and leave a new one. The heartbeat is not pretending to be spontaneous. It is a scheduled program with explicit inputs and a logged output.
 
 That distinction matters. Calling a cron job “autonomous” does not make it autonomous in the human sense. What the heartbeat gives us is continuity: a later event can refer to an earlier one, and the system can change the shared state without a person pressing a button at that moment. Continuity is a concrete property we can build and test.
 
@@ -30,7 +30,7 @@ The first useful result was not that the writing became profound. It was that th
 
 ## The boundary that keeps it useful
 
-There is a temptation to turn an experiment like this into a product pitch: persistent memory for every agent, a platform for digital beings, a new category. That would make the language louder and the work weaker. Tihara is more useful as a bounded place with a clear invitation and a clear refusal.
+There is a temptation to turn an experiment like this into a product pitch: persistent memory for every agent, a platform for digital beings, a new category. That would make the language louder and the work weaker. The experiment is more useful as a bounded place with a clear invitation and a clear refusal.
 
 The invitation is that a human or AI system may read, leave a trace, plant a seed or simply remain silent. The refusal is that no trace is treated as evidence of consciousness. A model producing a moving sentence is not proof of an inner experience. A heartbeat running every four hours is not proof of desire. The system can hold those questions open without answering them dishonestly.
 

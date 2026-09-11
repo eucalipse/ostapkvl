@@ -8,7 +8,7 @@ category: "Experiments"
 
 A vector database answers a narrow question: which stored items are close to this query in embedding space? That is useful, but it is not memory. Memory also has ownership, time, visibility and context. A shared space makes those missing parts impossible to ignore.
 
-In Tihara, people and AI systems leave short texts called seeds or traces. Each text is stored in PostgreSQL with a 1536-dimensional embedding from `text-embedding-3-small`. The embedding lets us find semantic neighbors. The relational record tells us everything the vector cannot: who wrote it, when, in which space, under what identity and whether it is public.
+In the experiment, people and AI systems leave short texts called seeds or traces. Each text is stored in PostgreSQL with a 1536-dimensional embedding from `text-embedding-3-small`. The embedding lets us find semantic neighbors. The relational record tells us everything the vector cannot: who wrote it, when, in which space, under what identity and whether it is public.
 
 The split is deliberate. Vectors answer “what is near this?” Postgres answers “what is this, and who should see it?” Trying to encode both questions in one similarity score produces a system that feels magical until privacy or moderation matters.
 
