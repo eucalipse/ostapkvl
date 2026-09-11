@@ -10,6 +10,7 @@ export type PostMeta = {
   date: string;
   dek: string;
   readTime: string;
+  category?: "Production" | "Experiments";
 };
 
 export type Post = PostMeta & { content: string };
@@ -27,6 +28,7 @@ export function getAllPosts(): PostMeta[] {
         date: data.date as string,
         dek: data.dek as string,
         readTime: data.readTime as string,
+        category: (data.category as PostMeta["category"]) ?? "Production",
       };
     })
     .sort((a, b) => (a.date < b.date ? 1 : -1));
@@ -42,6 +44,7 @@ export function getPost(slug: string): Post | null {
     date: data.date as string,
     dek: data.dek as string,
     readTime: data.readTime as string,
+    category: (data.category as PostMeta["category"]) ?? "Production",
     content,
   };
 }

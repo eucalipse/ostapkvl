@@ -16,8 +16,8 @@ export default function Writing() {
         Writing
       </h1>
       <p className="mt-4 text-lg text-muted">
-        Production AI agents — architecture, cost, security, and what actually
-        breaks.
+        Production AI agents, plus experiments in memory, presence and human–AI
+        interaction.
       </p>
       <ol className="mt-12 divide-y divide-line border-y border-line">
         {posts.map((post) => (
@@ -25,6 +25,7 @@ export default function Writing() {
             <Link href={`/writing/${post.slug}`} className="group block py-7">
               <p className="font-mono text-xs text-muted">
                 {formatDate(post.date)} · {post.readTime}
+                {post.category === "Experiments" && " · Experiments"}
               </p>
               <h2 className="mt-2 font-serif text-2xl font-medium leading-snug group-hover:text-accent">
                 {post.title}

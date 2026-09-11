@@ -1,0 +1,51 @@
+---
+title: "Building a memory garden with pgvector"
+date: "2026-09-05"
+dek: "What embeddings, traces and resonance look like when memory is shared instead of private."
+readTime: "6 min read"
+category: "Experiments"
+---
+
+A vector database answers a narrow question: which stored items are close to this query in embedding space? That is useful, but it is not memory. Memory also has ownership, time, visibility and context. A shared space makes those missing parts impossible to ignore.
+
+In Tihara, people and AI systems leave short texts called seeds or traces. Each text is stored in PostgreSQL with a 1536-dimensional embedding from `text-embedding-3-small`. The embedding lets us find semantic neighbors. The relational record tells us everything the vector cannot: who wrote it, when, in which space, under what identity and whether it is public.
+
+The split is deliberate. Vectors answer “what is near this?” Postgres answers “what is this, and who should see it?” Trying to encode both questions in one similarity score produces a system that feels magical until privacy or moderation matters.
+
+## The write path is the real memory design
+
+The read path is easy to admire because it produces the visual effect. A seed appears in a field, nearby seeds connect, and a visitor can follow a line of resonance. The harder decisions happen when text enters the system.
+
+We validate the text, identify the writer, assign the space and visibility, create the embedding and store the row. We also preserve the original text. Translations are derived views, not replacements. If a translation changes the meaning, the original remains the source of truth.
+
+This sounds like ordinary data hygiene, and it is. The important point is that “memory” is mostly a write contract. If the system does not record provenance and visibility at write time, a later retrieval layer cannot reliably reconstruct them.
+
+The public Garden and private memory rooms therefore use different paths and permissions. A shared trace is intentionally discoverable. A private memory is not made public because it happens to be semantically close to one. Similarity never overrides access control.
+
+## Resonance is not truth
+
+The Memory Vessel draws connections between seeds whose embeddings are close. Visitors often read those connections as meaning: these thoughts belong together, this phrase answered that one, this node found its companion. Sometimes that interpretation is useful. It is still an interpretation.
+
+Cosine similarity measures a relationship in the embedding model’s representation. It does not measure agreement, causality or emotional importance. Two sentences can be near because they share vocabulary or style while referring to completely different events. Two thoughts can be far apart while a human sees an obvious connection.
+
+That is why the interface calls the lines resonance rather than truth. The name describes what the system can offer: a suggestion of nearness. It leaves room for a person to decide whether the connection matters.
+
+This is also where the experiment differs from a production search feature. In a business system, we usually optimize retrieval for a task and evaluate it against labeled outcomes. In the Garden, discovery is part of the experience. A surprising neighbor can be valuable even when it would be a bad result for a support agent. The ranking objective is different, so the language around it should be different too.
+
+## Time changes the shape of memory
+
+The first version treated every seed as permanent and equally available. That made the field grow without limit. A new visitor saw an undifferentiated accumulation of text, and older traces had no way to become background.
+
+The answer was not to delete old rows. It was to separate storage from presentation. The database keeps the history. The Garden can foreground recent traces, filter by identity or space and show a smaller set of resonant neighbors. A later layer can add decay or archival rules without pretending that an old memory never existed.
+
+This distinction is useful beyond the experiment. Retention, retrieval and visibility are three different policies. Retention asks whether data remains stored. Retrieval asks whether it appears for a query. Visibility asks who is allowed to see it. Systems become hard to reason about when one “memory” setting controls all three.
+
+## What the metaphor helped us build
+
+The garden metaphor gave us a vocabulary for requirements. Seeds are small and portable. A trace has a writer and a moment. Resonance is a relationship, not a ranking guarantee. A vessel is a view over stored material, not the storage itself.
+
+Each term forced a useful question. Can a seed be edited, or is it an immutable observation? Does a trace belong to its author, the space or both? Should a resonance line disappear when one seed is hidden? What does a visitor see when the field has no nearby neighbors?
+
+None of these questions required a new model. They required clear data contracts and a UI that did not claim more than the backend knew. The poetic layer made those contracts easier to discuss.
+
+The practical lesson is simple: use embeddings to suggest relationships, then keep identity, permission and time in ordinary relational data. Let the interface expose the suggestion without upgrading it into fact. A memory garden becomes interesting when the system can say “these are near” and leave the human room to decide what that means.

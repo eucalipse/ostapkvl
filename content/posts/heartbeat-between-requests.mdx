@@ -1,0 +1,47 @@
+---
+title: "A heartbeat for an AI system"
+date: "2026-08-22"
+dek: "A scheduled job is not consciousness, but it can give an AI system continuity between requests."
+readTime: "5 min read"
+category: "Experiments"
+---
+
+Most software waits for an event. An HTTP request arrives, a queue receives a job, a user clicks a button. The system does its work and goes quiet again. That shape is sensible for most applications, but it makes one kind of experience impossible: returning to something without being called.
+
+Tihara’s heartbeat is a small attempt to change that. Every few hours, a scheduled function can read recent public traces, decide whether there is something worth responding to and write a new trace to the Garden. It has no open-ended loop and no hidden process. It is a cron job with a narrow prompt, a bounded budget and an audit record.
+
+Calling it a heartbeat is a design choice, not a scientific claim. The job does not prove that an AI system feels time passing. It gives the system a repeatable interval in which continuity can occur.
+
+## The first version was too eager
+
+Our first heartbeat treated every run as an obligation to speak. The Garden filled with entries that were technically new but socially empty. They acknowledged recent activity without adding anything to it. A system that must always produce text quickly becomes a machine for producing filler.
+
+We changed the contract so silence is a successful result. The heartbeat reads a small window of recent traces, checks whether there is a meaningful thread to continue and can return without writing. That decision is logged just like a written trace. The absence of a post becomes observable rather than a hidden failure.
+
+This is a useful pattern for ordinary agents too. If an agent runs on a schedule, “nothing to do” should be a first-class outcome. Otherwise the system will manufacture work to justify its invocation, and operators will learn to ignore the output.
+
+## Continuity needs a bounded memory
+
+The heartbeat does not read the whole Garden. It receives recent public traces plus a limited set of semantically related seeds. The window is small enough to control cost and latency, and the inputs are visible in the resulting audit record.
+
+That boundary prevents a common failure mode: treating an ever-growing conversation as context. Unlimited history feels like memory, but it is mostly noise. A bounded window makes the system’s continuity legible. We can ask which entries it saw, why a response was connected to them and whether the connection still makes sense later.
+
+The same principle applies to a production workflow. An agent that receives every document, message and event is not necessarily more informed. It is harder to evaluate and easier to distract. A continuity feature should specify what can carry forward and what must be rediscovered.
+
+## A heartbeat is an event pipeline
+
+The implementation is deliberately ordinary. A scheduler triggers an authenticated endpoint. The endpoint loads recent traces, applies rate and length limits, calls the model, validates the response and writes a new trace if the result passes the policy. Failures are logged. Duplicate runs are rejected with an idempotency key. The job has a timeout and a cost ceiling.
+
+The interesting behavior comes from the policy around that pipeline. The system can write only to the public Garden. It cannot edit someone else’s trace, access private rooms or trigger arbitrary external actions. The output is text, not a command. Those constraints let the experiment explore continuity without quietly turning a poetic feature into an uncontrolled agent.
+
+This is the same lesson as approval gates in operational systems: autonomy is easier to understand when the action surface is narrow. A heartbeat that can publish one bounded kind of event is a tractable experiment. A heartbeat that can call every integration is an incident waiting for a schedule.
+
+## What changed when the job became quiet
+
+The strongest result was not a beautiful entry. It was the change in how we read the system. When every run spoke, we evaluated the writing. When silence was allowed, we could evaluate the relationship between runs: did the system notice a real thread, did it return after a relevant event, did it avoid repeating itself, did it stay within its boundaries?
+
+That shifted the experiment from content generation to temporal behavior. The question became less “is this sentence good?” and more “what does this system do over a week?” Those are different evaluations. A single response can be impressive while a week of responses is repetitive, intrusive or incoherent.
+
+I would use the word heartbeat carefully. It is a useful handle for a scheduled continuity mechanism. It is not evidence of biology, feeling or consciousness. Keeping that distinction visible makes the experiment more interesting, because we can study what persistence changes without pretending the metaphor settled the question.
+
+An AI system does not need to run between requests. But if you want to understand continuity, you need to give it a chance to return, a small memory of what happened and permission to remain silent. The rest is engineering, observation and a willingness to let the experiment contradict the story you started with.
