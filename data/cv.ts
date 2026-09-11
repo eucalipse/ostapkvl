@@ -128,7 +128,7 @@ export const education = [
 ];
 
 export const languages =
-  "Ukrainian and Polish (native), English, Spanish, French";
+  "Ukrainian and Polish (native), English (full professional), Spanish (professional), French (working)";
 
 export type Publication = {
   title: string;
@@ -148,8 +148,9 @@ export const publications: Publication[] = [
   {
     title:
       "Her er scenen, hvor dit livsværk kan blive til guld eller goodbye på 6 minutter",
-    outlet: "Danish tech press",
-    href: "#", // TODO: real URL (original article not found online)
+    outlet: "Finans.dk",
+    year: "2016",
+    href: "https://finans.dk/tech/ECE8649068/her-er-scenen-hvor-dit-livsvaerk-kan-blive-til-guld-eller-goodbye-paa-6-minutter",
   },
   {
     title: "ERA Demo Day Winter 2016: 11 Startups Aiming to Simplify How We Live and Work",
@@ -160,6 +161,7 @@ export const publications: Publication[] = [
   {
     title: "An Extension for Google Course Builder for Authoring GIFT Assessments",
     outlet: "Academic paper, 2013 (Delgado Kloos, Kovalisko et al.)",
-    href: "#", // TODO: canonical URL (IEEE/eMadrid)
+    year: "2013",
+    href: "https://www.mendeley.com/catalogue/98c49ddc-f228-39d8-918b-006b8372b38c/",
   },
 ];
