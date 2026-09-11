@@ -32,20 +32,28 @@ export async function POST(request: Request) {
     );
   }
 
-  const res = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      from: "ostapkvl.com <contact@eucalipse.com>",
-      to: [site.email],
-      reply_to: email,
-      subject: `ostapkvl.com contact from ${name}`,
-      text: `Name: ${name}\nEmail: ${email}\n\n${message}`,
-    }),
-  });
+  let res: Response;
+  try {
+    res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: `Ostap Kovalisko <${site.email}>`,
+        to: [site.email],
+        reply_to: email,
+        subject: `ostapkvl.com contact from ${name}`,
+        text: `Name: ${name}\nEmail: ${email}\n\n${message}`,
+      }),
+    });
+  } catch {
+    return NextResponse.json(
+      { error: "Could not send right now. Email me directly instead." },
+      { status: 502 }
+    );
+  }
 
   if (!res.ok) {
     return NextResponse.json(

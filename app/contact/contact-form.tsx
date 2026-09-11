@@ -96,7 +96,7 @@ export function ContactForm() {
         {status === "sending" ? "Sending…" : "Send message"}
       </button>
       {status === "error" && (
-        <p className="mt-3 text-sm text-accent">
+        <p className="mt-3 text-sm text-accent" role="alert">
           {error} You can always write to{" "}
           <a href={`mailto:${site.email}`} className="underline">
             {site.email}
