@@ -98,10 +98,11 @@ export default function Contact() {
           type="submit"
           className="mt-6 border border-ink bg-ink px-5 py-2.5 text-sm text-paper transition-colors hover:border-accent hover:bg-accent"
         >
-          Send
+          Open email draft
         </button>
         <p className="mt-4 font-mono text-xs text-muted">
-          Usually reply within a day, any timezone.
+          Opens your email app with the message filled in. Usually reply within
+          a day, any timezone.
         </p>
       </form>
     </main>

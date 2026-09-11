@@ -11,16 +11,16 @@ export const metadata: Metadata = {
 
 const timeline = [
   {
-    years: "2026 — now",
+    years: "Sep 2026 — now",
     title: "Chief Architect",
     org: "US venture-law firm",
     body: "Architecture of the AI platform and the client operations app; leads the AI engineering stream. Built the agent platform largely solo: an action system with propose/confirm/execute gates, 3-model consensus search, a knowledge graph, 13 integrations, and a human-in-the-loop review queue with a full audit trail.",
   },
   {
     years: "2025 — 2026",
-    title: "AI Systems Engineer → Lead Software Engineer",
+    title: "Lead Software Engineer → AI Systems Engineer",
     org: "same firm",
-    body: "Client portal and admin operating system: service state machines, dual-database sync, document signing and billing integrations.",
+    body: "First the client portal and admin operating system — service state machines, dual-database sync, document signing and billing integrations — then the move to the AI platform full-time.",
   },
   {
     years: "2019 — now",

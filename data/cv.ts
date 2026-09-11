@@ -141,24 +141,25 @@ export const publications: Publication[] = [
   {
     title:
       "På scenen for å hente 6,2 millioner kroner – da må man levere «den perfekte pitch»",
-    outlet: "Norwegian tech press",
-    href: "#", // TODO: real URL
+    outlet: "ITavisen",
+    year: "2016",
+    href: "https://itavisen.no/2016/05/27/pa-scenen-for-a-hente-62-millioner-kroner-da-ma-man-ha-den-perfekte-pitch/",
   },
   {
     title:
       "Her er scenen, hvor dit livsværk kan blive til guld eller goodbye på 6 minutter",
-    outlet: "Nordic tech press",
-    href: "#", // TODO: real URL
+    outlet: "Danish tech press",
+    href: "#", // TODO: real URL (original article not found online)
   },
   {
     title: "ERA Demo Day Winter 2016: 11 Startups Aiming to Simplify How We Live and Work",
-    outlet: "US startup press",
+    outlet: "Microsoft for Startups",
     year: "2016",
-    href: "#", // TODO: real URL
+    href: "https://medium.com/@MicrosoftforStartups/era-demo-day-winter-2016-11-startups-aiming-to-simplify-how-we-live-and-work-788fe675c32f",
   },
   {
     title: "An Extension for Google Course Builder for Authoring GIFT Assessments",
-    outlet: "Academic paper",
-    href: "#", // TODO: real URL
+    outlet: "Academic paper, 2013 (Delgado Kloos, Kovalisko et al.)",
+    href: "#", // TODO: canonical URL (IEEE/eMadrid)
   },
 ];

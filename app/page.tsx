@@ -69,6 +69,34 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Selected work */}
+      <section className="border-t border-line py-16">
+        <div className="flex items-baseline justify-between">
+          <h2 className="font-mono text-xs uppercase tracking-widest text-muted">
+            Selected work
+          </h2>
+          <Link href="/projects" className="text-sm text-accent hover:underline">
+            All projects →
+          </Link>
+        </div>
+        <div className="mt-8 border border-line bg-paper p-8">
+          <h3 className="font-serif text-2xl font-medium">
+            AI Operations Platform
+          </h3>
+          <p className="mt-3 max-w-prose">
+            The system I own end-to-end at a US professional-services firm:
+            60+ AI actions behind a router and a propose/confirm/execute state
+            machine, 3-model consensus answers, a knowledge graph, and a
+            human-in-the-loop review queue with one-click revert. Built largely
+            solo, running in production, with a full audit trail behind every
+            action.
+          </p>
+          <p className="mt-4 font-mono text-xs text-muted">
+            TypeScript · Next.js · Postgres · Claude / GPT / Gemini · Neo4j
+          </p>
+        </div>
+      </section>
+
       {/* Now strip */}
       <section className="border-t border-line py-10">
         <p className="font-mono text-xs text-muted">

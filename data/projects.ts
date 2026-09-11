@@ -12,7 +12,7 @@ export const projects: Project[] = [
   {
     title: "AI Operations Platform",
     description:
-      "A production agent platform for a US professional-services firm: 60+ AI actions behind a router and a propose/confirm/execute state machine, 3-model consensus answers, a Neo4j knowledge graph, and Slack, email, and chat surfaces. Every action runs through human approval gates and lands in a full audit trail.",
+      "A production agent platform for a US professional-services firm: 60+ AI actions behind a router and a propose/confirm/execute state machine, 3-model consensus answers, a Neo4j knowledge graph, and Slack, email, and chat surfaces. Every action passes the propose/confirm/execute gate — confirmed by a human, or by a policy the category has earned — and lands in a full audit trail with one-click revert.",
     stack: ["TypeScript", "Next.js", "Postgres", "Claude / GPT / Gemini", "Neo4j"],
     art: "gates",
   },
@@ -34,10 +34,10 @@ export const projects: Project[] = [
   {
     title: "Self-Running Marketplace",
     description:
-      "A booking marketplace (own product) that operates itself: 87,000+ vendor listings built and maintained by a fleet of scheduled agents across two runtimes — around 40 cron jobs — with humans pulled in only where judgment is needed.",
+      "A booking marketplace (own product) built to run itself: 87,000+ vendor listings created and enriched by a fleet of scheduled agents across two runtimes — around 40 cron jobs — with humans pulled in only where judgment is needed.",
     stack: ["TypeScript", "Next.js", "PostgreSQL", "Claude / GPT / Gemini", "Railway"],
     useCases: [
-      "Multimodal listing enrichment: a Claude → GPT → Gemini fallback chain reads vendor websites, including menu and price-board photos via vision, and produces full listings — descriptions, priced services, contacts — at ~900 vendors/day, with anti-hallucination guards on prices",
+      "Multimodal listing enrichment: a Claude → GPT → Gemini fallback chain reads vendor websites, including menu and price-board photos via vision, and produces full listings — descriptions, priced services, contacts — at a peak throughput of ~900 vendors/day, with anti-hallucination guards on prices",
       "Search-grounded enrichment for vendors with no website (Gemini with Google Search grounding)",
       "Programmatic SEO: nightly LLM-written directory articles generated from live marketplace data, at about $0.50 per 50 articles",
       "LLM email triage with a narrow autopilot: inbound mail is classified and matched to a vendor; only the provably safe case (removal request, single confident match, zero live bookings) is auto-handled after live re-validation — everything else queues for a human with an AI-drafted reply",

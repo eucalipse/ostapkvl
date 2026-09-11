@@ -5,7 +5,7 @@ dek: "Building state-aware memory traces for an AI that needed to remember how c
 readTime: "5 min read"
 ---
 
-About two years ago a client came to my agency with a requirement I had not seen before. They were building an AI character for brand experiences — a conversational persona that talks with the same person over weeks and months. Forgetting facts was not their problem; retrieval covers facts well enough. The character forgot how conversations felt. A user could spend twenty minutes being frustrated, come back the next day, and get greeted like nothing had happened. Or like something good had happened, which was worse.
+About a year and a half ago a client came to my agency with a requirement I had not seen before. They were building an AI character for brand experiences — a conversational persona that talks with the same person over weeks and months. Forgetting facts was not their problem; retrieval covers facts well enough. The character forgot how conversations felt. A user could spend twenty minutes being frustrated, come back the next day, and get greeted like nothing had happened. Or like something good had happened, which was worse.
 
 One incident during early testing defined the whole project. A tester told the character that her dog had died the week before. It was a short exchange, three messages, and the character handled it well in the moment. Nine days later she mentioned a walk in the park. Vector search did its job: "walk in the park" sits close to "walking the dog" in embedding space, the old messages came back as context, and the character asked, in a warm and upbeat tone, how the dog was enjoying the walks. By every retrieval metric this was correct. It was also the worst answer the system could produce.
 
@@ -21,7 +21,7 @@ The architecture we ended with is not complicated. Conversation chunks go throug
   "intensity": 0.9,
   "engagement": 0.4,
   "anchors": ["Luna", "dog", "the park"],
-  "written_at": "2024-03-11T18:04:00Z"
+  "written_at": "2025-03-11T18:04:00Z"
 }
 ```
 
