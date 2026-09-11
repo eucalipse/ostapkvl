@@ -50,7 +50,7 @@ const personJsonLd = {
   jobTitle: "Chief Architect",
   url: site.url,
   email: site.email,
-  sameAs: [site.github, site.linkedin, site.instagram, site.eucalipse],
+  sameAs: [site.linkedin, site.instagram, site.eucalipse],
   knowsAbout: [
     "AI agents",
     "Large language models",
@@ -103,9 +103,6 @@ export default function RootLayout({
             <div className="flex flex-wrap gap-x-6 gap-y-2">
               <a href={`mailto:${site.email}`} className="hover:text-accent">
                 {site.email}
-              </a>
-              <a href={site.github} className="hover:text-accent">
-                GitHub
               </a>
               <a href={site.linkedin} className="hover:text-accent">
                 LinkedIn

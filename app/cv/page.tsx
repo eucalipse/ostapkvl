@@ -36,10 +36,6 @@ export default function Cv() {
             <a href={site.linkedin} className="hover:text-accent">
               linkedin.com/in/ostapkovalisko
             </a>{" "}
-            ·{" "}
-            <a href={site.github} className="hover:text-accent">
-              github.com/ostapkvl
-            </a>{" "}
             · ostapkvl.com
           </p>
         </div>

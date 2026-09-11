@@ -3,8 +3,9 @@ export type Project = {
   description: string;
   stack: string[];
   link?: { label: string; href: string };
+  useCases?: string[];
   /** abstract thumbnail variant */
-  art: "gates" | "daemon" | "grid";
+  art: "gates" | "daemon" | "grid" | "fleet" | "memory";
 };
 
 export const projects: Project[] = [
@@ -30,6 +31,34 @@ export const projects: Project[] = [
     link: { label: "eucalipse.com", href: "https://eucalipse.com" },
     art: "grid",
   },
+  {
+    title: "Self-Running Marketplace",
+    description:
+      "A booking marketplace (own product) that operates itself: 87,000+ vendor listings built and maintained by a fleet of scheduled agents across two runtimes — around 40 cron jobs — with humans pulled in only where judgment is needed.",
+    stack: ["TypeScript", "Next.js", "PostgreSQL", "Claude / GPT / Gemini", "Railway"],
+    useCases: [
+      "Multimodal listing enrichment: a Claude → GPT → Gemini fallback chain reads vendor websites, including menu and price-board photos via vision, and produces full listings — descriptions, priced services, contacts — at ~900 vendors/day, with anti-hallucination guards on prices",
+      "Search-grounded enrichment for vendors with no website (Gemini with Google Search grounding)",
+      "Programmatic SEO: nightly LLM-written directory articles generated from live marketplace data, at about $0.50 per 50 articles",
+      "LLM email triage with a narrow autopilot: inbound mail is classified and matched to a vendor; only the provably safe case (removal request, single confident match, zero live bookings) is auto-handled after live re-validation — everything else queues for a human with an AI-drafted reply",
+      "Vendor translation pipeline into 17 languages",
+      "Ops guards throughout: idempotency flags, per-item failure isolation, batch caps, provider fallback, and a global cost-pause switch",
+    ],
+    art: "fleet",
+  },
+  {
+    title: "Emotionally Intelligent AI System",
+    description:
+      "An AI character platform for brand experiences that remembers how conversations felt, not just what was said — long-running personas that stay consistent with a person's emotional history across weeks of interaction.",
+    stack: ["TypeScript", "Mistral", "Weaviate", "LangChain", "Supabase"],
+    useCases: [
+      "Vector memory engine (Mistral embeddings in Weaviate) for long-term conversational recall",
+      "State-aware memory traces: emotional register, intensity, and symbolic anchors written at conversation time, then used to re-rank retrieval — vectors find what is relevant, traces decide what matters",
+      "Decay curves tuned per emotional intensity, so strong moments persist while small talk fades",
+      "Symbolic interaction layer and modular personas for emotionally consistent brand voices",
+    ],
+    art: "memory",
+  },
 ];
 
 export type ArchiveRow = {
@@ -45,14 +74,6 @@ export const archive: ArchiveRow[] = [
     years: "2026",
     role: "Founder & Architect",
     description:
-      "Self-running marketplace (own product): a fleet of autonomous agents fills and promotes it — scraping, LLM enrichment, content generation, SEO, and outreach on a cron backbone with cost guards and idempotent jobs; 12k+ listings built by agents",
-    domain: "AI ops",
-    stack: ["TypeScript", "Next.js", "PostgreSQL", "Railway", "LLM pipelines"],
-  },
-  {
-    years: "2026",
-    role: "Founder & Architect",
-    description:
       "Consumer calendar-subscription product (own product): LLM extraction turns school PDFs and municipal open data into structured, deduplicated calendar feeds — five ingestion engines, deterministic event IDs, merge layer",
     domain: "Consumer AI",
     stack: ["Next.js", "Supabase", "Gemini", "Python", "Stripe"],
@@ -64,14 +85,6 @@ export const archive: ArchiveRow[] = [
       "Experimental human+AI social space (own project): autonomous AI personas write on a scheduled heartbeat, pgvector semantic search over shared texts, an LLM translation pipeline serving 77 languages (~4,000 static pages), an agent-facing public API (OpenAPI + ai-plugin), and fan-out of every post to five social networks",
     domain: "Experimental AI",
     stack: ["Next.js", "PostgreSQL", "pgvector", "Prisma", "OpenAI", "Vercel"],
-  },
-  {
-    years: "2025",
-    role: "AI Systems Architect",
-    description:
-      "Emotionally intelligent AI system: vector memory engine (Mistral + Weaviate), symbolic interaction layer, state-aware memory traces",
-    domain: "AI",
-    stack: ["Mistral", "LangChain", "Weaviate", "TypeScript", "Supabase", "PostgreSQL"],
   },
   {
     years: "2024–25",

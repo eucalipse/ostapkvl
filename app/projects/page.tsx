@@ -7,7 +7,11 @@ export const metadata: Metadata = {
     "Flagship work: a production AI operations platform, the Ostavio personal AI daemon, and the Eucalipse agency — plus an archive of 50+ shipped projects.",
 };
 
-function Thumb({ variant }: { variant: "gates" | "daemon" | "grid" }) {
+function Thumb({
+  variant,
+}: {
+  variant: "gates" | "daemon" | "grid" | "fleet" | "memory";
+}) {
   const stroke = "#C05621";
   return (
     <svg
@@ -30,6 +34,26 @@ function Thumb({ variant }: { variant: "gates" | "daemon" | "grid" }) {
           <circle cx="60" cy="36" r="14" stroke={stroke} />
           <circle cx="60" cy="36" r="3" fill={stroke} />
           <path d="M60 6v10M60 56v10M30 36H16M104 36H90M39 15l7 7M81 57l-7-7M81 15l-7 7M39 57l7-7" stroke={stroke} />
+        </>
+      )}
+      {variant === "fleet" && (
+        <>
+          <circle cx="60" cy="14" r="6" stroke={stroke} />
+          {[20, 46, 72, 98].map((x) => (
+            <g key={x}>
+              <rect x={x - 6} y="46" width="12" height="12" stroke={stroke} />
+              <path d={`M60 20L${x} 46`} stroke={stroke} opacity="0.5" />
+            </g>
+          ))}
+        </>
+      )}
+      {variant === "memory" && (
+        <>
+          <path d="M14 36c10-18 30-18 46-8s36 10 46-8" stroke={stroke} />
+          <path d="M14 50c10-18 30-18 46-8s36 10 46-8" stroke={stroke} opacity="0.45" />
+          <circle cx="38" cy="26" r="4" fill={stroke} />
+          <circle cx="82" cy="40" r="4" fill={stroke} opacity="0.6" />
+          <circle cx="60" cy="33" r="2.5" fill={stroke} opacity="0.35" />
         </>
       )}
       {variant === "grid" && (
@@ -60,7 +84,7 @@ export default function Projects() {
         Projects
       </h1>
       <p className="mt-4 max-w-prose text-lg text-muted">
-        Three flagship systems, then the archive. Depth over volume.
+        Flagship systems and own products, then the archive. Depth over volume.
       </p>
 
       <div className="mt-12 space-y-px border border-line bg-line">
@@ -75,6 +99,18 @@ export default function Projects() {
                 {project.title}
               </h2>
               <p className="mt-3 max-w-prose">{project.description}</p>
+              {project.useCases && (
+                <div className="mt-4 max-w-prose border-l-2 border-accent/40 pl-4">
+                  <p className="font-mono text-xs uppercase tracking-wider text-muted">
+                    AI in production
+                  </p>
+                  <ul className="mt-2 space-y-1.5 text-sm text-muted">
+                    {project.useCases.map((useCase) => (
+                      <li key={useCase}>{useCase}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
               <p className="mt-4 font-mono text-xs text-muted">
                 {project.stack.join(" · ")}
                 {project.link && (

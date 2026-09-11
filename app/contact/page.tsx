@@ -47,11 +47,6 @@ export default function Contact() {
                 LinkedIn →
               </a>
             </li>
-            <li>
-              <a href={site.github} className="hover:text-accent">
-                GitHub →
-              </a>
-            </li>
           </ul>
         </section>
       </div>
