@@ -35,9 +35,28 @@ export const metadata: Metadata = {
     siteName: "Ostap Kovalisko",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+  },
   alternates: {
     types: { "application/rss+xml": "/feed.xml" },
   },
+};
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Ostap Kovalisko",
+  jobTitle: "Chief Architect",
+  url: site.url,
+  email: site.email,
+  sameAs: [site.github, site.linkedin, site.instagram, site.eucalipse],
+  knowsAbout: [
+    "AI agents",
+    "Large language models",
+    "Software architecture",
+    "Multi-agent systems",
+  ],
 };
 
 const nav = [
@@ -53,6 +72,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${serif.variable} ${sans.variable} ${mono.variable}`}>
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
         <header className="no-print border-b border-line">
           <div className="mx-auto flex max-w-wide items-baseline justify-between px-6 py-5">
             <Link

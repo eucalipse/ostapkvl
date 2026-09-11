@@ -32,6 +32,34 @@ export const projects: Project[] = [
   },
 ];
 
+export type Product = {
+  name: string;
+  href: string;
+  label: string;
+  description: string;
+  stack: string[];
+};
+
+/** Own products — built and operated end-to-end. */
+export const products: Product[] = [
+  {
+    name: "Addagio",
+    href: "https://addagio.io",
+    label: "addagio.io",
+    description:
+      "Direct booking pages for service businesses — 0% commission, 12k+ vendors listed. The interesting part is under the hood: the marketplace fills and promotes itself through a fleet of autonomous agents — scraping, AI enrichment, content generation, SEO, and outreach — running on a cron backbone across two runtimes with cost guards and idempotent jobs.",
+    stack: ["TypeScript", "Next.js", "PostgreSQL", "Railway", "LLM pipelines"],
+  },
+  {
+    name: "AutoCal",
+    href: "https://autocaldata.com",
+    label: "autocaldata.com",
+    description:
+      "One calendar subscription for a family's scattered local schedules — school days off, waste collection, sports, holidays and deadlines — merged into verified, always-synced feeds. Five ingestion engines (PDF parsing, open data, sports APIs) with deterministic event IDs and a dedup merge layer, so updates never duplicate.",
+    stack: ["Next.js", "Supabase", "Stripe", "Python", "GitHub Actions"],
+  },
+];
+
 export type ArchiveRow = {
   years: string;
   role: string;
