@@ -1,0 +1,44 @@
+---
+title: "Shadow mode: shipping an AI agent nobody trusts yet"
+date: "2026-09-02"
+dek: "Before an agent is allowed to act, let it run silently next to the humans and keep score."
+readTime: "6 min read"
+---
+
+The agent at my current company can run more than 60 actions across our internal systems. For the first six weeks, it was not allowed to execute a single one. It ran next to the team, decided what it would have done, wrote that decision to a log, and stopped. The humans kept doing the job exactly as before.
+
+This is shadow mode, and it is technically cheap. If you plan to ship the agent anyway, you already have to build the whole pipeline: an event comes in, the agent gathers context, picks an action, fills in the parameters. Shadow mode is that same pipeline with the last wire cut. Instead of executing, the agent writes its intended action into the same audit trail we use for real actions, with a shadow flag. The humans' real actions land in the systems they always did. A nightly job matches the two streams by event and produces diffs: agent wanted X, human did Y.
+
+The hard part is not building it. The hard part is reading the results honestly.
+
+## One number tells you nothing
+
+The first thing everyone wants is a single score. "The agent agrees with humans 87% of the time." We computed that number, and it was worse than useless — it hid the risk. High-volume boring categories dominate the average. In our data, status updates and simple field changes made up most of the volume and agreed above 95%. Escalation decisions were rare and agreed at 58%. The global average looked healthy while the most expensive category was failing.
+
+So we started measuring agreement per action category. For each of the roughly 40 categories the agent handled in shadow, we track three numbers: agreement rate, volume, and a rough cost of a wrong action. A category with 85% agreement is fine if a mistake costs a two-minute fix. The same 85% is unacceptable if a mistake goes out to a customer.
+
+We also split the disagreements by type, because they need different fixes. When the agent did nothing and the human acted, detection is broken — the trigger or the classification missed the event. When the agent acted and the human did not, the agent is too eager and the thresholds need tightening. When both acted but the content differed, the agent is usually missing context. Almost all of our bad categories turned out to be the third type.
+
+Per-category numbers also give you a clean promotion rule. Ours was: 90% agreement over at least 200 shadow decisions, adjusted down for high-cost categories. A category that passes graduates to approval-gated live mode — the agent proposes, a human clicks confirm, the action executes, and everything lands in a review queue with one-click revert. A category that fails stays in shadow. Nobody argues about feelings. The dashboard decides.
+
+That dashboard changed how we talk about the agent. Before shadow mode, every discussion was a discussion about promises. I would say the agent is ready, someone would say they were not comfortable, and there was nothing to point at. After six weeks of shadow data, the conversation was: here are 40 categories, here are the numbers, which ones do you want to turn on? The team picked the thresholds themselves. The most skeptical senior engineer on the team did not care about demos. What convinced him was a table that openly showed where the agent was bad. Showing the failures built more trust than showing the wins.
+
+## The category everyone thought was easy
+
+Before shadow mode started, I asked the team which categories the agent would handle best. Everyone picked the same one: setting follow-up dates on tasks. It looked trivial. Read the request, pick a date, done. We expected 95%-plus and planned to graduate it in the first batch.
+
+It came in at 44%. The worst category out of all 40. Meanwhile drafting status summaries — the one everyone predicted would be hard — sat at 93%.
+
+I spent an evening reading the diffs and the pattern was obvious within twenty examples. The agent picked dates that were reasonable from the request text alone. The humans picked different dates because they knew things that were not in the request. Every account had a service tier that changed the expected response cadence, and the team also looked at recent activity — if the last three interactions were slow, they gave the follow-up more room. None of that lived in the agent's context. The tier was a field in another system, and the activity pattern was something people carried in their heads.
+
+The fix was not a better model or a smarter prompt. We added two fields to the context assembly: the account tier and a small summary of recent interaction timing. Agreement went from 44% to 91% over the next three weeks. Same model, same prompt structure, two extra inputs.
+
+This is the main lesson from our shadow phase: most disagreement is missing context, not model weakness. The model was answering the question correctly. It was just a smaller question than the one the humans were answering. Shadow mode is the cheapest way I know to find out which inputs the humans are silently using, because the diffs point straight at them.
+
+There is a trap on the other side, and we fell into it before we noticed. Shadow mode grades the agent against humans, and humans are not a consistent baseline. On one category the numbers refused to improve no matter what context we added. So we ran a check: we gave the same 150 shadowed events to two experienced people independently. They agreed with each other 68% of the time. No agent can score 95% against a baseline that disagrees with itself at 68%. The fix was not on the agent side at all. We wrote a one-page playbook for that decision, the humans converged, and then the agent converged with them. Sometimes the most useful output of shadow mode is a document describing a rule that nobody had ever written down.
+
+A related mistake: treating every disagreement as an agent error. We hand-reviewed 50 disagreements in one category and the agent's choice was better in about a third of them. If you grade the agent as wrong whenever it differs, you are punishing it for human mistakes and training yourself to ship a worse system. Sample the diffs and label who was actually right. It is tedious. Do it anyway.
+
+The last piece is what shadow mode graduates into. We treat it as one pipeline with three stages per category: shadow, then approval-gated (propose, confirm, execute), then autonomy with a review queue and one-click revert behind it. Each stage produces the data that justifies the next one. In shadow, agreement rate decides promotion to gated mode. In gated mode, the edit rate on proposals decides promotion to autonomy — when humans stop changing the proposals and just click confirm, the confirmation step has become theater and you can remove it. And the pipeline runs both ways. When a live category's edit rate climbed after we changed an upstream integration, it went back to shadow for two weeks. The audit trail made that a boring, data-based decision instead of a crisis meeting.
+
+Six weeks of an agent doing nothing looks like six weeks of no progress. It was the fastest part of the whole rollout. Every category we turned on after shadow mode stayed on. We never had to roll one back. The alternative is to ship on confidence and roll back after the first visible mistake. I have done that before, on a smaller project. After one bad action in production, people stopped trusting the whole system, not just that one action. Getting that trust back took much longer than six weeks.

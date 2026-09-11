@@ -2,11 +2,48 @@
 title: "Approval gates: letting AI agents act without letting them loose"
 date: "2026-08-28"
 dek: "The propose/confirm/execute pattern that makes autonomous agents safe enough for real operations."
-readTime: "7 min read"
+readTime: "5 min read"
 ---
 
-The question every operations team asks about AI agents is the same: what happens when it gets something wrong? The honest answer is that it will. The design question is not how to build an agent that never makes mistakes — it is how to build a system where a mistake costs a click instead of a client.
+Every demo of an AI agent that can act — send an email, update a record, create a task in someone's project tracker — ends with the same question from the room: what if it is wrong?
 
-The pattern I keep coming back to is a three-stage state machine: propose, confirm, execute. The agent watches incoming work, decides what should happen, and drafts the action — an email reply, a billing adjustment, a task reassignment. Then it stops. A human sees the proposal in a review queue with full context: what triggered it, what the agent read, what it wants to do, and how confident it is. One click approves, one click rejects, and every decision lands in an audit trail.
+I used to answer with accuracy numbers. That was a mistake. The honest answer is that it will be wrong. Maybe once in five hundred actions, maybe once in five thousand, but over enough volume it is a certainty. If your rollout plan depends on the agent never making a mistake, you do not have a rollout plan. The useful question is a different one: how much does one wrong action cost, and how fast can you undo it?
 
-This sounds slower than full autonomy. In practice it is the thing that makes autonomy possible at all. Teams that trust the queue start approving in seconds, then start marking whole action categories as pre-approved. The gate does not disappear — it moves to where the risk actually lives. That migration path, from everything-reviewed to only-the-expensive-things-reviewed, is the real product. Full autonomy on day one is a demo; graduated autonomy is a system people keep using after the novelty wears off.
+That question has an engineering answer. On the platform I work on at a US professional-services firm, agents can take more than 60 kinds of actions across 13 integrations. Every one of them goes through the same three-stage state machine: propose, confirm, execute.
+
+## How the gate works
+
+In the propose stage the agent does all of its reasoning and produces a fully specified action: the target integration, the operation, the exact payload, a human-readable summary, and the context that led to it. Nothing external happens. A proposed action is just a row in a table.
+
+Confirm is where approval happens — by a human at first, later sometimes by policy. Execute runs the action against the external system, stores the result, and, where the target API allows it, stores the inverse operation so the action can be reverted.
+
+```
+proposed -> confirmed -> executed -> (reverted)
+        \-> rejected
+```
+
+The state machine itself is trivial. The review queue built on top of it is where most of the work went. A proposed action shown without context is worse than useless: the reviewer either approves everything without reading or rejects everything out of fear. So each queue item shows the full picture — what triggered the proposal, what data the agent retrieved, the reasoning it gave, the exact payload, and a diff when the action changes something that already exists. Approving is one click. Rejecting asks for a short reason, and those reasons feed back into the prompts. Reverting an executed action is also one click when an inverse exists.
+
+Not every action has a clean inverse. You cannot unsend an email. For those we do one of two things: keep them behind human confirmation permanently, or reshape them into reversible actions. The agent does not propose "send this email" — it proposes "create this draft". A draft can sit in the queue forever. Deleting it costs nothing.
+
+For higher-stakes proposals we also run three models in parallel — Claude, GPT and Gemini, with a synthesis pass over their outputs. It lowers the error rate noticeably. It does not remove the need for the gate. Consensus makes the agent wrong less often; the gate makes being wrong cheap. You need the second one either way.
+
+The moment I stopped having to argue for this design came about three weeks into the pilot. An agent proposed a follow-up email to a customer contact. The recipient was right. The tone was right. But the body confidently referenced a project phase that had been cancelled two weeks earlier — the retrieval step had pulled a stale planning document that nobody had archived properly. The operations manager reviewing the queue caught it in about ten seconds and rejected it. We fixed the retrieval filter the same day.
+
+If that email had gone out automatically, the damage would not have been catastrophic. It would have been embarrassing — the kind of message that tells a customer you do not track your own work. What happened instead is that the person who caught it became the strongest supporter of the whole system. She had seen the safety net catch something real. That one rejection did more for trust than a month of polished demos. Demos show the system working, and everyone already assumes a demo will work. The queue showed the system failing safely, which is the thing people actually need to see before they let it near their operations.
+
+## Autonomy is earned by category
+
+Everything starts fully reviewed. Yes, this is slow. In the first weeks the queue feels like bureaucracy and the agent feels like an intern who needs sign-off for everything. This is fine. The point of that phase is not throughput. It is evidence.
+
+Because every decision goes through the queue, the queue produces its own statistics. After a month you can look at one action category — say, logging a completed task back to the project tracker — and see that reviewers approved it week after week without a single edit. At that point the team promotes the category: it auto-confirms and executes on its own. Still logged, still revertible, and a sample of it still lands in the queue for spot checks.
+
+Promotion is also not permanent. If the spot checks start catching problems — a model change, a new data source, a prompt edit that shifted behavior — the category goes back to full review. Demotion has to be as easy as promotion, one config change, no meeting. If moving backwards is painful, people will avoid it, and then the gate exists only on paper.
+
+Promotion is per category, never per agent and never global. "The agent is now autonomous" is a decision nobody can defend when something breaks. "Status updates to internal systems auto-execute; anything customer-facing does not" is a policy a team can own and adjust. Some categories in our system will probably never be promoted. I think that is correct. An action with no undo and a customer on the other end should keep a human in front of it.
+
+This is why graduated autonomy beats day-one autonomy, and the argument is not really technical. Day-one autonomy asks people to trust a system they have never seen fail. Graduated autonomy lets trust follow evidence the team collected themselves. The same platform, launched with full autonomy from the start, would have been switched off after its first visible mistake. Launched behind gates, the same mistake made it stronger.
+
+The last piece is the audit trail. Every state transition is recorded: who or what triggered it, when, the full payload before and after, which model produced the proposal. Most days nobody looks at any of this. Then something goes wrong in production — and it will — and the trail is the difference between answering "what exactly happened" in five minutes and spending a day digging through logs and guessing. It also protects the agent. Surprisingly often, "the AI did something strange" turns out to be a human edit or bad data upstream. The trail settles those arguments without anyone having to trust anyone's memory. And when security asks what this system can do and what it has actually done, you have a list instead of a shrug.
+
+None of this is exciting engineering. A state machine, a review queue, a log. But it changed every conversation about the agents. We stopped arguing about whether the system can be trusted and started arguing about which categories to promote next. That is a much better argument to lose.

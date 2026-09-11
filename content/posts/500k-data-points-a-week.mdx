@@ -2,11 +2,48 @@
 title: "Processing 500k data points a week without melting the database"
 date: "2026-06-19"
 dek: "Distributed job queues, batch windows, and the unglamorous engineering behind 200k personalized emails a week."
-readTime: "6 min read"
+readTime: "5 min read"
 ---
 
-The healthcare platform ingested half a million clinical data points a week and turned them into 200,000+ personalized analytics emails. The naive architecture — compute on write, query on send — died in staging. The database that comfortably served the product could not simultaneously be an analytics engine, and the fix was not a bigger instance.
+The first realistic load test we ran on the healthcare platform killed staging in about forty minutes. The database did not crash. It did something worse: every query got slower and slower, the connection pool filled up with stuck transactions, and the API stopped answering. The ingestion endpoint kept accepting data the whole time. Everything downstream was dead.
 
-The architecture that shipped separated the three workloads completely. Ingestion wrote raw data points and did nothing else. A BullMQ worker fleet consumed the backlog in scheduled batch windows, computing statistics into pre-aggregated tables — every expensive join and window function ran once, off-peak, instead of 200,000 times at send time. The email pipeline then read only from those aggregates, which turned personalization into cheap key lookups plus chart rendering. Redis-backed queues gave us retries, rate limiting, and — critically — backpressure visibility: when a batch fell behind, we saw a growing queue depth hours before users would have seen a late email.
+That was the naive version of the system. Clinical data points came in through the API, and on every write we recalculated the patient's aggregates: weekly averages, trends, deviation from baseline. The reasoning was simple — the data should always be fresh, so compute on write. It passed design review. Nobody pushed back, including me.
 
-The general lesson is boring and durable: throughput problems are usually coupling problems. Nothing in the system was individually hard — no exotic database, no streaming framework. The work was drawing hard lines between write paths, compute paths, and read paths, then refusing to let convenience blur them. Most scaling war stories, examined closely, are the same story.
+The numbers are not extreme. The platform takes in more than 500k clinical data points per week and sends more than 200k personalized analytics emails per week. Postgres on decent AWS hardware handles that volume without effort — as raw inserts. What it cannot handle is each insert triggering a chain of reads and updates. One incoming point touched several aggregate rows, and some of those aggregates read weeks of history to recalculate. Under load-test traffic, every insert competed with every other insert for the same hot rows. Lock contention went up, transactions got longer, the pool ran out. A classic death spiral, and we built it on purpose.
+
+The fix was not a new database or a caching layer. We drew three hard lines through the system and stopped letting anything cross them.
+
+## Three separate paths
+
+Ingestion does exactly one thing now: validate the payload, write the raw data point to an append-only table, acknowledge. No aggregation, no side effects, no reads of other patients' data. An insert into an append-only table is about the cheapest thing you can ask Postgres to do. This path stays fast at any volume we have thrown at it, because there is nothing in it that can get slower.
+
+Compute is a separate fleet of BullMQ workers, fed from Redis, running mostly in off-peak windows. Ingestion traffic follows the day: devices sync in the morning and in the evening, almost nothing at night. So the batch jobs run at night. They read the raw table, compute aggregates, and write results into pre-aggregated tables — one row per patient per metric per period. A plain denormalized table, nothing smart. The workers are throttled on purpose:
+
+```ts
+const worker = new Worker('aggregate-weekly', processBatch, {
+  concurrency: 4,
+  limiter: { max: 50, duration: 1000 },
+});
+```
+
+We tuned those numbers so that a full recompute keeps the database around 40 percent load. It could go faster. We do not want it faster. The batch window is long enough, and a batch job that saturates the database is just the compute-on-write problem moved to 2 a.m.
+
+The read path — the emails — became almost boring, which was the goal. Personalization sounds expensive, but ours is a key lookup plus a chart render. The email job reads pre-aggregated rows for one patient, renders the charts, fills a template, and hands the message to the delivery queue. No aggregation happens at send time. Sending 200k emails is then a throughput question for the email queue and the provider's rate limits, not a database question. BullMQ's rate limiter handles the provider side; the database barely notices the sends.
+
+The rule that holds all of this together: data only moves forward. Raw table, then aggregate tables, then rendered email. The read path never reaches back into raw data. The moment someone adds "just one small live query" to the email renderer, you get the forty-minute staging death again, only slower and in production.
+
+We broke this rule once. A new email section needed a stat we had not pre-aggregated, the deadline was close, so it shipped as a live query per email. It was fine for weeks. Then a backfill made the raw table much bigger for a subset of patients, that query got slow for exactly those patients, and send jobs started timing out in a pattern that took half a day to understand. The fix was the same as always: add the stat to the nightly aggregation, make the renderer a lookup again. Since then "the renderer does lookups only" is written down as a hard rule, not a preference.
+
+## Queue depth tells you first
+
+The most useful operational metric in this whole system is one number: Redis queue depth over time. Not CPU. Not slow-query logs. Queue depth.
+
+The logic is simple. Every queue has a stable rhythm — it grows while producers run and drains to zero before the next window. If it does not drain to zero, something changed: a job type got slower, input volume grew, a worker is quietly failing and retrying. All of those show up as a queue that finishes later than yesterday, long before any user-facing symptom exists. So we alert on drain time, not on depth itself. Depth spikes are normal. A queue that has not emptied by an hour before the next window is not.
+
+This saved us on a Monday when one upstream data source delivered three days of data at once, after an outage on their side. Queue depth went to roughly ten times the usual peak. The old system would have turned that spike directly into database load, probably an outage during business hours. Instead, the queue absorbed it, the alert fired, I looked at the graph, saw the workers steadily working through the backlog inside their rate limit, and did nothing. It drained by early afternoon. The database graphs for that day look the same as any other day. That is the whole point of the buffer: an upstream problem became a delay, not an incident.
+
+Backpressure also needs a policy for the bad case. Ours is blunt: if the queue passes a hard threshold, ingestion keeps accepting data — it is clinical data, we never drop it — but recompute jobs for already-fresh aggregates get skipped, and email sends can shift a few hours. Fresh raw data is the priority; derived data can wait. Deciding that order calmly, in advance, is much better than deciding it during an incident.
+
+Nothing in this article is advanced. Append-only inserts, a job queue, denormalized aggregate tables, a rate limiter, one alert. Any mid-level engineer can build each piece in a day. What took real effort was the discipline: saying no every time a feature wanted to blur a boundary, because blurring it was faster to ship that week. Compute-on-write was one blur. The live query in the renderer was another. Each one looked small, and each one was cheaper "for now."
+
+My takeaway from this project: most throughput problems are coupling problems. When the database melts, the instinct is to buy a bigger instance or add a cache. Usually that treats the symptom. The real question is which unrelated workloads fight for the same resource at the same moment, and the answer is a boundary, not hardware. Drawing a boundary on a whiteboard takes five minutes. Defending it in code review, for years, is the hard part. Defend it anyway. Our database is boring now, and boring is what you want from a database that holds other people's health data.

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { projects, products, archive } from "@/data/projects";
+import { projects, archive } from "@/data/projects";
 
 export const metadata: Metadata = {
   title: "Projects",
@@ -93,34 +93,6 @@ export default function Projects() {
           </article>
         ))}
       </div>
-
-      {/* Own products */}
-      <section className="mt-20">
-        <h2 className="font-mono text-xs uppercase tracking-widest text-muted">
-          Products I run
-        </h2>
-        <div className="mt-6 space-y-px border border-line bg-line">
-          {products.map((product) => (
-            <article key={product.name} className="bg-paper p-8">
-              <h3 className="font-serif text-xl font-medium">
-                {product.name}{" "}
-                <a
-                  href={product.href}
-                  className="ml-2 font-mono text-xs font-normal text-accent hover:underline"
-                >
-                  {product.label} →
-                </a>
-              </h3>
-              <p className="mt-3 max-w-prose text-sm text-muted">
-                {product.description}
-              </p>
-              <p className="mt-3 font-mono text-xs text-muted/80">
-                {product.stack.join(" · ")}
-              </p>
-            </article>
-          ))}
-        </div>
-      </section>
 
       {/* Work archive */}
       <section className="mt-20">

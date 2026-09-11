@@ -5,8 +5,47 @@ dek: "When a wrong answer is expensive, one model is a guess. Three models with 
 readTime: "6 min read"
 ---
 
-Every LLM will confidently give you a wrong answer at some rate. For a chatbot that rate is a UX problem. For a system that answers questions about contracts, billing, or compliance, it is a liability. The mitigation that has worked best in my production systems is embarrassingly direct: ask three different models the same question, in parallel, and run a synthesis pass over their answers.
+One of our AI actions extracted a date from an uploaded document: 03/04. The model picked March 4. The document was written by someone in Europe, and the date was April 3. The wrong date went into a downstream workflow, a person scheduled work around it, and fixing the mess took most of a day.
 
-The mechanics matter. The three calls go to models from different vendors — different training data, different failure modes. The synthesis pass is not a vote counter; it is a fourth call that receives all three answers with their sources and is asked to reconcile them: where do they agree, where do they diverge, and what does the divergence tell us? Agreement across independently trained models is strong evidence. Divergence is a flag that routes the question to a human instead of returning a confident-sounding blend.
+The model was not broken. The input was ambiguous, and a single model resolves ambiguity by silently picking one reading and sounding confident about it. This is the failure mode that worries me. Not wrong answers. Confident wrong answers with no signal attached.
 
-The objection is always cost — three calls instead of one, plus synthesis. But run the numbers against the alternative. Consensus triples the cost of a query that would have cost a fraction of a cent, on exactly the queries where a wrong answer costs real money. You do not run consensus on everything; you run it where mistakes are expensive, the same way you do not put two engineers on every code review but you do on the migration that touches billing. Reliability is a budget, and consensus is one of the cheapest ways to spend it.
+Some context. We run more than 60 AI actions in production at my current company, a US professional-services firm. Most of them call one model, get one answer, and move on. That is fine when the answer is cheap to verify or cheap to be wrong about — a draft that a person edits anyway, a label on an internal record. But some answers trigger workflows, and some end up in front of a client. After the date incident, we stopped trusting a single model on those paths.
+
+The fix is what I now think of as a consensus primitive. The same task goes to Claude, GPT, and Gemini in parallel. Then a synthesis pass — a fourth model call — reads the three answers together with the original input and produces a final answer plus a divergence assessment. If the three agree in substance, the answer proceeds. If they diverge, the item does not execute. It routes to a human review queue with all three answers attached, so the reviewer sees the disagreement instead of one confident guess.
+
+The reason this works is boring: different vendors fail differently. Claude, GPT, and Gemini are trained on different data and tuned in different ways. When you sample the same model twice, the errors are correlated — you are drawing twice from one distribution. Two Claude calls that agree tell you much less than a Claude call and a Gemini call that agree. Agreement across vendors is actual evidence. It is the same reason you spread a portfolio across uncorrelated assets instead of buying the same stock three times.
+
+## The synthesis pass is not voting
+
+The obvious way to combine three answers is majority voting, and it does not work for most real tasks. Voting assumes answers are comparable tokens. In practice the answers are free text. Two models can say the same thing in different words. Three models can each be partially right — one gets the date, another gets the name, the third gets both but hedges. A vote counter sees three different strings and calls it total disagreement.
+
+So the synthesis pass is a model call, not a comparator. It receives the original input and all three answers. Its job is to reconcile: where do the answers agree in substance, where do they contradict, and is the contradiction about facts or about wording. It outputs a merged answer and a structured divergence flag.
+
+The most important design decision: the synthesizer is allowed to say "these disagree and I cannot tell which is right." That output is a success, not an error. Early on I had to fight my own instinct here. The temptation is to make the synthesizer always produce a clean final answer, because a clean answer feels like the system working. It is the opposite. A system that hides disagreement is just a slower single model.
+
+Months after the date incident, the same kind of input came through the consensus path. GPT read the date one way, Gemini the other, Claude flagged it as ambiguous. The item landed in review, a person asked the sender, done. Total cost of the ambiguity: one short email. That was the moment I stopped doubting the design. The divergence was not a model failure. The input was genuinely ambiguous, and three models made the ambiguity visible instead of hiding it.
+
+What diverges most in practice, from watching this run for a long time:
+
+- Ambiguous formats: dates, decimal separators, name order, "next Friday".
+- Negation and exceptions: "everyone except", "unless", "no longer applies".
+- Documents that contradict themselves — a number in the body that disagrees with a table.
+- Judgment calls that look like extraction: "what is the priority of this request".
+
+Clean extraction from clean input almost never diverges. That turned out to be useful on its own: divergence rate per task type became a data-quality metric. When a task type starts diverging a lot, the problem is usually upstream in the inputs, not in the models. We fixed two intake forms because consensus kept flagging the same fields.
+
+## The cost objection, with numbers
+
+Everyone's first reaction is the cost. Three calls plus a synthesis pass is roughly 4x a single call. Two answers to that.
+
+First, you do not run consensus everywhere. We run it only on paths where a mistake is expensive — a small fraction of total call volume. The bulk of the 60+ actions still use one model, because their failure cost is a person clicking "edit" on a draft.
+
+Second, do the real math instead of reacting to the multiplier. A consensus run on a typical extraction task costs single-digit cents. A wrong answer that reaches a person costs, at minimum, the time to notice it and fix it — easily half an hour of a professional's time, often much more, plus the trust it costs you. If the extra model calls cost five cents and one prevented error saves a hundred dollars of time, consensus breaks even if it catches one error per two thousand runs. On the paths where we use it, it catches far more than that. The multiplier looks scary. The absolute numbers are not.
+
+Latency is a real cost too, and the answer to it is architecture. The three calls run in parallel, so wall-clock time is the slowest of the three plus the synthesis pass — roughly 2x a single call, not 4x. We already had multi-provider routing with circuit breakers, so a dead or degraded provider drops out automatically. If one model does not answer within a timeout, synthesis runs on two answers and records that fact. Two-vendor agreement is weaker evidence than three, but it is still evidence. What never happens is the pipeline blocking on a vendor outage. If only one answer comes back, we do not execute — the item routes to review, same as divergence.
+
+I should be honest about the limits. The models are not fully independent. They train on overlapping data and they share failure modes on genuinely hard inputs, so all three can be confidently wrong in the same way. Studies of n-version programming found the same thing decades ago: independently written programs still share faults, because hard cases are hard for everyone. Consensus lowers the error rate a lot; it does not take it to zero. That is why destructive actions still sit behind propose/confirm/execute gates, and why everything lands in an audit trail with one-click revert. Consensus is one layer, not the whole safety story.
+
+Here is the opinion I actually want to defend. Most of the "LLM reliability" work I see is prompt work. Teams spend weeks on the tenth version of the prompt wording and more few-shot examples. That work has fast diminishing returns, and it is fragile — a prompt tuned against one model version drifts on the next release, and you tune again. A portfolio across vendors is a dumber idea and it works better, because it attacks the correlation instead of trying to perfect one sample. Nobody in finance looks for the one perfect asset. They diversify.
+
+If your system has even one path where a wrong LLM answer costs real money or real trust, add a second vendor on that path before you write the eleventh version of your prompt. With a provider abstraction already in place it is an afternoon of work. Without one it is maybe a week, and you needed the abstraction anyway. Both are cheaper than the incident.

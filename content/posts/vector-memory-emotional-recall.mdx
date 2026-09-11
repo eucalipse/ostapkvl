@@ -2,11 +2,53 @@
 title: "A vector memory engine for AI with emotional recall — what I learned"
 date: "2026-07-10"
 dek: "Building state-aware memory traces for an AI that needed to remember how conversations felt, not just what they said."
-readTime: "7 min read"
+readTime: "5 min read"
 ---
 
-Most AI memory systems answer one question: what did the user say before? For a brand-experience system I architected, that was not enough. The product needed the AI to remember how past interactions felt — whether the person was frustrated last time, what tone landed, which topics they kept returning to. Semantic similarity search over transcripts does not capture any of that.
+About two years ago a client came to my agency with a requirement I had not seen before. They were building an AI character for brand experiences — a conversational persona that talks with the same person over weeks and months. Forgetting facts was not their problem; retrieval covers facts well enough. The character forgot how conversations felt. A user could spend twenty minutes being frustrated, come back the next day, and get greeted like nothing had happened. Or like something good had happened, which was worse.
 
-The design that worked paired a vector memory engine (Mistral embeddings in Weaviate) with what we called memory traces: structured records that stored not just the content of an interaction but its state — emotional register, engagement level, symbolic anchors the person responded to. Retrieval became two-stage: vectors found what was relevant, traces re-ranked by what mattered in this person's history. The AI stopped treating every conversation as a cold start with good notes and started behaving like something with a relationship.
+One incident during early testing defined the whole project. A tester told the character that her dog had died the week before. It was a short exchange, three messages, and the character handled it well in the moment. Nine days later she mentioned a walk in the park. Vector search did its job: "walk in the park" sits close to "walking the dog" in embedding space, the old messages came back as context, and the character asked, in a warm and upbeat tone, how the dog was enjoying the walks. By every retrieval metric this was correct. It was also the worst answer the system could produce.
 
-Two lessons survived the project. First, memory quality is a writing problem, not a reading problem — the effort goes into deciding what to store and how to compress an interaction into a trace, because retrieval can only ever be as good as what you wrote down. Second, emotional metadata ages differently from factual metadata. A person's address is true until it changes; their frustration decays in days. Memory traces needed decay functions, and tuning them taught me more about the product than any embedding benchmark did.
+We spent the next several months closing that gap. The transcript knew the dog had died. The pipeline had no concept that this knowledge carried weight. "My dog died" and "my dog loves the park" are neighbors in embedding space, and one of them must never be handled cheerfully again.
+
+The architecture we ended with is not complicated. Conversation chunks go through Mistral embeddings into Weaviate. That part is standard, and it answers one question only: what is relevant to the current message. Next to every stored memory we write a second record, which we called a memory trace. A trace is small and structured:
+
+```json
+{
+  "memory_id": "m_5821",
+  "register": "grief",
+  "valence": -0.8,
+  "intensity": 0.9,
+  "engagement": 0.4,
+  "anchors": ["Luna", "dog", "the park"],
+  "written_at": "2024-03-11T18:04:00Z"
+}
+```
+
+Retrieval runs in two stages. Weaviate returns the top 40 candidates by similarity. Then a plain scoring function re-ranks them using the traces: emotional intensity, decayed by age, boosted hard when the current message contains one of the anchors. The top 6 go into the prompt, and any high-intensity negative trace also adds a tone constraint to the system message, not just a fact. The second stage is deterministic code, no model call, and it runs in about 15 milliseconds.
+
+This is what fixed the dog incident. "Park" alone was a weak vector match, but "Luna" hit an anchor, the trace said grief at 0.9 intensity, and the prompt builder told the model to be careful, not enthusiastic.
+
+## Memory quality is a writing problem
+
+Almost everything published about RAG memory is about the read path: better embeddings, hybrid search, rerankers, chunk sizes. We started there too, and it did not help much. What changed the project was one simple observation. At read time you only have a query. At write time you have the whole conversation, plus behavior. All the information you will ever need to rank memories well is available at the moment of writing, and mostly gone by the moment of reading.
+
+So we moved the effort to the write side. After each session, one extra model call classifies the emotional register and estimates valence and intensity. Engagement we compute without any model: message length trend, reply latency, whether the user asks questions back. Anchors are extracted names, objects, and phrases the user repeated. The dog's name is a stronger retrieval key than any summary paragraph about the dog.
+
+Once the write side was good, the read side could stay simple. We actually tried a cross-encoder reranker in stage two and removed it after two weeks. Deterministic scoring over good traces matched it in our tests, ran twenty times faster, and we could explain every ranking decision to the client. When retrieval surfaced something strange, we opened the traces and saw why. I would trade a few benchmark points for that property on any project.
+
+One more asymmetry. A reading mistake is recoverable, because the next query may retrieve correctly. A writing mistake is permanent. If the classifier writes "mild annoyance" where it should have written "grief," no reranker will ever repair that. This is why the one model call we do spend, we spend at write time.
+
+## Emotional metadata decays on its own clock
+
+Our first decay implementation was one exponential curve for everything, with a thirty-day half-life. It broke in both directions. Stable factual preferences decayed away while still true. The character forgot that a user takes her coffee black, which is not a fact that expires. Meanwhile a strong emotional moment from ten days ago dropped to the same weight as small talk from ten days ago, which is obviously wrong to any human.
+
+The two kinds of metadata age by different rules. Facts do not really decay with time; they decay by supersession. They become wrong when replaced, not when old. So factual traces got a nearly flat curve plus explicit invalidation when a newer memory contradicts them.
+
+Emotional traces decay with time, but the speed depends on intensity. We ended with a half-life that scales roughly with intensity squared: a mild state at 0.3 intensity has a half-life around three days, a peak at 0.9 holds for about two months. And high-intensity negative traces never decay to zero. Below the retrieval threshold they stop competing for context slots and convert into a standing tone rule instead. A year later the character still should not be cheerful about Luna, even if it no longer brings her up. Psychology has a name for the general shape, the peak-end rule, but we did not start from the literature. We arrived there through tester complaints, one constant at a time.
+
+Tuning those constants turned out to be the real product work. "How long should the character stay careful after a bad session" is not a machine learning question, and it cannot be answered by an engineer alone. The client's creative director started joining our engineering calls to argue about half-lives, and that was the correct use of everyone's time. For contrast: we swapped the embedding model twice during the project, and no tester noticed either change. We adjusted one emotional decay constant, and testers commented on the character's behavior within a week.
+
+That comparison is my honest summary of the project. I went in expecting the hard problems to be in vector search, because that is where the field points all its attention. The vector layer was the easiest part and the least sensitive one. The product lived in two boring places: what gets written into memory at the end of a conversation, and the curve that decides how long it matters. Neither shows up in any embedding benchmark.
+
+So when I look at a memory feature in an AI product now, I no longer ask what database it uses. I ask what it writes down. Most memory features are a transcript with search on top, and it shows the first time something painful enters the conversation. If your agent's memory feels wrong, my bet is that the problem is not in how it searches. It is in what it saves.

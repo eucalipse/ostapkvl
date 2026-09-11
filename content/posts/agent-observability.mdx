@@ -2,11 +2,49 @@
 title: "What agent observability actually looks like in production"
 date: "2026-07-30"
 dek: "Logs tell you what the code did. An agent audit trail has to tell you what the system decided, and why."
-readTime: "8 min read"
+readTime: "6 min read"
 ---
 
-Traditional observability answers "what did the code do?" Agent observability has to answer a harder question: "what did the system decide, based on what, and who signed off?" Those are different problems, and teams that bolt agents onto a normal logging stack discover the difference the first time someone asks why the agent sent that email.
+The message from our operations lead was short: "Why did the agent send this email?"
 
-A production agent audit trail needs four things per action. First, the trigger: the exact message, task, or schedule tick that started the run. Second, the context the agent assembled — which documents it retrieved, which prior conversations it read, what the knowledge graph returned. Third, the decision: the proposed action, the confidence, and the reasoning trace. Fourth, the human layer: who approved or rejected it, when, and whether it was later reverted. Store all four and every incident becomes a five-minute lookup. Store fewer and every incident becomes an archaeology project.
+The email itself was not a disaster. Right recipient, correct tone, sent at a reasonable hour. But it referenced a meeting that had been rescheduled two weeks earlier, so the recipient replied with a confused question, and now someone wanted an explanation.
 
-The surprising part is who uses this data. I built our audit trail for engineers and it became a tool for operations leads. They do not read stack traces; they read the review queue history the way a manager reads a new hire's work — spotting the categories where the agent is reliably right and expanding its autonomy there, and the categories where it keeps proposing nonsense, which usually points at missing context rather than a bad model. Observability for agents is not a debugging feature. It is the management interface for a new kind of employee.
+I opened the logs. They told me everything about execution and nothing about the decision. HTTP 200 from the email provider. Job picked from the queue in 40 ms. Template rendered without errors. As far as the logs were concerned, everything worked. The system made a bad decision, and our logs had no concept of a decision.
+
+It took me most of an afternoon to reconstruct what happened. I had to find the prompt version that was live that day, guess which records the retrieval step pulled, and rerun parts of the pipeline hoping the model would behave the same way. It did not, of course. Somewhere around hour three I stopped and admitted the obvious: we had built observability for the wrong thing.
+
+Some background. At my current company, a US professional-services firm, we run a platform where agents can take more than 60 different actions across 13 integrations: sending emails, updating records, scheduling, drafting documents. Each action type runs through an approval gate — propose, confirm, or execute — depending on how much we trust the agent with that category. After the meeting-email incident we rebuilt the recording layer from scratch. The rest of this article is what came out of that.
+
+## What every recorded action needs
+
+The problem with normal logging is not that it records too little. We had plenty of logs. The problem is that logs describe code, and code is the only part of an agent system that behaves the same way twice. The same function, called with a context window assembled from today's data instead of last week's, produces a different action. If you did not capture what the model saw, you cannot explain what the model did. Rerunning is not reproduction; the inputs are gone.
+
+So we stopped asking "what did the code do" and started recording the decision. Every action the agent takes now stores four things, no exceptions.
+
+First, the trigger. What started this: a user request, a schedule, a webhook from one of the integrations, or the output of another agent step. Without the trigger you cannot even open the "why" conversation. A surprising share of our confusing cases turned out to be an agent correctly reacting to a trigger nobody remembered setting up.
+
+Second, the assembled context. This is the expensive one and the most valuable one. We store an exact snapshot of the context window at the moment of the decision — the retrieved documents, the recent messages, the tool outputs, the prompt version. Not references to the data. The data itself, because the underlying records will have changed by the time anyone asks a question. Storage is cheap. Reconstructing a context window from memory three weeks later is impossible.
+
+Third, the decision: the output, a confidence score, and the reasoning trace. For higher-stakes actions we run a three-model consensus — Claude, GPT and Gemini in parallel, plus a synthesis pass — and we store each model's answer separately, not just the final one. Disagreement between the models turned out to be one of the best signals in the whole system. When all three agree, the action is almost always fine. When they split two to one, a human should probably look before it goes out.
+
+Fourth, the human layer. Who approved the action, who rejected it, who reverted it, and when. Every executed action lands in a review queue with one-click revert, and the revert events are recorded like everything else. A cluster of reverts in one action category tells you more about agent quality than any offline eval we have run.
+
+Once we had these four pieces, incidents looked different. The meeting-email case would have been a five-minute lookup: open the action, read the context snapshot, see that retrieval pulled a calendar entry from before the reschedule because the sync for that integration runs on a delay. A similar case actually happened a few months later. That investigation took about four minutes, and the fix was a staleness check on calendar data before any email action. The question "why did the agent do that" went from unanswerable to boring. I consider boring a major achievement here.
+
+One practical note: this recording has to sit in the action pipeline itself, not beside it. If the audit write can fail while the action still goes through, you will eventually have an unexplainable action, and one is enough to lose trust in the whole trail. We made the audit write part of the same transaction as the action dispatch. It costs latency. It is worth it.
+
+## The users I did not expect
+
+I built the audit trail for engineers. I assumed we would be the ones reading it — chasing bugs, tuning prompts, checking retrieval quality. For the first month that was true.
+
+Then the operations leads found it.
+
+They do not read the trail the way I do. I look for failures. They read it the way a manager reads a new hire's work: sampling outputs and checking judgment. One of them goes through the previous week's rejected and reverted actions in a single category every Monday, maybe twenty minutes. Not because something broke. She wants to know whether the agent's judgment in that category is getting good enough to loosen the gate.
+
+That weekly reading has a direct output. Autonomy on our platform is set per action category. A category starts at propose: the agent suggests, a human does the work. It moves to confirm: the agent prepares everything, a human clicks approve. Eventually it reaches execute: the agent acts on its own, and a human can revert. The decision to promote a category is not made by engineers, and I think that is correct. It is made by operations people, based on the trail. When the approval rate for a category sits near 100 percent for a few weeks and reverts drop to zero, they promote it. When something regresses, they demote it, and the trail shows them exactly which kinds of inputs cause the trouble, because the context snapshots are right there.
+
+Nobody designed this workflow. It grew on its own. The trail happened to contain what a manager needs to judge a new team member: the work, and the reasoning behind the work, with dates attached.
+
+That changed how I think about the whole feature. An agent that sends emails and updates records is less like a service and more like a junior employee. You do not manage a junior employee with stack traces. You review their work and ask how they reached a decision. You give more responsibility when they earn it and take it back when they slip. The audit trail is the surface where all of that happens — for the engineer during an incident, and for the operations lead on Monday morning.
+
+Last week someone asked me why the agent had skipped a follow-up it should have sent. I opened the action, read the context snapshot, and answered in one message. Two minutes, maybe three. I still remember the afternoon I spent on that first email, guessing at inputs that no longer existed. The code was the same both times. The difference is that now we record the decision, not only the execution — trigger, context, decision, human response, for every action. Logging tells you what the code did. With agents, that was never the real question.
