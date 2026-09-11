@@ -34,7 +34,7 @@ export default function Cv() {
             </a>{" "}
             ·{" "}
             <a href={site.linkedin} className="hover:text-accent">
-              linkedin.com/in/ostapkovalisko
+              linkedin.com/in/ostap-kovalisko
             </a>{" "}
             · ostapkvl.com
           </p>

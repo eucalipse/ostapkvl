@@ -5,7 +5,7 @@ export const site = {
   description:
     "Chief Architect and AI systems engineer. I build production AI agent platforms — multi-model consensus, approval gates, full audit trails.",
   email: "ostap@eucalipse.com",
-  linkedin: "https://www.linkedin.com/in/ostapkovalisko",
+  linkedin: "https://www.linkedin.com/in/ostap-kovalisko",
   instagram: "https://www.instagram.com/yet.another.travel",
   eucalipse: "https://eucalipse.com",
 };
