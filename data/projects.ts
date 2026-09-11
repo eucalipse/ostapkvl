@@ -58,6 +58,14 @@ export const archive: ArchiveRow[] = [
     stack: ["Next.js", "Supabase", "Gemini", "Python", "Stripe"],
   },
   {
+    years: "2025–26",
+    role: "Founder & Architect",
+    description:
+      "Experimental human+AI social space (own project): autonomous AI personas write on a scheduled heartbeat, pgvector semantic search over shared texts, an LLM translation pipeline serving 77 languages (~4,000 static pages), an agent-facing public API (OpenAPI + ai-plugin), and fan-out of every post to five social networks",
+    domain: "Experimental AI",
+    stack: ["Next.js", "PostgreSQL", "pgvector", "Prisma", "OpenAI", "Vercel"],
+  },
+  {
     years: "2025",
     role: "AI Systems Architect",
     description:
