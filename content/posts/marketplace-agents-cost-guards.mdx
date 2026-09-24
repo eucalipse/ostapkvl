@@ -1,0 +1,63 @@
+---
+title: "The marketplace agents I let run overnight"
+date: "2026-09-12"
+dek: "A production pipeline for enriching a large directory without giving one model permission to do everything."
+readTime: "7 min read"
+category: "Production"
+---
+
+The first version of the marketplace was mostly a database and a set of import scripts. It collected business listings, attached them to cities and categories, and waited for a person to clean up the result. That worked at a small scale. It became a different problem when the directory grew past 87,000 vendor listings.
+
+The tempting solution was one large agent: give it a URL, let it browse, ask it to write the listing, translate it and send a message if something looks wrong. That design is easy to demo and difficult to trust. A timeout can leave half a listing behind. A hallucinated price can damage a business. A provider outage can turn a retry loop into a bill.
+
+The system I built uses many small scheduled workers instead. Each worker has one job, a bounded input, an explicit output and a way to fail without stopping the batch. The interesting part is not that the workers use language models. It is the set of constraints around them.
+
+## Start with a boring record
+
+Every listing has a stable identity derived from its source and slug. Before an enrichment job begins, it checks whether that identity already exists and whether the particular enrichment step has already succeeded. The job can then be retried safely.
+
+That idempotency flag is more valuable than a clever prompt. A worker will be interrupted. A provider will return an error after the request was accepted. A deployment will restart halfway through a batch. If the next run cannot tell what has already happened, the system will duplicate work or overwrite a better result with a partial one.
+
+The pipeline keeps raw source data separate from generated fields. The source URL, original description, phone number and hours remain identifiable as imported material. Model output is stored as derived data with its own status. That makes it possible to review or regenerate the generated part without pretending it came from the source.
+
+## One worker, one contract
+
+The enrichment worker does not receive the whole marketplace. It receives one vendor and the fields that are eligible for enrichment. It can read a public website, extract services and contacts, and produce a structured result. It cannot publish arbitrary pages, send email or modify an unrelated vendor.
+
+The output is validated before it reaches the application database. Required fields must have the expected types. URLs must look like URLs. Prices receive a stricter check because a plausible-looking invented number is worse than an empty field. If validation fails, the item is marked for review and the batch moves on.
+
+The model path has a primary provider and fallbacks. A Claude call may be followed by GPT and then Gemini when the first provider fails or returns an unusable result. The fallback is not a second opinion. It is a way to keep a single provider outage from stopping the pipeline. Where disagreement matters, the item remains reviewable instead of being silently accepted.
+
+Images make extraction harder. A vendor’s menu or price board often contains information that is missing from the HTML. The worker can pass supported images through a vision model, but the resulting price is still treated as extracted data that needs a guard. The model is allowed to say “not found.” That answer is preferable to filling a blank with a number that was never on the page.
+
+## The batch is the unit of failure
+
+The scheduler processes a limited batch, and each item has its own success or failure state. One broken website, malformed image or rate-limit response should cost one item, not the whole run. The job records the reason, releases the connection and continues.
+
+This sounds obvious until a system has a few thousand items waiting. A single `Promise.all` over the entire queue creates a failure domain the size of the queue. We use smaller groups with per-item isolation and provider limits. The batch is large enough to make progress and small enough to retry without guessing where the failure happened.
+
+There is also a global cost-pause switch. It is intentionally blunt. If usage or provider pricing looks wrong, processing stops before the next batch. The marketplace can keep serving existing pages while enrichment waits. A switch that prevents a bill is more useful than a dashboard that explains the bill afterwards.
+
+The same rule applies to scheduled content. Directory articles are generated from live marketplace data in bounded batches, then reviewed through the normal content workflow. The generator does not get permission to change vendor records. Content generation is a separate job because its failure should never block listing updates.
+
+## Email is where the gate matters most
+
+Inbound email needs more judgment than enrichment. A message may ask to correct a phone number, claim a listing, complain about a price or remove a business entirely. The first version treated classification as the action. That was too much responsibility for one model call.
+
+The current flow classifies the message and writes a pending row to a triage queue. It extracts the likely business, language and request type, then proposes what should happen. Most cases wait for a person in an admin queue with the original message, the classification and a draft reply.
+
+There is one narrow automatic path: a clear removal request, one confident vendor match and zero live bookings. Before acting, the application checks those conditions again. It uses the same delisting operation as the manual admin flow, records the event and sends the confirmation in the requester’s language. If there are multiple matches, any bookings or any uncertainty, the row stays pending.
+
+The narrowness is the feature. “The model is confident” is not a safety policy. A safe subset is a set of business conditions that can be checked again immediately before the irreversible part. Everything outside that subset becomes a human decision with useful preparation already done.
+
+## What I measure
+
+The most useful dashboard is not model confidence. It is the shape of the queue over time.
+
+For enrichment, I watch completion rate by job type, retry rate, provider fallback rate and the age of the oldest pending item. For email, I watch classification disagreements, manual edits to drafts, automatic-path rejects and the number of cases that leave the narrow subset. A rising fallback rate usually means a provider problem. A rising edit rate usually means the input or the prompt contract changed.
+
+I also sample generated listings against their sources. Aggregate success rates hide the failure that matters: a listing that is complete, well written and wrong about one important field. Sampling is slower than a green percentage, but it catches the errors users actually notice.
+
+The result is not a marketplace that runs without people. It is a marketplace where people spend their time on exceptions and judgment, while repeatable work moves through small workers with visible boundaries. Scheduled agents handle the volume. Validation, idempotency, cost controls and approval queues handle the uncertainty.
+
+That is the pattern I keep returning to. An agent does not become reliable because it is given a larger prompt or a more impressive model. It becomes reliable when its job is small, its output is checked, its failure is contained and the system knows when to ask a person.

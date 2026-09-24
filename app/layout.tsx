@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Newsreader, Source_Sans_3, IBM_Plex_Mono } from "next/font/google";
 import Link from "next/link";
+import Script from "next/script";
 import { site } from "@/data/site";
 import "./globals.css";
 
@@ -75,6 +76,11 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
+        <Script
+          src="https://analytics.ahrefs.com/analytics.js"
+          data-key="MPAh8sLkoeSklzzUygH+Qw"
+          strategy="afterInteractive"
         />
         <header className="no-print border-b border-line">
           <div className="mx-auto flex max-w-wide items-baseline justify-between px-6 py-5">
