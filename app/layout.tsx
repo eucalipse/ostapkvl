@@ -3,6 +3,7 @@ import { Newsreader, Source_Sans_3, IBM_Plex_Mono } from "next/font/google";
 import Link from "next/link";
 import Script from "next/script";
 import { site } from "@/data/site";
+import { AnalyticsTracker } from "./analytics-tracker";
 import "./globals.css";
 
 const serif = Newsreader({
@@ -72,6 +73,18 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${serif.variable} ${sans.variable} ${mono.variable}`}>
+      <head>
+        <script
+          async
+          src="https://plausible.io/js/pa-G9clyl_6s2S99aKdMfLDZ.js"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+plausible.init();`,
+          }}
+        />
+      </head>
       <body>
         <script
           type="application/ld+json"
@@ -82,7 +95,8 @@ export default function RootLayout({
           data-key="MPAh8sLkoeSklzzUygH+Qw"
           strategy="afterInteractive"
         />
-        <header className="no-print border-b border-line">
+        <AnalyticsTracker />
+        <header className="no-print border-b border-line" data-analytics-placement="header">
           <div className="mx-auto flex max-w-wide items-baseline justify-between px-6 py-5">
             <Link
               href="/"
@@ -104,7 +118,7 @@ export default function RootLayout({
           </div>
         </header>
         {children}
-        <footer className="no-print mt-24 border-t border-line">
+        <footer className="no-print mt-24 border-t border-line" data-analytics-placement="footer">
           <div className="mx-auto flex max-w-wide flex-col gap-3 px-6 py-8 text-sm text-muted sm:flex-row sm:items-baseline sm:justify-between">
             <div className="flex flex-wrap gap-x-6 gap-y-2">
               <a href={`mailto:${site.email}`} className="hover:text-accent">

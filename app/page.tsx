@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <main className="mx-auto max-w-wide px-6">
       {/* Hero */}
-      <section className="py-20 sm:py-28">
+      <section className="py-20 sm:py-28" data-analytics-placement="home-hero">
         <p className="font-mono text-xs text-muted">
           <span className="text-accent">▸</span> currently: building AI agents ·
           57 countries and counting
@@ -41,7 +41,7 @@ export default function Home() {
       </section>
 
       {/* Selected writing */}
-      <section className="border-t border-line py-16">
+      <section className="border-t border-line py-16" data-analytics-placement="home-writing">
         <div className="flex items-baseline justify-between">
           <h2 className="font-mono text-xs uppercase tracking-widest text-muted">
             Selected writing
@@ -70,7 +70,7 @@ export default function Home() {
       </section>
 
       {/* Selected work */}
-      <section className="border-t border-line py-16">
+      <section className="border-t border-line py-16" data-analytics-placement="home-work">
         <div className="flex items-baseline justify-between">
           <h2 className="font-mono text-xs uppercase tracking-widest text-muted">
             Selected work
@@ -98,7 +98,7 @@ export default function Home() {
       </section>
 
       {/* Now strip */}
-      <section className="border-t border-line py-10">
+      <section className="border-t border-line py-10" data-analytics-placement="home-now">
         <p className="font-mono text-xs text-muted">
           <span className="text-accent">now</span> — Chief Architect @ a US firm
           · Founder @ <a href="https://eucalipse.com" className="underline decoration-line underline-offset-4 hover:text-accent">Eucalipse</a> · writing

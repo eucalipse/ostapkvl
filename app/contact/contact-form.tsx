@@ -43,7 +43,7 @@ export function ContactForm() {
   }
 
   return (
-    <form className="mt-12 max-w-prose" onSubmit={handleSubmit}>
+    <form className="mt-12 max-w-prose" onSubmit={handleSubmit} data-analytics-form="contact">
       <div className="grid gap-6 sm:grid-cols-2">
         <label className="block text-sm">
           <span className="font-mono text-xs uppercase tracking-wider text-muted">
