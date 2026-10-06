@@ -332,6 +332,33 @@ h3 {
 .src-col .sc-v b { font-family: var(--font-mono); font-size: 13px; }
 .src-col.pick { border-color: var(--red-light); background: #FFF8F8; }
 
+/* Chat mock */
+.msg { display: flex; margin-bottom: 10px; }
+.msg.me { justify-content: flex-end; }
+.msg .bub { max-width: 78%; border-radius: 10px; padding: 8px 11px; font-size: 11px; line-height: 1.5; }
+.msg.me .bub { background: var(--ink); color: var(--cream); }
+.msg.ai .bub { background: #FCFAF7; border: 1px solid var(--border); color: var(--ink); max-width: 92%; }
+.msg .who { font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 1px; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 4px; }
+.trace { border-left: 2px solid #D4A574; padding-left: 9px; margin: 4px 0 9px; }
+.trace .ts { font-size: 10px; color: var(--ink-light); padding: 2px 0; display: flex; align-items: center; gap: 6px; }
+.trace .ts .ok { color: var(--green); font-weight: 700; font-size: 10px; }
+.trace .ts .m { font-family: var(--font-mono); font-size: 8.5px; color: var(--ink-muted); margin-left: auto; }
+.chat-input { flex: 1; border: 1px solid var(--border); border-radius: 8px; padding: 6px 10px; color: var(--ink-muted); background: #fff; font-size: 10.5px; }
+
+/* Action list (palette) */
+.act-row { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 6px; font-size: 11px; }
+.act-row.on { background: #FFF4E5; }
+.act-row .sp { flex: 1; }
+.act-row .key { font-family: var(--font-mono); font-size: 8.5px; color: var(--ink-muted); }
+.q-box { margin-top: 10px; border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; background: #FCFAF7; font-size: 10.5px; }
+.q-box .ql { font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 1px; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 4px; }
+.q-box .opts { display: flex; gap: 5px; margin-top: 6px; flex-wrap: wrap; }
+.watch-row { display: flex; align-items: flex-start; gap: 8px; font-size: 10.5px; padding: 6px 0; border-bottom: 1px solid #F0EBE3; line-height: 1.45; }
+.watch-row:last-child { border-bottom: none; }
+.watch-row .arr { color: var(--red); font-weight: 700; flex-shrink: 0; }
+.col-title { font-family: var(--font-display); font-size: 17px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+.col-sub { font-size: 11.5px; color: var(--ink-muted); margin-bottom: 10px; line-height: 1.5; }
+
 .note-under { font-size: 12px; color: var(--ink-muted); margin-top: 12px; line-height: 1.55; }
 .slide-dark .note-under { color: rgba(250,247,242,0.55); }
 .note-under b { color: var(--ink); }
@@ -404,7 +431,7 @@ h3 {
 <!-- SLIDE 1: Title -->
 <section class="slide slide-dark active" id="slide-0">
   <div class="logo-mark">IR</div>
-  <div class="slide-number">01 / 10</div>
+  <div class="slide-number">01 / 12</div>
   <div class="fade-up eyebrow">Intake Review &middot; Concept &middot; October 2026</div>
   <h1 class="fade-up" style="max-width:980px;">Requests come in as conversations.<br>Work starts as forms.</h1>
   <div class="fade-up subtitle" style="margin-top:22px;max-width:720px;">
@@ -419,7 +446,7 @@ h3 {
 <!-- SLIDE 2: The problem -->
 <section class="slide" id="slide-1">
   <div class="logo-mark">IR</div>
-  <div class="slide-number">02 / 10</div>
+  <div class="slide-number">02 / 12</div>
   <div class="fade-up eyebrow">The Problem</div>
   <h2 class="fade-up">Today, every request is typed twice</h2>
   <div class="fade-up subtitle" style="max-width:760px;">
@@ -468,7 +495,7 @@ h3 {
 <!-- SLIDE 3: The idea in one line -->
 <section class="slide slide-dark" id="slide-2">
   <div class="logo-mark">IR</div>
-  <div class="slide-number">03 / 10</div>
+  <div class="slide-number">03 / 12</div>
   <div class="fade-up eyebrow">The Idea</div>
   <div class="fade-up big-line">
     The assistant <b>reads the conversation</b>, <b>fills the request</b>, shows <b>where every value came from</b>, and a <b>human confirms</b>.
@@ -501,7 +528,7 @@ h3 {
 <!-- SLIDE 4: Four steps -->
 <section class="slide" id="slide-3">
   <div class="logo-mark">IR</div>
-  <div class="slide-number">04 / 10</div>
+  <div class="slide-number">04 / 12</div>
   <div class="fade-up eyebrow">How It Works</div>
   <h2 class="fade-up">Four steps, one screen at the end</h2>
   <div class="fade-up subtitle" style="max-width:760px;">
@@ -559,7 +586,7 @@ h3 {
 <!-- SLIDE 5: Mockup -- Detect -->
 <section class="slide slide-dark" id="slide-4">
   <div class="logo-mark">IR</div>
-  <div class="slide-number">05 / 10</div>
+  <div class="slide-number">05 / 12</div>
   <div class="fade-up eyebrow">Step 1 &middot; Detect</div>
   <h2 class="fade-up" style="font-size:32px;">One call, three items, two requests</h2>
   <div class="fade-up subtitle" style="max-width:860px;margin-bottom:18px;font-size:16px;">
@@ -632,7 +659,7 @@ h3 {
 <!-- SLIDE 6: Mockup -- Review -->
 <section class="slide" id="slide-5">
   <div class="logo-mark">IR</div>
-  <div class="slide-number">06 / 10</div>
+  <div class="slide-number">06 / 12</div>
   <div class="fade-up eyebrow">Step 2 to 4 &middot; Review Screen</div>
   <h2 class="fade-up" style="font-size:32px;">Every field, its source, and what was checked</h2>
   <div class="fade-up subtitle" style="max-width:860px;margin-bottom:18px;font-size:16px;">
@@ -719,7 +746,7 @@ h3 {
 <!-- SLIDE 7: Mockup -- Conflict -->
 <section class="slide slide-dark" id="slide-6">
   <div class="logo-mark">IR</div>
-  <div class="slide-number">07 / 10</div>
+  <div class="slide-number">07 / 12</div>
   <div class="fade-up eyebrow">Step 3 &middot; Verify &middot; A Conflict</div>
   <h2 class="fade-up" style="font-size:32px;">Three sources, two answers, one decision</h2>
   <div class="fade-up subtitle" style="max-width:860px;margin-bottom:18px;font-size:16px;">
@@ -792,7 +819,7 @@ h3 {
 <!-- SLIDE 8: Mockup -- "same as" -->
 <section class="slide" id="slide-7">
   <div class="logo-mark">IR</div>
-  <div class="slide-number">08 / 10</div>
+  <div class="slide-number">08 / 12</div>
   <div class="fade-up eyebrow">Step 3 &middot; Verify &middot; A &ldquo;Same As&rdquo; Reference</div>
   <h2 class="fade-up" style="font-size:32px;">&ldquo;Same scope as Nordic Crates&rdquo; -- which one?</h2>
   <div class="fade-up subtitle" style="max-width:860px;margin-bottom:18px;font-size:16px;">
@@ -859,10 +886,159 @@ h3 {
   </div>
 </section>
 
-<!-- SLIDE 9: Why it can be trusted -->
+<!-- SLIDE 9: Chat -- ask, and the assistant proposes -->
 <section class="slide slide-dark" id="slide-8">
   <div class="logo-mark">IR</div>
-  <div class="slide-number">09 / 10</div>
+  <div class="slide-number">09 / 12</div>
+  <div class="fade-up eyebrow">Beyond Intake &middot; Ask</div>
+  <h2 class="fade-up" style="font-size:32px;">Beyond intake: ask, and the assistant proposes</h2>
+  <div class="fade-up subtitle" style="max-width:860px;margin-bottom:18px;font-size:16px;">
+    The same assistant that reads calls can answer questions about your data. It shows how it got the answer, and turns the next step into a proposal you can confirm or cancel.
+  </div>
+
+  <div class="fade-up" style="display:grid;grid-template-columns:1.55fr 1fr;gap:20px;max-width:1180px;align-items:start;">
+    <div class="app">
+      <div class="app-side">
+        <div class="brand">Intake Review<span>GREENLEDGER</span></div>
+        <div class="sec">Chat</div>
+        <div class="item on">Ask the assistant</div>
+        <div class="item">Q3 data requests <span class="cnt">today</span></div>
+        <div class="item">Northwind kickoff <span class="cnt">Oct 2</span></div>
+        <div class="sec">Inbox</div>
+        <div class="item">To review <span class="cnt">7</span></div>
+        <div class="item">Confirmed <span class="cnt">31</span></div>
+      </div>
+      <div class="app-main">
+        <div class="app-head">
+          <span class="title">Ask the assistant</span>
+          <span class="chip chip-neutral">Q3 data requests</span>
+          <span class="sp"></span>
+          <span class="chip chip-info">Answers show sources</span>
+        </div>
+        <div class="app-body">
+          <div class="msg me"><div class="bub">Which clients still owe us Q3 supplier data?</div></div>
+          <div class="msg ai"><div class="bub" style="width:92%;">
+            <div class="who">Assistant</div>
+            <div class="trace">
+              <div class="ts"><span class="ok">&#10003;</span>Searched data requests for Q3<span class="m">12 open</span></div>
+              <div class="ts"><span class="ok">&#10003;</span>Checked due dates<span class="m">3 past due</span></div>
+              <div class="ts"><span class="ok">&#10003;</span>Cross-checked client records<span class="m">no replies logged</span></div>
+            </div>
+            <div style="margin-bottom:8px;">Three clients have not sent their Q3 supplier data yet. All three were asked in September and the due date has passed.</div>
+            <div class="item-card" style="margin-bottom:0;">
+              <div class="ic-h"><b>Send reminder to 3 clients</b><span class="sp"></span><span class="chip chip-guess">Proposed</span></div>
+              <div style="display:flex;gap:5px;flex-wrap:wrap;margin:4px 0 6px;">
+                <span class="chip chip-neutral">Northwind Foods</span>
+                <span class="chip chip-neutral">Harbor Textiles</span>
+                <span class="chip chip-neutral">Nordic Crates</span>
+              </div>
+              <div style="font-size:10px;color:var(--ink-muted);">Sources: <span class="cite">data requests table</span> <span class="cite">email thread</span> <span class="cite">client record</span></div>
+              <div class="ic-a"><span class="btn btn-primary">Confirm</span><span class="btn">Cancel</span><span style="font-size:10px;color:var(--ink-muted);align-self:center;margin-left:4px;">Nothing is sent until you confirm.</span></div>
+            </div>
+          </div></div>
+        </div>
+        <div class="app-foot">
+          <span class="chat-input">Ask anything about your clients, requests or data&hellip;</span>
+          <span class="btn btn-primary">Send</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div class="card" style="padding:16px 18px;">
+        <div class="k">01 &middot; One assistant</div>
+        <h3 style="font-size:15px;">Same assistant as in intake</h3>
+        <p>It reads the same emails, calls and records it uses to fill a request. No second tool to learn.</p>
+      </div>
+      <div class="card" style="padding:16px 18px;">
+        <div class="k">02 &middot; Sources</div>
+        <h3 style="font-size:15px;">Every answer shows its sources</h3>
+        <p>The steps it took and the records it looked at are listed under each answer. You can open any of them.</p>
+      </div>
+      <div class="card" style="padding:16px 18px;">
+        <div class="k">03 &middot; Proposals</div>
+        <h3 style="font-size:15px;">Actions are proposals</h3>
+        <p>When the answer leads to a next step, the assistant proposes it as a card. Confirm sends it. Cancel drops it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 10: Actions and background work -->
+<section class="slide" id="slide-9">
+  <div class="logo-mark">IR</div>
+  <div class="slide-number">10 / 12</div>
+  <div class="fade-up eyebrow">Beyond Intake &middot; Actions</div>
+  <h2 class="fade-up" style="font-size:32px;">Actions and background work</h2>
+  <div class="fade-up subtitle" style="max-width:860px;margin-bottom:18px;font-size:16px;">
+    Ready-made actions you can start by name. Watchers that run on their own. And one queue where you see what was done and decide what goes out.
+  </div>
+
+  <div class="fade-up grid-3" style="max-width:1180px;align-items:stretch;">
+    <div class="card" style="padding:16px 18px;">
+      <div class="k">1 &middot; Ready-made actions</div>
+      <div class="col-title">Start one by name</div>
+      <div class="col-sub">A short list, not a blank prompt. Each action knows which fields it needs.</div>
+      <div class="pane">
+        <div class="pane-h">Search actions&hellip; <span class="sp"></span><span>ESC</span></div>
+        <div class="pane-b" style="padding:5px 6px;">
+          <div class="act-row on">Check supplier questionnaire status<span class="sp"></span><span class="chip chip-src">Check</span><span class="key">&crarr;</span></div>
+          <div class="act-row">Flag overdue data requests<span class="sp"></span><span class="chip chip-conf">Flag</span></div>
+          <div class="act-row">Summarize a call into tasks<span class="sp"></span><span class="chip chip-info">Summarize</span></div>
+          <div class="act-row">Draft a client update<span class="sp"></span><span class="chip chip-guess">Draft</span></div>
+          <div class="act-row">Chart emissions by site<span class="sp"></span><span class="chip chip-neutral">Chart</span></div>
+        </div>
+      </div>
+      <div class="q-box">
+        <div class="ql">When unsure, it asks one narrowing question</div>
+        <b>Which reporting year?</b>
+        <div class="opts"><span class="btn">FY2024</span><span class="btn">FY2025</span><span class="btn">Both</span></div>
+      </div>
+    </div>
+
+    <div class="card" style="padding:16px 18px;">
+      <div class="k">2 &middot; Watchers</div>
+      <div class="col-title">Runs by itself</div>
+      <div class="col-sub">Small jobs that watch your sources and prepare work. They never send anything.</div>
+      <div class="pane">
+        <div class="pane-h">What watchers do</div>
+        <div class="pane-b">
+          <div class="watch-row"><span class="arr">&rarr;</span><span><b>New email or call</b> comes in: a request is detected and lands in the intake review (slide 5).</span></div>
+          <div class="watch-row"><span class="arr">&rarr;</span><span><b>Data request goes overdue:</b> it is flagged in the client record and on your list.</span></div>
+          <div class="watch-row"><span class="arr">&rarr;</span><span><b>Call notes arrive:</b> a task list is drafted, each task with the words it came from.</span></div>
+          <div class="watch-row"><span class="arr">&rarr;</span><span><b>Sources are synced every hour:</b> email, call notes, client records, data requests.</span></div>
+        </div>
+      </div>
+      <div class="note-under" style="margin-top:10px;font-size:11px;">Each watcher is a small, named job. You can see when it last ran and turn it off.</div>
+    </div>
+
+    <div class="card" style="padding:16px 18px;">
+      <div class="k">3 &middot; Review queue</div>
+      <div class="col-title">One place to see and decide</div>
+      <div class="col-sub">Low-risk things inside the tool are done and shown. Anything that leaves the firm waits for a person.</div>
+      <div class="item-card">
+        <div class="ic-h"><b>Flagged 2 overdue data requests</b><span class="sp"></span><span class="chip chip-src">Done</span></div>
+        <div class="q" style="font-style:normal;">Harbor Textiles, Nordic Crates. Flag only, inside the tool.<span class="cite">data requests table</span></div>
+        <div class="ic-a"><span class="btn">Undo</span><span class="btn">Open</span></div>
+      </div>
+      <div class="item-card" style="border-color:var(--red-light);background:#FFF8F8;">
+        <div class="ic-h"><b>Reminder email to Northwind Foods</b><span class="sp"></span><span class="chip chip-conf">Waiting for you</span></div>
+        <div class="q" style="font-style:normal;">Leaves the firm, so it waits. Draft is ready to read.<span class="cite">email thread</span></div>
+        <div class="ic-a"><span class="btn btn-primary">Approve</span><span class="btn">Edit</span><span class="btn">Reject</span></div>
+      </div>
+      <div class="note-under" style="margin-top:10px;font-size:11px;">Done items can be undone with one click. Nothing waiting goes out on its own.</div>
+    </div>
+  </div>
+
+  <div class="fade-up" style="margin-top:18px;font-family:var(--font-display);font-size:22px;font-style:italic;color:var(--red);">
+    &ldquo;The assistant proposes. The analyst decides.&rdquo;
+  </div>
+</section>
+
+<!-- SLIDE 11: Why it can be trusted -->
+<section class="slide slide-dark" id="slide-10">
+  <div class="logo-mark">IR</div>
+  <div class="slide-number">11 / 12</div>
   <div class="fade-up eyebrow">Why It Can Be Trusted</div>
   <h2 class="fade-up">Built so a wrong value cannot slip through quietly</h2>
   <div class="fade-up subtitle" style="max-width:760px;">
@@ -903,10 +1079,10 @@ h3 {
   </div>
 </section>
 
-<!-- SLIDE 10: What it takes / next steps -->
-<section class="slide" id="slide-9">
+<!-- SLIDE 12: What it takes / next steps -->
+<section class="slide" id="slide-11">
   <div class="logo-mark">IR</div>
-  <div class="slide-number">10 / 10</div>
+  <div class="slide-number">12 / 12</div>
   <div class="fade-up eyebrow">What It Takes</div>
   <h2 class="fade-up">Start small, measure, then expand</h2>
   <div class="fade-up subtitle" style="max-width:760px;">
@@ -967,8 +1143,10 @@ h3 {
   <div class="sidebar-item" onclick="goTo(5)"><span class="num">06</span> Review Screen</div>
   <div class="sidebar-item" onclick="goTo(6)"><span class="num">07</span> A Conflict</div>
   <div class="sidebar-item" onclick="goTo(7)"><span class="num">08</span> &ldquo;Same As&rdquo;</div>
-  <div class="sidebar-item" onclick="goTo(8)"><span class="num">09</span> Why Trust It</div>
-  <div class="sidebar-item" onclick="goTo(9)"><span class="num">10</span> Next Steps</div>
+  <div class="sidebar-item" onclick="goTo(8)"><span class="num">09</span> Ask and Propose</div>
+  <div class="sidebar-item" onclick="goTo(9)"><span class="num">10</span> Actions and Watchers</div>
+  <div class="sidebar-item" onclick="goTo(10)"><span class="num">11</span> Why Trust It</div>
+  <div class="sidebar-item" onclick="goTo(11)"><span class="num">12</span> Next Steps</div>
   <div style="margin-top:auto;padding:14px 20px;border-top:1px solid rgba(255,255,255,0.08);font-size:10px;color:rgba(250,247,242,0.3);">Updated Oct 6, 2026</div>
 </div>
 
@@ -976,7 +1154,7 @@ h3 {
 <div class="nav">
   <div class="nav-arrow" onclick="goTo(current-1)">&larr;</div>
   <div id="dots" style="display:flex;gap:8px;"></div>
-  <div class="nav-label" id="navLabel">01 / 10</div>
+  <div class="nav-label" id="navLabel">01 / 12</div>
   <div class="nav-arrow" onclick="goTo(current+1)">&rarr;</div>
 </div>
 
