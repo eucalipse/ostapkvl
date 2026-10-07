@@ -423,6 +423,10 @@ h3 {
   .field { grid-template-columns: 1fr; gap: 3px; }
 }
 </style>
+
+<!-- Plausible (same project as the site): page views + deck events. Share links as ?v=<viewer> to see who opened it. -->
+<script defer src="https://plausible.io/js/pa-G9clyl_6s2S99aKdMfLDZ.js"></script>
+<script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init();</script>
 </head>
 <body>
 
@@ -1204,6 +1208,51 @@ document.addEventListener('touchend', e => {
 }, { passive: true });
 
 goTo(0);
+</script>
+
+<script>
+// Deck analytics: who opened it (?v=<viewer>, remembered for the tab), which slides were seen, what was clicked,
+// and how far they got. Events (set them up as goals in Plausible): deck_open, deck_slide, deck_click, deck_finished, deck_leave.
+(function () {
+  const DECK = 'intake-review';
+  let viewer = '';
+  try {
+    const q = new URLSearchParams(location.search).get('v');
+    if (q) sessionStorage.setItem('deck-viewer', q);
+    viewer = sessionStorage.getItem('deck-viewer') || '';
+  } catch (e) {}
+  const titles = Array.from(document.querySelectorAll('.sidebar-item')).map((el) => el.textContent.trim().replace(/\s+/g, ' '));
+  const started = Date.now();
+  let maxSlide = 0;
+  const seen = new Set();
+  const send = (name, props) => { try { window.plausible(name, { props: Object.assign({ deck: DECK, viewer: viewer || 'unknown' }, props || {}) }); } catch (e) {} };
+
+  send('deck_open', { slides: String(slides.length) });
+  const trackSlide = (n) => {
+    if (seen.has(n)) return;
+    seen.add(n); maxSlide = Math.max(maxSlide, n);
+    send('deck_slide', { slide: titles[n] || String(n + 1), index: String(n + 1) });
+    if (n === slides.length - 1) send('deck_finished', { seconds: String(Math.round((Date.now() - started) / 1000)) });
+  };
+  const original = goTo;
+  goTo = function (n) { original(n); if (n >= 0 && n < slides.length) trackSlide(n); };
+  trackSlide(0);
+
+  document.addEventListener('click', (e) => {
+    const t = e.target.closest('a, button, .sidebar-item, .nav-btn, .nav-dot, img.shot');
+    if (!t) return;
+    const label = t.getAttribute('data-track') || t.getAttribute('href') || t.textContent.trim().replace(/\s+/g, ' ').slice(0, 60) || t.className;
+    send('deck_click', { target: label, slide: titles[current] || String(current + 1) });
+  }, true);
+
+  let left = false;
+  const leave = () => {
+    if (left) return; left = true;
+    send('deck_leave', { max_slide: String(maxSlide + 1), seen: String(seen.size), seconds: String(Math.round((Date.now() - started) / 1000)) });
+  };
+  window.addEventListener('pagehide', leave);
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') leave(); });
+})();
 </script>
 
 </body>
