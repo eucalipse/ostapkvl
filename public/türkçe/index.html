@@ -26,19 +26,31 @@
   </aside>
 
   <main class="main" id="main">
-    <div class="topbar"><div class="crumbs" id="crumbs"></div><button class="theme-btn" id="themeBtn" title="Night / day">☾</button></div>
+    <div class="topbar"><div class="crumbs" id="crumbs"></div><div class="topbar-right"><nav class="hmenus" id="hmenus"></nav><button class="theme-btn" id="themeBtn" title="Night / day">☾</button></div></div>
     <section class="stage" id="stage"></section>
   </main>
+
+  <div class="modal" id="modal"><div class="mcard"><button class="mclose" aria-label="Close">✕</button><div id="modalBody"></div></div></div>
 
   <script>window.IDIOMA_BASE='/turkce/';</script>
   <script src="/turkce/app.js"></script>
   <!-- Дані: одна категорія = один файл. Нову тему додавай у відповідний файл, нову категорію — новим файлом + рядком нижче. -->
   <script src="/turkce/data/glossary.js"></script>
   <script src="/turkce/data/greetings.js"></script>
-  <script src="/turkce/data/affection.js"></script>
+  <script src="/turkce/data/about.js"></script>
   <script src="/turkce/data/course.js"></script>
+  <script src="/turkce/data/cafe.js"></script>
+  <script src="/turkce/data/numbers.js"></script>
   <script src="/turkce/data/verbs.js"></script>
   <script src="/turkce/data/grammar.js"></script>
+  <script src="/turkce/data/homework.js"></script>
+  <!-- <script src="data/affection.js"></script> --> <!-- Sweet talk: вимкнено на прохання користувача 10.10.2026, дані лишаються у data/affection.js -->
+  <script src="data/course.js"></script>
+  <script src="data/cafe.js"></script>
+  <script src="data/numbers.js"></script>
+  <script src="data/verbs.js"></script>
+  <script src="data/grammar.js"></script>
+  <script src="data/homework.js"></script>
   <script>IDIOMA.start();</script>
 </body>
 </html>
