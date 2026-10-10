@@ -44,6 +44,67 @@ const IDIOMA = (() => {
       if (s.covers?.length) rules.push({ entry: e, covers: new Set(s.covers.map((x) => x.toLowerCase())) });
     })));
   }
+  // ---------- автоматична українська транскрипція (приблизна) ----------
+  const FRONT = 'eiöü';
+  const IOT = { a: 'я', e: 'є', o: 'йо', u: 'ю', ı: 'йи', i: 'йі', ö: 'йо', ü: 'йю' };
+  function translitWord(w) {
+    const src = low(w); let out = ''; const vowels = 'aeıioöuü';
+    for (let i = 0; i < src.length; i++) {
+      const ch = src[i], next = src[i + 1] || '', prev = src[i - 1] || '';
+      switch (ch) {
+        case 'a': out += 'а'; break; case 'b': out += 'б'; break; case 'c': out += 'дж'; break; case 'ç': out += 'ч'; break;
+        case 'd': out += 'д'; break; case 'e': out += 'е'; break; case 'f': out += 'ф'; break; case 'g': out += 'г'; break;
+        case 'ğ': break; case 'h': out += 'х'; break; case 'ı': out += 'и'; break; case 'i': out += 'і'; break; case 'j': out += 'ж'; break;
+        case 'k': out += 'к'; break;
+        case 'l': out += (FRONT.includes(prev) && !vowels.includes(next)) ? 'ль' : 'л'; break;
+        case 'm': out += 'м'; break; case 'n': out += 'н'; break; case 'o': out += 'о'; break;
+        case 'ö': out += (i === 0 || vowels.includes(prev)) ? 'ö' : 'ьо'; break;
+        case 'p': out += 'п'; break; case 'r': out += 'р'; break; case 's': out += 'с'; break; case 'ş': out += 'ш'; break;
+        case 't': out += 'т'; break; case 'u': out += 'у'; break; case 'ü': out += 'ю'; break; case 'v': out += 'в'; break;
+        case 'y': if (IOT[next]) { out += IOT[next]; i++; } else out += 'й'; break;
+        case 'z': out += 'з'; break; case 'â': out += 'а'; break; case 'î': out += 'і'; break; case 'û': out += 'у'; break;
+        default: out += ch;
+      }
+    }
+    return out;
+  }
+  const UNSTRESSED = new Set(['mi', 'mı', 'mu', 'mü', 'miyim', 'mıyım', 'muyum', 'müyüm', 'misin', 'mısın', 'musun', 'müsün', 'misiniz', 'mısınız', 'musunuz', 'müsünüz',
+    'de', 'da', 've', 'ile', 'ki', 'bir', 'ne', 'bu', 'şu', 'o', 'ben', 'sen', 'biz', 'siz', 'çok', 'ya', 'ama', 'için', 'mi?']);
+  const SRC_V = 'aeıioöuüâîû';
+  // номер наголошеного голосного в латинському слові (0 = перший), або -1 = за замовчуванням останній
+  function stressVowelNo(s) {
+    const nV = (upto) => [...s.slice(0, upto)].filter((c) => SRC_V.includes(c)).length; // скільки голосних ДО позиції
+    let m;
+    if (/^(nasıl|şimdi|sonra|yarın|belki|evet|hayır|ancak|yalnız|lütfen|peki|tamam|hoşça|nerede|nereye|neden|hangi|kimse)/.test(s)) return 0;
+    if ((m = s.match(/(mı|mi|mu|mü)yor/))) return nV(m.index) - 1;                 // bil-MI-yor: перед заперечним
+    if ((m = s.match(/(ı|i|u|ü)yor/))) return nV(m.index);                          // isti-yor: голосна перед yor
+    if ((m = s.match(/(ma|me)(dı|di|du|dü|yacak|yecek|z|m|s|l)/)) && m.index > 0) return nV(m.index) - 1; // anla-MA-dım
+    if ((m = s.match(/y(ım|im|um|üm|ız|iz)$/))) return nV(m.index) - 1;             // yaşında-yım, iyi-yim: особа не наголошена
+    if ((m = s.match(/(alım|elim|ayım|eyim|yalım|yelim)$/))) return nV(m.index + (m[1].startsWith('y') ? 1 : 0)); // buluş-A-lım: бажальна форма
+    if ((m = s.match(/(sın|sin|sun|sün|sınız|siniz|sunuz|sünüz)$/)) && nV(m.index) >= 1 && !/(dı|di|du|dü|tı|ti|tu|tü)/.test(s.slice(0, m.index))) return nV(m.index) - 1; // nasıl-sın
+    return -1;
+  }
+  function stress(cyr, src) {
+    const s = low(src).replace(/[^a-zçğıöşüâîû]/g, '');
+    if (UNSTRESSED.has(s)) return cyr;
+    const idx = []; for (let i = 0; i < cyr.length; i++) if ('аеиіоуюяєö'.includes(cyr[i])) idx.push(i);
+    if (idx.length < 2) return cyr;
+    let k = stressVowelNo(s);
+    if (k < 0 || k >= idx.length) k = idx.length - 1;
+    const target = idx[k];
+    return cyr.slice(0, target + 1) + '\u0301' + cyr.slice(target + 1);
+  }
+  function translit(text) {
+    return String(text).split(/(\s+)/).map((tok) => {
+      if (/^\s+$/.test(tok)) return tok;
+      const m = tok.match(/^([^a-zA-ZçğıöşüÇĞİÖŞÜâîû’']*)([a-zA-ZçğıöşüÇĞİÖŞÜâîû’']+)(.*)$/);
+      if (!m) return tok;
+      const core = m[2].replace(/[’']/g, '');
+      return m[1] + stress(translitWord(core), core) + m[3];
+    }).join('');
+  }
+  const sayOf = (s) => s.say || (/[a-zA-ZçğıöşüÇĞİÖŞÜ]/.test(s.tr) ? '≈ ' + translit(s.tr) : '');
+
   // ---------- лексикон для автоматичного розбору речень (модалка) ----------
   const phraseIndex = new Map(); // нормалізована фраза → запис
   const stemIndex = new Map();   // основа слова (без дефіса) → {en, uk}
@@ -193,13 +254,13 @@ const IDIOMA = (() => {
     if (s.words?.length) meta.push(`<span class="k">words · слова</span> ${s.words.map((w) => { const en = wordGloss(w); return `<b>${esc(w.tr)}</b>${en ? ` ${esc(en)}` : ''} <em>${esc(w.uk)}</em>${w.note ? ` <em>(${esc(w.note)})</em>` : ''}`; }).join(' · ')}`);
     if (s.forms?.length) meta.push(...s.forms.map((f) => `<span class="k">${esc(f.label)}</span> ${f.items.map((x) => `<code class="ph" data-ph="${esc(x.replace(/-/g, '').replace(/\s*\(.*$/, ''))}">${esc(x)}</code>`).join(' ')}`));
     const metaHTML = meta.length ? `<div class="meta">${meta.map((m) => `<div>${m}</div>`).join('')}</div>` : '';
-    const answers = s.answers?.length ? `<div class="sec"><h4>answers · відповіді</h4><div class="examples answers">${s.answers.map((x) => `<div class="ex"><span class="tr ph" data-ph="${esc(x.tr)}">→ ${esc(x.tr)}</span>${x.en ? `<span class="en">${esc(x.en)}</span>` : ''}<span class="uk">${esc(x.uk)}</span></div>`).join('')}</div></div>` : '';
-    const examples = s.examples?.length ? `<div class="examples">${s.examples.map((x) => `<div class="ex"><span class="tr ph" data-ph="${esc(x.tr)}">${esc(x.tr)}</span>${x.en ? `<span class="en">${esc(x.en)}</span>` : ''}<span class="uk">${esc(x.uk)}</span></div>`).join('')}</div>` : '';
+    const answers = s.answers?.length ? `<div class="sec"><h4>answers · відповіді</h4><div class="examples answers">${s.answers.map((x) => `<div class="ex"><span class="tr ph" data-ph="${esc(x.tr)}">→ ${esc(x.tr)}</span><span class="tl">${esc(translit(x.tr))}</span>${x.en ? `<span class="en">${esc(x.en)}</span>` : ''}<span class="uk">${esc(x.uk)}</span></div>`).join('')}</div></div>` : '';
+    const examples = s.examples?.length ? `<div class="examples">${s.examples.map((x) => `<div class="ex"><span class="tr ph" data-ph="${esc(x.tr)}">${esc(x.tr)}</span><span class="tl">${esc(translit(x.tr))}</span>${x.en ? `<span class="en">${esc(x.en)}</span>` : ''}<span class="uk">${esc(x.uk)}</span></div>`).join('')}</div>` : '';
     const table = s.table ? `<table class="tbl">${s.table.title ? `<caption>${esc(s.table.title)}</caption>` : ''}
       <thead><tr>${s.table.head.map((h) => `<th>${esc(h)}</th>`).join('')}</tr></thead>
-      <tbody>${s.table.rows.map((r) => `<tr>${r.map((c) => isTurkishText(c) ? `<td><span class="ph" data-ph="${esc(c)}">${esc(c)}</span></td>` : `<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table>` : '';
+      <tbody>${s.table.rows.map((r) => `<tr>${r.map((c, ci) => (isTurkishText(c) && !NON_TR_COL.test(s.table.head[ci] || '')) ? `<td><span class="ph" data-ph="${esc(c)}">${esc(c)}</span></td>` : `<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table>` : '';
     const dialogue = s.dialogue?.length ? `<div class="dialogue">${s.dialogue.map((l) => `
-      <div class="line"><span class="who">${esc(l.who)}</span><span class="tr ph" data-ph="${esc(l.tr)}">${esc(l.tr)}</span><span class="uk">${l.en ? `<span class="en">${esc(l.en)}</span> · ` : ''}${esc(l.uk)}</span></div>`).join('')}</div>` : '';
+      <div class="line"><span class="who">${esc(l.who)}</span><span class="tr ph" data-ph="${esc(l.tr)}">${esc(l.tr)}</span><span class="uk"><span class="tl">${esc(translit(l.tr))}</span> ${l.en ? `<span class="en">${esc(l.en)}</span> · ` : ''}${esc(l.uk)}</span></div>`).join('')}</div>` : '';
     const notes = s.notes?.length ? `<ul class="notes">${s.notes.map((n) => typeof n === 'string' ? `<li><span class="uk">${n}</span></li>` : `<li>${n.en ? `<span class="en">${n.en}</span>` : ''}${n.uk ? `<span class="uk">${n.uk}</span>` : ''}</li>`).join('')}</ul>` : '';
 
     // граф: правила для цього запису, приклади для правила, зворотні лінки з дієслів, схожі записи
@@ -223,7 +284,7 @@ const IDIOMA = (() => {
         <span class="phrase">${esc(s.tr)}</span>
         ${s.status ? `<span class="status ${esc(s.status)}">${s.status === 'done' ? '✓ done · зроблено' : '○ to do · зробити'}</span>` : ''}
         <button class="speak" data-say="${esc(s.tr)}" title="Озвучити (системний турецький голос)">🔈</button>
-        ${s.say ? `<span class="say">${esc(s.say)}</span>` : ''}
+        ${sayOf(s) ? `<span class="say">${esc(sayOf(s))}</span>` : ''}
       </div>
       <div class="trans">${s.en ? `<span class="en">${esc(s.en)}</span>` : ''}<span class="uk">${esc(s.uk)}</span></div>
       <div class="body">${parts}${metaHTML}${answers}${examples}${table}${dialogue}${notes}</div>${graph}
@@ -277,9 +338,9 @@ const IDIOMA = (() => {
 
   // ---------- модалка з розбором речення ----------
   function modalHTML(a) {
-    const head = `<div class="mhead"><span class="phrase">${esc(a.text)}</span><button class="speak" data-say="${esc(a.text)}">🔈</button>${a.entry ? `<a class="mopen" href="${a.entry.href}">open in page · відкрити →</a>` : ''}</div>`;
+    const head = `<div class="mhead"><span class="phrase">${esc(a.text)}</span><button class="speak" data-say="${esc(a.text)}">🔈</button><span class="say">≈ ${esc(translit(a.text))}</span>${a.entry ? `<a class="mopen" href="${a.entry.href}">open in page · відкрити →</a>` : ''}</div>`;
     if (a.entry) return head + entryHTML(a.entry, true);
-    const wordsHTML = a.words.map((w) => `<div class="mword"><div class="mw">${esc(w.word)}</div><div class="parts">${w.segs.map((g) => {
+    const wordsHTML = a.words.map((w) => `<div class="mword"><div class="mw">${esc(w.word)}<span class="tl">${esc(translit(w.word))}</span></div><div class="parts">${w.segs.map((g) => {
       const rule = g.key ? norm(g.key).flatMap(rulesFor)[0] : null;
       const inner = `<b>${esc(g.m)}</b>${g.en ? `<u>${esc(g.en)}</u>` : '<u>?</u>'}${g.uk ? `<i>${esc(g.uk)}</i>` : ''}`;
       return rule ? `<a class="part ${g.t} linked" href="${rule.entry.href}">${inner}</a>` : `<span class="part ${g.t}">${inner}</span>`;
@@ -300,6 +361,8 @@ const IDIOMA = (() => {
     $('modalBody').querySelectorAll('a[href^="#"]').forEach((l) => l.addEventListener('click', closeModal));
   }
   function closeModal() { $('modal').classList.remove('open'); }
+  // колонки таблиць, у яких не турецький текст (переклади, вимова, пояснення) — не клікабельні
+  const NON_TR_COL = /english|вимова|укра|переклад|^як$|де було|підказка|розбір|правило|значення|^#$|число/i;
   const isTurkishText = (t) => /[a-zA-ZçğıöşüÇĞİÖŞÜ]/.test(t) && !/[а-яіїєґА-ЯІЇЄҐ]/.test(t) && !/^[\d\s.,:;/–—-]*$/.test(t);
 
   // тема: night / day, запам'ятовується у localStorage (може бути недоступний)
@@ -336,5 +399,5 @@ const IDIOMA = (() => {
     window.addEventListener('hashchange', render);
   }
 
-  return { register, glossary, start, analyze, open: openModal };
+  return { register, glossary, start, analyze, open: openModal, translit };
 })();

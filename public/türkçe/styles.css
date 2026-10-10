@@ -283,3 +283,6 @@ code.ph { border-bottom: 1px solid var(--line); }
 .dcard .rels { flex-direction: row; flex-wrap: wrap; gap: 6px; align-items: center; }
 .dcard .rels .k { min-width: 140px; }
 @media (max-width: 860px) { .mword { grid-template-columns: 1fr; gap: 4px; } .dcard { padding: 16px; } }
+.tl { font-size: 11.5px; color: var(--gold); font-style: italic; opacity: .8; margin-left: 2px; }
+.mword .mw .tl { display: block; font-family: var(--font-body); font-size: 12px; margin-left: 0; }
+.mhead .say { color: var(--gold); font-style: italic; font-size: 14px; flex-basis: 100%; }
