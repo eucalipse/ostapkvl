@@ -1,0 +1,378 @@
+// Категорія: Граматика (узагальнення правил, які трапляються в нотатках)
+IDIOMA.register({
+  id: 'grammar',
+  en: 'Grammar',
+  title: 'Граматика',
+  icon: '📐',
+  topics: [
+    {
+      id: 'suffixes',
+      en: 'How suffixes work',
+      title: 'Як працюють суфікси',
+      slides: [
+        {
+          tr: 'bul + du + k = bulduk',
+          say: '',
+          uk: 'Турецька клеїть суфікси до кореня один за одним',
+          en: 'Agglutination',
+          parts: [
+            { m: 'корінь', t: 'root', d: 'носить основне значення (bul- = знаходити)' },
+            { m: 'суфікс часу', t: 'suffix', d: 'коли (-du = минулий)' },
+            { m: 'суфікс особи', t: 'suffix', d: 'хто (-k = ми)' },
+          ],
+          notes: [
+            { en: 'Turkish has almost no prefixes. All meaning is added on the RIGHT: root → tense → person.', uk: 'Префіксів у турецькій майже немає. Усе значення додається СПРАВА: корінь → час → особа.' },
+            { en: 'Every suffix has 2 or 4 variants depending on the vowel of the previous syllable. That is vowel harmony, see the next topic.', uk: 'Кожен суфікс має 2 або 4 варіанти залежно від голосної в попередньому складі. Це гармонія голосних, див. наступну тему.' },
+            { en: 'The order is always the same, so a word can be parsed left to right: ben-im ad-ım, nasıl-sın, memnun ol-du-m.', uk: 'Порядок завжди однаковий, тому слово можна «розібрати» зліва направо: ben-im ad-ım, nasıl-sın, memnun ol-du-m.' },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'harmony',
+      en: 'Vowel harmony',
+      title: 'Гармонія голосних',
+      slides: [
+        {
+          tr: '-mak / -mek · de / da · -ça / -ce',
+          covers: ['-mak','-mek','de','da','-ça','-ce','-e','-a'],
+          say: '',
+          uk: 'Двоваріантна гармонія (a / e)',
+          en: '2-way vowel harmony',
+          table: {
+            title: 'Остання голосна кореня → варіант суфікса',
+            head: ['Остання голосна', 'Суфікс', 'Приклади'],
+            rows: [
+              ['a, ı, o, u (задні)', 'a', 'bul-mak, ol-mak, kal-mak, o da, hoş-ça'],
+              ['e, i, ö, ü (передні)', 'e', 'iste-mek, gel-mek, gül-mek, ben de'],
+            ],
+          },
+          notes: [{ en: 'Applies to suffixes with a/e: infinitive -mak/-mek, particle de/da, suffix -ça/-ce, converb -a/-e (güle).', uk: 'Працює для суфіксів з a/e: інфінітив -mak/-mek, частка de/da, суфікс -ça/-ce, дієприслівник -a/-e (güle).' }],
+        },
+        {
+          tr: '-ım / -im / -um / -üm',
+          covers: ['-ım','-im','-um','-üm','-ın','-in','-du','-dı','-di','-dü','-tü','-sın','-uyor','-iyor'],
+          say: '',
+          uk: 'Чотириваріантна гармонія (ı / i / u / ü)',
+          en: '4-way vowel harmony',
+          table: {
+            title: 'Остання голосна кореня → варіант суфікса',
+            head: ['Остання голосна', 'Суфікс', 'Приклади'],
+            rows: [
+              ['a, ı', 'ı', 'ad-ım, ad-ın, nasıl-sın'],
+              ['e, i', 'i', 'ben-im, sen-in, ism-im, iyi-y-im'],
+              ['o, u', 'u', 'ol-du-m, bul-du-k, bul-uyor-um'],
+              ['ö, ü', 'ü', 'gül-dü-m, gör-dü-m (бачив)'],
+            ],
+          },
+          notes: [
+            { en: 'Applies to suffixes with a narrow vowel: person (-ım/-im…), past (-dı/-di/-du/-dü), possessive (-ım/-in…), present (-ıyor/-iyor/-uyor/-üyor).', uk: 'Працює для суфіксів з вузькою голосною: особа (-ım/-im…), минулий час (-dı/-di/-du/-dü), присвійність (-ım/-in…), теперішній (-ıyor/-iyor/-uyor/-üyor).' },
+            { en: 'Simple rule: the suffix copies the frontness (front/back) and rounding (rounded/unrounded) of the previous vowel.', uk: 'Правило просте: суфікс «копіює» ряд (передній/задній) і округлість (губні/негубні) попередньої голосної.' },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'person',
+      en: 'Personal endings (I am, you are)',
+      title: 'Особові закінчення (я є, ти є)',
+      source: { label: 'Зошит, 10.10.2026: Nasılsın, İyiyim', image: 'source/images/IMG_1800.jpg' },
+      slides: [
+        {
+          tr: 'iyi-y-im · nasıl-sın',
+          covers: ['-sın','-sin','-y-','-sınız','-nız / -sınız'],
+          say: 'ійі́йім · на́силсин',
+          uk: 'Замість дієслова «бути» до слова чіпляється закінчення особи',
+          en: 'Personal endings (predicate)',
+          table: {
+            title: 'iyi = добрий, добре',
+            head: ['Особа', 'Закінчення', 'Приклад', 'Переклад'],
+            rows: [
+              ['ben', '-(y)ım / -(y)im', 'iyiyim', 'я добре'],
+              ['sen', '-sın / -sin', 'iyisin, nasılsın', 'ти добре, як ти'],
+              ['o', '— (нічого)', 'iyi', 'він добре'],
+              ['biz', '-(y)ız / -(y)iz', 'iyiyiz', 'ми добре'],
+              ['siz', '-sınız / -siniz', 'iyisiniz, nasılsınız', 'ви добре, як ви'],
+              ['onlar', '-lar / -ler', 'iyiler', 'вони добре'],
+            ],
+          },
+          notes: [
+            { en: 'Buffer <b>y</b> is inserted when the word ends in a vowel and the suffix starts with a vowel: iyi + im → iyi<b>y</b>im.', uk: 'Буферна <b>y</b> ставиться, коли слово закінчується на голосну, а суфікс починається з голосної: iyi + im → iyi<b>y</b>im.' },
+            { en: 'Third person has no ending: <b>O iyi</b> = he is fine. <b>Ben Ostap</b> = I am Ostap (the ending -ım is often dropped).', uk: 'Третя особа не має закінчення: <b>O iyi</b> = він добре. <b>Ben Ostap</b> = я Остап (закінчення -ım часто пропускають).' },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'person-system',
+      en: 'Person: one system of endings',
+      title: 'Особа: одна система закінчень',
+      source: { label: 'Зошит: benim, adım, adın, iyiyim, nasılsın, buldum, bulduk, geldin', image: 'source/images/IMG_1800.jpg' },
+      slides: [
+        {
+          id: 'person-map',
+          tr: 'ben-im · ad-ım · ol-du-m · iyi-y-im',
+          covers: ['-m','-n','-k','-z','-k / -z','-im','-ım','-in','-ın','-sın','-nız','-sınız','-lar','-ler'],
+          say: '',
+          uk: 'Хто робить / чиє, завжди показує той самий набір приголосних: m = я, n = ти, (нічого) = він, k або z = ми, nız/siniz = ви, lar = вони',
+          en: 'One person-marking system',
+          parts: [
+            { m: '-m', t: 'suffix', d: 'я: benim, adım, oldum, iyiyim' },
+            { m: '-n', t: 'suffix', d: 'ти: senin, adın, geldin, nasılsın' },
+            { m: '—', t: 'suffix', d: 'він/вона: adı, buldu, iyi' },
+            { m: '-k / -z', t: 'suffix', d: 'ми: bulduk, iyiyiz, bizim' },
+            { m: '-nız / -sınız', t: 'suffix', d: 'ви: adınız, buldunuz, nasılsınız' },
+            { m: '-lar', t: 'suffix', d: 'вони: adları, buldular, iyiler' },
+          ],
+          table: {
+            title: 'Дві «сім’ї» одних і тих самих закінчень (голосна завжди за гармонією)',
+            head: ['Особа', 'Коротка сім’я: мій/твій + минулий -dı', 'Приклади', 'Довга сім’я: «я є» + -yor + аорист', 'Приклади'],
+            rows: [
+              ['ben', '-(ı)m', 'benim, adım, oldum, buldum', '-(y)ım', 'iyiyim, buluyorum, yerim'],
+              ['sen', '-(ı)n', 'senin, adın, geldin', '-sın', 'nasılsın, iyisin, buluyorsun'],
+              ['o', '— / -(s)ı', 'onun, adı, buldu, geldi', '—', 'iyi, buluyor, yer'],
+              ['biz', '-(ı)mız / -k', 'bizim, adımız, bulduk', '-(y)ız', 'iyiyiz, buluyoruz, yeriz'],
+              ['siz', '-(ı)nız', 'sizin, adınız, buldunuz', '-sınız', 'nasılsınız, buluyorsunuz'],
+              ['onlar', '-ları / -lar', 'onların, adları, buldular', '-lar', 'iyiler, buluyorlar'],
+            ],
+          },
+          notes: [
+            { en: 'Yes, it is one system. The endings come from the pronouns: be<b>n</b> → -m (historically -im), se<b>n</b> → -n, bi<b>z</b> → -z, si<b>z</b> → -nız/-sınız. So “I” is always recognised by <b>m</b>, “you” by <b>n</b>, “we” by <b>z</b> or <b>k</b>.', uk: 'Так, це одна структура. Закінчення походять від займенників: be<b>n</b> → -m (історично -im), se<b>n</b> → -n, bi<b>z</b> → -z, si<b>z</b> → -nız/-sınız. Тому «я» завжди впізнається по <b>m</b>, «ти» по <b>n</b>, «ми» по <b>z</b> або <b>k</b>.' },
+            { en: 'The short family (m, n, k) attaches to <b>nouns</b> (adım = my name), <b>pronouns</b> (benim = my) and the <b>past tense</b> (oldum, geldin, bulduk). Historically the past is a nominal form too, so its endings are the same as “my/your”. The one exception: “we” in the past is <b>-k</b> (bulduk), on nouns <b>-mız</b> (adımız).', uk: 'Коротка сім’я (m, n, k) чіпляється до <b>іменників</b> (adım = моє ім’я), <b>займенників</b> (benim = мій) і до <b>минулого часу</b> (oldum, geldin, bulduk). Минулий час історично це теж «іменна» форма, тому закінчення ті самі, що «мій/твій». Єдиний виняток: «ми» в минулому це <b>-k</b> (bulduk), а на іменнику <b>-mız</b> (adımız).' },
+            { en: 'The long family (ım, sın, ız) attaches to <b>adjectives/nouns as “I am”</b> (iyiyim = I am fine, Ostap’ım = I am Ostap), to <b>-yor</b> (buluyorum) and to the <b>aorist</b> (yerim). “You” here is <b>-sın</b>, not -n: nasıl<b>sın</b>, but geldi<b>n</b>.', uk: 'Довга сім’я (ım, sın, ız) чіпляється до <b>прикметників/іменників як «я є»</b> (iyiyim = я добре, Ostap’ım = я Остап), до <b>-yor</b> (buluyorum) і до <b>аориста</b> (yerim). Для «ти» тут <b>-sın</b>, а не -n: nasıl<b>sın</b>, але geldi<b>n</b>.' },
+            { en: 'Rule of choice: after <b>-dı</b> (past) the short family; after everything else the long one. Third person never has anything in either family.', uk: 'Правило вибору: після <b>-dı</b> (минулий) коротка сім’я; після всього іншого довга. Третя особа (він) ніколи нічого не має в обох сім’ях.' },
+            { en: 'Buffer <b>y</b> appears between two vowels only in the long family: iyi + im → iyi<b>y</b>im; in the short family on nouns the suffix vowel simply drops: gece + m → gecem.', uk: 'Буфер <b>y</b> з’являється між двома голосними тільки в довгій сім’ї: iyi + im → iyi<b>y</b>im; у короткій на іменниках голосна суфікса просто випадає: gece + m → gecem.' },
+            { en: 'Where to find it: <a href="#greetings/introduce-2">benim adım</a> · <a href="#greetings/introduce-4">senin adın</a> · <a href="#greetings/howareyou-2">iyiyim</a> · <a href="#greetings/howareyou-1">nasılsın</a> · <a href="#greetings/hello-3">geldin</a> · <a href="#greetings/hello-4">bulduk</a> · <a href="#greetings/introduce-5">oldum</a> · <a href="#verbs/bulmak">buldum, buluyorum</a> · <a href="#affection/sweet-1">yerim</a> · in detail: <a href="#grammar/person">“I am”</a>, <a href="#grammar/possessive">my/your</a>, <a href="#grammar/past">past</a>, <a href="#grammar/present">-yor</a>.', uk: 'Де знайти в конспекті: <a href="#greetings/introduce-2">benim adım</a> · <a href="#greetings/introduce-4">senin adın</a> · <a href="#greetings/howareyou-2">iyiyim</a> · <a href="#greetings/howareyou-1">nasılsın</a> · <a href="#greetings/hello-3">geldin</a> · <a href="#greetings/hello-4">bulduk</a> · <a href="#greetings/introduce-5">oldum</a> · <a href="#verbs/bulmak">buldum, buluyorum</a> · <a href="#affection/sweet-1">yerim</a> · детально: <a href="#grammar/person">«я є»</a>, <a href="#grammar/possessive">мій/твій</a>, <a href="#grammar/past">минулий</a>, <a href="#grammar/present">-yor</a>.' },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'possessive',
+      en: 'My / your (possessive)',
+      title: 'Мій / твій (присвійність)',
+      source: { label: 'Зошит, 10.10.2026: Benim adım, Senin adın', image: 'source/images/IMG_1800.jpg' },
+      slides: [
+        {
+          tr: 'benim ad-ım · senin ad-ın',
+          covers: ['-im','-ım','-in','-ın','benim','senin'],
+          say: 'бени́м ади́м · сени́н ади́н',
+          uk: 'Належність позначається двічі: займенником і суфіксом на іменнику',
+          en: 'Possessive',
+          table: {
+            title: 'ad = ім’я',
+            head: ['Займенник', 'Суфікс на іменнику', 'Приклад', 'Переклад'],
+            rows: [
+              ['benim (ben + im)', '-(ı)m', 'benim adım', 'моє ім’я'],
+              ['senin (sen + in)', '-(ı)n', 'senin adın', 'твоє ім’я'],
+              ['onun (o + nun)', '-(s)ı', 'onun adı', 'його/її ім’я'],
+              ['bizim (biz + im)', '-(ı)mız', 'bizim adımız', 'наше ім’я'],
+              ['sizin (siz + in)', '-(ı)nız', 'sizin adınız', 'ваше ім’я'],
+              ['onların', '-ları', 'onların adları', 'їхні імена'],
+            ],
+          },
+          notes: [
+            { en: 'The pronoun (benim, senin) can be dropped; the suffix on the noun is mandatory: <b>Adım Ostap. Adın ne?</b>', uk: 'Займенник (benim, senin) можна пропустити, суфікс на іменнику обов’язковий: <b>Adım Ostap. Adın ne?</b>' },
+            { en: 'The vowel in brackets appears after a consonant: ad + ım = adım, but isim → ism + im = ismim (here the root’s i drops too).', uk: 'Голосна в дужках з’являється після приголосної: ad + ım = adım, але isim → ism + im = ismim (тут ще й випадає i з кореня).' },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'past',
+      en: 'Past tense -dı',
+      title: 'Минулий час -dı',
+      source: { label: 'Зошит, 10.10.2026: buldu, oldum, geldin', image: 'source/images/IMG_1800.jpg' },
+      slides: [
+        {
+          tr: 'gel-di-n · bul-du-k · ol-du-m',
+          covers: ['-du','-dı','-di','-dü','-tü','-m','-n','-k'],
+          say: 'гельді́н · булду́к · олду́м',
+          uk: 'Корінь + -dı/-di/-du/-dü + особа',
+          en: 'Simple past',
+          table: {
+            title: 'Особові закінчення минулого часу',
+            head: ['Особа', 'Закінчення', 'gelmek', 'bulmak', 'olmak'],
+            rows: [
+              ['ben', '-m', 'geldim', 'buldum', 'oldum'],
+              ['sen', '-n', 'geldin', 'buldun', 'oldun'],
+              ['o', '—', 'geldi', 'buldu', 'oldu'],
+              ['biz', '-k', 'geldik', 'bulduk', 'olduk'],
+              ['siz', '-nız', 'geldiniz', 'buldunuz', 'oldunuz'],
+              ['onlar', '-lar', 'geldiler', 'buldular', 'oldular'],
+            ],
+          },
+          notes: [
+            { en: 'After voiceless consonants (p, ç, t, k, f, h, s, ş) <b>d</b> becomes <b>t</b>: git-ti (went), yap-tı (did). None of our examples have this.', uk: 'Після глухих приголосних (p, ç, t, k, f, h, s, ş) <b>d</b> стає <b>t</b>: git-ti (пішов), yap-tı (зробив). У наших прикладах цього немає.' },
+            { en: 'Person endings in the past are shorter than in “I am”: -m, -n, -k instead of -ım, -sın, -ız.', uk: 'Закінчення особи в минулому часі коротші, ніж у «я є»: -m, -n, -k замість -ım, -sın, -ız.' },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'present',
+      en: 'Present tense -yor',
+      title: 'Теперішній час -yor',
+      source: { label: 'Зошит, 10.10.2026: buluyorum, istiyorum', image: 'source/images/IMG_1800.jpg' },
+      slides: [
+        {
+          tr: 'bul-uyor-um · isti-yor-um',
+          covers: ['-yor','-uyor','-iyor','-ıyor','-üyor','iste- → isti-'],
+          say: 'булу́йорум · істі́йорум',
+          uk: 'Корінь + (голосна) + -yor + особа',
+          en: 'Present continuous',
+          table: {
+            title: 'Особові закінчення після -yor (завжди u, бо -yor має o)',
+            head: ['Особа', 'Закінчення', 'bulmak', 'istemek'],
+            rows: [
+              ['ben', '-um', 'buluyorum', 'istiyorum'],
+              ['sen', '-sun', 'buluyorsun', 'istiyorsun'],
+              ['o', '—', 'buluyor', 'istiyor'],
+              ['biz', '-uz', 'buluyoruz', 'istiyoruz'],
+              ['siz', '-sunuz', 'buluyorsunuz', 'istiyorsunuz'],
+              ['onlar', '-lar', 'buluyorlar', 'istiyorlar'],
+            ],
+          },
+          notes: [
+            { en: 'Consonant-final root: add a harmony vowel + yor: bul + <b>u</b>yor, gel + <b>i</b>yor.', uk: 'Корінь на приголосну: додаємо голосну за гармонією + yor: bul + <b>u</b>yor, gel + <b>i</b>yor.' },
+            { en: 'Root ending in a/e: that vowel narrows to ı/i: iste → ist<b>i</b>yor, başla (to begin) → başl<b>ı</b>yor.', uk: 'Корінь на a/e: ця голосна звужується до ı/i: iste → ist<b>i</b>yor, başla (починати) → başl<b>ı</b>yor.' },
+            { en: '<b>-yor</b> itself never changes, and everything after it follows the vowel o (i.e. u): -um, -sun, -uz.', uk: 'Сам <b>-yor</b> не змінюється ніколи, і все після нього йде за голосною o (тобто u): -um, -sun, -uz.' },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'reading',
+      en: 'Reading Turkish letters',
+      title: 'Як читати турецькі літери',
+      slides: [
+        {
+          tr: 'ş ç c ı i ğ ö ü',
+          say: '',
+          uk: 'Літери, яких немає в українській або які читаються інакше',
+          en: 'Turkish letters',
+          table: {
+            head: ['Літера', 'Звук', 'Приклад із нотаток'],
+            rows: [
+              ['ş', 'ш', 'hoş (хош), Ayşe'],
+              ['ç', 'ч', 'hoşça (хошча), çay'],
+              ['c', 'дж', 'cam (джам, скло)'],
+              ['ı (без крапки)', 'и (як укр. «и»)', 'adım (адим), nasılsın'],
+              ['i (з крапкою)', 'і', 'iyi (ійі), benim; велика теж із крапкою: İyiyim'],
+              ['ğ', 'не читається, подовжує попередню голосну', 'dağ (даа, гора)'],
+              ['ö', 'як нім. ö, між «о» і «е»', 'gör- (бачити)'],
+              ['ü', 'як нім. ü, між «у» і «і»', 'güle güle, gülmek'],
+              ['h', 'х з видихом', 'merhaba, hoş'],
+              ['y', 'й', 'iyiyim, -yor'],
+            ],
+          },
+          notes: [{ en: 'Stress is usually on the last syllable. Exceptions: question words (<b>na</b>sıl) and adverbs (<b>hoş</b>ça). Person endings and -yor do not take stress.', uk: 'Наголос зазвичай на останньому складі. Винятки: питальні слова (<b>na</b>sıl) і прислівники (<b>hoş</b>ça). Особові закінчення й -yor наголос не беруть.' }],
+        },
+      ],
+    },
+    {
+      id: 'aorist',
+      en: 'Aorist -r (general present)',
+      title: 'Аорист -r (широкий час)',
+      source: { label: 'Чат з Esra: yerim', image: 'source/chats/2026-10-10-esra.txt' },
+      slides: [
+        {
+          tr: 'ye-r-im · gel-ir-im · yap-ar-ım',
+          covers: ['-r','-ir','-ır','-ur','-ür','-ar','-er'],
+          say: 'єрі́м · гелірі́м · япари́м',
+          uk: 'Дія «взагалі», звичка, обіцянка, готовність: «я їм», «я прийду», «з’їв би»',
+          en: 'Aorist (geniş zaman)',
+          table: {
+            title: 'Як утворити',
+            head: ['Корінь', 'Суфікс', 'Приклади'],
+            rows: [
+              ['на голосну', '-r', 'ye-r (їсть), iste-r (хоче), başla-r (починає)'],
+              ['багатоскладовий на приголосну', '-ır/-ir/-ur/-ür', 'konuş-ur (говорить), çalış-ır (працює)'],
+              ['односкладовий на приголосну', '-ar/-er', 'yap-ar (робить), öp-er (цілує), git... → gid-er (іде)'],
+              ['винятки (односкладові, але -ır/-ir/-ur)', '-ır/-ir/-ur/-ür', 'gel-ir, bul-ur, ol-ur, kal-ır, bil-ir, al-ır, ver-ir, gör-ür'],
+            ],
+          },
+          notes: [
+            { en: 'Person endings are the same as in “I am”: ye-r-<b>im</b>, ye-r-<b>sin</b>, ye-r, ye-r-<b>iz</b>, ye-r-<b>siniz</b>, ye-r-<b>ler</b>.', uk: 'Особові закінчення ті самі, що в «я є»: ye-r-<b>im</b>, ye-r-<b>sin</b>, ye-r, ye-r-<b>iz</b>, ye-r-<b>siniz</b>, ye-r-<b>ler</b>.' },
+            { en: 'Difference from -yor: <b>yiyorum</b> = I am eating now; <b>yerim</b> = I eat (in general) / I’ll eat / I’d eat. That is why the endearment “I could eat you” is <b>yerim seni</b>.', uk: 'Різниця з -yor: <b>yiyorum</b> = я зараз їм; <b>yerim</b> = я їм (взагалі) / з’їм / з’їв би. Тому ніжність «з’їв би тебе» це саме <b>yerim seni</b>.' },
+            { en: 'Often for polite promises and offers: <b>Gelirim</b> = I’ll come, <b>Çay içer misin?</b> = would you like tea?', uk: 'Часто для ввічливих обіцянок і пропозицій: <b>Gelirim</b> = прийду, <b>Çay içer misin?</b> = чаю вип’єш?' },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'cases',
+      en: 'Cases: -i, -den, plural -ler',
+      title: 'Відмінки: -i (кого), -den (звідки), множина -ler',
+      source: { label: 'Чат з Esra: seni, yerinden, geceler', image: 'source/chats/2026-10-10-esra.txt' },
+      slides: [
+        {
+          tr: 'sen-i · yer-in-den · gece-ler',
+          covers: ['-i','-ı','-den','-dan','-de','-da','-ler','-lar','seni'],
+          say: 'сені́ · єрінде́н · геджеле́р',
+          uk: 'Відмінки й множина теж суфікси, чіпляються після присвійних',
+          en: 'Accusative, ablative, plural',
+          table: {
+            head: ['Суфікс', 'Значення', 'Приклади'],
+            rows: [
+              ['-ı/-i/-u/-ü (знахідний)', 'кого? що? (конкретний об’єкт)', 'sen-i = тебе, ben-i = мене, çay-ı = (цей) чай'],
+              ['-den/-dan (вихідний)', 'з, від, звідки', 'ev-den = з дому, yer-in-den = з твого місця, İstanbul-dan = зі Стамбула'],
+              ['-de/-da (місцевий)', 'в, на, де', 'ev-de = вдома, İstanbul-da = у Стамбулі'],
+              ['-e/-a (давальний)', 'до, куди, кому', 'ev-e = додому, ban-a = мені, san-a = тобі'],
+              ['-ler/-lar (множина)', 'багато', 'gece-ler = ночі, gün-ler = дні, ad-lar = імена'],
+            ],
+          },
+          notes: [
+            { en: 'Suffix order on a noun: root + plural + possessive + case: yer-<b>in</b>-<b>den</b> (place-your-from), gece-<b>ler</b>.', uk: 'Порядок суфіксів на іменнику: корінь + множина + присвійний + відмінок: yer-<b>in</b>-<b>den</b> (місце-твоє-з), gece-<b>ler</b>.' },
+            { en: 'After a vowel, the case suffix -i takes a buffer: gece-<b>y</b>-i; possessives take the buffer -s-: ad-ı (his name), but gece-<b>s</b>-i (his night).', uk: 'Після голосної перед відмінком -i з’являється буфер: gece-<b>y</b>-i, а в присвійних буфер -s-: ad-ı (його ім’я), але gece-<b>s</b>-i (його ніч).' },
+            { en: 'Pronouns change slightly in the dative: ben → <b>bana</b>, sen → <b>sana</b>.', uk: 'Займенники в давальному трохи змінюються: ben → <b>bana</b>, sen → <b>sana</b>.' },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'questions',
+      en: 'Question words',
+      title: 'Питальні слова',
+      source: { label: 'Зошит: Senin adın ne? Nasılsın?; чат: Ne istiyorsun?', image: 'source/images/IMG_1800.jpg' },
+      slides: [
+        {
+          id: 'ne',
+          tr: 'ne',
+          covers: ['ne','nasıl'],
+          say: 'не',
+          uk: 'що',
+          en: 'what',
+          parts: [
+            { m: 'ne', t: 'word', d: 'що; стоїть там, де стояла б відповідь, порядок слів не змінюється' },
+          ],
+          examples: [
+            { tr: 'Senin adın ne?', uk: 'Як тебе звати? (досл. «твоє ім’я що?»)', en: 'What is your name?' },
+            { tr: 'Ne istiyorsun?', uk: 'Що ти хочеш?', en: 'What do you want?' },
+            { tr: 'Ne oldu?', uk: 'Що сталося?', en: 'What happened?' },
+            { tr: 'Bu ne?', uk: 'Що це? (bu = це)', en: 'What is this?' },
+            { tr: 'Ne var ne yok?', uk: 'Що нового? / Як справи? (досл. «що є, чого нема»)', en: 'What’s up? / How are things?' },
+          ],
+          table: {
+            title: 'Слова, зроблені з ne',
+            head: ['Слово', 'Переклад', 'Розбір'],
+            rows: [
+              ['neden', 'чому', 'ne + -den (з чого? → через що?)'],
+              ['ne zaman', 'коли', 'ne + zaman (час) = «що за час»'],
+              ['nerede', 'де', 'ne + re + -de (місцевий відмінок)'],
+              ['nereye', 'куди', 'ne + re + -ye (давальний)'],
+              ['nereden', 'звідки', 'ne + re + -den (вихідний)'],
+              ['ne kadar', 'скільки (ціна, кількість)', 'ne + kadar (міра)'],
+              ['nasıl', 'як', 'ne + asıl (суть) → nasıl'],
+            ],
+          },
+          notes: [
+            { en: 'A question with <b>ne</b> does not need the particle <b>mı/mi</b>: that one is only for yes/no questions (Türk müsün? = are you Turkish?).', uk: 'Питання з <b>ne</b> не потребує частки <b>mı/mi</b>: вона тільки для питань «так/ні» (Türk müsün? = ти турок?).' },
+            { en: 'In the answer, ne is simply replaced by the word: <b>Adın ne?</b> → <b>Adım Ostap.</b>', uk: 'У відповіді ne просто замінюється словом: <b>Adın ne?</b> → <b>Adım Ostap.</b>' },
+            { en: 'Other question words: <b>kim</b> (who), <b>kaç</b> (how many), <b>hangi</b> (which).', uk: 'Інші питальні слова: <b>kim</b> (хто), <b>kaç</b> (скільки штук), <b>hangi</b> (який).' },
+          ],
+        },
+      ],
+    },
+  ],
+});

@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: "/cv",
+      disallow: ["/cv", "/türkçe", "/turkce"],
     },
     sitemap: `${site.url}/sitemap.xml`,
   };

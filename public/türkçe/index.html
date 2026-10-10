@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Idioma · Türkçe</title>
+  <link rel="stylesheet" href="/turkce/styles.css">
+</head>
+<body>
+  <button class="menu-btn" id="menuBtn" aria-label="Меню">☰</button>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <span class="brand-flag">🇹🇷</span>
+      <div>
+        <div class="brand-title">Idioma</div>
+        <div class="brand-sub">турецька · конспект</div>
+      </div>
+    </div>
+    <input class="search" id="search" type="search" placeholder="Пошук фрази…" autocomplete="off">
+    <nav class="nav" id="nav"></nav>
+    <div class="sidebar-foot" id="sidebarFoot"></div>
+  </aside>
+
+  <main class="main" id="main">
+    <div class="topbar"><div class="crumbs" id="crumbs"></div></div>
+    <section class="stage" id="stage"></section>
+  </main>
+
+  <script>window.IDIOMA_BASE='/turkce/';</script>
+  <script src="/turkce/app.js"></script>
+  <!-- Дані: одна категорія = один файл. Нову тему додавай у відповідний файл, нову категорію — новим файлом + рядком нижче. -->
+  <script src="/turkce/data/glossary.js"></script>
+  <script src="/turkce/data/greetings.js"></script>
+  <script src="/turkce/data/affection.js"></script>
+  <script src="/turkce/data/verbs.js"></script>
+  <script src="/turkce/data/grammar.js"></script>
+  <script>IDIOMA.start();</script>
+</body>
+</html>
