@@ -88,38 +88,5 @@ IDIOMA.register({
         },
       ],
     },
-    {
-      id: 'chat-notes',
-      en: 'Chat notes',
-      title: 'Нотатки з чату',
-      source: { label: 'Чат з Esra, 10.10.2026', image: 'source/chats/2026-10-10-esra.txt' },
-      slides: [
-        {
-          tr: 'Ben adım Ostap ✗ → Benim adım Ostap ✓',
-          say: 'бені́м ади́м оста́п',
-          uk: 'Помилка з чату: ben = «я», benim = «мій»',
-          en: 'Error: ben (I) vs benim (my)',
-          parts: [
-            { m: 'ben', t: 'root', d: 'я' },
-            { m: '-im', t: 'suffix', d: '«мій» → benim; без нього виходить «я ім’я Остап»' },
-          ],
-          notes: [
-            { en: 'Correct: <b>Benim adım Ostap</b> or simply <b>Adım Ostap</b>. See <a href="#greetings/introduce-2">Benim adım Ostap</a>.', uk: 'Правильно: <b>Benim adım Ostap</b> або просто <b>Adım Ostap</b>. Див. <a href="#greetings/introduce-2">Benim adım Ostap</a>.' },
-            { en: 'You were understood, but “Ben adım” sounds like “I name”.', uk: 'Тебе зрозуміли, але «Ben adım» звучить як «я ім’я».' },
-          ],
-        },
-        {
-          tr: 'Gunaydin = Günaydın · Optum = Öptüm · Iyi = İyi',
-          say: '',
-          uk: 'У чатах діакритику часто пропускають',
-          en: 'Chat spelling without diacritics',
-          notes: [
-            { en: 'Turks text without umlauts and dots: ö → o, ü → u, ş → s, ç → c, ğ → g, ı/İ → i.', uk: 'Турки в месенджерах пишуть без умляутів і крапок: ö → o, ü → u, ş → s, ç → c, ğ → g, ı/İ → i.' },
-            { en: 'Still read it with the correct sounds: <b>Gunaydin</b> is pronounced günaydın.', uk: 'Читати треба все одно з правильними звуками: <b>Gunaydin</b> читається гюнайди́н.' },
-            { en: 'Better to write with diacritics yourself: the Turkish phone keyboard has them, and it helps you remember the correct spelling.', uk: 'Самому краще писати з діакритикою: турецька клавіатура на телефоні це дає, і так ти запам’ятовуєш правильне написання.' },
-          ],
-        },
-      ],
-    },
   ],
 });

@@ -1,5 +1,5 @@
 // Категорія: Привітання та знайомство
-// Джерело: зошит 10.10.2026 (source/notes/2026-10-10-notebook.md)
+// Джерела: зошит 10.10.2026 (source/notes/2026-10-10-notebook.md), слайди Türkçe Tanışma (source/notes/2026-10-10-tanisma-slides.md)
 IDIOMA.register({
   id: 'greetings',
   en: 'Greetings & introductions',
@@ -23,6 +23,7 @@ IDIOMA.register({
           notes: [
             { en: 'Universal greeting: fine with friends and strangers, at any time of day.', uk: 'Універсальне привітання: підходить і друзям, і незнайомим, у будь-який час дня.' },
             { en: 'The letter h sounds like a soft, breathy “h”.', uk: 'Літера h читається як українське «х», але м’якше, з видихом.' },
+            { en: 'Also on the Tanışma slides (slide 6), marked “Formal – Informal”: the one greeting that works in both registers.', uk: 'Також у слайдах Tanışma (слайд 6) з позначкою «Formal – Informal»: єдине привітання, яке підходить в обох регістрах.' },
           ],
         },
         {
@@ -38,6 +39,11 @@ IDIOMA.register({
             { en: 'Reply: <b>Aleyküm selam</b>.', uk: 'Відповідь: <b>Aleyküm selam</b> (алейкю́м селя́м).' },
             { en: 'More traditional and religious, mostly between men and older people.', uk: 'Більш традиційне й релігійне, частіше між чоловіками та старшими людьми.' },
             { en: 'Short neutral form: <b>Selam!</b> — Hi!', uk: 'Коротка нейтральна форма: <b>Selam!</b> — Привіт!' },
+            { en: 'Also on the Tanışma slides (slide 4): “Ostap: Selamün aleyküm! — Gülşah: Aleyküm selam!”', uk: 'Також у слайдах Tanışma (слайд 4): «Ostap: Selamün aleyküm! — Gülşah: Aleyküm selam!»' },
+          ],
+          dialogue: [
+            { who: 'Ostap', tr: 'Selamün aleyküm!', uk: 'Мир вам!', en: 'Peace be upon you!' },
+            { who: 'Gülşah', tr: 'Aleyküm selam!', uk: 'І вам мир!', en: 'Peace be upon you, too.' },
           ],
         },
         {
@@ -55,6 +61,7 @@ IDIOMA.register({
           notes: [
             { en: 'To several people or politely: <b>Hoş geldiniz</b> (-niz = you, plural).', uk: 'До кількох людей або ввічливо: <b>Hoş geldiniz</b> (-niz = ви).' },
             { en: 'The reply is always the same: <b>Hoş bulduk</b>.', uk: 'Відповідь завжди одна: <b>Hoş bulduk</b>.' },
+            { en: 'Also on the Tanışma slides: slide 2 <b>Hoş geldin!</b> (Informal), slide 28 <b>Hoş geldiniz!</b> (Formal). See <a href="#greetings/formal">formal forms</a>.', uk: 'Також у слайдах Tanışma: слайд 2 <b>Hoş geldin!</b> (Informal), слайд 28 <b>Hoş geldiniz!</b> (Formal). Див. <a href="#greetings/formal">формальні форми</a>.' },
           ],
           dialogue: [
             { who: 'Господар', tr: 'Hoş geldin!', uk: 'Ласкаво просимо!', en: 'Welcome!' },
@@ -76,6 +83,33 @@ IDIOMA.register({
           notes: [
             { en: 'In the notebook: “Hoş buldum/k”. <b>-m</b> = I, <b>-k</b> = we. Both are used; <b>bulduk</b> is more common, even if you are alone.', uk: 'У зошиті: «Hoş buldum/k». <b>-m</b> = я, <b>-k</b> = ми. Обидва варіанти вживають, <b>bulduk</b> частіше, навіть якщо ти один.' },
             { en: 'No separate meaning: it is just the fixed reply to the welcome.', uk: 'Окремого перекладу не має: це просто фіксована відповідь на привітання.' },
+            { en: 'The Tanışma slides (slide 2) also give both: “Hoş buldum/k!”.', uk: 'У слайдах Tanışma (слайд 2) теж обидва варіанти: «Hoş buldum/k!».' },
+          ],
+        },
+        {
+          tr: 'Selam!',
+          say: 'селя́м',
+          uk: 'Привіт! (коротко, неформально)',
+          en: 'Hi!',
+          parts: [
+            { m: 'selam', t: 'word', d: 'мир; привіт (скорочення від Selamün aleyküm)' },
+          ],
+          notes: [
+            { en: 'Tanışma slides, slide 3: “SELAM [Hi!]”, marked Informal. Friends, peers, chats. To a stranger or an older person say <b>Merhaba</b>.', uk: 'Слайди Tanışma, слайд 3: «SELAM [Hi!]», позначка Informal. Друзям, ровесникам, у чатах. Незнайомому чи старшому кажи <b>Merhaba</b>.' },
+            { en: 'The word itself means “peace”, like Arabic salām; the full religious form is <a href="#greetings/hello-2">Selamün aleyküm</a>.', uk: 'Саме слово означає «мир», як арабське salām; повна релігійна форма: <a href="#greetings/hello-2">Selamün aleyküm</a>.' },
+          ],
+        },
+        {
+          tr: 'Aleyküm selam!',
+          say: 'алейкю́м селя́м',
+          uk: 'І вам мир! (відповідь на Selamün aleyküm)',
+          en: 'Peace be upon you, too.',
+          parts: [
+            { m: 'aleyküm', t: 'word', d: 'вам (арабська форма)' },
+            { m: 'selam', t: 'word', d: 'мир' },
+          ],
+          notes: [
+            { en: 'Tanışma slides, slide 5. It is the same two words in reverse order: <b>Selamün aleyküm</b> → <b>Aleyküm selam</b>. Only used as the reply, never to start.', uk: 'Слайди Tanışma, слайд 5. Ті самі два слова у зворотному порядку: <b>Selamün aleyküm</b> → <b>Aleyküm selam</b>. Тільки як відповідь, не для початку розмови.' },
           ],
         },
       ],
@@ -98,6 +132,11 @@ IDIOMA.register({
           notes: [
             { en: 'There is no verb “to be” here: ben + name already means “I am …”.', uk: 'Дієслова «бути» тут немає: ben + ім’я вже означає «я є …».' },
             { en: 'Full form with the personal ending: <b>Ben Ostap’ım</b> (after proper names the suffix is written with an apostrophe).', uk: 'Повна форма з особовим закінченням: <b>Ben Ostap’ım</b> (після власних назв суфікс пишуть через апостроф).' },
+            { en: 'Also on the Tanışma slides (slide 7): “Ben …… [I am ….]”. The teacher is <b>Gülşah</b>: “Merhaba! Ben Gülşah.”', uk: 'Також у слайдах Tanışma (слайд 7): «Ben …… [I am ….]». Вчительку звати <b>Gülşah</b>: «Merhaba! Ben Gülşah.»' },
+          ],
+          dialogue: [
+            { who: 'Ostap', tr: 'Merhaba! Ben Ostap.', uk: 'Привіт! Я Остап.', en: 'Hello! I am Ostap.' },
+            { who: 'Gülşah', tr: 'Merhaba! Ben Gülşah.', uk: 'Привіт! Я Ґюльшах.', en: 'Hello! I am Gülşah.' },
           ],
         },
         {
@@ -119,6 +158,22 @@ IDIOMA.register({
           notes: [
             { en: 'Double marking: both <b>benim</b> and <b>-ım</b> say “my”. So benim can be dropped: <b>Adım Ostap</b>.', uk: 'Подвійне маркування: і <b>benim</b>, і <b>-ım</b> кажуть «мій». Тому benim можна пропустити: <b>Adım Ostap</b>.' },
             { en: 'Vowel harmony: <b>ad</b> has the vowel <b>a</b>, so the suffix is <b>-ım</b>, not -im. <b>ben</b> has <b>e</b>, so <b>-im</b>.', uk: 'Гармонія голосних: у <b>ad</b> голосна <b>a</b>, тому суфікс <b>-ım</b>, а не -im. У <b>ben</b> голосна <b>e</b>, тому <b>-im</b>.' },
+            { en: 'Also on the Tanışma slides (slide 8): “Benim adım …… My name is ….”', uk: 'Також у слайдах Tanışma (слайд 8): «Benim adım …… My name is ….»' },
+          ],
+        },
+        {
+          id: 'ben-adim-error',
+          tr: 'Ben adım Ostap ✗ → Benim adım Ostap ✓',
+          say: 'бені́м ади́м оста́п',
+          uk: 'Помилка з чату: ben = «я», benim = «мій»',
+          en: 'Common mistake: ben (I) vs benim (my)',
+          parts: [
+            { m: 'ben', t: 'root', d: 'я' },
+            { m: '-im', t: 'suffix', d: '«мій» → benim; без нього виходить «я ім’я Остап»' },
+          ],
+          notes: [
+            { en: 'Correct: <b>Benim adım Ostap</b> or simply <b>Adım Ostap</b> (the entry above).', uk: 'Правильно: <b>Benim adım Ostap</b> або просто <b>Adım Ostap</b> (запис вище).' },
+            { en: 'You were understood, but “Ben adım” sounds like “I name”. Written this way in a chat on 10.10.2026.', uk: 'Тебе зрозуміли, але «Ben adım» звучить як «я ім’я». Так було написано в чаті 10.10.2026.' },
           ],
         },
         {
@@ -135,6 +190,7 @@ IDIOMA.register({
           notes: [
             { en: '<b>isim + -im = ismim</b>, not “isimim”: in some words the last vowel drops when a vowel-initial suffix is added. Same: <b>burun</b> (nose) → burnum, <b>şehir</b> (city) → şehrim.', uk: '<b>isim + -im = ismim</b>, а не «isimim»: у деяких словах остання голосна випадає, коли додається суфікс із голосною. Так само: <b>burun</b> (ніс) → burnum, <b>şehir</b> (місто) → şehrim.' },
             { en: '<b>ad</b> and <b>isim</b> mean the same. In speech ad is more common, in documents isim.', uk: '<b>ad</b> та <b>isim</b> означають одне й те саме. У розмові частіше ad, в документах isim.' },
+            { en: 'Also on the Tanışma slides (slide 9): “Benim ismim … My name is ….”', uk: 'Також у слайдах Tanışma (слайд 9): «Benim ismim … My name is ….»' },
           ],
         },
         {
@@ -157,11 +213,15 @@ IDIOMA.register({
             { en: 'Short: <b>Adın ne?</b>', uk: 'Коротко: <b>Adın ne?</b>' },
             { en: 'Politely or to several people: <b>Adınız ne?</b> / <b>İsminiz ne?</b> (-ınız = your, plural).', uk: 'Ввічливо або до кількох: <b>Adınız ne?</b> / <b>İsminiz ne?</b> (-ınız = ваш).' },
             { en: 'The question word <b>ne</b> goes at the end, word order does not change. About ne and its derivatives: <a href="#grammar/ne">question words</a>.', uk: 'Питальне слово <b>ne</b> стоїть у кінці, порядок слів не змінюється. Про ne та його похідні: <a href="#grammar/ne">питальні слова</a>.' },
+            { en: 'Also on the Tanışma slides (slides 10, 11, 22), marked “Informal + Singular”. The formal pair is <a href="#greetings/formal-1">Sizin adınız ne?</a> (slide 22: “Formal + Plural”).', uk: 'Також у слайдах Tanışma (слайди 10, 11, 22) з позначкою «Informal + Singular». Формальна пара: <a href="#greetings/formal-1">Sizin adınız ne?</a> (слайд 22: «Formal + Plural»).' },
           ],
           dialogue: [
             { who: 'A', tr: 'Senin adın ne?', uk: 'Як тебе звати?', en: 'What is your name?' },
             { who: 'B', tr: 'Benim adım Ostap. Senin?', uk: 'Мене звати Остап. А тебе?', en: 'My name is Ostap. And yours?' },
             { who: 'A', tr: 'Benim adım Ayşe.', uk: 'Мене звати Айше.', en: 'My name is Ayşe.' },
+            { who: 'Ostap', tr: 'Merhaba! Adın ne?', uk: 'Привіт! Як тебе звати? (слайд 11)', en: 'Hello! What is your name? (slide 11)' },
+            { who: 'Gülşah', tr: 'Merhaba! Benim adım Gülşah. Senin adın ne?', uk: 'Привіт! Мене звати Ґюльшах. А тебе?', en: 'Hello! My name is Gülşah. What is your name?' },
+            { who: 'Ostap', tr: 'Benim adım Ostap.', uk: 'Мене звати Остап.', en: 'My name is Ostap.' },
           ],
         },
         {
@@ -179,6 +239,7 @@ IDIOMA.register({
           notes: [
             { en: 'In the notebook “olmak — to be glad”: actually <b>olmak</b> = to be / to become, and “glad” is <b>memnun</b>.', uk: 'У зошиті «olmak — to be glad»: насправді <b>olmak</b> = бути / ставати, а «радий» це <b>memnun</b>.' },
             { en: 'Reply: <b>Ben de memnun oldum</b>.', uk: 'Відповідь: <b>Ben de memnun oldum</b>.' },
+            { en: 'Also on the Tanışma slides (slides 15, 16, 25). Formal, longer version on slide 20: <a href="#greetings/formal-3">Tanıştığımıza memnun oldum</a>.', uk: 'Також у слайдах Tanışma (слайди 15, 16, 25). Формальна, довша версія на слайді 20: <a href="#greetings/formal-3">Tanıştığımıza memnun oldum</a>.' },
           ],
         },
         {
@@ -196,6 +257,7 @@ IDIOMA.register({
             { en: '<b>de / da</b> “too” is always written SEPARATELY. There is also the suffix <b>-de/-da</b> “in, at” (evde = at home), which is attached. Do not confuse them.', uk: '<b>de / da</b> «теж» завжди пишеться ОКРЕМО. Є ще суфікс <b>-de/-da</b> «в, на» (evde = вдома), він пишеться разом. Не плутати.' },
             { en: 'Harmony: after <b>ben</b> (e) → <b>de</b>; after <b>o</b> (he/she) → <b>o da</b> = he too.', uk: 'Гармонія: після <b>ben</b> (e) → <b>de</b>; після <b>o</b> (він) → <b>o da</b> = він теж.' },
             { en: 'Short reply: just <b>Ben de</b>.', uk: 'Коротка відповідь: просто <b>Ben de</b>.' },
+            { en: 'Also on the Tanışma slides (slide 15): “Gülşah: Memnun oldum. — Ostap: Ben de memnun oldum.”', uk: 'Також у слайдах Tanışma (слайд 15): «Gülşah: Memnun oldum. — Ostap: Ben de memnun oldum.»' },
           ],
           dialogue: [
             { who: 'A', tr: 'Memnun oldum.', uk: 'Приємно познайомитися.', en: 'Nice to meet you.' },
@@ -224,6 +286,7 @@ IDIOMA.register({
             { en: 'In the notebook: “Nasıl → How?, -sın → you”.', uk: 'У зошиті: «Nasıl → How?, -sın → you».' },
             { en: 'Politely or to several people: <b>Nasılsınız?</b> (-sınız = you, plural).', uk: 'Ввічливо або до кількох: <b>Nasılsınız?</b> (-sınız = ви).' },
             { en: 'Stress on the first syllable, like most question words.', uk: 'Наголос на першому складі, як у більшості питальних слів.' },
+            { en: 'Also on the Tanışma slides (slides 12–14, 23). With the pronoun: <b>Sen nasılsın?</b> = “and how are YOU?” (slide 23: “Informal + Singular”); formal: <a href="#greetings/formal-2">Siz nasılsınız?</a>', uk: 'Також у слайдах Tanışma (слайди 12–14, 23). Із займенником: <b>Sen nasılsın?</b> = «а ТИ як?» (слайд 23: «Informal + Singular»); формально: <a href="#greetings/formal-2">Siz nasılsınız?</a>' },
           ],
         },
         {
@@ -241,11 +304,60 @@ IDIOMA.register({
             { en: 'In the notebook: “İyiyim — I am, iyi — fine”.', uk: 'У зошиті: «İyiyim — I am, iyi — fine».' },
             { en: 'Two vowels never meet in Turkish, so <b>y</b> is inserted between <b>iyi</b> and <b>-im</b>.', uk: 'Два голосних поспіль у турецькій не стоять, тому між <b>iyi</b> і <b>-im</b> ставиться <b>y</b>.' },
             { en: 'Full answer: <b>İyiyim, teşekkürler. Sen nasılsın?</b> (teşekkürler = thanks) — Fine, thanks. And you?', uk: 'Повна відповідь: <b>İyiyim, teşekkürler. Sen nasılsın?</b> (тешеккюрле́р = дякую) — Добре, дякую. А ти як?' },
+            { en: 'Also on the Tanışma slides (slides 12–14). There the answers alternate between <b>teşekkürler</b> and <b>teşekkür ederim</b>: see <a href="#greetings/thanks">thanks</a>. Slide 19: <b>Ben de iyiyim</b> = I am fine too.', uk: 'Також у слайдах Tanışma (слайди 12–14). Там відповіді чергують <b>teşekkürler</b> і <b>teşekkür ederim</b>: див. <a href="#greetings/thanks">подяка</a>. Слайд 19: <b>Ben de iyiyim</b> = я теж добре.' },
           ],
           dialogue: [
             { who: 'A', tr: 'Nasılsın?', uk: 'Як справи?', en: 'How are you?' },
             { who: 'B', tr: 'İyiyim, teşekkürler. Sen nasılsın?', uk: 'Добре, дякую. А ти?', en: 'I’m fine, thanks. How are you?' },
             { who: 'A', tr: 'Ben de iyiyim.', uk: 'Я теж добре.', en: 'I’m fine too.' },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'thanks',
+      en: 'Thanks',
+      title: 'Подяка',
+      source: { label: 'Слайди Türkçe Tanışma, 10.10.2026, слайди 12–14, 19', image: 'source/slides/tanisma-01-title.jpg' },
+      slides: [
+        {
+          tr: 'Teşekkür ederim.',
+          say: 'тешеккю́р едері́м',
+          uk: 'Дякую (досл. «роблю подяку»)',
+          en: 'Thank you.',
+          parts: [
+            { m: 'teşekkür', t: 'word', d: 'подяка (арабського походження)' },
+            { m: 'et-', t: 'root', d: 'робити (etmek); перед голосною t → d: ed-' },
+            { m: '-er', t: 'suffix', d: 'аорист (односкладовий корінь → -er)' },
+            { m: '-im', t: 'suffix', d: 'особа: я' },
+          ],
+          verbs: ['etmek'],
+          words: [{ tr: 'teşekkür', uk: 'подяка' }],
+          notes: [
+            { en: 'Tanışma slides, slides 12, 14, 16, 19, 20: “İyiyim, teşekkür ederim.” The slide gives a mnemonic for the sound: “Tea sugar eat a dream”.', uk: 'Слайди Tanışma, слайди 12, 14, 16, 19, 20: «İyiyim, teşekkür ederim.» На слайді є мнемоніка для вимови: «Tea sugar eat a dream» (ті шуґар іт е дрім).' },
+            { en: '<b>Teşekkür etmek</b> = to thank. Many Turkish verbs are built this way: noun + <b>etmek</b> (to do). The t of et- softens to d before a vowel: et + er + im → <b>ederim</b>.', uk: '<b>Teşekkür etmek</b> = дякувати. Багато турецьких дієслів так побудовані: іменник + <b>etmek</b> (робити). t в et- перед голосною м’якшає до d: et + er + im → <b>ederim</b>.' },
+            { en: 'Slightly more polite/complete than <b>teşekkürler</b>; both are fine everywhere. Even shorter and friendly: <b>Sağ ol</b> (lit. “be healthy”, not on the slides).', uk: 'Трохи ввічливіше й повніше, ніж <b>teşekkürler</b>; обидва підходять усюди. Ще коротше й по-дружньому: <b>Sağ ol</b> (досл. «будь здоровий», на слайдах нема).' },
+            { en: 'Reply: <b>Rica ederim</b> (you are welcome, lit. “I make a request”) or <b>Bir şey değil</b> (it is nothing). Not on the slides, added for context.', uk: 'Відповідь: <b>Rica ederim</b> (прошу, нема за що; досл. «роблю прохання») або <b>Bir şey değil</b> (нічого, дрібниця). На слайдах нема, додано для контексту.' },
+          ],
+          dialogue: [
+            { who: 'Ostap', tr: 'Nasılsın?', uk: 'Як справи?', en: 'How are you?' },
+            { who: 'Gülşah', tr: 'İyiyim, teşekkürler. Sen nasılsın?', uk: 'Добре, дякую. А ти?', en: 'Fine, thanks. And you?' },
+            { who: 'Ostap', tr: 'İyiyim, teşekkür ederim.', uk: 'Добре, дякую.', en: 'Fine, thank you.' },
+          ],
+        },
+        {
+          tr: 'Teşekkürler!',
+          say: 'тешеккюрле́р',
+          uk: 'Дякую! (досл. «подяки»)',
+          en: 'Thanks!',
+          parts: [
+            { m: 'teşekkür', t: 'root', d: 'подяка' },
+            { m: '-ler', t: 'suffix', d: 'множина (після ü → -ler)' },
+          ],
+          notes: [
+            { en: 'Tanışma slides, slides 12, 13, 19, 25: “İyiyim, teşekkürler.” Just the noun in the plural, no verb: “thanks”.', uk: 'Слайди Tanışma, слайди 12, 13, 19, 25: «İyiyim, teşekkürler.» Просто іменник у множині, без дієслова: «дякую».' },
+            { en: 'Pronunciation: double <b>kk</b> is held a bit longer, stress on the last syllable: te-şek-kür-LER.', uk: 'Вимова: подвійне <b>kk</b> трохи затримується, наголос на останньому складі: те-шек-кюр-ЛЕР.' },
+            { en: 'Stronger: <b>Çok teşekkürler</b> / <b>Çok teşekkür ederim</b> (çok = very, many). Not on the slides.', uk: 'Сильніше: <b>Çok teşekkürler</b> / <b>Çok teşekkür ederim</b> (çok = дуже, багато). На слайдах нема.' },
           ],
         },
       ],
@@ -271,6 +383,7 @@ IDIOMA.register({
             { en: 'In the notebook: “Stay happy”. Literally “stay pleasantly”.', uk: 'У зошиті: «Stay happy». Дослівно «залишайся приємно».' },
             { en: 'Politely or to several people: <b>Hoşça kalın</b> (-ın = you, plural).', uk: 'Ввічливо або до кількох: <b>Hoşça kalın</b> (-ın = ви).' },
             { en: 'The imperative for “you” is just the bare root, no suffix: kal! gel! bul!', uk: 'Наказова форма до «ти» це просто корінь без суфіксів: kal! gel! bul!' },
+            { en: 'Also on the Tanışma slides (slide 24), written “Hoşça kal(ın)!” = both forms at once. Slide 25 ends with “Ostap: Güle güle! — Gülşah: Hoşça kal!”.', uk: 'Також у слайдах Tanışma (слайд 24), записано «Hoşça kal(ın)!» = одразу обидві форми. Слайд 25 закінчується «Ostap: Güle güle! — Gülşah: Hoşça kal!».' },
           ],
         },
         {
@@ -286,10 +399,24 @@ IDIOMA.register({
           notes: [
             { en: 'Literally “smiling-smiling”, i.e. “go with a smile”. Doubling intensifies.', uk: 'Дослівно «усміхаючись-усміхаючись», тобто «йди з усмішкою». Подвоєння підсилює.' },
             { en: 'ONLY the person who stays says this. The one who leaves says <b>Hoşça kal</b>.', uk: 'Цю фразу каже ТІЛЬКИ той, хто залишається. Той, хто йде, каже <b>Hoşça kal</b>.' },
+            { en: 'Also on the Tanışma slides (slide 24) together with Hoşça kal(ın) and <a href="#greetings/bye-3">Bay bay</a>. In the slide drills (25, 26) the two farewells are just paired up, who leaves is not marked.', uk: 'Також у слайдах Tanışma (слайд 24) разом із Hoşça kal(ın) і <a href="#greetings/bye-3">Bay bay</a>. У вправах на слайдах (25, 26) ці два прощання просто йдуть парою, хто йде, не позначено.' },
           ],
           dialogue: [
             { who: 'Йде', tr: 'Hoşça kal!', uk: 'Бувай!', en: 'Goodbye! (said by the one leaving)' },
             { who: 'Залишається', tr: 'Güle güle!', uk: 'Бувай!', en: 'Bye! (said by the one staying)' },
+          ],
+        },
+        {
+          tr: 'Bay bay!',
+          say: 'бай ба́й',
+          uk: 'Бувай! / Па-па! (запозичене з англійської)',
+          en: 'Bye-bye!',
+          parts: [
+            { m: 'bay bay', t: 'word', d: 'па-па; з англійського bye-bye' },
+          ],
+          notes: [
+            { en: 'Tanışma slides, slide 24, listed next to Güle güle and Hoşça kal(ın). Casual, among friends and young people; anyone can say it, leaving or staying.', uk: 'Слайди Tanışma, слайд 24, поруч із Güle güle і Hoşça kal(ın). Неформально, між друзями й молоддю; каже будь-хто, і той, хто йде, і той, хто лишається.' },
+            { en: 'Do not confuse with <b>Bay</b> = Mr (Bay John), see <a href="#greetings/formal-4">Hanım / Bey / Bay</a>. Same spelling, different word.', uk: 'Не плутати з <b>Bay</b> = пан (Bay John), див. <a href="#greetings/formal-4">Hanım / Bey / Bay</a>. Пишеться так само, слово інше.' },
           ],
         },
       ],
@@ -312,7 +439,7 @@ IDIOMA.register({
           words: [{ tr: 'gün', uk: 'день' }],
           notes: [
             { en: 'Literally “day bright”. One word, written together.', uk: 'Дослівно «день ясний». Одне слово, пишеться разом.' },
-            { en: 'In the chat it was <b>Gunaydin</b> without diacritics, see <a href="#affection/chat-notes-2">chat notes</a>.', uk: 'У чаті було <b>Gunaydin</b> без діакритики, див. <a href="#affection/chat-notes-2">нотатки з чату</a>.' },
+            { en: 'In the chat it was <b>Gunaydin</b> without diacritics, see <a href="#grammar/chat-spelling">chat notes</a>.', uk: 'У чаті було <b>Gunaydin</b> без діакритики, див. <a href="#grammar/chat-spelling">нотатки з чату</a>.' },
           ],
         },
         {
@@ -329,6 +456,186 @@ IDIOMA.register({
           notes: [
             { en: 'Time-of-day wishes take the plural: <b>İyi günler</b> (have a good day, when leaving in daytime), <b>İyi akşamlar</b> (good evening), <b>İyi geceler</b> (good night).', uk: 'Побажання на час доби йдуть у множині: <b>İyi günler</b> (гарного дня, при прощанні вдень), <b>İyi akşamlar</b> (добрий вечір), <b>İyi geceler</b> (надобраніч).' },
             { en: 'The letter <b>c</b> sounds like “j”: gece = ge-je.', uk: 'Літера <b>c</b> читається «дж»: gece = гедже́.' },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'formal',
+      en: 'Formal: siz, Hanım, Bey',
+      title: 'Формально: на «ви», Hanım / Bey',
+      source: { label: 'Слайди Türkçe Tanışma, 10.10.2026, слайди 17–23, 28', image: 'source/slides/tanisma-01-title.jpg' },
+      slides: [
+        {
+          tr: 'Sizin adınız ne?',
+          say: 'сізі́н адини́з не',
+          uk: 'Як вас звати? (ввічливо або до кількох людей)',
+          en: 'What is your name? (formal / plural)',
+          parts: [
+            { m: 'siz', t: 'root', d: 'ви (ввічливо або множина)' },
+            { m: '-in', t: 'suffix', d: 'присвійний: «ваш» → sizin' },
+            { m: 'ad', t: 'root', d: 'ім’я' },
+            { m: '-ınız', t: 'suffix', d: 'суфікс належності «ваш» → adınız' },
+            { m: 'ne', t: 'word', d: 'що' },
+          ],
+          words: [
+            { tr: 'siz', uk: 'ви' },
+            { tr: 'sizin', uk: 'ваш, ваше' },
+          ],
+          notes: [
+            { en: 'Tanışma slides, slides 17, 18, 22: “Sizin adınız ne? [Formal + Plural]”. Short: <b>Adınız ne?</b> (slide 18). Informal pair: <a href="#greetings/introduce-4">Senin adın ne?</a>', uk: 'Слайди Tanışma, слайди 17, 18, 22: «Sizin adınız ne? [Formal + Plural]». Коротко: <b>Adınız ne?</b> (слайд 18). Неформальна пара: <a href="#greetings/introduce-4">Senin adın ne?</a>' },
+            { en: '<b>siz</b> is used both for “you” plural and for one person politely (a teacher, a stranger, an older person), exactly like Ukrainian «ви». Rule: <a href="#grammar/sen-siz">sen / siz</a>.', uk: '<b>siz</b> вживається і як «ви» до кількох людей, і ввічливо до одного (вчителька, незнайомець, старша людина), точно як українське «ви». Правило: <a href="#grammar/sen-siz">sen / siz</a>.' },
+            { en: 'The answer is the same as always: <b>Benim adım Ostap.</b>', uk: 'Відповідь така сама, як завжди: <b>Benim adım Ostap.</b>' },
+          ],
+          dialogue: [
+            { who: 'Ostap', tr: 'Merhaba! Adınız ne?', uk: 'Добрий день! Як вас звати?', en: 'Hello! What is your name?' },
+            { who: 'Gülşah', tr: 'Merhaba! Benim adım Gülşah. Sizin adınız ne?', uk: 'Добрий день! Мене звати Ґюльшах. А вас?', en: 'Hello! My name is Gülşah. What is your name?' },
+            { who: 'Ostap', tr: 'Benim adım Ostap.', uk: 'Мене звати Остап.', en: 'My name is Ostap.' },
+          ],
+        },
+        {
+          tr: 'Siz nasılsınız?',
+          say: 'сіз на́силсиниз',
+          uk: 'Як ви? / Як у вас справи?',
+          en: 'How are you? (formal / plural)',
+          parts: [
+            { m: 'siz', t: 'word', d: 'ви' },
+            { m: 'nasıl', t: 'root', d: 'як' },
+            { m: '-sınız', t: 'suffix', d: 'особове закінчення «ви (є)»' },
+          ],
+          notes: [
+            { en: 'Tanışma slides, slides 19, 23: “Siz nasılsınız? [Formal + Plural]”. Informal pair: <a href="#greetings/howareyou-1">Sen nasılsın?</a>', uk: 'Слайди Tanışma, слайди 19, 23: «Siz nasılsınız? [Formal + Plural]». Неформальна пара: <a href="#greetings/howareyou-1">Sen nasılsın?</a>' },
+            { en: 'The pronoun is optional: <b>Nasılsınız?</b> already means “how are you (formal)”. With <b>siz</b> it stresses “and YOU?” after you answered.', uk: 'Займенник необов’язковий: <b>Nasılsınız?</b> уже означає «як ви?». Із <b>siz</b> це наголошує «а ВИ?» після своєї відповіді.' },
+            { en: 'Slide 26 shows it with a name: <b>Nasılsınız Ostap Bey?</b>', uk: 'На слайді 26 воно з іменем: <b>Nasılsınız Ostap Bey?</b>' },
+          ],
+          dialogue: [
+            { who: 'Ostap', tr: 'Benim adım Ostap. Nasılsınız?', uk: 'Мене звати Остап. Як ви?', en: 'My name is Ostap. How are you?' },
+            { who: 'Gülşah', tr: 'İyiyim, teşekkürler. Siz nasılsınız?', uk: 'Добре, дякую. А ви?', en: 'Fine, thanks. And you?' },
+            { who: 'Ostap', tr: 'Ben de iyiyim, teşekkür ederim.', uk: 'Я теж добре, дякую.', en: 'I am fine too, thank you.' },
+          ],
+        },
+        {
+          tr: 'Tanıştığımıza memnun oldum.',
+          say: 'таништиимиза́ мемну́н олду́м',
+          uk: 'Радий, що ми познайомилися (ввічливо; досл. «нашому знайомству я став радий»)',
+          en: 'Pleased to have met you. / Nice to meet you. (formal)',
+          parts: [
+            { m: 'tanış-', t: 'root', d: 'знайомитися (tanışmak)' },
+            { m: '-tığ-', t: 'suffix', d: 'дієприкметник -dık «те, що…» (d → t після ş, k → ğ перед голосною)' },
+            { m: '-ımız', t: 'suffix', d: 'наш: «наше знайомство»' },
+            { m: '-a', t: 'suffix', d: 'давальний відмінок: «за, через, з приводу»' },
+            { m: 'memnun', t: 'word', d: 'радий' },
+            { m: 'oldum', t: 'word', d: 'я став (ol- + -du + -m)' },
+          ],
+          verbs: ['tanışmak', 'olmak'],
+          notes: [
+            { en: 'Tanışma slides, slide 20 (the formal dialogue): “Gülşah: Tanıştığımıza memnun oldum. — Ostap: Ben de memnun oldum.” The short <a href="#greetings/introduce-5">Memnun oldum</a> is the everyday version.', uk: 'Слайди Tanışma, слайд 20 (формальний діалог): «Gülşah: Tanıştığımıza memnun oldum. — Ostap: Ben de memnun oldum.» Коротке <a href="#greetings/introduce-5">Memnun oldum</a> це повсякденна версія.' },
+            { en: 'Learn it as a fixed phrase. The grammar (the -dık participle) is a B1 topic: <a href="#grammar/participle">tanış-tığ-ımız-a</a>.', uk: 'Вчити як готову фразу. Граматика (дієприкметник -dık) це тема рівня B1: <a href="#grammar/participle">tanış-tığ-ımız-a</a>.' },
+            { en: 'The reply stays short: <b>Ben de memnun oldum.</b>', uk: 'Відповідь коротка: <b>Ben de memnun oldum.</b>' },
+          ],
+        },
+        {
+          tr: 'Gülşah Hanım · Mehmet Bey · Bay John',
+          say: 'гюльша́х хани́м · мехме́т бей · бай джон',
+          uk: 'Пані Ґюльшах · пан Мехмет · містер Джон (ввічливе звертання)',
+          en: 'Ms Gülşah · Mr Mehmet · Mr John (polite address)',
+          parts: [
+            { m: 'hanım', t: 'word', d: 'пані (ПІСЛЯ імені жінки)' },
+            { m: 'bey', t: 'word', d: 'пан (ПІСЛЯ імені чоловіка)' },
+            { m: 'bay', t: 'word', d: 'пан, містер (ПЕРЕД іменем, для іноземців і в офіційних списках)' },
+          ],
+          words: [
+            { tr: 'Gülşah', uk: 'ім’я вчительки (Gülşah Özkan)' },
+            { tr: 'Mehmet, Ahmet, Cenk', uk: 'чоловічі імена' },
+          ],
+          table: {
+            title: 'Слайд 21: Hanım – Bey [Miss – Mr.]',
+            head: ['Повне ім’я', 'Звертання', 'Правило'],
+            rows: [
+              ['Gülşah Özkan', 'Gülşah Hanım, Julia Hanım', 'жінка: ім’я + Hanım'],
+              ['Mehmet Aslan', 'Mehmet Bey, Ahmet Bey, Cenk Bey', 'чоловік: ім’я + Bey'],
+              ['John Abraham', 'Bay John, Bay Trump, Bay Micheal', 'іноземець / офіційно: Bay + ім’я або прізвище'],
+            ],
+          },
+          notes: [
+            { en: 'Tanışma slides, slide 21. <b>Hanım</b> and <b>Bey</b> go AFTER the FIRST name: Gülşah Hanım, Ostap Bey (slide 26: “Nasılsınız Ostap Bey?”). This is the normal polite way to address a teacher, a colleague, a client.', uk: 'Слайди Tanışma, слайд 21. <b>Hanım</b> і <b>Bey</b> стоять ПІСЛЯ ІМЕНІ: Gülşah Hanım, Ostap Bey (слайд 26: «Nasılsınız Ostap Bey?»). Так ввічливо звертаються до вчительки, колеги, клієнта.' },
+            { en: '<b>Bay</b> (Mr) goes BEFORE the name, mostly for foreigners, in writing and in official lists: Bay John, Bay Trump. The female pair is <b>Bayan</b> (Mrs/Ms): Bayan Julia (not on the slide, added).', uk: '<b>Bay</b> (пан, містер) стоїть ПЕРЕД іменем, переважно для іноземців, у письмі та офіційних списках: Bay John, Bay Trump. Жіноча пара: <b>Bayan</b> (пані): Bayan Julia (на слайді нема, додано).' },
+            { en: 'With Hanım/Bey you automatically use the <b>siz</b> forms: <b>Gülşah Hanım, nasılsınız?</b>', uk: 'Разом із Hanım/Bey автоматично йдуть форми на <b>siz</b>: <b>Gülşah Hanım, nasılsınız?</b>' },
+            { en: 'Pronunciation: ı in Hanım is the Ukrainian «и»: ha-NIM; Bey rhymes with “bay” in English, Bay sounds like “buy”.', uk: 'Вимова: ı в Hanım це українське «и»: ха-НИМ; Bey = «бей», Bay = «бай».' },
+          ],
+        },
+        {
+          tr: 'Hoş geldiniz!',
+          say: 'хош гельдіні́з',
+          uk: 'Ласкаво просимо! (до кількох людей або ввічливо)',
+          en: 'Welcome! (formal / plural)',
+          parts: [
+            { m: 'hoş', t: 'word', d: 'приємний' },
+            { m: 'gel-', t: 'root', d: 'приходити (gelmek)' },
+            { m: '-di', t: 'suffix', d: 'минулий час' },
+            { m: '-niz', t: 'suffix', d: 'особа: ви' },
+          ],
+          verbs: ['gelmek'],
+          notes: [
+            { en: 'Tanışma slides, slide 28: “Hoş geldiniz! [Welcome]”, marked Formal. Informal: <a href="#greetings/hello-3">Hoş geldin!</a> (slide 2).', uk: 'Слайди Tanışma, слайд 28: «Hoş geldiniz! [Welcome]», позначка Formal. Неформально: <a href="#greetings/hello-3">Hoş geldin!</a> (слайд 2).' },
+            { en: 'This is what you hear in shops, restaurants and hotels. The reply does not change: <b>Hoş bulduk!</b>', uk: 'Саме це чуєш у магазинах, ресторанах і готелях. Відповідь не змінюється: <b>Hoş bulduk!</b>' },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'dialogues',
+      en: 'Full dialogues (Tanışma)',
+      title: 'Повні діалоги (Tanışma)',
+      source: { label: 'Слайди Türkçe Tanışma, 10.10.2026, слайди 25–26', image: 'source/slides/tanisma-01-title.jpg' },
+      slides: [
+        {
+          tr: 'Tanışma (gayriresmi)',
+          say: 'танишма́ (гайрі ресмі́)',
+          uk: 'Знайомство (неформально, на «ти»): повний діалог зі слайда 25',
+          en: 'Getting acquainted (informal): the full dialogue from slide 25',
+          parts: [
+            { m: 'tanış-', t: 'root', d: 'знайомитися' },
+            { m: '-ma', t: 'suffix', d: 'робить іменник з дієслова: tanışma = знайомство' },
+          ],
+          verbs: ['tanışmak'],
+          dialogue: [
+            { who: 'Gülşah', tr: 'Merhaba! Benim adım Gülşah. Senin adın ne?', uk: 'Привіт! Мене звати Ґюльшах. Як тебе звати?', en: 'Hello! My name is Gülşah. What is your name?' },
+            { who: 'Ostap', tr: 'Merhaba! Benim adım Ostap. Nasılsın?', uk: 'Привіт! Мене звати Остап. Як справи?', en: 'Hello! My name is Ostap. How are you?' },
+            { who: 'Gülşah', tr: 'İyiyim, teşekkür ederim. Sen nasılsın?', uk: 'Добре, дякую. А ти?', en: 'Fine, thank you. And you?' },
+            { who: 'Ostap', tr: 'İyiyim, teşekkürler. Memnun oldum.', uk: 'Добре, дякую. Приємно познайомитися.', en: 'Fine, thanks. Nice to meet you.' },
+            { who: 'Gülşah', tr: 'Ben de memnun oldum!', uk: 'Мені теж приємно!', en: 'Nice to meet you too!' },
+            { who: 'Ostap', tr: 'Güle güle!', uk: 'Бувай!', en: 'Bye!' },
+            { who: 'Gülşah', tr: 'Hoşça kal!', uk: 'Бувай!', en: 'Goodbye!' },
+          ],
+          notes: [
+            { en: 'The whole informal set in one go: Merhaba → Benim adım … → Senin adın ne? → Nasılsın? → İyiyim, teşekkürler → Memnun oldum → Güle güle / Hoşça kal.', uk: 'Увесь неформальний набір одним куском: Merhaba → Benim adım … → Senin adın ne? → Nasılsın? → İyiyim, teşekkürler → Memnun oldum → Güle güle / Hoşça kal.' },
+            { en: 'Slide spelling: “Tanışma [Informal]”; on slide 12 “Gayrı resmi”. The dictionary form is <b>gayriresmi</b> (informal), <b>resmi</b> (formal).', uk: 'На слайді: «Tanışma [Informal]»; на слайді 12 «Gayrı resmi». Словникова форма: <b>gayriresmi</b> (неформальний), <b>resmi</b> (формальний, офіційний).' },
+          ],
+        },
+        {
+          tr: 'Tanışma (resmi)',
+          say: 'танишма́ (ресмі́)',
+          uk: 'Знайомство (формально, на «ви»): діалог зі слайда 26, репліки Остапа заповнено',
+          en: 'Getting acquainted (formal): the dialogue from slide 26, Ostap’s lines filled in',
+          parts: [
+            { m: 'tanışma', t: 'word', d: 'знайомство' },
+            { m: 'resmi', t: 'word', d: 'офіційний, формальний' },
+          ],
+          verbs: ['tanışmak'],
+          dialogue: [
+            { who: 'Gülşah', tr: 'Merhaba! Adınız ne?', uk: 'Добрий день! Як вас звати?', en: 'Hello! What is your name?' },
+            { who: 'Ostap', tr: 'Merhaba! Benim adım Ostap. Sizin adınız ne?', uk: 'Добрий день! Мене звати Остап. А вас?', en: 'Hello! My name is Ostap. What is your name?' },
+            { who: 'Gülşah', tr: 'Benim adım Gülşah. Nasılsınız Ostap Bey?', uk: 'Мене звати Ґюльшах. Як ви, пане Остапе?', en: 'My name is Gülşah. How are you, Mr Ostap?' },
+            { who: 'Ostap', tr: 'İyiyim, teşekkür ederim. Siz nasılsınız Gülşah Hanım?', uk: 'Добре, дякую. А ви, пані Ґюльшах?', en: 'Fine, thank you. And you, Ms Gülşah?' },
+            { who: 'Gülşah', tr: 'Ben de iyiyim, teşekkürler. Memnun oldum!', uk: 'Я теж добре, дякую. Приємно познайомитися!', en: 'I am fine too, thanks. Nice to meet you!' },
+            { who: 'Ostap', tr: 'Ben de memnun oldum. / Tanıştığımıza memnun oldum.', uk: 'Мені теж приємно.', en: 'Nice to meet you too.' },
+            { who: 'Gülşah', tr: 'Güle güle!', uk: 'Бувайте!', en: 'Bye!' },
+            { who: 'Ostap', tr: 'Hoşça kalın!', uk: 'Бувайте! (на «ви»)', en: 'Goodbye! (formal)' },
+          ],
+          notes: [
+            { en: 'On slide 26 Ostap’s lines are blank: it is a homework exercise. The answers above are my fill-in (not on the slide). Check: every “you” form is a <b>siz</b> form (adınız, nasılsınız, kalın) and the teacher is addressed as <b>Gülşah Hanım</b>.', uk: 'На слайді 26 репліки Остапа порожні: це домашня вправа. Відповіді вище це моє заповнення (на слайді їх нема). Перевір: кожне «ви» у формі <b>siz</b> (adınız, nasılsınız, kalın), а до вчительки звертання <b>Gülşah Hanım</b>.' },
+            { en: 'Compare with the informal version above: only the “you” forms and the name + Bey/Hanım change. Rule: <a href="#grammar/sen-siz">sen / siz</a>.', uk: 'Порівняй з неформальною версією вище: змінюються тільки форми «ти/ви» та ім’я + Bey/Hanım. Правило: <a href="#grammar/sen-siz">sen / siz</a>.' },
           ],
         },
       ],

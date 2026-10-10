@@ -15,7 +15,8 @@ const IDIOMA = (() => {
   function register(cat) { cats.push(cat); }
   function glossary(map) { Object.entries(map).forEach(([k, v]) => k.split(',').forEach((x) => { gloss[x.trim().toLowerCase()] = v; })); }
   const findCat = (id) => cats.find((c) => c.id === id) || null;
-  const entryId = (t, i) => t.slides[i].id || `${t.id}-${i + 1}`;
+  // авто-id рахує лише записи без явного id, тож вставка запису з id посередині не зсуває сусідів
+  const entryId = (t, i) => t.slides[i].id || `${t.id}-${t.slides.slice(0, i).filter((x) => !x.id).length + 1}`;
   // '-m / -k' → ['-m','-k'];  'iste- → isti-' → ['iste-']
   const norm = (m) => String(m).toLowerCase().split('→')[0].split('/').map((x) => x.trim()).filter(Boolean);
   const glossOf = (m) => gloss[String(m).toLowerCase().trim()] || norm(m).map((x) => gloss[x]).find(Boolean) || '';
@@ -190,7 +191,25 @@ const IDIOMA = (() => {
   }
   function closeMenu() { $('sidebar').classList.remove('open'); }
 
+  // тема: night / day, запам'ятовується у localStorage (може бути недоступний)
+  function applyTheme(t) {
+    if (t) document.documentElement.dataset.theme = t; else delete document.documentElement.dataset.theme;
+    const dark = t ? t === 'night' : matchMedia('(prefers-color-scheme: dark)').matches;
+    $('themeBtn').textContent = dark ? '☀' : '☾';
+  }
+  function initTheme() {
+    let t = document.documentElement.dataset.theme || null; try { t = localStorage.getItem('idioma-theme') || t; } catch (e) {}
+    applyTheme(t);
+    $('themeBtn').addEventListener('click', () => {
+      const dark = document.documentElement.dataset.theme ? document.documentElement.dataset.theme === 'night' : matchMedia('(prefers-color-scheme: dark)').matches;
+      const next = dark ? 'day' : 'night';
+      try { localStorage.setItem('idioma-theme', next); } catch (e) {}
+      applyTheme(next);
+    });
+  }
+
   function start() {
+    initTheme();
     buildIndex();
     renderNav();
     render();
