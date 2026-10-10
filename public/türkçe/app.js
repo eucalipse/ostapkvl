@@ -277,7 +277,7 @@ const IDIOMA = (() => {
 
   // ---------- модалка з розбором речення ----------
   function modalHTML(a) {
-    const head = `<div class="mhead"><span class="phrase">${esc(a.text)}</span><button class="speak" data-say="${esc(a.text)}">🔈</button>${a.entry ? `<a class="mopen" href="${a.entry.href}">open in page · відкрити на сторінці →</a>` : ''}</div>`;
+    const head = `<div class="mhead"><span class="phrase">${esc(a.text)}</span><button class="speak" data-say="${esc(a.text)}">🔈</button>${a.entry ? `<a class="mopen" href="${a.entry.href}">open in page · відкрити →</a>` : ''}</div>`;
     if (a.entry) return head + entryHTML(a.entry, true);
     const wordsHTML = a.words.map((w) => `<div class="mword"><div class="mw">${esc(w.word)}</div><div class="parts">${w.segs.map((g) => {
       const rule = g.key ? norm(g.key).flatMap(rulesFor)[0] : null;

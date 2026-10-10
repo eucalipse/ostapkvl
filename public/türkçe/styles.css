@@ -256,25 +256,30 @@ table.tbl { border-collapse: collapse; width: 100%; font-size: 13px; margin-top:
   .rels { flex-direction: row; flex-wrap: wrap; }
 }
 
-/* ---------- клікабельні фрази і модалка ---------- */
+/* ---------- клікабельні фрази і висувна права панель ---------- */
 .ph { cursor: pointer; border-bottom: 1px dotted rgb(var(--c-accent) / .45); }
 .ph:hover { color: var(--gold); border-bottom-style: solid; }
 code.ph { border-bottom: 1px solid var(--line); }
-.modal { display: none; position: fixed; inset: 0; background: rgb(18 17 16 / .55); z-index: 50; padding: 40px 16px; overflow-y: auto; backdrop-filter: blur(3px); }
-.modal.open { display: block; }
-.mcard { position: relative; max-width: 960px; margin: 0 auto; background: var(--bg); border: 1px solid var(--line-strong); border-radius: 14px; padding: 22px 24px; box-shadow: var(--shadow-pop), 0 20px 60px rgb(0 0 0 / .4); }
-.mclose { position: absolute; top: 12px; right: 12px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink-2); width: 30px; height: 30px; border-radius: 8px; cursor: pointer; }
+.drawer { position: fixed; inset: 0; z-index: 50; pointer-events: none; background: rgb(18 17 16 / 0); transition: background .25s; }
+.drawer.open { pointer-events: auto; background: rgb(18 17 16 / .35); }
+.dcard {
+  position: absolute; top: 0; right: 0; bottom: 0; width: min(640px, 92vw); background: var(--bg); border-left: 1px solid var(--line-strong);
+  box-shadow: -12px 0 40px rgb(0 0 0 / .35); padding: 22px 24px 40px; overflow-y: auto; transform: translateX(100%); transition: transform .25s ease;
+}
+.drawer.open .dcard { transform: none; }
+.mclose { position: sticky; top: 0; float: right; border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink-2); width: 30px; height: 30px; border-radius: 8px; cursor: pointer; z-index: 1; }
 .mclose:hover { color: var(--gold); }
 .mhead { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; margin: 0 40px 10px 0; }
 .mhead .phrase { font-family: var(--font-display); font-size: 24px; }
 .mopen { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; }
-.mcard .entry { margin-bottom: 0; }
+.dcard .entry { margin-bottom: 0; grid-template-columns: 1fr; grid-template-areas: "head" "trans" "body" "graph"; }
+.dcard .entry .graph { padding-left: 0; border-left: 0; padding-top: 8px; border-top: 1px dashed var(--line-strong); }
 .mnote { font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-3); letter-spacing: .06em; text-transform: uppercase; margin: 0 0 10px; }
 .mwords { display: flex; flex-direction: column; gap: 8px; }
-.mword { display: grid; grid-template-columns: 150px 1fr; gap: 12px; align-items: start; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.mword { display: grid; grid-template-columns: 130px 1fr; gap: 12px; align-items: start; padding: 8px 0; border-bottom: 1px solid var(--line); }
 .mword .mw { font-family: var(--font-display); font-size: 19px; }
 .mword .parts { margin-top: 0; }
-.mcard .graph { margin-top: 12px; padding-left: 0; border-left: 0; }
-.mcard .rels { flex-direction: row; flex-wrap: wrap; gap: 6px; align-items: center; }
-.mcard .rels .k { min-width: 140px; }
-@media (max-width: 860px) { .mword { grid-template-columns: 1fr; gap: 4px; } .modal { padding: 16px 8px; } .mcard { padding: 16px; } }
+.dcard .graph { margin-top: 12px; padding-left: 0; border-left: 0; }
+.dcard .rels { flex-direction: row; flex-wrap: wrap; gap: 6px; align-items: center; }
+.dcard .rels .k { min-width: 140px; }
+@media (max-width: 860px) { .mword { grid-template-columns: 1fr; gap: 4px; } .dcard { padding: 16px; } }
