@@ -1,8 +1,8 @@
 /* Idioma — стиль за мотивами дизайн-системи Athena: теплий графіт (night) і теплий папір (day),
    Playfair Display для заголовків, DM Sans для тексту, JetBrains Mono для морфем. Без чистого чорного/білого. */
 :root, [data-theme="night"] {
-  --c-bg: 30 29 27;  --c-surface: 37 36 33;  --c-card: 43 42 39;
-  --c-text: 232 228 220;  --c-text-2: 168 162 154;  --c-text-3: 151 145 138;
+  --c-bg: 44 42 39;  --c-surface: 51 49 45;  --c-card: 58 56 52;
+  --c-text: 222 217 208;  --c-text-2: 172 166 157;  --c-text-3: 150 144 136;
   --c-accent: 201 168 119;  --c-accent-text: 209 183 144;  --c-on-accent: 30 29 27;
   --c-success: 153 183 159;  --c-warning: 216 183 132;  --c-danger: 214 161 151;  --c-info: 165 182 202;  --c-violet: 184 170 207;
   --c-line: 255 250 240;
@@ -11,26 +11,26 @@
   color-scheme: dark;
 }
 [data-theme="day"] {
-  --c-bg: 244 241 234;  --c-surface: 250 248 243;  --c-card: 255 253 249;
-  --c-text: 42 39 34;  --c-text-2: 94 88 80;  --c-text-3: 114 107 97;
+  --c-bg: 236 232 223;  --c-surface: 242 238 230;  --c-card: 247 244 237;
+  --c-text: 58 54 48;  --c-text-2: 104 98 90;  --c-text-3: 128 121 112;
   --c-accent: 156 122 69;  --c-accent-text: 119 96 58;  --c-on-accent: 255 253 249;
   --c-success: 58 101 70;  --c-warning: 126 90 32;  --c-danger: 134 64 54;  --c-info: 58 81 109;  --c-violet: 94 77 128;
   --c-line: 40 35 25;
   --tint: 0.09;  --tint-border: 0.22;
   --shadow-soft: 0 1px 2px rgb(40 35 25 / .04), 0 1px 1px rgb(40 35 25 / .03);
-  --shadow-pop: 0 12px 32px -8px rgb(40 35 25 / .16), 0 2px 6px rgb(40 35 25 / .06);
+  --shadow-pop: 0 12px 32px -8px rgb(40 35 25 / .12), 0 2px 6px rgb(40 35 25 / .05);
   color-scheme: light;
 }
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="night"]) {
-    --c-bg: 244 241 234;  --c-surface: 250 248 243;  --c-card: 255 253 249;
-    --c-text: 42 39 34;  --c-text-2: 94 88 80;  --c-text-3: 114 107 97;
+    --c-bg: 236 232 223;  --c-surface: 242 238 230;  --c-card: 247 244 237;
+    --c-text: 58 54 48;  --c-text-2: 104 98 90;  --c-text-3: 128 121 112;
     --c-accent: 156 122 69;  --c-accent-text: 119 96 58;  --c-on-accent: 255 253 249;
     --c-success: 58 101 70;  --c-warning: 126 90 32;  --c-danger: 134 64 54;  --c-info: 58 81 109;  --c-violet: 94 77 128;
     --c-line: 40 35 25;
     --tint: 0.09;  --tint-border: 0.22;
     --shadow-soft: 0 1px 2px rgb(40 35 25 / .04), 0 1px 1px rgb(40 35 25 / .03);
-    --shadow-pop: 0 12px 32px -8px rgb(40 35 25 / .16), 0 2px 6px rgb(40 35 25 / .06);
+    --shadow-pop: 0 12px 32px -8px rgb(40 35 25 / .12), 0 2px 6px rgb(40 35 25 / .05);
     color-scheme: light;
   }
 }
@@ -261,10 +261,10 @@ table.tbl { border-collapse: collapse; width: 100%; font-size: 13px; margin-top:
 .ph:hover { color: var(--gold); border-bottom-style: solid; }
 code.ph { border-bottom: 1px solid var(--line); }
 .drawer { position: fixed; inset: 0; z-index: 50; pointer-events: none; background: rgb(18 17 16 / 0); transition: background .25s; }
-.drawer.open { pointer-events: auto; background: rgb(18 17 16 / .35); }
+.drawer.open { pointer-events: auto; background: rgb(30 28 25 / .28); }
 .dcard {
   position: absolute; top: 0; right: 0; bottom: 0; width: min(640px, 92vw); background: var(--bg); border-left: 1px solid var(--line-strong);
-  box-shadow: -12px 0 40px rgb(0 0 0 / .35); padding: 22px 24px 40px; overflow-y: auto; transform: translateX(100%); transition: transform .25s ease;
+  box-shadow: -12px 0 40px rgb(0 0 0 / .22); padding: 22px 24px 40px; overflow-y: auto; transform: translateX(100%); transition: transform .25s ease;
 }
 .drawer.open .dcard { transform: none; }
 .mclose { position: sticky; top: 0; float: right; border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink-2); width: 30px; height: 30px; border-radius: 8px; cursor: pointer; z-index: 1; }
