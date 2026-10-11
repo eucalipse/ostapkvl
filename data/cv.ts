@@ -1,20 +1,24 @@
+import { site } from "./site";
+
 export type CvEntry = {
   years: string;
   title: string;
   org: string;
+  orgLinkedin?: string;
   location?: string;
   note?: string;
   bullets?: string[];
 };
 
 export const summary =
-  "Chief Architect and AI systems engineer. I design and ship production AI agent platforms end-to-end — multi-model consensus, human approval gates, full audit trails — in regulated environments. Serial technical founder: three startups (one acquired) and a software agency with 50+ shipped projects.";
+  "Chief Architect at Mission Law and founder of Eucalipse. I design and ship production AI agent platforms end-to-end — multi-model consensus, human approval gates, full audit trails — in regulated environments. Serial technical founder: three startups (one acquired) and a software agency with 50+ shipped projects.";
 
 export const experience: CvEntry[] = [
   {
     years: "2026 — now",
     title: "Chief Architect",
-    org: "US venture-law firm",
+    org: "Mission Law",
+    orgLinkedin: site.missionLawLinkedin,
     location: "San Francisco Bay Area, remote",
     bullets: [
       "Own the architecture across the firm's platform — the AI agent system and the client operations app — and lead the AI engineering stream: roadmap, architecture decisions, hiring.",
@@ -25,7 +29,8 @@ export const experience: CvEntry[] = [
   {
     years: "2026",
     title: "AI Systems Engineer",
-    org: "US venture-law firm",
+    org: "Mission Law",
+    orgLinkedin: site.missionLawLinkedin,
     bullets: [
       "Architected and built the firm's AI platform largely solo: autonomous agents operating across Slack, tasks, and email with human approval gates.",
       "Designed knowledge search answering from the firm's entire history — emails, messages, documents — using multiple AI models in consensus.",
@@ -36,7 +41,8 @@ export const experience: CvEntry[] = [
   {
     years: "2025 — 2026",
     title: "Lead Software Engineer",
-    org: "US venture-law firm",
+    org: "Mission Law",
+    orgLinkedin: site.missionLawLinkedin,
     bullets: [
       "Built the firm's client operating system — founders manage services, financing rounds, document signing, and billing.",
       "Client portal and admin panel with service state machines; dual-database architecture (Airtable as source of truth synced to Supabase).",
@@ -47,6 +53,7 @@ export const experience: CvEntry[] = [
     years: "2019 — now",
     title: "Founder & AI Systems Architect",
     org: "Eucalipse",
+    orgLinkedin: site.eucalipseLinkedin,
     note: "50+ projects shipped",
     bullets: [
       "Software agency shipping custom platforms for startups and enterprises: SaaS products, web platforms, dedicated teams. Led architecture, hiring, and delivery.",

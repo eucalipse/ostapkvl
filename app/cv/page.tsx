@@ -13,7 +13,7 @@ import { PrintButton } from "./print-button";
 // Unlisted: reachable only via the About button or a shared link.
 export const metadata: Metadata = {
   title: "CV",
-  description: "Ostap Kovalisko — Chief Architect. Full CV.",
+  description: "Ostap Kovalisko — Chief Architect at Mission Law and founder of Eucalipse. Full CV.",
   robots: { index: false, follow: false },
 };
 
@@ -57,6 +57,14 @@ export default function Cv() {
                 </h3>
                 <p className="text-sm text-muted">
                   {entry.org}
+                  {entry.orgLinkedin && (
+                    <>
+                      {" · "}
+                      <a href={entry.orgLinkedin} aria-label={`${entry.org} on LinkedIn`} className="text-accent underline decoration-line underline-offset-4 hover:decoration-accent">
+                        LinkedIn
+                      </a>
+                    </>
+                  )}
                   {entry.location ? ` · ${entry.location}` : ""}
                   {entry.note ? ` · ${entry.note}` : ""}
                 </p>

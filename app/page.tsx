@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getAllPosts, formatDate } from "@/lib/posts";
+import { site } from "@/data/site";
 
 export default function Home() {
   const posts = getAllPosts().slice(0, 3);
@@ -18,11 +19,18 @@ export default function Home() {
           Chief Architect · I build AI agents that run business operations.
         </p>
         <p className="mt-8 max-w-prose text-lg">
-          I build production AI agent platforms end-to-end — multi-model
-          consensus, approval gates, full audit trails — currently as Chief
-          Architect at a US professional-services firm. Before that: founder or
-          CTO of three startups (one acquired) and founder of a software agency
-          that has shipped 50+ projects since 2019.
+          I build production AI agent platforms with multi-model consensus,
+          human approval gates and full audit trails. I&apos;m Chief Architect
+          at{" "}
+          <a href={site.missionLawLinkedin} aria-label="Mission Law on LinkedIn" className="text-accent underline decoration-line underline-offset-4 hover:decoration-accent">
+            Mission Law
+          </a>
+          , a US law firm, and founder of{" "}
+          <a href={site.eucalipseLinkedin} aria-label="Eucalipse on LinkedIn" className="text-accent underline decoration-line underline-offset-4 hover:decoration-accent">
+            Eucalipse
+          </a>
+          , where we&apos;ve shipped 50+ software projects since 2019. Before
+          that: founder or CTO of three startups, one acquired.
         </p>
         <div className="mt-10 flex flex-wrap gap-4">
           <Link
@@ -35,7 +43,7 @@ export default function Home() {
             href="/contact"
             className="border border-line px-5 py-2.5 text-sm transition-colors hover:border-accent hover:text-accent"
           >
-            Work with me
+            Discuss a project
           </Link>
         </div>
       </section>
@@ -84,7 +92,7 @@ export default function Home() {
             AI Operations Platform
           </h3>
           <p className="mt-3 max-w-prose">
-            The system I own end-to-end at a US professional-services firm:
+            The system I own end-to-end at Mission Law:
             60+ AI actions behind a router and a propose/confirm/execute state
             machine, 3-model consensus answers, a knowledge graph, and a
             human-in-the-loop review queue with one-click revert. Built largely
@@ -100,8 +108,9 @@ export default function Home() {
       {/* Now strip */}
       <section className="border-t border-line py-10" data-analytics-placement="home-now">
         <p className="font-mono text-xs text-muted">
-          <span className="text-accent">now</span> — Chief Architect @ a US firm
-          · Founder @ <a href="https://eucalipse.com" className="underline decoration-line underline-offset-4 hover:text-accent">Eucalipse</a> · writing
+          <span className="text-accent">now</span> — Chief Architect @{" "}
+          <a href={site.missionLawLinkedin} aria-label="Mission Law on LinkedIn" className="underline decoration-line underline-offset-4 hover:text-accent">Mission Law</a>
+          {" "}· Founder @ <a href={site.eucalipse} className="underline decoration-line underline-offset-4 hover:text-accent">Eucalipse</a> · writing
           about AI agents in production
         </p>
       </section>

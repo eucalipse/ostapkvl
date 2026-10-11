@@ -12,7 +12,7 @@ export const projects: Project[] = [
   {
     title: "AI Operations Platform",
     description:
-      "A production agent platform for a US professional-services firm: 60+ AI actions, 3-model consensus answers, a Neo4j knowledge graph, and Slack, email, and chat interfaces. A router and propose/confirm/execute state machine enforce approval rules: humans review actions by default, while eligible categories can execute under an explicit policy. Every action is logged, with one-click revert where the underlying operation supports it.",
+      "A production agent platform at Mission Law: 60+ AI actions, 3-model consensus answers, a Neo4j knowledge graph, and Slack, email, and chat interfaces. A router and propose/confirm/execute state machine enforce approval rules: humans review actions by default, while eligible categories can execute under an explicit policy. Every action is logged, with one-click revert where the underlying operation supports it.",
     stack: ["TypeScript", "Next.js", "Postgres", "Claude / GPT / Gemini", "Neo4j"],
     art: "gates",
   },

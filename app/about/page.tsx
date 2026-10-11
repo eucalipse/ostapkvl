@@ -6,26 +6,29 @@ import { site } from "@/data/site";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Ostap Kovalisko — Chief Architect and AI systems engineer. Serial technical founder, builder of production AI agent platforms in regulated environments.",
+    "Ostap Kovalisko — Chief Architect at Mission Law and founder of Eucalipse. Builder of production AI agent platforms in regulated environments.",
 };
 
 const timeline = [
   {
     years: "Sep 2026 — now",
     title: "Chief Architect",
-    org: "US venture-law firm",
+    org: "Mission Law",
+    orgLinkedin: site.missionLawLinkedin,
     body: "Architecture of the AI platform and the client operations app; leads the AI engineering stream. Built the agent platform largely solo: an action system with propose/confirm/execute gates, 3-model consensus search, a knowledge graph, 13 integrations, and a human-in-the-loop review queue with a full audit trail.",
   },
   {
     years: "2025 — 2026",
     title: "Lead Software Engineer → AI Systems Engineer",
-    org: "same firm",
+    org: "Mission Law",
+    orgLinkedin: site.missionLawLinkedin,
     body: "First the client portal and admin operating system — service state machines, dual-database sync, document signing and billing integrations — then the move to the AI platform full-time.",
   },
   {
     years: "2019 — now",
     title: "Founder & AI Systems Architect",
     org: "Eucalipse",
+    orgLinkedin: site.eucalipseLinkedin,
     body: "Software agency, 50+ shipped projects; AI operations systems for retail, accounting, consulting, ESG, and asset management.",
   },
   {
@@ -57,16 +60,22 @@ export default function About() {
 
       <div className="mt-8 space-y-5 text-lg">
         <p>
-          I&apos;m a senior engineer who builds AI systems that do real work
-          inside companies — not chatbots, not demos. My specialty is
-          production agent platforms in regulated environments: systems that
-          read email, draft responses, reconcile billing, and flag what needs a
-          human, with approval gates and a full audit trail.
+          I&apos;m Chief Architect at{" "}
+          <a href={site.missionLawLinkedin} aria-label="Mission Law on LinkedIn" className="text-accent underline decoration-line underline-offset-4 hover:decoration-accent">
+            Mission Law
+          </a>
+          , a US law firm. I build production agent platforms in regulated
+          environments: systems that read email, draft responses, reconcile
+          billing, and flag what needs a human, with approval gates and a full
+          audit trail.
         </p>
         <p>
           I&apos;m also a serial founder. Three startups as CTO or technical
-          co-founder — one acquired — and a software agency, Eucalipse, that
-          has shipped 50+ projects since 2019. These days I work across US
+          co-founder — one acquired — and a software agency,{" "}
+          <a href={site.eucalipseLinkedin} aria-label="Eucalipse on LinkedIn" className="text-accent underline decoration-line underline-offset-4 hover:decoration-accent">
+            Eucalipse
+          </a>
+          , that has shipped 50+ projects since 2019. These days I work across US
           time zones from wherever the map takes me.
         </p>
       </div>
@@ -85,6 +94,14 @@ export default function About() {
                   {item.title}{" "}
                   <span className="font-sans text-sm font-normal text-muted">
                     · {item.org}
+                    {item.orgLinkedin && (
+                      <>
+                        {" · "}
+                        <a href={item.orgLinkedin} aria-label={`${item.org} on LinkedIn`} className="text-accent underline decoration-line underline-offset-4 hover:decoration-accent">
+                          LinkedIn
+                        </a>
+                      </>
+                    )}
                   </span>
                 </h3>
                 <p className="mt-1.5 text-sm text-muted">{item.body}</p>
