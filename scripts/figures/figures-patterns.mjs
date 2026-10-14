@@ -1,0 +1,9 @@
+export default function(C, {text, rect, arrow, svg}) {
+const items = {"review-the-decision-not-just-the-diff": ["Review the decision", ["Intent and invariant", "Patch at a known revision", "Checks and counterexamples", "Human review decision", "Controlled integration"], "New substantive edits require renewed review"], "agent-actions-under-retries": ["Track the operation", ["Proposed action + operation ID", "Approval bound to payload", "Execute with current permissions", "Success / failure / unknown", "Reconcile before unsafe retries"], "A retry keeps the operation identity"], "parallel-agents-shared-codebase": ["Coordinate before parallelizing", ["Agree on shared contracts", "Independent tasks and environments", "Commits with evidence", "Test the combined revision", "Integrate under one owner"], "Separate files do not guarantee compatible behavior"], "marketplace-that-keeps-working": ["A bounded operating loop", ["Observe incoming signals", "Select permitted work", "Run a bounded job", "Record outcome and exceptions", "Observe again"], "Human policy controls priorities and pauses"], "from-public-sources-to-trusted-data": ["Evidence before acceptance", ["Discover candidate sources", "Extract structured candidates", "Check identity and validity", "Accept or route to review", "Revisit sources for freshness"], "Conceptual flow: acceptance is not permanent truth"]};
+return Object.fromEntries(Object.entries(items).map(([slug,[title,steps,note]]) => [slug+"/flow", () => {
+let body="";
+steps.forEach((label,i)=>{const y=110+i*96; body+=rect(70,y,1060,68,{fill:"#fff"}); body+=text(105,y+43,String(i+1),{size:24,fill:C.accent}); body+=text(165,y+43,label,{size:25}); if(i<4) body+=arrow(600,y+70,600,y+92);});
+body+=text(70,625,note,{size:18,fill:C.muted});
+return svg(title,body);
+}]));
+}

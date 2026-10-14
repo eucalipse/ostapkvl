@@ -162,6 +162,9 @@ figures["every-value-needs-a-source/field-states"] = () => {
   return svg("Every value shows where it came from", b, { subtitle: "Each value shows its state, not just the value. Example data." });
 };
 
+import patternFigures from "./figures-patterns.mjs";
+Object.assign(figures, patternFigures(C, { text, rect, arrow, svg }));
+
 // Codex-drafted articles add their figures below (see the article's FIGURE SPECS).
 import("./figures-extra.mjs").then((m) => Object.assign(figures, m.default(C, { text, lines, rect, arrow, chip, svg, SERIF, SANS, MONO, W, H }))).catch(() => {}).finally(() => {
   const only = process.argv[2];

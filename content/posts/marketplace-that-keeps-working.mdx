@@ -1,0 +1,50 @@
+---
+title: "A marketplace that keeps working between visits"
+date: "2026-11-07"
+dek: "Building autonomous operational loops around a marketplace, with a clear boundary between routine work and business decisions."
+readTime: "3 min read"
+category: "Experiments"
+draft: true
+---
+
+A marketplace looks like a collection of pages. Keeping those pages useful is an ongoing operation: information changes, listings need attention, messages arrive, and gaps appear in the catalog.
+
+In a marketplace project I work on, I have been building automation around that ongoing work. The interesting goal is a product that keeps useful processes moving between human visits. That is a narrower claim than a business that runs itself, and a more useful engineering target.
+
+This is an architectural account based on the implementation, with product names and operational details omitted. It is not a claim that every available workflow is currently enabled.
+
+<Figure src="/writing/marketplace-that-keeps-working/flow.svg" alt="Conceptual marketplace loop: observe, select permitted work, execute, record outcomes, and return to observation. Human policy controls the loop." caption="Conceptual architecture; not a measured performance chart." />
+
+## Give background work a lifecycle
+
+The implementation separates marketplace surfaces from background jobs. Its job catalog includes discovery, enrichment, content preparation, reporting, and inbox workflows. Scheduling and explicit triggers provide different ways to start work.
+
+The useful abstraction is a job with a known purpose, a bounded execution, and a recorded outcome. A language model can help interpret unstructured material inside that job. It does not need to decide the entire operating policy on every run.
+
+I think of the product as several smaller loops: maintaining information, handling incoming signals, and bringing exceptions back to an operator. They can run at different frequencies and have different permissions.
+
+## Automation should follow the product's current needs
+
+More catalog entries are not always the next useful outcome. The marketplace might need better existing listings, stronger ownership verification, or a clearer path from interest to a completed interaction.
+
+That is why I would avoid using "self-regulating" to mean that the model independently sets business priorities. The implementation includes controls for pausing categories of work. Human choices still determine which activities are worth running.
+
+A recurring schedule is open-loop automation until its outcomes affect what happens next. A useful feedback loop would inspect quality, failures, demand, and cost before allocating another batch. That is a design direction, not something a cron schedule alone establishes.
+
+## Preserve distinctions the model would otherwise flatten
+
+A discovered business is different from a business that has claimed its listing. An enriched description is different from verified availability. An incoming request is different from a confirmed transaction.
+
+These distinctions belong in the product's state and interface. Better prose cannot resolve missing evidence. If an automated process improves a description, it should not silently upgrade the commercial status of the listing.
+
+Similarly, an attempted enrichment should be distinguishable from a successful one. Marking both as processed may prevent repeated spending, but it can also hide unresolved quality problems. Explicit failed, skipped, and completed states make the next operational decision easier.
+
+## Stopping is part of the design
+
+The code includes category-level pauses. That is a valuable reminder that autonomy needs an off switch at the level where cost and risk occur.
+
+The stronger version of this pattern combines batch limits, run history, timeouts, and an operator's ability to suspend one workflow while leaving unrelated work available. A single global on/off switch is too coarse for a product with several kinds of automation.
+
+The human role shifts toward deciding priorities, reviewing exceptions, and checking whether the loops are producing useful outcomes. Those are substantial responsibilities. Automating routine work does not remove them.
+
+A marketplace can feel alive because information is maintained and incoming work is noticed. The engineering achievement is making those processes dependable and inspectable, with enough control to change direction when the business needs something different.
