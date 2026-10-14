@@ -96,6 +96,26 @@ button:focus-visible {
   color: inherit;
   font-size: inherit;
 }
+.article-body figure {
+  margin: 2.25rem 0;
+}
+
+.article-body figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid theme("colors.line");
+  border-radius: 6px;
+  background: #fff;
+}
+
+.article-body figcaption {
+  margin-top: 0.6rem;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: theme("colors.muted");
+}
+
 .article-body hr {
   border: none;
   border-top: 1px solid rgba(26, 24, 21, 0.12);

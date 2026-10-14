@@ -1,0 +1,96 @@
+---
+title: "Evals that grow themselves"
+date: "2026-10-14"
+dek: "How we turned confirmed request forms into a growing test set for choosing prompts and models with evidence."
+readTime: "6 min read"
+category: "Production"
+draft: true
+---
+
+An assistant reads a supplier email and fills in a request form. The supplier is right. The delivery address is right. The requested date looks reasonable. You change the prompt, run the email again, and the form still looks reasonable.
+
+Did anything improve?
+
+That is a harder question than it sounds. A filled form looks convincing, especially when you already expect the assistant to work. A blank field draws your eye. A wrong value sitting neatly in the right box often does not.
+
+We built a small regression harness for an assistant that turns emails and calls into structured request forms. It replays past requests where we know the final, human-confirmed form, then compares the output field by field. Every prompt or model change goes through the same items before it ships.
+
+The useful part was getting a repeatable answer to a boring question: what did this change break?
+
+## Start with requests you can read yourself
+
+My advice is to start with fifteen to twenty-five real examples. Do not wait until you have five hundred.
+
+Pick requests you can sit down and read. Include straightforward ones, incomplete ones, and ones where a person corrected the assistant. You want enough variety to expose mistakes, but few enough that you can explain every failure.
+
+Each example needs the source material and the confirmed form. Keep the inputs as they were when the assistant ran. If a reviewer learned the delivery date in a later call, that date cannot silently become something the assistant was expected to know from the original email.
+
+Take a logistics request: “please arrange collection next week” does not give a collection date. The final form might contain Tuesday because someone called the supplier afterward. Against the original email, leaving the date blank was correct.
+
+This is where building an eval forces you to clarify the job. Are we extracting what the source says, or completing the form using other information? Both can be useful. They need different inputs and different expectations.
+
+A small set makes those disagreements visible. A large set assembled carelessly gives you a precise score for a question you have not settled.
+
+## A blank and an invention are different failures
+
+We score each field as right, wrong, missing, guessed, or invented. The difference between them matters more than the overall percentage.
+
+Right means the value matches the confirmed answer and has support in the available source. Wrong means there was support for a value, but the assistant picked the wrong one, like the delivery address copied into the billing address. Missing means the source supplied an answer and the assistant left it out. An expected blank is right, not missing.
+
+Guessed means the assistant resolved something the evidence left uncertain. Think of an email naming two possible collection sites, followed by a form that confidently selects one. Invented means it supplied a value with no support in the source at all, such as a collection reference nobody provided.
+
+I want the uncertain cases called out even when a guess happens to match what the reviewer eventually chose. Getting lucky is not a behavior I want to reward.
+
+For this assistant, the cheaper error is usually a blank. Someone sees it and asks a question. A confident wrong value can survive review and become the detail someone uses to book a collection. The form looks more complete while the work becomes less reliable.
+
+That is why invented values need their own count. A change can improve total fields right while introducing inventions in fields that were previously blank. I would not call that an improvement without reading those cases.
+
+We also check whether each quoted source snippet exists word for word in the input. This is a separate check. A correct value with a fabricated quotation still fails the evidence requirement.
+
+An exact quotation does not prove the value follows from it. It only proves the words were there. That limitation belongs beside the score, because it is easy to give a passing check more meaning than it deserves.
+
+## Pick a model for the step
+
+We record cost and time per request alongside the field results. Without those, model selection becomes an argument about whose last demo looked better.
+
+A bigger model was not always better on our steps. That sounds obvious until you catch yourself treating a model upgrade as an improvement before running anything.
+
+The comparison needs the same requests, the same available context, and the same scoring rules. Otherwise you cannot tell whether the model changed the result or the test did.
+
+<Figure src="/writing/evals-that-grow-themselves/model-cost-quality.svg" alt="Five illustrative, unnamed models are plotted by cost per request and percentage of fields right, with a line joining the options that improve quality as cost rises. Among models that meet the quality and safety requirements, the cheapest suitable model wins for that step." caption="Illustrative numbers. Compare cost and quality per step; invented values remain a separate check." />
+
+The chart is a useful starting point, not the whole decision. A model above the required accuracy line still has to pass the checks for invented values and source quotations. Time matters too, especially when someone is waiting at a review screen.
+
+My next step is to benchmark several models and agent configurations separately for each part of the work. Detection might be cheap: is this message a new request? Extraction might justify a mid-sized model. Verification of required fields, allowed values, and exact quotations belongs in deterministic code wherever the rule is explicit.
+
+I do not need another model to decide whether a quoted string exists in an email. I need a string check.
+
+The model that wins extraction does not automatically win detection. Buying the most capable model for every step skips the measurement that would tell us where the money helps.
+
+## Let review produce the next example
+
+The best part of this setup is that the labels come from work people already do.
+
+A person opens the review screen, checks the proposed form, corrects it, and confirms. That confirmed request becomes a candidate example. We save the source alongside the confirmed values, so the next replay has both the question and the answer. Before it joins the set, we check that each expected value is supported by the original inputs, not by something learned later.
+
+The test set grows as the assistant gets used. We do not have to start a separate labeling project every time we want more coverage.
+
+<Figure src="/writing/evals-that-grow-themselves/review-eval-loop.svg" alt="Human confirmation produces a labeled example that expands the test set used for every change. A passing CI gate allows shipping and more reviewed requests, while a failure sends the change back for revision." caption="The workflow I am setting up: review supplies the examples, and a CI gate checks every change before it ships." />
+
+That does not make the labels infallible. Someone can confirm the wrong value. Someone can add information the assistant never saw. I still want to inspect disagreements and keep a fixed version of the test set for each comparison. I also keep a few examples aside that I never look at while tuning prompts, so I do not fit the prompt to the test. Otherwise new examples can move the score while we are trying to measure a prompt change.
+
+Real requests also leave gaps. We keep a small synthetic set for cases that rarely appear naturally, such as conflicting sources or “same as last time” when the previous request is unavailable. Those cases should test whether the assistant admits what it cannot establish.
+
+I keep their results separate from the real requests. Passing examples we wrote ourselves is useful, but it is different evidence.
+
+## Make the result block a change
+
+Running the harness before shipping is the habit. Making it a gate in CI is how I would enforce that habit.
+
+A prompt edit should produce a comparison against the current version: fields gained, fields lost, missing values, guesses, inventions, quotation failures, cost, and time. The failures should link back to the request and the changed fields.
+
+Set the acceptance rules before looking at the candidate. A failed rule should block the change until someone fixes it or explicitly reviews why the expectation should change.
+
+The test set will never cover everything. But every confirmed request gives us another piece of evidence, and every replay makes that evidence useful again.
+
+I want to open a proposed change and see which forms it improved, which it damaged, and what it costs. Then we can have a concrete argument about whether to ship it.

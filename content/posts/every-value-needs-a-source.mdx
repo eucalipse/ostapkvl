@@ -1,0 +1,68 @@
+---
+title: "Every value needs a source"
+date: "2026-10-14"
+dek: "How we turn messy emails and calls into forms a person can trust, without asking them to trust the model."
+readTime: "6 min read"
+category: "Production"
+draft: true
+---
+
+Most real work does not start with a form. It starts with a conversation. A customer writes an email with three requests in it. A partner mentions a deadline at minute twelve of a call. Two days later somebody sends one more detail in a reply that starts with "also".
+
+Someone on the team then reads all of that and types it into a system. Names, dates, amounts, terms. It is boring, it is slow, and it is where a lot of small mistakes are born. A wrong date copied from an old email. "Same as last time" turned into a guess.
+
+This is an obvious job for a language model. Read the thread, fill the form. And it works surprisingly well in a demo. The problem shows up in week two, when a person has to decide whether to trust the filled form. They look at a date and ask: where did this come from? If the answer is "the model said so", they have to go back to the emails and check everything themselves. At that point you have saved nobody any time.
+
+So we built the whole thing around one rule: every value needs a source a person can see.
+
+## Four steps, one of them human
+
+The pipeline has four steps. Three of them run on their own. The last one belongs to a person.
+
+<Figure src="/writing/every-value-needs-a-source/pipeline.svg" alt="A flow diagram. Emails, call notes and trusted records feed four steps: Detect finds the requests in a thread, Extract fills each value with the exact words it came from, Verify checks that quotes are real and that sources agree, and Review is where a person confirms. The output is a draft form where every value links to its source and nothing is saved until a person confirms." caption="From conversation to a checked form. Detect and Extract use a model; Verify is mostly plain code." />
+
+**Detect** reads a thread and answers a simple question: is there a request here, and how many? One email can hold three requests. A call can hold two requests and one "we are maybe thinking about" that is not a request at all. Getting this step right matters more than people expect. If you miss the request, nothing else helps.
+
+**Extract** fills the fields. The important part is what it returns. Not just a value, but the value plus the exact words it came from, and where those words are: which email, which message, which minute of the call. If the source says nothing, the field stays empty. If the words are vague, like "early next month", the model can suggest a value, but it must mark it as a guess. An empty field is honest. A guess that looks like a fact pretends.
+
+**Verify** is mostly not a model. It is plain code, and that is on purpose. It checks that every quote actually exists in the source, word for word. Models sometimes produce a quote that sounds right but is not in the text. A simple string check catches that, for free. It cannot tell you whether the quote really supports the value, but it removes the made-up ones. Verify also compares values with sources the team already trusts, like the customer record or last year's report, and marks a conflict when they disagree.
+
+**Review** is where a person looks at the draft and confirms it. More on what they see below.
+
+## What a reviewer actually sees
+
+A reviewer does not get a list of values. They get a list of values with states.
+
+<Figure src="/writing/every-value-needs-a-source/field-states.svg" alt="A review screen for a new supplier setup. Each field shows a value, where it came from, and a state: legal name and payment terms are from source, the start date is guessed from the words early next month, the bank account has a conflict between an email and a vendor portal, the tax ID is missing, and a same terms as reference asks the reviewer to pick one. Saving is blocked until the conflict and the choice are resolved." caption="Each value shows its state, not just the value. Example data." />
+
+There are only a few states, and each one tells the reviewer what to do:
+
+- **From source.** The value matches a quote that exists in the email or call. Usually a quick look is enough. Click it to see the words in context.
+- **Guessed.** The model inferred it, for example a date from "early next month". Glance and confirm.
+- **Conflict.** Two sources say different things. The person picks one. Saving is blocked until they do.
+- **Missing.** Nothing in any source. The person types it or asks the customer.
+- **Pick one.** Someone wrote "same as last time" and there are two candidates. The person chooses.
+
+That last one deserves its own paragraph. People say "same as last time" constantly. It is the most dangerous phrase in any intake process, because "last time" can mean three different things. Our first version tried to be clever and pick the most likely previous request automatically. It was right most of the time, and when it was wrong, nobody noticed, because the field looked filled and confident. We changed it so the system only suggests, shows the candidates side by side, and leaves the field empty until a person picks. It is slightly slower. It is much safer.
+
+## Conflicts block saving, on purpose
+
+This was the most debated decision. When two sources disagree, should the system pick the most trusted one and move on?
+
+We decided no. It can suggest one by rule, for example "the signed record wins over an old email", and it marks the suggestion clearly as not confirmed. But it does not fill the field and it does not let the form be saved until a person picks. A wrong value in a form tends to travel. It ends up in a contract, an invoice, a report. Catching it at intake is the cheapest moment you will ever get.
+
+People expected this to be annoying. In practice conflicts do not show up on most drafts, and when they do, they are usually something a person really needed to know.
+
+## Show what you did not check
+
+One more rule that sounds obvious and is usually skipped: the screen shows which sources were checked and which were not. If the customer record was read, it says so. If last year's report was required but not available, it says that too, with a clear label like "required source not checked", not only a color.
+
+A system that hides its blind spots trains people to trust it too much. A system that shows them trains people to look exactly where they should.
+
+## What I would tell someone starting this
+
+Start with the source links before you start tuning the model. It is tempting to spend weeks making extraction more accurate. But a slightly less accurate model whose every value is clickable and checkable is more useful than a more accurate one that asks to be trusted.
+
+Keep the verification step boring. Plain code that compares strings and checks records is cheap, fast and easy to test. It can still have bugs, but it does not make things up. Use the model for reading and drafting, and use code for checking.
+
+And measure the right thing. Not "how many fields did the model fill", but "how many fields did a person have to change, and how long did the review take". If those numbers go down, and a sample check shows people are not missing errors, the tool is working. If only the first one goes up, you have built a faster way to make mistakes.

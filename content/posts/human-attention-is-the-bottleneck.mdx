@@ -1,0 +1,67 @@
+---
+title: "Human attention is the bottleneck now"
+date: "2026-10-14"
+dek: "AI can draft a hundred things an hour. A person can carefully check maybe ten. Design for the ten."
+readTime: "6 min read"
+category: "Production"
+draft: true
+---
+
+A few months ago the slow part of our work was producing things. Drafting a reply, filling a form, summarizing a long thread, preparing a task list from a call. Today a model does all of that in seconds, and it is good at it most of the time.
+
+So the slow part moved. Now it is the person who has to look at what the model produced and decide if it is right. That person has the same eight hours as before, the same coffee, the same ability to read carefully for maybe an hour before everything starts to look fine.
+
+I think this is the most important design constraint in applied AI right now, and most tools ignore it. They produce more output and then show all of it to a human with the same weight. The human either reads everything, and becomes the bottleneck, or reads nothing and clicks approve, and becomes a rubber stamp. Both are bad. The second one is worse, because it looks like safety.
+
+## Not every check deserves the same attention
+
+Here is a simple example from a tool I built that turns emails and call notes into structured request forms. A typical request has twenty or thirty fields. When we showed all of them to a reviewer in one long list, the reviewer spent the same few seconds on each field. The company name, which was copied directly from an existing record, got the same attention as a start date the model had guessed from the words "early next month".
+
+That is backwards. The copied name was very unlikely to be wrong. The guessed date might be.
+
+So we changed the screen. Fields whose value matches a quote in the source, word for word, are folded into one line: "most fields match their sources, show". Fields where the model guessed, where two sources disagree, or where a required source was not checked go to the top. The reviewer opens a draft and sees three or four things that actually need a decision.
+
+<Figure src="/writing/human-attention-is-the-bottleneck/attention-budget.svg" alt="Two horizontal bars compare review screens. Reviewing everything spends attention on every field equally. The attention-first screen folds most fields that match their source, asks for a quick glance at guessed or optional fields, and asks for a real decision on only a small share." caption="Same request, two screens. Illustrative numbers: most of the screen should not ask for attention at all." />
+
+The reviewer did not get lazier. They got faster on the easy parts and slower on the hard parts, which is exactly what you want. And in the reviews I watched, they caught more of the real problems, because those problems were no longer hidden between twenty fields that were fine.
+
+## Route by what a mistake costs, not by confidence alone
+
+The usual way to decide what a person must check is a confidence threshold. If the model is 90% sure, let it through. If it is less sure, ask a human.
+
+Confidence alone is a bad router, for two reasons. First, models are often confidently wrong, especially when a source is stale. Second, and more important, a 95% sure guess about an email tag and a 95% sure guess about a supplier's bank account are not the same thing. The first mistake costs a minute. The second can cost real money and a very bad week.
+
+What works better is to look at two things together: how unsure the model is, and what it costs if it is wrong.
+
+<Figure src="/writing/human-attention-is-the-bottleneck/risk-matrix.svg" alt="A three by three grid with uncertainty on the horizontal axis and cost of a mistake on the vertical axis. Low cost and low uncertainty steps like tagging an email are done and logged. Middle steps like drafting a reply are proposed for a person to approve. High cost steps like changing a supplier's bank details are always decided by a person, with the AI only preparing the decision." caption="Who decides depends on impact and uncertainty together. The examples are typical operations steps." />
+
+In practice this turns into a short list of rules, written down where everyone can read them:
+
+- Low impact, low uncertainty: do it and log it. Tagging an incoming email, copying a value that matches its quote.
+- Low impact, more uncertainty: do it, but put a sample in front of a person every week.
+- Medium impact: propose it. A person approves with one click.
+- High impact: a person decides. The AI prepares everything the person needs, but never acts on its own.
+
+The interesting part is that these rules are about meaning, not about code paths or confidence numbers. "A new supplier outside our usual country goes to a person." "Any field where somebody wrote 'other' goes to a person." "Everything else can be drafted automatically." A manager can read that and argue with it. Nobody can argue with a threshold of 0.82.
+
+## Review the intent, not the diff
+
+Engineers know this problem from code review. When a reviewer gets a two thousand line diff, they skim it. When they get two lines with a clear sentence about why, they actually think.
+
+The same is true for business work. A person reviewing a filled form does not really want to check thirty fields. They want to know: what is this request, what is unusual about it, and what do I need to decide? So we started putting one sentence at the top of every draft. Something like: "New supplier, standard payment terms, start date guessed from the email, bank details differ between two sources." The reviewer reads that, and then looks at the two places that matter.
+
+This sounds like a small thing. It changed how people felt about the tool. Before, the review screen felt like homework. After, it felt like a colleague who had already done the boring part and was asking two good questions.
+
+## What this means if you are building with AI
+
+A few practical things I would do again:
+
+**Measure review time, not only accuracy.** If the model gets better but reviewers take just as long, you have not saved anything. Record how long each review takes and how many fields people changed. That number is the real product metric.
+
+**Make "nothing to decide" visible.** The best review screen is one where a person can see, in two seconds, that there is nothing here for them. That only works if the system can prove it, so every value needs a source the reviewer can click.
+
+**Write the routing rules in plain language.** Keep them in a place where the people who carry the risk can read them and change them. If only engineers can see why something went to review, nobody else will trust the system.
+
+**Never hide the thing the model did not check.** If a required source was not available, say so on the screen. A missing check that is shown lets a person decide what to do. If the check is required, the draft should stay blocked until it is done. A missing check that is hidden is how a wrong value slips through quietly.
+
+The model will keep getting faster and cheaper. People will not. The tools that win will be the ones that treat a person's attention as the most expensive thing in the room, and spend it only where it matters.

@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { getAllPosts, getPost, formatDate } from "@/lib/posts";
 import { site } from "@/data/site";
+import { Figure } from "@/app/writing/figure";
 
 type Props = { params: { slug: string } };
 
@@ -33,6 +34,9 @@ export default function Article({ params }: Props) {
 
   return (
     <main className="mx-auto max-w-prose px-6 py-16">
+      {post.draft && (
+        <p className="mb-6 rounded border border-accent/40 px-3 py-2 font-mono text-xs text-accent">Draft -- not visible in production</p>
+      )}
       <p className="font-mono text-xs text-muted">
         <Link href="/writing" className="hover:text-accent">
           Writing
@@ -44,7 +48,7 @@ export default function Article({ params }: Props) {
       </h1>
       <p className="mt-3 font-serif text-lg italic text-muted">{post.dek}</p>
       <article className="article-body mt-10">
-        <MDXRemote source={post.content} />
+        <MDXRemote source={post.content} components={{ Figure }} />
       </article>
       <footer className="mt-16 border-t border-line pt-8">
         <p className="text-sm text-muted">
