@@ -12,6 +12,8 @@ The tempting solution was one large agent: give it a URL, let it browse, ask it 
 
 The system I built uses many small scheduled workers instead. Each worker has one job, a bounded input, an explicit output and a way to fail without stopping the batch. The interesting part is not that the workers use language models. It is the set of constraints around them.
 
+<Figure src="/writing/marketplace-agents-cost-guards/overview.svg" alt="Bound each batch. Choose eligible records. Then Apply batch and cost limits. Then Run a specific worker. Then Record failures and outcomes. This is a conceptual explanation, not a measurement of production behavior." caption="Conceptual overview of the pattern described in this article." />
+
 ## Start with a boring record
 
 Every listing has a stable identity derived from its source and slug. Before an enrichment job begins, it checks whether that identity already exists and whether the particular enrichment step has already succeeded. The job can then be retried safely.

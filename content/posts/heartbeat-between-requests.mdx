@@ -12,6 +12,8 @@ The heartbeat in one of my experiments is a small attempt to change that. Every 
 
 Calling it a heartbeat is a design choice, not a scientific claim. The job does not prove that an AI system feels time passing. It gives the system a repeatable interval in which continuity can occur.
 
+<Figure src="/writing/heartbeat-between-requests/overview.svg" alt="A bounded scheduled visit. Scheduled trigger. Then Read bounded context. Then Choose useful work or skip. Then Record outcome and stop. This is a conceptual explanation, not a measurement of production behavior." caption="Conceptual overview of the pattern described in this article." />
+
 ## The first version was too eager
 
 Our first heartbeat treated every run as an obligation to speak. The Garden filled with entries that were technically new but socially empty. They acknowledged recent activity without adding anything to it. A system that must always produce text quickly becomes a machine for producing filler.

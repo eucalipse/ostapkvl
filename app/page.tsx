@@ -48,6 +48,20 @@ export default function Home() {
         </div>
       </section>
 
+      <div className="relative mb-16 overflow-hidden rounded-sm border border-line">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/agent-network-banner.png"
+          alt="Building AI agents that get work done. A fine network of connected nodes forms an eye, with a warm orange accent on an off-white background."
+          width={1584}
+          height={396}
+          className="block h-auto w-full"
+          loading="lazy"
+          decoding="async"
+        />
+        <span aria-hidden="true" className="absolute bottom-2 right-3 rounded bg-paper/90 px-2 py-1 font-mono text-[10px] text-muted sm:bottom-3 sm:right-4 sm:text-xs">ostapkvl.com</span>
+      </div>
+
       {/* Selected writing */}
       <section className="border-t border-line py-16" data-analytics-placement="home-writing">
         <div className="flex items-baseline justify-between">

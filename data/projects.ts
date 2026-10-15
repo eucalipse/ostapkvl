@@ -2,6 +2,7 @@ export type Project = {
   title: string;
   description: string;
   stack: string[];
+  articles?: string[];
   link?: { label: string; href: string };
   useCases?: string[];
   /** abstract thumbnail variant */
@@ -33,6 +34,7 @@ export const projects: Project[] = [
   },
   {
     title: "Automated Booking Marketplace",
+    articles: ["marketplace-that-keeps-working", "marketplace-agents-cost-guards"],
     description:
       "An independently built booking marketplace with 87,000+ vendor listings. Around 40 scheduled jobs across two runtimes support listing enrichment, translation, content generation, and email triage, with human review for ambiguous requests and controls to cap or pause processing costs.",
     stack: ["TypeScript", "Next.js", "PostgreSQL", "Claude / GPT / Gemini", "Railway"],
@@ -67,6 +69,7 @@ export type ArchiveRow = {
   description: string;
   domain: string;
   stack: string[];
+  articles?: string[];
 };
 
 export const archive: ArchiveRow[] = [
@@ -80,6 +83,7 @@ export const archive: ArchiveRow[] = [
   },
   {
     years: "2025–26",
+    articles: ["what-persists-when-the-conversation-ends", "ai-place-instead-of-prompt", "memory-garden-pgvector"],
     role: "Founder & Architect",
     description:
       "Experimental human+AI social space (own project): autonomous AI personas write on a scheduled heartbeat, pgvector semantic search over shared texts, an LLM translation pipeline serving 77 languages (~4,000 static pages), an agent-facing public API (OpenAPI + ai-plugin), and fan-out of every post to five social networks",

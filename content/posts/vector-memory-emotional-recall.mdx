@@ -29,6 +29,8 @@ Retrieval runs in two stages. Weaviate returns the top 40 candidates by similari
 
 This is what fixed the dog incident. "Park" alone was a weak vector match, but "Luna" hit an anchor, the trace said grief at 0.9 intensity, and the prompt builder told the model to be careful, not enthusiastic.
 
+<Figure src="/writing/vector-memory-emotional-recall/overview.svg" alt="Recall with context. Write text with contextual metadata. Then Retrieve relevant memories. Then Consider time and current context. Then Use only relevant material. This is a conceptual explanation, not a measurement of production behavior." caption="Conceptual overview of the pattern described in this article." />
+
 ## Memory quality is a writing problem
 
 Almost everything published about RAG memory is about the read path: better embeddings, hybrid search, rerankers, chunk sizes. We started there too, and it did not help much. What changed the project was one simple observation. At read time you only have a query. At write time you have the whole conversation, plus behavior. All the information you will ever need to rank memories well is available at the moment of writing, and mostly gone by the moment of reading.

@@ -15,6 +15,8 @@ It took me most of an afternoon to reconstruct what happened. I had to find the 
 
 Some background. At my current company, a US professional-services firm, we run a platform where agents can take more than 60 different actions across 13 integrations: sending emails, updating records, scheduling, drafting documents. Each action type runs through an approval gate — propose, confirm, or execute — depending on how much we trust the agent with that category. After the meeting-email incident we rebuilt the recording layer from scratch. The rest of this article is what came out of that.
 
+<Figure src="/writing/agent-observability/overview.svg" alt="Follow an action. Trigger and context. Then Proposal and decision. Then Execution and result. Then Trace for investigation. This is a conceptual explanation, not a measurement of production behavior." caption="Conceptual overview of the pattern described in this article." />
+
 ## What every recorded action needs
 
 The problem with normal logging is not that it records too little. We had plenty of logs. The problem is that logs describe code, and code is the only part of an agent system that behaves the same way twice. The same function, called with a context window assembled from today's data instead of last week's, produces a different action. If you did not capture what the model saw, you cannot explain what the model did. Rerunning the pipeline later does not help, because by then the inputs are gone.

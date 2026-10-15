@@ -100,8 +100,8 @@ export function ogCard(opts: {
             color: "#6E675F",
           }}
         >
-          <span>ostapkvl.com</span>
           <span>{opts.footer}</span>
+          <span>ostapkvl.com</span>
         </div>
       </div>
     ),

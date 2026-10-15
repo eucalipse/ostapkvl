@@ -162,6 +162,9 @@ figures["every-value-needs-a-source/field-states"] = () => {
   return svg("Every value shows where it came from", b, { subtitle: "Each value shows its state, not just the value. Example data." });
 };
 
+import continuityFigures from "./figures-continuity.mjs";
+Object.assign(figures, continuityFigures(C, { text, rect, arrow, svg }));
+
 import patternFigures from "./figures-patterns.mjs";
 Object.assign(figures, patternFigures(C, { text, rect, arrow, svg }));
 

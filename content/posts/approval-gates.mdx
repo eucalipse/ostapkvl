@@ -11,6 +11,8 @@ I used to answer with accuracy numbers. That was a mistake. The honest answer is
 
 That question has an engineering answer. On the platform I work on at a US professional-services firm, agents can take more than 60 kinds of actions across 13 integrations. Every action enters the same three-stage lifecycle: propose, confirm, execute. The confirm step is handled by a person by default; categories that have earned autonomy can pass it under an explicit policy, with the transition still recorded.
 
+<Figure src="/writing/approval-gates/overview.svg" alt="Make approval explicit. Propose a specific action. Then Approve or reject. Then Execute approved work. Then Record the outcome. This is a conceptual explanation, not a measurement of production behavior." caption="Conceptual overview of the pattern described in this article." />
+
 ## How the gate works
 
 In the propose stage the agent does all of its reasoning and produces a fully specified action: the target integration, the operation, the exact payload, a human-readable summary, and the context that led to it. Nothing external happens. A proposed action is just a row in a table.

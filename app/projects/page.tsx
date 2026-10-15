@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { getAllPosts } from "@/lib/posts";
 import type { Metadata } from "next";
 import { projects, archive } from "@/data/projects";
 
@@ -77,6 +79,16 @@ function Thumb({
   );
 }
 
+function ProjectArticles({ slugs }: { slugs?: string[] }) {
+  const visible = getAllPosts().filter((post) => slugs?.includes(post.slug));
+  if (!visible.length) return null;
+  return <div className="mt-4 flex flex-col gap-2 text-sm">
+    {visible.map((post) => <Link key={post.slug} href={`/writing/${post.slug}`} className="text-accent hover:underline">
+      Read: {post.title}{post.draft ? " (draft preview)" : ""} →
+    </Link>)}
+  </div>;
+}
+
 export default function Projects() {
   return (
     <main className="mx-auto max-w-wide px-6 py-16">
@@ -99,6 +111,7 @@ export default function Projects() {
                 {project.title}
               </h2>
               <p className="mt-3 max-w-prose">{project.description}</p>
+              <ProjectArticles slugs={project.articles} />
               {project.useCases && (
                 <div className="mt-4 max-w-prose border-l-2 border-accent/40 pl-4">
                   <p className="font-mono text-xs uppercase tracking-wider text-muted">
@@ -152,6 +165,7 @@ export default function Projects() {
                   </td>
                   <td className="py-4 pr-6 align-top text-sm">
                     {row.description}
+                    <ProjectArticles slugs={row.articles} />
                     <span className="mt-1.5 block font-mono text-xs text-muted/80">
                       {row.stack.join(" · ")}
                     </span>

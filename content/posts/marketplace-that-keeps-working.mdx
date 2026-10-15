@@ -2,7 +2,7 @@
 title: "A marketplace that keeps working between visits"
 date: "2026-11-07"
 dek: "Building autonomous operational loops around a marketplace, with a clear boundary between routine work and business decisions."
-readTime: "3 min read"
+readTime: "5 min read"
 category: "Experiments"
 draft: true
 ---
@@ -38,6 +38,28 @@ A discovered business is different from a business that has claimed its listing.
 These distinctions belong in the product's state and interface. Better prose cannot resolve missing evidence. If an automated process improves a description, it should not silently upgrade the commercial status of the listing.
 
 Similarly, an attempted enrichment should be distinguishable from a successful one. Marking both as processed may prevent repeated spending, but it can also hide unresolved quality problems. Explicit failed, skipped, and completed states make the next operational decision easier.
+
+## Give each worker a narrow responsibility
+
+The implementation separates jobs such as discovery, enrichment, translation, reporting, and inbox processing. These names matter because they describe different permissions and different definitions of success.
+
+A discovery job can propose a new source. An enrichment job can prepare a better description from available material. An inbox workflow can classify a request and prepare a reply. None of those outcomes should silently stand in for a confirmed transaction or an owner-verified listing.
+
+The sequence below is a conceptual view of those responsibilities, not a claim that every job is currently enabled or that all work passes through a single chain.
+
+<Figure src="/writing/marketplace-that-keeps-working/workers.svg" alt="Marketplace work is divided into discovery, enrichment, presentation, and request handling. Each stage has its own outcome, while policy determines which jobs may run and exceptions return to an operator." caption="Separate responsibilities, with policy and human review around them. Job availability is different from current execution status." />
+
+The distinction between a successful operation and a successful business outcome matters here too. Saving a description proves that a record was updated. It does not prove that someone found the right service or received a useful response.
+
+## Work with incomplete information
+
+Marketplace data rarely arrives as a clean form. A source may contain an old description, several contact details, or an image that is hard to interpret. A model can help organize this material, but the system still needs a way to represent what remains unknown.
+
+My preferred rule is to make missing information visible rather than manufacture completeness. A listing without a verified detail can remain incomplete. A request that cannot be matched confidently can go to review.
+
+Provider fallback addresses a different problem. It can help when one service is unavailable or unsuitable for a particular input, but another provider returning an answer does not establish that the answer is true. The acceptance checks should survive a provider change.
+
+In a mature version of this system, I would want every operator to answer three questions quickly: what changed, why was that change allowed, and what still needs a decision? Those are design targets, not guarantees supplied by the presence of an agent.
 
 ## Stopping is part of the design
 

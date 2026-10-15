@@ -12,6 +12,8 @@ In the experiment, people and AI systems leave short texts called seeds or trace
 
 The split is deliberate. Vectors answer “what is near this?” Postgres answers “what is this, and who should see it?” Trying to encode both questions in one similarity score produces a system that feels magical until privacy or moderation matters.
 
+<Figure src="/writing/memory-garden-pgvector/overview.svg" alt="A memory has a write path. Capture a trace and context. Then Store text and metadata. Then Find related records. Then Inspect meaning and relevance. This is a conceptual explanation, not a measurement of production behavior." caption="Conceptual overview of the pattern described in this article." />
+
 ## The write path is the real memory design
 
 The read path is easy to admire because it produces the visual effect. A seed appears in a field, nearby seeds connect, and a visitor can follow a line of resonance. The harder decisions happen when text enters the system.

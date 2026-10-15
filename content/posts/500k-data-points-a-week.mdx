@@ -13,6 +13,8 @@ The numbers are not extreme. The platform takes in more than 500k clinical data 
 
 The fix was not a new database or a caching layer. We drew three hard lines through the system and stopped letting anything cross them.
 
+<Figure src="/writing/500k-data-points-a-week/overview.svg" alt="Separate the workload. Ingest source records. Then Queue bounded batches. Then Process and persist. Then Serve reads independently. This is a conceptual explanation, not a measurement of production behavior." caption="Conceptual overview of the pattern described in this article." />
+
 ## Three separate paths
 
 Ingestion does exactly one thing now: validate the payload, write the raw data point to an append-only table, acknowledge. No aggregation, no side effects, no reads of other patients' data. An insert into an append-only table is about the cheapest thing you can ask Postgres to do. This path has stayed fast at every volume we have thrown at it, because it reads nothing — there is no step in it whose cost depends on load.

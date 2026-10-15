@@ -15,6 +15,8 @@ The fix is what I now think of as a consensus primitive. The same task goes to C
 
 The reason this works is boring: different vendors fail differently. Claude, GPT, and Gemini are trained on different data and tuned in different ways. When you sample the same model twice, the errors are correlated — you are drawing twice from one distribution, so two Claude calls that agree tell you much less than a Claude call and a Gemini call that agree. Agreement across vendors is actual evidence. Same idea as spreading a portfolio across uncorrelated assets instead of buying one stock three times.
 
+<Figure src="/writing/three-models-one-answer/overview.svg" alt="Compare reasoning, preserve uncertainty. Gather candidate answers. Then Identify agreement and conflict. Then Synthesize with available evidence. Then Expose unresolved uncertainty. This is a conceptual explanation, not a measurement of production behavior." caption="Conceptual overview of the pattern described in this article." />
+
 ## The synthesis pass is not voting
 
 The obvious way to combine three answers is majority voting, and it does not work for most real tasks. Voting assumes answers are comparable tokens. In practice the answers are free text. Two models can say the same thing in different words. Three models can each be partially right — one gets the date, another gets the name, the third gets both but hedges. A vote counter sees three different strings and calls it total disagreement.

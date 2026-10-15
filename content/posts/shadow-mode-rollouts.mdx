@@ -11,6 +11,8 @@ This is shadow mode, and it is technically cheap. If you plan to ship the agent 
 
 The hard part is not building it. The hard part is reading the results honestly.
 
+<Figure src="/writing/shadow-mode-rollouts/overview.svg" alt="Observe before allowing effects. Receive a real input. Then Generate a proposed action. Then Compare with the human decision. Then Use evidence to adjust rollout. This is a conceptual explanation, not a measurement of production behavior." caption="Conceptual overview of the pattern described in this article." />
+
 ## One number tells you nothing
 
 The first thing everyone wants is a single score. "The agent agrees with humans 87% of the time." We computed that number and it hid the risk. High-volume boring categories dominate the average. In our data, status updates and simple field changes made up most of the volume and agreed above 95%. Escalation decisions were rare and agreed at 58%. The global average looked healthy while the most expensive category was failing.

@@ -18,10 +18,19 @@ export function generateMetadata({ params }: Props): Metadata {
   return {
     title: post.title,
     description: post.dek,
+    alternates: { canonical: `${site.url}/writing/${post.slug}` },
+    robots: post.draft ? { index: false, follow: false } : undefined,
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.dek,
+      images: [`${site.url}/writing/${post.slug}/opengraph-image`],
+    },
     openGraph: {
       title: `${post.title} — Ostap Kovalisko`,
       description: post.dek,
       type: "article",
+      images: [{ url: `${site.url}/writing/${post.slug}/opengraph-image`, width: 1200, height: 630, alt: post.title }],
       publishedTime: post.date,
       url: `${site.url}/writing/${post.slug}`,
     },
