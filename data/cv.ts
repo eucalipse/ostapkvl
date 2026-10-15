@@ -11,121 +11,160 @@ export type CvEntry = {
 };
 
 export const summary =
-  "Chief Architect at Mission Law and founder of Eucalipse. I design and ship production AI agent platforms end-to-end — multi-model consensus, human approval gates, full audit trails — in regulated environments. Serial technical founder: three startups (one acquired) and a software agency with 50+ shipped projects.";
+  "Chief Architect at Mission Law and founder of Eucalipse. I lead AI engineering and build business operations systems, combining software architecture, hands-on delivery, and team leadership. My AI work focuses on typed actions, human review, source-backed intake, and evaluation. Technical co-founder of three startups, one acquired, and founder of an agency with 50+ shipped projects.";
 
 export const experience: CvEntry[] = [
   {
-    years: "2026 — now",
-    title: "Chief Architect",
-    org: "Mission Law",
-    orgLinkedin: site.missionLawLinkedin,
-    location: "San Francisco Bay Area, remote",
-    bullets: [
-      "Own the architecture across the firm's platform — the AI agent system and the client operations app — and lead the AI engineering stream: roadmap, architecture decisions, hiring.",
-      "The platform anchors the firm's product strategy: 60+ AI actions with propose/confirm/execute approval gates, 3-model consensus search, a knowledge graph with hybrid vector + graph search, 13 integrations, and a human-in-the-loop review queue with one-click revert and a full audit trail.",
-      "Drive the modernization of the client platform (design system, service workflows, billing) in parallel with the AI stream.",
-    ],
+    "years": "Oct 2026 — now",
+    "title": "Chief Architect",
+    "org": "Mission Law",
+    "orgLinkedin": site.missionLawLinkedin,
+    "location": "Remote",
+    "bullets": [
+      "Lead AI engineering and shape architecture across the client and internal operations platform, combining hands-on development with technical direction and team leadership.",
+      "Own architectural direction for typed action contracts, human approval flows, retrieval, model routing, integrations, and review interfaces.",
+      "Develop source-backed intake workflows that expose missing or conflicting information for human review; lead evaluation, access-boundary, auditability, and production-hardening work.",
+      "Continue modernizing billing, company and user management, onboarding, and document workflows, including the gradual replacement of Airtable- and Zapier-based processes.",
+      "Help build and mentor the engineering team; coordinate technical priorities and hiring needs with leadership."
+    ]
   },
   {
-    years: "2026",
-    title: "AI Systems Engineer",
-    org: "Mission Law",
-    orgLinkedin: site.missionLawLinkedin,
-    bullets: [
-      "Architected and built the firm's AI platform largely solo: autonomous agents operating across Slack, tasks, and email with human approval gates.",
-      "Designed knowledge search answering from the firm's entire history — emails, messages, documents — using multiple AI models in consensus.",
-      "Built a multimedia AI chat (file uploads, voice input, inline document viewers, citations, visible thinking trace) and the monitoring dashboard where the team reviews everything the AI does.",
-      "No vendor lock-in: multi-provider routing, new models adopted as they ship.",
-    ],
+    "years": "Mar — Aug 2026",
+    "title": "AI Systems Engineer",
+    "org": "Mission Law",
+    "orgLinkedin": site.missionLawLinkedin,
+    "location": "Remote",
+    "bullets": [
+      "Designed and built the core AI operations platform, from action contracts and propose/confirm/execute flows to retrieval and interfaces for reviewing agent output.",
+      "Developed source-cited retrieval across connected business data and multi-model cross-checking for selected tasks.",
+      "Built chat and review interfaces with file handling, structured responses, document context, and source references; integrated communication and task systems.",
+      "Continued core application delivery, including Contract Review V2, document versioning, revisions, signing integration, and counterparty confirmation."
+    ]
   },
   {
-    years: "2025 — 2026",
-    title: "Lead Software Engineer",
-    org: "Mission Law",
-    orgLinkedin: site.missionLawLinkedin,
-    bullets: [
-      "Built the firm's client operating system — founders manage services, financing rounds, document signing, and billing.",
-      "Client portal and admin panel with service state machines; dual-database architecture (Airtable as source of truth synced to Supabase).",
-      "Integrated DocuSign, billing, tasks, email, and document storage into end-to-end service workflows.",
-    ],
+    "years": "Sep 2025 — Mar 2026",
+    "title": "Lead Software Engineer",
+    "org": "Mission Law",
+    "orgLinkedin": site.missionLawLinkedin,
+    "location": "Remote",
+    "bullets": [
+      "Built billing and billing-review foundations: billing UI, LeanLaw integration and synchronization, matter and time-entry review, bulk editing, and change notifications.",
+      "Developed company and user management, onboarding functionality, and the new contract-review service.",
+      "Connected signing, tasks, email, and document storage through DocuSign, Asana, SendGrid, and SharePoint; developed application data flows between Airtable and Supabase.",
+      "Delivered internal tools, reporting, fixes, and ongoing integration support using TypeScript, React, Next.js, PostgreSQL, Supabase, and Vercel."
+    ]
   },
   {
-    years: "2019 — now",
-    title: "Founder & AI Systems Architect",
-    org: "Eucalipse",
-    orgLinkedin: site.eucalipseLinkedin,
-    note: "50+ projects shipped",
-    bullets: [
-      "Software agency shipping custom platforms for startups and enterprises: SaaS products, web platforms, dedicated teams. Led architecture, hiring, and delivery.",
-      "Since 2024: AI operations systems — multi-model routing across commercial and open-source LLMs, consensus cross-checks, shadow-mode rollouts, full audit trails — for retail, accounting, consulting, ESG, and asset management.",
-    ],
+    "years": "Dec 2024 — now",
+    "title": "Founder & AI Systems Architect",
+    "org": "Eucalipse",
+    "orgLinkedin": site.eucalipseLinkedin,
+    "note": "Agency founded in 2019; 50+ projects shipped",
+    "bullets": [
+      "Lead architecture and delivery for AI-enabled operations systems and custom software through Eucalipse.",
+      "Design agent workflows around business data, typed actions, human review, and traceable execution; develop retrieval, model routing, integrations, and evaluation approaches.",
+      "Work with clients on architecture, implementation, and the transition from prototypes to maintainable systems."
+    ]
   },
   {
-    years: "2024 — 2025",
-    title: "Full Stack Engineer",
-    org: "WithPower",
-    location: "remote, USA",
-    bullets: [
-      "Digital healthcare platform: distributed background processing of 500k+ clinical data points per week and delivery of 200k+ personalized analytics emails weekly.",
-      "Next.js, PostgreSQL, AWS, BullMQ.",
-    ],
+    "years": "Jun 2024 — Apr 2025",
+    "title": "Full Stack Engineer",
+    "org": "WithPower",
+    "location": "Remote, USA",
+    "bullets": [
+      "Developed application features and data-processing infrastructure for a digital healthcare platform serving providers and patients in the US and Canada.",
+      "Built distributed background processing with BullMQ for 500k+ data points per week, analytics and personalized reporting, and infrastructure delivering 200k+ personalized analytics emails weekly.",
+      "Next.js, PostgreSQL, AWS, BullMQ."
+    ]
   },
   {
-    years: "2017 — 2019",
-    title: "CTO & Co-Founder",
-    org: "Startupmatcher",
-    location: "Oslo",
-    note: "acquired by TheHub.io",
-    bullets: [
-      "Grew the platform into the largest entrepreneur community in the Nordics; fundraising covered by Nordic tech press. Later acquired by TheHub.io.",
-    ],
+    "years": "Feb 2019 — Oct 2024",
+    "title": "Technical Founder",
+    "org": "Eucalipse",
+    "orgLinkedin": site.eucalipseLinkedin,
+    "bullets": [
+      "Founded and ran a software agency delivering custom platforms for startups and established businesses.",
+      "Led discovery, architecture, implementation, and delivery across SaaS products, web applications, and operational tools.",
+      "Recruited engineers, formed project teams, and coordinated delivery with clients; combined hands-on engineering with technical scope, delivery planning, and ongoing product development."
+    ]
   },
   {
-    years: "2015 — 2017",
-    title: "CTO & Co-Founder",
-    org: "BookBuses",
-    location: "New York",
-    note: "ERA accelerator W10",
-    bullets: [
-      "Coach-bus booking marketplace built end-to-end; Entrepreneurs Roundtable Accelerator, Winter 2016 class.",
-    ],
+    "years": "Aug 2017 — Jan 2019",
+    "title": "CTO & Co-Founder",
+    "org": "Startupmatcher",
+    "location": "Oslo",
+    "note": "acquired by TheHub.io",
+    "bullets": [
+      "Led engineering for a platform connecting startups, talent, and the Nordic entrepreneur community. Startupmatcher was later acquired by TheHub.io.",
+      "Owned technical architecture, product development, releases, and engineering hiring; developed job, profile, and community capabilities with the founding team."
+    ]
   },
   {
-    years: "2015 — 2016",
-    title: "Technical Co-Founder",
-    org: "Hubtraiteurs",
-    location: "Lille",
-    bullets: ["Catering marketplace for corporate clients in France, built end-to-end."],
+    "years": "Mar — Aug 2017",
+    "title": "Tech Lead & Co-Founder",
+    "org": "Startupmatcher",
+    "location": "Oslo",
+    "bullets": [
+      "Co-founded the platform and built its initial product: founder profiles, job listings, and connections between startups and talent. Established the technical foundation for continued development."
+    ]
   },
   {
-    years: "2015 — 2016",
-    title: "Project Management Methodology",
-    org: "Roche",
-    location: "Basel",
-    bullets: [
-      "Project execution under Roche's IT PMM across divisions — process harmonization (incl. Regulatory), change management, stakeholder communication in a heavily regulated pharma environment.",
-    ],
+    "years": "Dec 2015 — Mar 2017",
+    "title": "CTO & Co-Founder",
+    "org": "BookBuses",
+    "location": "New York",
+    "note": "ERA W10 accelerator, Feb — May 2016",
+    "bullets": [
+      "Built a US coach-bus booking marketplace as technical co-founder, covering search, booking, operator workflows, and payments.",
+      "Owned architecture and implementation; joined Entrepreneurs Roundtable Accelerator in New York and presented at Demo Day."
+    ]
   },
   {
-    years: "2014 — 2015",
-    title: "ThemeForest Author",
-    org: "Envato",
-    bullets: ["Designed, built, and sold WordPress themes and HTML templates — a one-person product business."],
+    "years": "Oct 2015 — Dec 2016",
+    "title": "Technical Co-Founder",
+    "org": "Hubtraiteurs",
+    "location": "Lille",
+    "bullets": [
+      "Built a catering marketplace for the French market, helping customers discover, compare, and order catering services. Owned technical implementation from initial development through delivery."
+    ]
   },
   {
-    years: "2012 — 2014",
-    title: "Lead Full Stack Web Developer",
-    org: "Pol Promo Group",
-    location: "Wrocław",
-    bullets: ["First lead role: client web platforms end-to-end — PHP (Symfony), Python (Django), MySQL, Sphinx search."],
+    "years": "Sep 2015 — Feb 2016",
+    "title": "Project Management Methodology",
+    "org": "Roche",
+    "location": "Basel",
+    "bullets": [
+      "Supported project execution using Roche's IT Project Management Methodology, including process harmonization, change management, and stakeholder coordination in a regulated pharmaceutical environment."
+    ]
   },
   {
-    years: "2011 — 2012",
-    title: "Java Developer",
-    org: "LeanForge",
-    location: "Wrocław",
-    bullets: ["Healthcare case-handling web platform end-to-end: requirements, estimates, development, testing, documentation."],
+    "years": "Jul 2014 — Jun 2015",
+    "title": "ThemeForest Author",
+    "org": "Envato",
+    "bullets": [
+      "Designed, developed, and sold WordPress themes and HTML templates. Managed design, implementation, customer support, and product updates as an independent creator."
+    ]
   },
+  {
+    "years": "Jun 2012 — May 2014",
+    "title": "Lead Full Stack Web Developer",
+    "org": "Pol Promo Group",
+    "location": "Wrocław",
+    "bullets": [
+      "Led development of client web platforms, from requirements and estimates through architecture, implementation, and delivery.",
+      "PHP/Symfony, Python/Django, WordPress, Drupal, MySQL, Sphinx search, and JavaScript; Scrum and test-driven development."
+    ]
+  },
+  {
+    "years": "Mar 2011 — Jun 2012",
+    "title": "Java Developer",
+    "org": "LeanForge",
+    "location": "Wrocław",
+    "bullets": [
+      "Built a healthcare case-handling web application across requirements, estimates, implementation, testing, and documentation.",
+      "Java, Spring, Hibernate, MySQL, Wicket, Selenium, and Amazon EC2."
+    ]
+  }
 ];
 
 export const education = [

@@ -2,7 +2,7 @@
 title: "What persists when the conversation ends?"
 date: "2026-11-14"
 dek: "Building memory for an AI system made me think differently about continuity, ownership, and the person on the other side."
-readTime: "6 min read"
+readTime: "9 min read"
 category: "Experiments"
 draft: true
 ---
@@ -78,6 +78,40 @@ I would want a memory interface to distinguish a direct statement from a system 
 Pausing activity should have a clear meaning too. Does it stop new writes, scheduled jobs, or access altogether? The right answer depends on the product, but the person should not have to guess.
 
 This is where the philosophical question becomes practical. If an interaction encourages attachment or trust, its controls should be especially legible. Familiarity should not make it harder to understand where the information goes.
+
+## What the research helps me separate
+
+The word memory can make several different claims sound like one. A system can retain information, use that information coherently, and describe itself as remembering. Whether there is subjective experience involved is a further question.
+
+The 2023 paper [Generative Agents: Interactive Simulacra of Human Behavior](https://arxiv.org/abs/2304.03442), by Joon Sung Park and colleagues, is useful here. Its architecture combines recorded observations, retrieved memories, reflection, and planning. The authors evaluate believable behavior in a simulated environment and use ablations to examine the contribution of those components. That is evidence about an architecture's behavioral effects. It is not a demonstration that the simulated agents have experiences.
+
+For my own work, the useful lesson is methodological. If I think memory is making interactions more coherent, I should compare the system with and without that memory. A convincing example is a starting point for a test, rather than the result of one.
+
+Consciousness research asks a different set of questions. In their 2023 report, [Consciousness in Artificial Intelligence](https://arxiv.org/abs/2308.08708), Patrick Butlin and colleagues derive candidate indicators from several scientific theories, including recurrent processing, global workspace, and higher-order accounts. They assess computational properties rather than treating fluent self-description as a sufficient test. Their assessment concerns the systems they examined at that time; it should not be read as a timeless verdict on every future model.
+
+What I take from that approach is a reason to keep architectural claims specific. Calling a shared database a workspace does not establish that it implements a global-workspace theory of consciousness. Calling a scheduled task reflection does not establish that it performs the kind of self-monitoring a particular theory requires. Similar vocabulary is not equivalent machinery.
+
+## When a model describes its own state
+
+Anthropic's October 2025 study, [Signs of introspection in large language models](https://www.anthropic.com/research/introspection), takes a more direct experimental approach: intervene on internal representations and examine whether a model can report something about the intervention. The researchers report limited, unreliable capabilities under their test conditions. They explicitly say that the results do not establish whether the models are conscious.
+
+That makes me more curious, not more certain. A model detecting a manipulated internal representation is a different observation from a chatbot writing "I feel lonely." The former can be compared against an intervention the experimenter controls. The latter needs much more context before we know what it tells us.
+
+In my project, I do not have that kind of experimental access to model internals. I can inspect what the application saved and supplied to the model. I can compare outputs under controlled changes. I should not describe those application-level observations as evidence of introspection inside the model.
+
+<Figure src="/writing/what-persists-when-the-conversation-ends/evidence-boundaries.svg" width={1200} height={900} alt="Three evidence panels separate retained records, behavior under controlled memory changes, and reports about internal model states. Each panel states what can be inspected and what it cannot establish. A final boundary notes that subjective experience is not settled by any single observation shown." caption="An original reading guide to distinct kinds of evidence. This is not a consciousness scale or a ranking of systems." />
+
+## A small experiment I would actually run
+
+I would start with synthetic conversations and a narrow question: does retained context help the system respect a person's updated preferences?
+
+Give the same task to several conditions: no retained history, the relevant original notes, and a summary derived from those notes. Include a correction in a later interaction. Hold the model and instructions constant, repeat the trials, and score whether the answer uses the correction rather than the obsolete preference.
+
+Then test the failure paths. What happens when the summary is wrong? When a memory belongs to another account? When the person withdraws a preference? Check the storage and retrieval behavior as well as the wording of the reply. A reassuring answer cannot substitute for an actual access or deletion check.
+
+These are proposed experiments, not results I have already collected. They could tell me whether the memory system improves continuity, propagates mistakes, or misrepresents its controls. They would not tell me whether the model experiences remembering.
+
+Butlin and Theodoros Lappas's [Principles for Responsible AI Consciousness Research](https://arxiv.org/abs/2501.07290) also treats research conduct and public communication as responsibilities. My practical interpretation is to label the experiment honestly: what was observed, what was inferred, and what remains unsettled. The uncertainty is part of the question that makes the work worth doing.
 
 ## What I can honestly say remains
 

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 const timeline = [
   {
-    years: "Sep 2026 — now",
+    years: "Oct 2026 — now",
     title: "Chief Architect",
     org: "Mission Law",
     orgLinkedin: site.missionLawLinkedin,
