@@ -10,8 +10,9 @@ export type PostMeta = {
   date: string;
   dek: string;
   readTime: string;
-  category?: "Production" | "Experiments";
+  category?: "Production" | "Experiments" | "Consciousness & AI";
   draft?: boolean;
+  tags: string[];
 };
 
 /** Drafts render locally (next dev) and with SHOW_DRAFTS=1, never in a production build. */
@@ -34,6 +35,7 @@ export function getAllPosts(): PostMeta[] {
         readTime: data.readTime as string,
         category: (data.category as PostMeta["category"]) ?? "Production",
         draft: data.draft === true,
+        tags: Array.isArray(data.tags) ? data.tags.filter((tag: unknown): tag is string => typeof tag === "string") : [],
       };
     })
     .filter((p) => showDrafts || !p.draft)
@@ -53,6 +55,7 @@ export function getPost(slug: string): Post | null {
     readTime: data.readTime as string,
     category: (data.category as PostMeta["category"]) ?? "Production",
     draft: data.draft === true,
+        tags: Array.isArray(data.tags) ? data.tags.filter((tag: unknown): tag is string => typeof tag === "string") : [],
     content,
   };
 }

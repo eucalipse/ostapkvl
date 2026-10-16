@@ -4,14 +4,14 @@ date: "2026-10-14"
 dek: "AI can generate work faster than people can assess it. Design review around evidence, uncertainty, and the cost of a mistake."
 readTime: "6 min read"
 category: "Production"
-draft: true
+tags: ["Human review"]
 ---
 
-A few months ago the slow part of our work was producing things. Drafting a reply, filling a form, summarizing a long thread, preparing a task list from a call. Today a model does all of that in seconds, and it is good at it most of the time.
+Imagine a review queue filling with drafted replies, extracted fields, and proposed actions. Generating the next item is easy. Deciding whether it should be approved takes more care.
 
-So the slow part moved. Now it is the person who has to look at what the model produced and decide if it is right. That person has the same eight hours as before, the same coffee, the same ability to read carefully for maybe an hour before everything starts to look fine.
+I want to build interfaces that help with that decision. Showing every field with the same emphasis leaves the reviewer to discover which details matter. A source conflict can sit beside a routine label and look equally ordinary.
 
-I think this is the most important design constraint in applied AI right now, and most tools ignore it. They produce more output and then show all of it to a human with the same weight. The human either reads everything, and becomes the bottleneck, or reads nothing and clicks approve, and becomes a rubber stamp. Both are bad. The second one is worse, because it looks like safety.
+The design question is where to ask for attention, what evidence to put there, and how to tell whether the interface actually helps.
 
 ## Not every check deserves the same attention
 
@@ -37,7 +37,7 @@ What works better is to look at two things together: how unsure the model is, an
 
 In practice this turns into a short list of rules, written down where everyone can read them:
 
-- Low impact, low uncertainty: do it and log it. Tagging an incoming email, copying a value that matches its quote.
+- Low impact, low uncertainty: do it and log it. For example, applying a reversible internal label under a tested policy. A matching quotation alone is not sufficient.
 - Low impact, more uncertainty: do it, but put a sample in front of a person every week.
 - Medium impact: propose it. A person approves with one click.
 - High impact: a person decides. The AI prepares everything the person needs, but never acts on its own.
@@ -69,3 +69,9 @@ A few practical things I would build into this design:
 The model will keep getting faster and cheaper. People will not. The tools that win will be the ones that treat a person's attention as the most expensive thing in the room, and spend it only where it matters.
 
 <Figure src="/writing/human-attention-is-the-bottleneck/attention-routing.svg" width={1200} height={900} alt="A qualitative routing map separates routine reversible work, uncertain low-impact work, and high-impact or conflicting work. Policy determines execution and review, while monitoring can return any category to human oversight." caption="A conceptual routing policy. The lanes do not represent measured volumes or percentages." />
+
+## Sources and further reading
+
+[How to do a code review](https://google.github.io/eng-practices/review/reviewer/), by Google engineering practices team. Its guidance covers design, correctness, complexity, and tests. It is relevant to the code-review example; the broader attention-routing policy here is a design proposal.
+
+[Saleema Amershi and colleagues, Guidelines for Human-AI Interaction](https://www.microsoft.com/en-us/research/publication/guidelines-for-human-ai-interaction/), CHI 2019, provides evaluated guidance for initial interaction, errors, and adaptation over time. It is a research foundation for making AI behavior understandable and correctable, rather than evidence that this proposed interface improves review speed.

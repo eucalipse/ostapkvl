@@ -1,10 +1,10 @@
 ---
 title: "The agent timed out. Did the action happen?"
-date: "2026-11-11"
+date: "2026-10-16"
 dek: "Reliable actions need operation identities, fresh authorization, and a way to resolve uncertain outcomes."
 readTime: "3 min read"
 category: "Experiments"
-draft: true
+tags: ["Agent architecture", "Reliability"]
 ---
 
 <Figure src="/writing/agent-actions-under-retries/flow.svg" alt="Track the operation: Proposed action + operation ID; Approval bound to payload; Execute with current permissions; Success / failure / unknown; Reconcile before unsafe retries." caption="Conceptual architecture; not a measured performance chart." />
@@ -63,3 +63,7 @@ These can be tested independently of the model. Keep separate agent evaluations 
 The interface should distinguish prepared, approved, submitted, and confirmed. If the outcome is unknown, explain that the system is checking before trying again.
 
 A confident success message can make someone stop watching an incomplete task. A confident failure message can make them repeat an action that already happened. Completion means establishing the required external outcome; a plausible final sentence only ends the conversation.
+
+## Sources and further reading
+
+[Making retries safe with idempotent APIs](https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/), by Malcolm Featonby, AWS. Explains how caller-provided request identifiers help distinguish retries from new intent. The application must still define the scope and lifetime of that identity.

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getAllPosts, formatDate } from "@/lib/posts";
+import { getAllPosts } from "@/lib/posts";
+
+import { PostList } from "./post-list";
 
 export const metadata: Metadata = {
   title: "Writing",
@@ -19,22 +21,10 @@ export default function Writing() {
         Production AI agents, plus experiments in memory, presence and human–AI
         interaction.
       </p>
-      <ol className="mt-12 divide-y divide-line border-y border-line">
-        {posts.map((post) => (
-          <li key={post.slug}>
-            <Link href={`/writing/${post.slug}`} className="group block py-7">
-              <p className="font-mono text-xs text-muted">
-                {formatDate(post.date)} · {post.readTime}
-                {post.category === "Experiments" && " · Experiments"}
-              </p>
-              <h2 className="mt-2 font-serif text-2xl font-medium leading-snug group-hover:text-accent">
-                {post.title}
-              </h2>
-              <p className="mt-2 text-sm text-muted">{post.dek}</p>
-            </Link>
-          </li>
-        ))}
-      </ol>
+      <nav aria-label="Writing categories" className="mt-6 text-sm">
+        <Link href="/writing/category/consciousness-and-ai" className="text-accent underline underline-offset-4">Consciousness &amp; AI</Link>
+      </nav>
+      <PostList posts={posts} />
     </main>
   );
 }

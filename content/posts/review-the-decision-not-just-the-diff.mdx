@@ -1,10 +1,10 @@
 ---
 title: "Review the decision, not just the diff"
-date: "2026-10-24"
+date: "2026-10-16"
 dek: "A practical review design for teams where agents produce code faster than people can assess it."
 readTime: "3 min read"
 category: "Experiments"
-draft: true
+tags: ["Coding", "Human review"]
 ---
 
 <Figure src="/writing/review-the-decision-not-just-the-diff/flow.svg" alt="Review the decision: Intent and invariant; Patch at a known revision; Checks and counterexamples; Human review decision; Controlled integration." caption="Conceptual architecture; not a measured performance chart." />
@@ -62,3 +62,7 @@ Also distinguish permission to merge from permission to release. A reviewed patc
 Track review waiting time, reviewer effort, findings that led to changes, and defects discovered after release. Sample apparently routine changes too; a quiet queue can mean good code, or inattentive review.
 
 The smallest useful implementation is a PR template, revision-linked checks, a focused reviewer, and explicit release ownership. Each approval should be explainable when someone asks a week later why the change was allowed through.
+
+## Sources and further reading
+
+[How to do a code review](https://google.github.io/eng-practices/review/reviewer/), by Google engineering practices team. A practical reference for reviewing design, functionality, complexity, and tests. The agent-review interface here is my proposed application, not a Google recommendation.

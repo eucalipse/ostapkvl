@@ -3,6 +3,7 @@ title: "Approval gates: letting AI agents act without letting them loose"
 date: "2026-08-28"
 dek: "The propose/confirm/execute pattern that makes autonomous agents safe enough for real operations."
 readTime: "5 min read"
+tags: ["Human review", "Agent architecture"]
 ---
 
 Every demo of an AI agent that can act — send an email, update a record, create a task in someone's project tracker — ends with the same question from the room: what if it is wrong?
@@ -49,3 +50,7 @@ This is why graduated autonomy beats day-one autonomy, and the argument is not r
 The last piece is the audit trail. Every state transition is recorded: who or what triggered it, when, the full payload before and after, which model produced the proposal. Most days nobody looks at any of this. Then something goes wrong in production — and it will — and the trail is the difference between answering "what exactly happened" in five minutes and spending a day digging through logs. It also protects the agent. Surprisingly often, "the AI did something strange" turns out to be a human edit or bad data upstream. The trail settles those arguments without anyone having to trust anyone's memory. And when security asks what this system can do and what it has actually done, you have a list instead of a shrug.
 
 None of this is exciting engineering. A state machine, a review queue, a log. But it changed every conversation about the agents. We stopped arguing about whether the system can be trusted and started arguing about which categories to promote next. That is a much better argument to lose.
+
+## Sources and further reading
+
+[Building effective agents](https://www.anthropic.com/engineering/building-effective-agents), by Anthropic engineering team. Describes human checkpoints and stopping conditions. Approval semantics and reversibility still depend on the actual tool and business operation.

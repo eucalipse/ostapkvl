@@ -3,6 +3,7 @@ title: "What agent observability actually looks like in production"
 date: "2026-07-30"
 dek: "Logs tell you what the code did. An agent audit trail has to tell you what the system decided, and why."
 readTime: "6 min read"
+tags: ["Reliability", "Human review"]
 ---
 
 The message from our operations lead was short: "Why did the agent send this email?"
@@ -50,3 +51,7 @@ Nobody designed this workflow. It grew on its own. The trail happened to contain
 That changed how I think about the whole feature. An agent that sends emails and updates records is less like a service and more like a junior employee. You review the work, you ask how a decision was reached, you give more responsibility when it is earned and take it back after a bad week. The audit trail is the surface where all of that happens — for the engineer during an incident, and for the operations lead on Monday morning.
 
 Last week someone asked me why the agent had skipped a follow-up it should have sent. I opened the action, read the context snapshot, and answered in one message. Two minutes, maybe three. I still remember the afternoon I spent on that first email, guessing at inputs that no longer existed. The code was the same both times. The difference is that now we record the decision, not only the execution — trigger, context, decision, human response, for every action. Logging tells you what the code did. With agents, that was never the real question.
+
+## Sources and further reading
+
+[Monitoring Distributed Systems](https://sre.google/sre-book/monitoring-distributed-systems/), by Google SRE team. Its distinction between internal signals and externally visible behavior helps explain why a healthy process can still fail its users.

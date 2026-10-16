@@ -1,10 +1,10 @@
 ---
 title: "Evals that grow themselves"
-date: "2026-11-04"
+date: "2026-10-16"
 dek: "How we turned confirmed request forms into a growing test set for choosing prompts and models with evidence."
 readTime: "6 min read"
 category: "Production"
-draft: true
+tags: ["Evals", "Human review"]
 ---
 
 An assistant reads a supplier email and fills in a request form. The supplier is right. The delivery address is right. The requested date looks reasonable. You change the prompt, run the email again, and the form still looks reasonable.
@@ -94,3 +94,7 @@ Set the acceptance rules before looking at the candidate. A failed rule should b
 The test set will never cover everything. But every confirmed request gives us another piece of evidence, and every replay makes that evidence useful again.
 
 I want to open a proposed change and see which forms it improved, which it damaged, and what it costs. Then we can have a concrete argument about whether to ship it.
+
+## Sources and further reading
+
+[Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents), by Anthropic engineering team. Discusses tasks, trials, graders, and agent evaluation. Human-confirmed examples still need quality checks and a held-out evaluation set.

@@ -3,6 +3,7 @@ title: "60+ agent actions and one router: keeping an action catalog sane"
 date: "2026-09-08"
 dek: "Free-form tool calling stops scaling around a dozen tools. A typed action catalog with a cheap router is what scales."
 readTime: "6 min read"
+tags: ["Agent architecture"]
 ---
 
 Every agent tutorial I have seen defines all the tools in one prompt. It works, because tutorials have five tools. The first version of the agent I work on at my current company did the same thing, and it was fine at eight tools. Around fifteen it started picking the wrong tool once or twice a day. The agent now runs more than 60 actions across 13 integrations — not just search, real writes: it creates records, updates schedules, sends messages, changes assignments. Past thirty tools I would not let the old design near production data.
@@ -54,3 +55,7 @@ I know how unfashionable this design is. The router is a text classifier — a t
 Boring is the point here. A classifier has an accuracy number you can measure per action. A schema either validates or it does not, and a confirmation gate either fired or it did not. Every piece of the system answers a yes/no question in the logs. Free-form tool calling with sixty tools in one prompt feels more like "an agent", and I understand the appeal. But it turns every mistake into an argument about model behavior, and nobody wins those arguments. With the catalog, a mistake points at something specific: a bad description, a missing collision pair, a wrong risk level.
 
 If you are at a dozen tools and it still works, stay there. The pattern is not worth its cost at that size. But the day you write a second action whose description starts with the same six words as an existing one, build the router. Being boring here is cheap, and it is the part of the system I have had to apologize for the least.
+
+## Sources and further reading
+
+[Building effective agents](https://www.anthropic.com/engineering/building-effective-agents), by Anthropic engineering team. Its routing pattern separates classification from specialized tasks. This is background for the router design, not validation of this action catalog.

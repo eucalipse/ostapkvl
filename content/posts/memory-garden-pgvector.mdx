@@ -4,6 +4,7 @@ date: "2026-09-05"
 dek: "What embeddings, traces and resonance look like when memory is shared instead of private."
 readTime: "6 min read"
 category: "Experiments"
+tags: ["Memory", "Data systems"]
 ---
 
 A vector database answers a narrow question: which stored items are close to this query in embedding space? That is useful, but it is not memory. Memory also has ownership, time, visibility and context. A shared space makes those missing parts impossible to ignore.
@@ -51,3 +52,7 @@ Each term forced a useful question. Can a seed be edited, or is it an immutable 
 None of these questions required a new model. They required clear data contracts and a UI that did not claim more than the backend knew. The poetic layer made those contracts easier to discuss.
 
 The practical lesson is simple: use embeddings to suggest relationships, then keep identity, permission and time in ordinary relational data. Let the interface expose the suggestion without upgrading it into fact. A memory garden becomes interesting when the system can say “these are near” and leave the human room to decide what that means.
+
+## Sources and further reading
+
+[pgvector documentation](https://github.com/pgvector/pgvector), by pgvector maintainers. Documents exact and approximate similarity search and filtering. Record ownership and visibility remain application responsibilities.

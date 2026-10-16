@@ -3,6 +3,7 @@ title: "Three models, one answer: consensus as a reliability primitive"
 date: "2026-08-14"
 dek: "When a wrong answer is expensive, one model is a guess. Three models with a synthesis pass is a system."
 readTime: "6 min read"
+tags: ["Agent architecture", "Evals"]
 ---
 
 One of our AI actions extracted a date from an uploaded document: 03/04. The model picked March 4. The document was written by someone in Europe, and the date was April 3. The wrong date went into a downstream workflow, a person scheduled work around it, and fixing the mess took most of a day.
@@ -51,3 +52,7 @@ I should be honest about the limits. The models are not fully independent. They 
 Here is the opinion I actually want to defend. Most of the "LLM reliability" work I see is prompt work. Teams spend weeks writing the tenth version of the prompt and adding more few-shot examples. That work has fast diminishing returns, and it is fragile — a prompt tuned against one model version drifts on the next release, and you tune again. Spreading the same task across vendors is a dumber idea and it works better, because it attacks the correlation instead of trying to perfect one sample.
 
 If your system has even one path where a wrong LLM answer costs real money or real trust, add a second vendor on that path before you write the eleventh version of your prompt. With a provider abstraction already in place it is an afternoon of work. Without one it is maybe a week, and you needed the abstraction anyway. Either way it costs less than the incident it prevents.
+
+## Sources and further reading
+
+[Yilun Du and colleagues, Improving Factuality and Reasoning in Language Models through Multiagent Debate](https://arxiv.org/abs/2305.14325) studies debate between model instances on evaluated tasks. It motivates testing multiple perspectives, but agreement is not proof of truth or independent evidence. The findings do not verify the specific system results in this article.

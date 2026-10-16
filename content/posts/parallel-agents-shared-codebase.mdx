@@ -1,10 +1,10 @@
 ---
 title: "Parallel agents need an integration plan"
-date: "2026-10-31"
+date: "2026-10-16"
 dek: "Worktrees isolate edits. Contracts, environment boundaries, and combined checks make parallel work useful."
 readTime: "3 min read"
 category: "Experiments"
-draft: true
+tags: ["Agent architecture", "Coding"]
 ---
 
 <Figure src="/writing/parallel-agents-shared-codebase/flow.svg" alt="Coordinate before parallelizing: Agree on shared contracts; Independent tasks and environments; Commits with evidence; Test the combined revision; Integrate under one owner." caption="Conceptual architecture; not a measured performance chart." />
@@ -61,3 +61,7 @@ Track integration failures, repeated work, waiting time, and patches discarded b
 Set a stopping rule for workers that cannot resolve failures after a bounded number of attempts. Ask for evidence and the remaining decision instead of another broad rewrite.
 
 The speedup comes from overlapping independent work while keeping dependencies visible and the resulting product coherent.
+
+## Sources and further reading
+
+[How we built our multi-agent research system](https://www.anthropic.com/engineering/multi-agent-research-system), by Anthropic engineering team. Describes orchestration and coordination in a research system. Applying those lessons to shared code requires additional integration and testing controls.

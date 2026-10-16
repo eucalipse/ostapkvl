@@ -1,10 +1,10 @@
 ---
 title: "A marketplace that keeps working between visits"
-date: "2026-11-07"
+date: "2026-10-16"
 dek: "Building autonomous operational loops around a marketplace, with a clear boundary between routine work and business decisions."
 readTime: "5 min read"
 category: "Experiments"
-draft: true
+tags: ["Agent architecture", "Data systems"]
 ---
 
 A marketplace looks like a collection of pages. Keeping those pages useful is an ongoing operation: information changes, listings need attention, messages arrive, and gaps appear in the catalog.
@@ -70,3 +70,7 @@ The stronger version of this pattern combines batch limits, run history, timeout
 The human role shifts toward deciding priorities, reviewing exceptions, and checking whether the loops are producing useful outcomes. Those are substantial responsibilities. Automating routine work does not remove them.
 
 A marketplace can feel alive because information is maintained and incoming work is noticed. The engineering achievement is making those processes dependable and inspectable, with enough control to change direction when the business needs something different.
+
+## Sources and further reading
+
+[Building effective agents](https://www.anthropic.com/engineering/building-effective-agents), by Anthropic engineering team. Distinguishes predefined workflows from model-directed agents. That distinction helps separate scheduled marketplace jobs from open-ended autonomy.

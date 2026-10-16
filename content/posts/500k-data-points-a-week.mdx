@@ -3,6 +3,7 @@ title: "Processing 500k data points a week without melting the database"
 date: "2026-06-19"
 dek: "Distributed job queues, batch windows, and the unglamorous engineering behind 200k personalized emails a week."
 readTime: "5 min read"
+tags: ["Data systems", "Reliability"]
 ---
 
 The first realistic load test we ran on the healthcare platform killed staging in about forty minutes. The database did not crash. It did something worse: every query got slower and slower, the connection pool filled up with stuck transactions, and the API stopped answering. The ingestion endpoint kept accepting data the whole time. Everything downstream was dead.
@@ -49,3 +50,7 @@ Backpressure also needs a policy for the bad case. Ours is blunt: if the queue p
 Nothing in this article is advanced. Append-only inserts, a job queue, denormalized aggregate tables, a rate limiter, one alert. Any mid-level engineer can build each piece in a day. What took real effort was the discipline: saying no every time a feature wanted to blur a boundary, because blurring it was faster to ship that week. Compute-on-write was one blur. The live query in the renderer was another. Both looked small and cheap at the time.
 
 My takeaway from this project: most throughput problems are coupling problems. When the database melts, the instinct is to buy a bigger instance or add a cache. Usually that treats the symptom. The real question is which unrelated workloads fight for the same resource at the same moment, and the answer to that is a boundary, not hardware. The boundary itself took five minutes on a whiteboard. Keeping it intact through years of code reviews is the actual work. Our database is boring now, and boring is what you want from a database that holds other people's health data.
+
+## Sources and further reading
+
+[Parallelism and Concurrency](https://docs.bullmq.io/guide/parallelism-and-concurrency), by BullMQ maintainers. The documentation distinguishes worker concurrency from parallel processing. It provides context for the queue design, not independent verification of the workload figures in this account.

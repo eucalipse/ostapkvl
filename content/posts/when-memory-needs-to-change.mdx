@@ -1,0 +1,64 @@
+---
+title: "You changed your mind. The assistant remembered."
+date: "2026-10-16"
+dek: "A useful memory needs a way to become out of date. Otherwise, being remembered can start to feel like being stuck."
+readTime: "5 min read"
+category: "Consciousness & AI"
+tags: ["Memory", "Evals"]
+---
+
+Imagine telling an assistant that you prefer early meetings. A few weeks later, your circumstances change. You ask it to keep mornings free.
+
+The next suggestion is 8:30 a.m.
+
+There is nothing spectacular about this failure. No dramatic hallucination. The assistant may have retrieved a perfectly accurate record of something you really said. That is what makes it irritating. You did the work of explaining yourself twice, and the older explanation won.
+
+This is a hypothetical example, but it is the sort of test I want a memory system to pass before I trust it with more intimate context.
+
+<Figure src="/writing/when-memory-needs-to-change/conversation.svg" width={1200} height={800} alt="Two dated preference notes lead to conflicting meeting suggestions. The later request changes the earlier preference, rather than adding an unrelated fact." caption="Illustrative conversation. The dates and replies are invented for this example." />
+
+## Keep the correction, not just the sentence
+
+My first instinct as a builder is to preserve information. Storage is cheap enough to make keeping everything seem responsible. But a pile of accurate sentences can still produce an inaccurate picture of a person.
+
+“I prefer mornings” and “keep mornings free” need a relationship. The second statement might replace the first. It might apply only during a busy week. It might refer to appointments rather than work meetings. The wording matters, and sometimes the right next step is a question.
+
+I would rather see “Does that replace your usual preference, or just apply this week?” than have the software quietly make the choice for me.
+
+That is a small interruption. It buys something useful: a chance to correct the system before its interpretation turns into a recommendation.
+
+<Figure src="/writing/when-memory-needs-to-change/record.svg" width={1200} height={800} alt="A notebook-style memory record separates the original statement, its scope, current status, and the later correction that supersedes it." caption="Proposed record design, not a shipped feature." />
+
+## What a memory test can tell us
+
+The [LongMemEval-V2 preprint](https://arxiv.org/abs/2605.12493), submitted in May 2026 and marked work in progress, looks at an adjacent engineering problem: how agents use experience from web environments. Its tasks include changing state, workflow knowledge, and recognizing misleading premises. The benchmark asks memory systems to gather evidence for answering questions from earlier trajectories.
+
+That framing is useful. A long history and a useful answer are separate achievements. The paper also reports latency costs for its stronger methods. Better answers can cost time.
+
+My meeting example is not a result from that benchmark. It is a smaller proposed test inspired by the same distinction: what was retained, what was selected, and what the answer actually used.
+
+<Figure src="/writing/when-memory-needs-to-change/retrieval.svg" width={1200} height={800} alt="A branching evidence path shows two stored statements, selection of the current scoped preference, and a recommendation. A stale shortcut is explicitly rejected." caption="Conceptual retrieval path." />
+
+## The version I would want to use
+
+I would like to open a memory panel and find a sentence I recognize, with a date and a plain explanation of where it came from. Beside it: current, replaced, or waiting for clarification.
+
+A preference should be editable without an argument. “You told me this before” can explain an answer; it should not overrule a correction.
+
+I also want the interface to distinguish replacing a preference from deleting a record. A system might stop using an old note while retaining it in history. That can be useful for explaining a past decision, but it is not the same as erasure. If I request deletion, the product needs to describe what it removes, including derived summaries and any retention limits.
+
+This is where the friendly language has to meet the actual machinery. “Of course, I have forgotten that” is a poor substitute for checking what can still be retrieved.
+
+## Try to make it fail
+
+A useful experiment would compare three versions of the same task: no saved history, the relevant original messages, and a summary of those messages. Keep the model and instructions fixed. Repeat the test because a single good answer proves little.
+
+Then introduce a correction. Try a temporary exception. Include an ambiguous update where asking a question is better than guessing. Finally, remove the old record and check the retrieval path directly.
+
+I would score use of the current preference separately from whether the assistant correctly explains its source. It could suggest a good meeting time for the wrong reason. It could also quote the right note and still ignore it.
+
+<Figure src="/writing/when-memory-needs-to-change/experiment.svg" width={1200} height={800} alt="A proposed test worksheet compares three memory conditions against correction, temporary exceptions, clarification, and deletion checks. Cells remain blank because the experiment has not been run." caption="Proposed evaluation worksheet. Empty cells mean unmeasured, not failed." />
+
+The experiment would tell us something about memory behavior. It would not establish whether the system experiences remembering. That remains a different question, as I discuss in [What persists when the conversation ends?](/writing/what-persists-when-the-conversation-ends).
+
+What matters to me here is quite ordinary. People change their plans, habits, and minds. I want the software to leave room for that. Remembering me should include listening when I tell it something new.

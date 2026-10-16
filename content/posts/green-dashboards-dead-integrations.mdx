@@ -1,10 +1,10 @@
 ---
 title: "Green dashboards, dead integrations"
-date: "2026-10-21"
+date: "2026-10-16"
 dek: "We found three silent production failures while recording a demo, because our health checks never asked whether anything useful happened."
 readTime: "6 min read"
 category: "Production"
-draft: true
+tags: ["Reliability"]
 ---
 
 We found three broken integrations in one afternoon because we were trying to record a demo.
@@ -21,7 +21,7 @@ The first failure was in our shared inbox tool. People could mention the assista
 
 The tool started sending comment events under a new event name. Our handler only matched the old names. The requests still reached us. We received them, wrote a line to the log, and then ignored them because they did not match a branch we handled.
 
-For months, every mention of the assistant followed that path.
+Mentions could follow that path without producing an assistant response.
 
 There was no exception. Nothing timed out. The webhook endpoint had done exactly what its code said to do. Unfortunately, that code treated an event it did not recognize as something uninteresting.
 
@@ -45,7 +45,7 @@ There was an uncomfortable detail here: the worker meant to help explain errors 
 
 Then we looked at Slack.
 
-The bot account used by the sync had been deactivated. The sync job kept reporting “idle, 0 new messages” every half hour, for months.
+The bot account used by the sync had been deactivated. The sync job kept reporting “idle, 0 new messages” on its regular schedule.
 
 That message sounds ordinary. A quiet channel can have no new messages. But a deactivated account cannot establish whether a channel is quiet. We had allowed “could not read” to look like “read successfully and found nothing.”
 
@@ -98,3 +98,7 @@ That afternoon, we finally did that across paths we had assumed were working.
 I am glad we found the failures. I am less pleased that preparing a recording was what made us look. The dashboard had answered the questions we built into it, and those questions were too small.
 
 I still think a demo is a great audit. Pick a real workflow and follow it all the way through. But the scheduled checks should do that work between demos. I want the next missing answer to reach us as an alert, while the person who asked is still waiting.
+
+## Sources and further reading
+
+[Monitoring Distributed Systems](https://sre.google/sre-book/monitoring-distributed-systems/), by Google SRE team. Black-box monitoring checks behavior from outside the system. That is the relevant connection to the end-to-end canary proposed here.

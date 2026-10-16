@@ -1,10 +1,10 @@
 ---
 title: "From scattered public sources to dependable data"
-date: "2026-10-17"
+date: "2026-10-16"
 dek: "A layered discovery pipeline where models handle ambiguity and explicit checks decide what can be accepted."
 readTime: "3 min read"
 category: "Experiments"
-draft: true
+tags: ["Data systems", "Reliability"]
 ---
 
 Public information is often available without being usable. It may be spread across pages, documents, embedded tools, and feeds. Sources move, formats change, and an apparently relevant page can belong to the wrong organization.
@@ -56,3 +56,7 @@ The count of extracted records tells only part of the story. I would also track 
 Those measurements point to different fixes. Wrong attribution needs better source checks. Unreadable documents need extraction work. Stale records need a refresh strategy. A model upgrade cannot be assumed to solve all three.
 
 The product may ultimately present a simple record or subscription. Behind it is a continuing process of finding evidence, interpreting it, deciding what can be accepted, and checking again when the world changes.
+
+## Sources and further reading
+
+[PROV Overview](https://www.w3.org/TR/prov-overview/), by W3C Provenance Working Group. The provenance model is useful background for preserving a path from an extracted record to its source and transformation history.

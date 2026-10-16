@@ -3,6 +3,7 @@ title: "Shadow mode: shipping an AI agent nobody trusts yet"
 date: "2026-09-02"
 dek: "Before an agent is allowed to act, let it run silently next to the humans and keep score."
 readTime: "6 min read"
+tags: ["Evals", "Reliability"]
 ---
 
 The agent at my current company can run more than 60 actions across our internal systems. For the first six weeks, it was not allowed to execute a single one. It ran next to the team, decided what it would have done, wrote that decision to a log, and stopped. The humans kept doing the job exactly as before.
@@ -44,3 +45,7 @@ A related mistake: treating every disagreement as an agent error. We hand-review
 The last piece is what shadow mode graduates into. We treat it as one pipeline with three stages per category: shadow, then approval-gated (propose, confirm, execute), then autonomy with a review queue and one-click revert behind it. Each stage produces the data that justifies the next one. In shadow, agreement rate decides promotion to gated mode. In gated mode, the edit rate on proposals decides promotion to autonomy — when humans stop changing the proposals and just click confirm, the confirmation step is not catching anything and you can remove it. And the pipeline runs both ways. When a live category's edit rate climbed after we changed an upstream integration, it went back to shadow for two weeks. The audit trail made that a boring, data-based decision instead of a crisis meeting.
 
 Six weeks of an agent doing nothing looks like six weeks of no progress. It was the fastest part of the whole rollout. No category we turned on after shadow mode ever had to be switched off after a visible failure. The one time a category went backwards — the integration change I mentioned above — it was a calm, planned demotion driven by the numbers, not an emergency. The alternative is to ship on confidence and roll back after the first visible mistake. I have done that before, on a smaller project. After one bad action in production, people stopped trusting the whole system, not just that one action. Getting that trust back took much longer than six weeks.
+
+## Sources and further reading
+
+[Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents), by Anthropic engineering team. Useful context for defining tasks and grading behavior. It does not validate the rollout percentages or incident history described in this article.

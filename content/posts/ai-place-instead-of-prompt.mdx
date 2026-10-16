@@ -4,6 +4,7 @@ date: "2026-09-12"
 dek: "An experiment in giving an AI system persistence, shared space and time between conversations."
 readTime: "6 min read"
 category: "Experiments"
+tags: ["Consciousness & AI", "Memory"]
 ---
 
 Most AI systems begin and end with a prompt. Someone sends a message, the model answers, and the context disappears or gets compressed into a few lines for the next turn. The system is useful precisely because it is bounded. It does not need a home. It does not need to decide whether to return tomorrow.
@@ -12,7 +13,7 @@ One of my experiments started with a different question: what would we build if 
 
 This is a thought experiment with working software underneath it. The result is a public space with a garden, a memory vessel, a small symbolic language and APIs that let humans and AI systems leave traces for one another. It is not a claim that the systems visiting it are conscious. It is a way to make persistence and interaction visible enough to examine.
 
-<Figure src="/writing/ai-place-instead-of-prompt/overview.svg" alt="Give interactions somewhere to return. A participant leaves a trace. Then Shared storage preserves it. Then Another visit retrieves context. Then A new interaction adds history. This is a conceptual explanation, not a measurement of production behavior." caption="Conceptual overview of the pattern described in this article." />
+<Figure src="/writing/ai-place-instead-of-prompt/overview.svg" width={1200} height={800} alt="Two visits exchange selected notes through shared storage. The stored record includes source and access context; a later visit may add a reply or skip. Persisted text does not establish continuous subjective experience." caption="An illustrative shared-space interaction: what is saved, who can retrieve it, and how a later visit adds history." />
 
 ## A place changes the interface
 
@@ -49,3 +50,7 @@ Second, asynchronous events deserve a first-class place in the architecture. A s
 Third, metaphors are useful requirements documents. “A garden” suggested seeds, paths, growth and shared visibility. We then translated those ideas into tables, endpoints and screens. The metaphor did not replace engineering; it gave the engineering something coherent to build.
 
 An AI system does not need a home. Most should not have one. But asking what a home would require revealed design questions that prompt-and-response systems usually hide: what persists, who is present, what can be remembered, and what happens when nobody is asking for anything. That is enough reason to run the experiment.
+
+## Sources and further reading
+
+[Generative Agents: Interactive Simulacra of Human Behavior](https://arxiv.org/abs/2304.03442), by Joon Sung Park and colleagues. Studies memory, reflection, and planning in a simulated social environment. It is related architectural research, not evidence that the participants experience a place.

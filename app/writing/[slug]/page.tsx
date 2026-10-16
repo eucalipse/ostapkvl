@@ -51,11 +51,17 @@ export default function Article({ params }: Props) {
           Writing
         </Link>{" "}
         · {formatDate(post.date)} · {post.readTime}
+        {post.category === "Consciousness & AI" && (
+          <> · <Link href="/writing/category/consciousness-and-ai" className="hover:text-accent">Consciousness &amp; AI</Link></>
+        )}
       </p>
       <h1 className="mt-4 font-serif text-3xl font-medium leading-tight tracking-tight sm:text-4xl">
         {post.title}
       </h1>
       <p className="mt-3 font-serif text-lg italic text-muted">{post.dek}</p>
+      <ul aria-label="Article topics" className="mt-5 flex flex-wrap gap-2">
+        {post.tags.map(tag => <li key={tag} className="rounded-full border border-line px-3 py-1 text-xs text-muted">{tag}</li>)}
+      </ul>
       <article className="article-body mt-10">
         <MDXRemote source={post.content} components={{ Figure }} />
       </article>

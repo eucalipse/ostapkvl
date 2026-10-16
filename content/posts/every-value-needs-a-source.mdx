@@ -1,10 +1,10 @@
 ---
 title: "Every value needs a source"
-date: "2026-10-28"
+date: "2026-10-16"
 dek: "How we turn messy emails and calls into forms a person can trust, without asking them to trust the model."
 readTime: "6 min read"
 category: "Production"
-draft: true
+tags: ["Data systems", "Human review"]
 ---
 
 Most real work does not start with a form. It starts with a conversation. A customer writes an email with three requests in it. A partner mentions a deadline at minute twelve of a call. Two days later somebody sends one more detail in a reply that starts with "also".
@@ -66,3 +66,7 @@ Start with the source links before you start tuning the model. It is tempting to
 Keep the verification step boring. Plain code that compares strings and checks records is cheap, fast and easy to test. It can still have bugs, but it does not make things up. Use the model for reading and drafting, and use code for checking.
 
 And measure the right thing. Not "how many fields did the model fill", but "how many fields did a person have to change, and how long did the review take". If those numbers go down, and a sample check shows people are not missing errors, the tool is working. If only the first one goes up, you have built a faster way to make mistakes.
+
+## Sources and further reading
+
+[PROV Overview](https://www.w3.org/TR/prov-overview/), by W3C Provenance Working Group. Provides a vocabulary for the entities, activities, and people involved in producing data. Provenance helps inspection; it does not establish that a source is correct.

@@ -3,6 +3,7 @@ title: "A vector memory engine for AI with emotional recall — what I learned"
 date: "2026-07-10"
 dek: "Building state-aware memory traces for an AI that needed to remember how conversations felt, not just what they said."
 readTime: "5 min read"
+tags: ["Memory", "Human–AI interaction"]
 ---
 
 About a year and a half ago a client came to my agency with a requirement I had not seen before. They were building an AI character for brand experiences — a conversational persona that talks with the same person over weeks and months. Forgetting facts was not their problem; retrieval covers facts well enough. The character forgot how conversations felt. A user could spend twenty minutes being frustrated, come back the next day, and get greeted like nothing had happened. Or like something good had happened, which was worse.
@@ -54,3 +55,7 @@ Tuning those constants turned out to be the real product work. "How long should 
 That comparison is my honest summary of the project. I went in expecting the hard problems to be in vector search, because that is where the field points all its attention. The vector layer was the easiest part and the least sensitive one. The product lived in two boring places: what gets written into memory at the end of a conversation, and the curve that decides how long it matters. No embedding benchmark measures either one.
 
 So when I look at a memory feature in an AI product now, I no longer ask what database it uses. I ask what it writes down. Most memory features are a transcript with search on top, and it shows the first time something painful enters the conversation. If your agent's memory feels wrong, my bet is that the problem is not in how it searches. It is in what it saves.
+
+## Sources and further reading
+
+[Lost in the Middle: How Language Models Use Long Contexts](https://arxiv.org/abs/2307.03172), by Nelson F. Liu and colleagues. Finds position-sensitive use of context in the tested models. It motivates evaluating retrieval and context assembly; it does not validate emotional labels, decay rules, or the performance claims in this account.

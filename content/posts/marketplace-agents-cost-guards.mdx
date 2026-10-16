@@ -4,6 +4,7 @@ date: "2026-09-12"
 dek: "A production pipeline for enriching a large directory without giving one model permission to do everything."
 readTime: "7 min read"
 category: "Production"
+tags: ["Agent architecture", "Reliability"]
 ---
 
 The first version of the marketplace was mostly a database and a set of import scripts. It collected business listings, attached them to cities and categories, and waited for a person to clean up the result. That worked at a small scale. It became a different problem when the directory grew past 87,000 vendor listings.
@@ -63,3 +64,7 @@ I also sample generated listings against their sources. Aggregate success rates 
 The result is not a marketplace that runs without people. It is a marketplace where people spend their time on exceptions and judgment, while repeatable work moves through small workers with visible boundaries. Scheduled agents handle the volume. Validation, idempotency, cost controls and approval queues handle the uncertainty.
 
 That is the pattern I keep returning to. An agent does not become reliable because it is given a larger prompt or a more impressive model. It becomes reliable when its job is small, its output is checked, its failure is contained and the system knows when to ask a person.
+
+## Sources and further reading
+
+[Making retries safe with idempotent APIs](https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/), by Malcolm Featonby, AWS. Useful background for preventing duplicate effects when batch work is retried. Idempotency does not, by itself, enforce spending limits.
