@@ -3,7 +3,9 @@ IDIOMA.config({
   brand: 'Türkçe',                       // тимчасово в контексті ostapkvl.com (17.10.2026); «Idioma» — назва продукту на потім
   sub: 'Ostap · конспект турецької',
   title: 'Türkçe — Ostap Kovalisko',     // <title> у стилі сайту
-  site: { label: 'ostapkvl.com', url: 'https://ostapkvl.com' },  // лінк назад на сайт над брендом; прибрати, коли переїдемо
+  site: { label: 'ostapkvl.com', url: 'https://ostapkvl.com' },
+  teacherTitle: 'Ostap · Homework',
+  teacherIntro: 'Ostap’s homework answers. Each exercise is marked with its lesson date. Click 🔈 to hear a line.',  // сторінка /turkce/teacher (page.html?cat=homework&view=teacher)  // лінк назад на сайт над брендом; прибрати, коли переїдемо
   target: 'tr',          // мова, яку вчать (має збігатися з lang/<code>.js)
   native: 'uk',          // рідна мова пояснень
   search: 'Пошук фрази…',

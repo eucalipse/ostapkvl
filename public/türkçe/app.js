@@ -10,6 +10,7 @@ const IDIOMA = (() => {
   const BASE = window.IDIOMA_BASE || '';
   // Окрема сторінка однієї категорії (page.html?cat=homework): без сайдбару, лінки на інші категорії ведуть в index.html
   const SOLO = window.IDIOMA_SOLO || null;
+  const VIEW = window.IDIOMA_VIEW || null; // 'teacher' = лише записи з submit: true, без української й нотаток (сторінка для вчительки)
   const pageUrl = (id) => (BASE ? `${BASE}${id}` : `page.html?cat=${id}`);
   const homeUrl = (hash) => (BASE ? `${BASE}${hash || ''}` : `index.html${hash || ''}`);
   const $ = (id) => document.getElementById(id);
@@ -243,7 +244,17 @@ const IDIOMA = (() => {
   }
 
   function catHTML(c) {
-    const entries = all.filter((e) => e.c === c);
+    const entries = all.filter((e) => e.c === c && (VIEW !== 'teacher' || e.s.submit));
+    const topics = c.topics.filter((t) => !t.hidden && (VIEW !== 'teacher' || entries.some((e) => e.t === t)));
+    if (VIEW === 'teacher') return `<div class="doc">
+      <h1>${esc(c.en || c.title)}</h1>
+      <p class="tview-intro">${esc(CFG.teacherIntro || '')}</p>
+      ${topics.map((t) => `
+        <section class="topic-sec" id="${esc(t.id)}">
+          <h2>${esc(t.en || t.title)}</h2>
+          ${entries.filter((e) => e.t === t).map((e) => entryHTML(e)).join('')}
+        </section>`).join('')}
+    </div>`;
     return `<div class="doc">
       <h1>${tt(c)}</h1>
       <div class="legend"><span class="part root"><b>root · корінь</b></span><span class="part suffix"><b>suffix · суфікс</b></span><span class="part word"><b>word · слово</b></span><span class="part particle"><b>particle · частка</b></span><span class="hint">outlined tile = click opens the rule · плитка з рамкою веде на правило</span></div>
@@ -277,7 +288,7 @@ const IDIOMA = (() => {
       stage.innerHTML = catHTML(c); stage.dataset.cat = c.id;
       stage.querySelectorAll('.speak').forEach((b) => b.addEventListener('click', () => speak(b.dataset.say)));
     }
-    $('crumbs').innerHTML = SOLO ? `<a class="back" href="${esc(homeUrl(''))}">← ${esc(CFG.brand)}</a> · <b>${tt(c)}</b>` : `<b>${tt(c)}</b>`;
+    $('crumbs').innerHTML = VIEW === 'teacher' ? `<b>${esc(CFG.teacherTitle || c.en || c.title)}</b>` : SOLO ? `<a class="back" href="${esc(homeUrl(''))}">← ${esc(CFG.brand)}</a> · <b>${tt(c)}</b>` : `<b>${tt(c)}</b>`;
     document.querySelectorAll('.entry.hl').forEach((x) => x.classList.remove('hl'));
     if (anchor) {
       const el = document.getElementById(anchor);
@@ -431,6 +442,7 @@ const IDIOMA = (() => {
     initTheme();
     if (SOLO) {
       document.body.classList.add('solo');
+      if (VIEW === 'teacher') document.body.classList.add('tview');
       const c = findCat(SOLO);
       $('crumbs').innerHTML = `<a class="back" href="${esc(homeUrl(''))}">← ${esc(CFG.brand)}</a>`;
       if (c) document.title = `${c.en || c.title} · ${CFG.brand}`;

@@ -35,7 +35,9 @@
 
   <div class="drawer" id="modal"><div class="dcard"><button class="mclose" aria-label="Close">✕</button><div id="modalBody"></div></div></div>
 
-  <script>(() => { const seg = location.pathname.split('/').filter(Boolean).pop() || ''; window.IDIOMA_SOLO = new URLSearchParams(location.search).get('cat') || (/^[a-z-]+$/.test(seg) ? seg : 'homework'); })();</script>
+  <script>(() => { const q = new URLSearchParams(location.search); const seg = location.pathname.split('/').filter(Boolean).pop() || '';
+    window.IDIOMA_VIEW = q.get('view') || (seg === 'teacher' ? 'teacher' : null);
+    window.IDIOMA_SOLO = q.get('cat') || (seg === 'teacher' ? 'homework' : (/^[a-z-]+$/.test(seg) ? seg : 'homework')); })();</script>
   <script>window.IDIOMA_BASE='/turkce/';</script>
   <script src="/turkce/app.js"></script>
   <script src="/turkce/lang/tr.js"></script>

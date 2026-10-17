@@ -340,3 +340,11 @@ body.solo .crumbs { display: block; }
 body.solo .crumbs .back { font-family: var(--font-mono); color: var(--ink-2); letter-spacing: .06em; }
 body.solo .crumbs .back:hover { color: var(--ink); text-decoration: none; }
 body.solo .doc { max-width: 1040px; }
+
+/* ---------- сторінка для вчительки (page.html?cat=homework&view=teacher → /turkce/teacher): лише відповіді, англійською ---------- */
+body.tview .trans .uk, body.tview .ex .uk, body.tview .line .tl, body.tview .line .ukt, body.tview .say, body.tview .tl,
+body.tview .notes, body.tview .graph, body.tview .parts, body.tview .meta, body.tview .legend,
+body.tview #todayBtn, body.tview #wordsBtn, body.tview #statsBtn, body.tview .status { display: none; }
+body.tview .entry { grid-template-columns: 1fr; grid-template-areas: "head" "trans" "body"; }
+body.tview .tview-intro { color: var(--ink-2); font-size: 14px; margin: -6px 0 18px; }
+body.tview .crumbs .back { display: none; }
