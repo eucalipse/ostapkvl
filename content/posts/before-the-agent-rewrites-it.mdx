@@ -1,0 +1,61 @@
+---
+title: "Before the agent rewrites it, ask how it works"
+date: "2026-10-17"
+dek: "REA connects coding agents to software inspection tools. The interesting question is what evidence makes an explanation worth building on."
+readTime: "4 min read"
+category: "Experiments"
+tags: ["Agent architecture", "Coding", "Verification"]
+draft: true
+---
+
+Imagine asking an agent to replace an old export feature. It reads the visible interface, writes a clean implementation, and produces a file that opens correctly. The demo looks finished.
+
+Then someone tries a name containing a comma. Or an empty field. Or a record created before the last migration.
+
+The difficult part was hidden in the behavior nobody thought to describe.
+
+That is why [REA, Reverse Engineer Anything](https://github.com/morluto/rea), caught my attention. Its maintainers describe an MCP interface that connects agents to inspection tools for native binaries, JavaScript and Electron applications, websites, and other targets. The agent can use returned evidence to investigate a feature and propose an implementation. Native analysis depends on providers such as Hopper, Ghidra, or IDA.
+
+I have reviewed the public documentation, not run a hands-on evaluation. This is a design note about the workflow it suggests, not a benchmark or an endorsement of every capability in the README.
+
+## A smaller question gets a better investigation
+
+“Understand this application” leaves too much room for a convincing overview.
+
+I would start with something narrower: what happens when this exporter encounters a delimiter inside a field? Which branch handles an empty value? Does the preview use the same path as the saved file?
+
+Those questions have observable consequences. They also give the agent a stopping point. It does not need a complete theory of the application to explain one behavior well.
+
+[REA’s public Calculator example](https://rea.tools/#calculator) illustrates the idea. It investigates why the percentage button behaves differently after addition and multiplication, connecting the explanation to instructions and Microsoft’s source. The site distinguishes illustrative reasoning from the inspected material. That distinction matters: a readable explanation and a captured observation are different kinds of evidence.
+
+## Keep the observation beside the explanation
+
+Here is the investigation record I would want for a hypothetical CSV exporter.
+
+<Figure src="/writing/before-the-agent-rewrites-it/evidence.svg" alt="An investigation board links a synthetic CSV input and quoted output to two competing explanations. Quoting every field remains possible until a plain-field probe distinguishes it from conditional quoting." caption="Original investigation sketch. All inputs, outputs, and hypotheses are synthetic; this is not a REA screenshot or a test result." />
+
+One exported value cannot establish the whole rule. If a comma-containing name is quoted, perhaps the exporter quotes every field. Perhaps it quotes only fields containing delimiters. Both explanations fit that observation.
+
+A plain name becomes a useful next probe because the predictions differ. A name containing a quote raises another question. The agent should record what remains unresolved instead of silently promoting its favorite explanation into a fact.
+
+This is where I think agent interfaces need more care. A paragraph of confident prose is easy to read and hard to audit. I would rather see the claim, the artifact it refers to, and the next experiment that could show it is wrong.
+
+## The replacement needs its own evidence
+
+Recovering a rule is only half the job. A new implementation can misunderstand the rule, handle a boundary differently, or reproduce one path while missing another.
+
+For a small feature, I would run the original and the proposed replacement against the same fixtures. Keep the input, both outputs, and any difference. If the feature depends on time, locale, or stored state, those become part of the fixture too.
+
+<Figure src="/writing/before-the-agent-rewrites-it/comparison.svg" alt="Shared synthetic fixtures feed an original exporter and a proposed replacement. Their outputs meet in a comparison table where a quoted-name mismatch blocks acceptance, while an untested locale remains unknown." caption="Proposed comparison workflow with illustrative outcomes. Passing these examples would not establish equivalence for every input." />
+
+A match is useful evidence within the tested scope. An untested case is still untested. I would keep that boundary visible when the agent writes the final summary.
+
+## What I would try first
+
+I would choose a small application I maintain, or a public example intended for inspection, and investigate one behavior before changing anything. That gives me a known reference and a manageable experiment.
+
+The deliverable would be modest: a versioned target, a specific question, the relevant observations, competing explanations, and a few reproducible checks. Only then would I ask for a replacement.
+
+There is also a practical data boundary to check. REA’s documentation says analysis happens locally, but tool results go to the connected agent, whose model provider has its own data policy. Local inspection alone does not mean the entire workflow stays on the machine. [The project’s FAQ explains this distinction](https://github.com/morluto/rea#faq).
+
+What interests me here is the possibility of making investigation a normal part of delegated development. Before an agent changes a behavior, it should be able to show which behavior it believes it is changing, and what would prove that belief wrong.

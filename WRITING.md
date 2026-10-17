@@ -17,5 +17,5 @@ Articles live in `content/posts/<slug>.mdx`. Images live in `public/writing/<slu
   internal evals, commit or line counts). Approved public numbers are listed in the site handoff notes.
 - Plain, human English: short sentences, concrete examples, first person where it is my experience. No
   "in today's fast-paced world", no "delve", no lists of buzzwords. One idea per paragraph.
-- New articles start with `draft: true` in the frontmatter. Drafts render in `next dev` and never in production.
+- New articles start with `draft: true` in the frontmatter. Drafts render on the deployed, unlisted `/drafts` and `/drafts/<slug>` preview pages with noindex. They are accessible to anyone with the URL, but excluded from public article lists, public article routes, and the sitemap.
   Remove the flag only when the owner says publish.

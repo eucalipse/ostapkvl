@@ -15,12 +15,11 @@ export type PostMeta = {
   tags: string[];
 };
 
-/** Drafts render locally (next dev) and with SHOW_DRAFTS=1, never in a production build. */
-export const showDrafts = process.env.NODE_ENV !== "production" || process.env.SHOW_DRAFTS === "1";
+/** Public queries exclude drafts; the unlisted preview routes opt in explicitly. */
 
 export type Post = PostMeta & { content: string };
 
-export function getAllPosts(): PostMeta[] {
+export function getAllPosts(includeDrafts = false): PostMeta[] {
   return fs
     .readdirSync(postsDir)
     .filter((f) => f.endsWith(".mdx"))
@@ -38,15 +37,15 @@ export function getAllPosts(): PostMeta[] {
         tags: Array.isArray(data.tags) ? data.tags.filter((tag: unknown): tag is string => typeof tag === "string") : [],
       };
     })
-    .filter((p) => showDrafts || !p.draft)
+    .filter((p) => includeDrafts || !p.draft)
     .sort((a, b) => (a.date < b.date ? 1 : -1));
 }
 
-export function getPost(slug: string): Post | null {
+export function getPost(slug: string, includeDrafts = false): Post | null {
   const file = path.join(postsDir, `${slug}.mdx`);
-  if (!fs.existsSync(file)) return null;
+  if (!/^[a-z0-9-]+$/.test(slug) || !fs.existsSync(file)) return null;
   const { data, content } = matter(fs.readFileSync(file, "utf8"));
-  if (data.draft === true && !showDrafts) return null;
+  if (data.draft === true && !includeDrafts) return null;
   return {
     slug,
     title: data.title as string,
