@@ -4,6 +4,7 @@ import { ContactForm } from "./contact-form";
 
 export const metadata: Metadata = {
   title: "Contact",
+  alternates: { canonical: "/contact", languages: { en: "/contact", es: "/es", fr: "/fr", "x-default": "/contact" } },
   description:
     "Discuss AI architecture consulting and advisory with Ostap Kovalisko. Selected engagements arranged directly or through Eucalipse.",
 };

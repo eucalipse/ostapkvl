@@ -185,3 +185,17 @@ button:focus-visible {
 .banner-dark { display: none; }
 :root[data-theme="dark"] .banner-light { display: none; }
 :root[data-theme="dark"] .banner-dark { display: block; }
+
+/* A small signature, with real responsive text rather than a scaled image headline. */
+.signature-frame { height: 72px; }
+.signature-art { position: absolute; width: 100%; height: 100%; object-fit: cover; object-position: right center; opacity: .55; }
+.signature-hero .signature-frame { height: 210px; display: flex; align-items: center; }
+.signature-hero .signature-art { opacity: .8; }
+.signature-headline { padding: 0 1.5rem; text-wrap: balance; }
+.signature-strip .signature-art { object-fit: cover; object-position: right 53%; opacity: .25; }
+@media (max-width: 640px) {
+ .signature-frame { height: 44px; }
+ .signature-hero .signature-frame { height: 180px; }
+ .signature-hero .signature-art { opacity: .18; }
+ .signature-headline { padding: 0 .75rem; max-width: 22rem; }
+}

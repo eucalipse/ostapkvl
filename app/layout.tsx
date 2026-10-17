@@ -5,7 +5,8 @@ import Script from "next/script";
 import { site } from "@/data/site";
 import { AnalyticsTracker } from "./analytics-tracker";
 import "./globals.css";
-import { ThemeToggle } from "./theme-toggle";
+import { SiteNavigation } from "./site-navigation";
+import { SiteSignature } from "./site-signature";
 
 const serif = Newsreader({
   subsets: ["latin"],
@@ -62,13 +63,6 @@ const personJsonLd = {
   ],
 };
 
-const nav = [
-  { href: "/about", label: "About" },
-  { href: "/projects", label: "Projects" },
-  { href: "/writing", label: "Writing" },
-  { href: "/contact", label: "Contact" },
-];
-
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
@@ -106,20 +100,10 @@ plausible.init();`,
             >
               Ostap Kovalisko
             </Link>
-            <nav aria-label="Main navigation" className="flex flex-wrap items-center gap-4 text-sm sm:gap-7">
-              {nav.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="text-muted transition-colors hover:text-accent"
-                >
-                  {item.label}
-                </Link>
-              ))}
-              <ThemeToggle />
-            </nav>
+            <SiteNavigation />
           </div>
         </header>
+        <SiteSignature />
         {children}
         <footer className="no-print mt-24 border-t border-line" data-analytics-placement="footer">
           <div className="mx-auto flex max-w-wide flex-col gap-3 px-6 py-8 text-sm text-muted sm:flex-row sm:items-baseline sm:justify-between">

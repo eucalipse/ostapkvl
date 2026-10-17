@@ -1,31 +1,66 @@
 "use client";
-import { useEffect, useState } from "react";
-type Theme = "system" | "light" | "dark";
+
+import { useEffect, useRef, useState } from "react";
+
+type Theme = "light" | "dark";
 const key = "ostapkvl-theme";
-export function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme>("system");
+
+export function ThemeToggle({ locale = "en" }: { locale?: "en" | "es" | "fr" }) {
+  const [theme, setTheme] = useState<Theme>("light");
+  const preference = useRef<Theme | null>(null);
+
   useEffect(() => {
-    let saved: Theme = "system";
-    try { const value = localStorage.getItem(key); if (value === "light" || value === "dark") saved = value; } catch {}
-    setTheme(saved);
     const media = matchMedia("(prefers-color-scheme: dark)");
     const apply = () => {
-      let preference: string | null = null;
-      try { preference = localStorage.getItem(key); } catch {}
-      document.documentElement.dataset.theme = preference === "light" || preference === "dark" ? preference : media.matches ? "dark" : "light";
+      const resolved = preference.current ?? (media.matches ? "dark" : "light");
+      document.documentElement.dataset.theme = resolved;
+      setTheme(resolved);
     };
-    apply();
-    const sync = () => { let value: string | null = null; try { value = localStorage.getItem(key); } catch {} setTheme(value === "light" || value === "dark" ? value : "system"); apply(); };
+    const sync = () => {
+      try {
+        const saved = localStorage.getItem(key);
+        preference.current = saved === "light" || saved === "dark" ? saved : null;
+      } catch {}
+      apply();
+    };
+    const onStorage = (event: StorageEvent) => {
+      if (event.key === key || event.key === null) sync();
+    };
+    sync();
     media.addEventListener("change", apply);
-    window.addEventListener("storage", sync);
-    return () => { media.removeEventListener("change", apply); window.removeEventListener("storage", sync); };
+    window.addEventListener("storage", onStorage);
+    return () => {
+      media.removeEventListener("change", apply);
+      window.removeEventListener("storage", onStorage);
+    };
   }, []);
-  return <select aria-label="Color theme" value={theme} onChange={event => {
-    const value = event.target.value as Theme;
-    setTheme(value);
-    try { localStorage.setItem(key, value); } catch {}
-    document.documentElement.dataset.theme = value === "system" ? matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light" : value;
-  }} className="rounded border border-line bg-paper px-2 py-1 text-xs text-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent">
-    <option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option>
-  </select>;
+
+  const label = locale === "es" ? (theme === "dark" ? "Activar modo claro" : "Activar modo oscuro") : locale === "fr" ? (theme === "dark" ? "Activer le mode clair" : "Activer le mode sombre") : `Switch to ${theme === "dark" ? "light" : "dark"} mode`;
+
+  return (
+    <button
+      type="button"
+      aria-label={label}
+      title={label}
+      onClick={() => {
+        const next = theme === "dark" ? "light" : "dark";
+        preference.current = next;
+        setTheme(next);
+        document.documentElement.dataset.theme = next;
+        try { localStorage.setItem(key, next); } catch {}
+      }}
+      className="group relative inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-transparent text-muted transition-colors hover:border-accent/20 hover:bg-accent/10 hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent motion-reduce:transition-none"
+    >
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5 transition-transform duration-300 group-hover:rotate-12 motion-reduce:transform-none motion-reduce:transition-none">
+        {theme === "dark" ? (
+          <>
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" />
+          </>
+        ) : (
+          <path d="M20.8 13.2A8.8 8.8 0 0 1 10.8 3.2a8.8 8.8 0 1 0 10 10Z" />
+        )}
+      </svg>
+    </button>
+  );
 }

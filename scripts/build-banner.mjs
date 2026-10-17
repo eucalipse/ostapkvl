@@ -80,3 +80,8 @@ function vLight({ ex, ey, tx, ty, anchor, seed, fade }) {
 const light = vLight({ex:1230,ey:205,tx:70,ty:125,anchor:"start",seed:3,fade:[330,150,420,140]}).replace('</svg>', '<text x="1555" y="374" text-anchor="end" font-family="monospace" font-size="17" fill="#6E675F">ostapkvl.com</text></svg>');
 const dark=light.replaceAll('#FAF8F4','#16181B').replaceAll('#1A1815','#EFEBE4').replaceAll('#C05621','#F29E6C').replaceAll('#6E675F','#B2ACA3');
 for(const [theme,body] of Object.entries({light,dark})) fs.writeFileSync(new URL(`../public/images/agent-network-${theme}.svg`,import.meta.url),body);
+
+// Text-free artwork for responsive HTML headlines and compact page signatures.
+const watermark = `<g transform="translate(1295 365)" fill="none" stroke="#6E675F" stroke-width="1.3"><path d="M0 0Q12 -12 24 0Q12 12 0 0Z"/><circle cx="12" cy="0" r="4"/><path d="M24 0L37 -6L46 0"/><circle cx="37" cy="-6" r="2"/></g><text x="1555" y="371" text-anchor="end" font-family="monospace" font-size="17" fill="#6E675F">ostapkvl.com</text>`;
+const artwork=light.replace(/<text[\s\S]*?<\/text>/g,'').replace('</svg>',watermark+'</svg>');
+for(const [theme,body] of Object.entries({light:artwork,dark:artwork.replaceAll('#FAF8F4','#16181B').replaceAll('#1A1815','#EFEBE4').replaceAll('#C05621','#F29E6C').replaceAll('#6E675F','#B2ACA3')})) fs.writeFileSync(new URL(`../public/images/agent-signature-${theme}.svg`,import.meta.url),body);

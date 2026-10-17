@@ -4,7 +4,7 @@ import { site } from "@/data/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // /cv is deliberately excluded — unlisted page.
-  const pages = ["", "/about", "/projects", "/writing", "/contact"].map(
+  const pages = ["", "/about", "/projects", "/writing", "/contact", "/es", "/fr"].map(
     (route) => ({
       url: `${site.url}${route}`,
       lastModified: new Date(),

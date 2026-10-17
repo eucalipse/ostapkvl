@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <main className="mx-auto max-w-wide px-6">
       {/* Hero */}
-      <section className="py-20 sm:py-28" data-analytics-placement="home-hero">
+      <section className="py-12 sm:py-16" data-analytics-placement="home-hero">
         <p className="font-mono text-xs text-muted">
           <span className="text-accent">▸</span> currently: building AI agents ·
           57 countries and counting
@@ -48,21 +48,6 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="relative mb-16 overflow-hidden rounded-sm border border-line">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/images/agent-network-light.svg"
-          alt="Building AI agents that get work done. A fine network of connected nodes forms an eye, with a warm orange accent on an off-white background."
-          width={1584}
-          height={396}
-          className="banner-light block h-auto w-full"
-          loading="lazy"
-          decoding="async"
-        />
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/agent-network-dark.svg" alt="Building AI agents that get work done. A network forms an eye, in warm copper on charcoal." width={1584} height={396} className="banner-dark h-auto w-full" loading="lazy" decoding="async" />
-      </div>
-
       {/* Selected writing */}
       <section className="border-t border-line py-16" data-analytics-placement="home-writing">
         <div className="flex items-baseline justify-between">
@@ -78,7 +63,7 @@ export default function Home() {
             <Link
               key={post.slug}
               href={`/writing/${post.slug}`}
-              className="group flex flex-col bg-paper p-6 transition-colors hover:bg-[#F3EFE8]"
+              className="group flex flex-col bg-paper p-6 transition-colors hover:bg-accent/5"
             >
               <p className="font-mono text-xs text-muted">
                 {formatDate(post.date)} · {post.readTime}

@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { landings, type LandingLocale } from "@/data/landings";
 import { site } from "@/data/site";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
-export function ContactForm() {
+export function ContactForm({ locale = "en" }: { locale?: LandingLocale | "en" }) {
+  const c = locale === "en" ? { name:"Name", email:"Email", message:"Message", send:"Send message", sending:"Sending…", sent:"Message sent.", thanks:"Thanks — I usually reply within a day, any timezone.", error:"Could not send. You can write to", note:"Usually reply within a day, any timezone." } : landings[locale];
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
 
@@ -25,18 +27,18 @@ export function ContactForm() {
       if (!res.ok) throw new Error(json.error ?? "Could not send.");
       setStatus("sent");
       form.reset();
-    } catch (err) {
+    } catch {
       setStatus("error");
-      setError(err instanceof Error ? err.message : "Could not send.");
+      setError(c.error);
     }
   }
 
   if (status === "sent") {
     return (
       <div className="mt-12 max-w-prose border border-line bg-paper p-8">
-        <p className="font-serif text-xl">Message sent.</p>
+        <p className="font-serif text-xl">{c.sent}</p>
         <p className="mt-2 text-sm text-muted">
-          Thanks — I usually reply within a day, any timezone.
+          {c.thanks}
         </p>
       </div>
     );
@@ -47,22 +49,22 @@ export function ContactForm() {
       <div className="grid gap-6 sm:grid-cols-2">
         <label className="block text-sm">
           <span className="font-mono text-xs uppercase tracking-wider text-muted">
-            Name
+            {c.name}
           </span>
           <input
             type="text"
-            name="name"
+            name="name" autoComplete="name"
             required
             className="mt-2 w-full border border-line bg-paper px-3 py-2.5 outline-none transition-colors focus:border-accent"
           />
         </label>
         <label className="block text-sm">
           <span className="font-mono text-xs uppercase tracking-wider text-muted">
-            Email
+            {c.email}
           </span>
           <input
             type="email"
-            name="email"
+            name="email" autoComplete="email"
             required
             className="mt-2 w-full border border-line bg-paper px-3 py-2.5 outline-none transition-colors focus:border-accent"
           />
@@ -70,7 +72,7 @@ export function ContactForm() {
       </div>
       <label className="mt-6 block text-sm">
         <span className="font-mono text-xs uppercase tracking-wider text-muted">
-          Message
+          {c.message}
         </span>
         <textarea
           name="message"
@@ -93,11 +95,11 @@ export function ContactForm() {
         disabled={status === "sending"}
         className="mt-6 border border-ink bg-ink px-5 py-2.5 text-sm text-paper transition-colors hover:border-accent hover:bg-accent disabled:opacity-60"
       >
-        {status === "sending" ? "Sending…" : "Send message"}
+        {status === "sending" ? c.sending : c.send}
       </button>
       {status === "error" && (
         <p className="mt-3 text-sm text-accent" role="alert">
-          {error} You can always write to{" "}
+          {error}{" "}
           <a href={`mailto:${site.email}`} className="underline">
             {site.email}
           </a>
@@ -105,7 +107,7 @@ export function ContactForm() {
         </p>
       )}
       <p className="mt-4 font-mono text-xs text-muted">
-        Usually reply within a day, any timezone.
+        {c.note}
       </p>
     </form>
   );
