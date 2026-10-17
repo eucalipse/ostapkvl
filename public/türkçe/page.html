@@ -35,7 +35,7 @@
 
   <div class="drawer" id="modal"><div class="dcard"><button class="mclose" aria-label="Close">✕</button><div id="modalBody"></div></div></div>
 
-  <script>window.IDIOMA_SOLO = new URLSearchParams(location.search).get('cat') || 'homework';</script>
+  <script>(() => { const seg = location.pathname.split('/').filter(Boolean).pop() || ''; window.IDIOMA_SOLO = new URLSearchParams(location.search).get('cat') || (/^[a-z-]+$/.test(seg) ? seg : 'homework'); })();</script>
   <script>window.IDIOMA_BASE='/turkce/';</script>
   <script src="/turkce/app.js"></script>
   <script src="/turkce/lang/tr.js"></script>
