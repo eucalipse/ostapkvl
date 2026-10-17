@@ -8,6 +8,10 @@ const IDIOMA = (() => {
   const STOP = new Set(['-mak', '-mek', 'ben', 'ostap', '—', 'корінь', 'суфікс часу', 'суфікс особи']);
   const state = { cat: null };
   const BASE = window.IDIOMA_BASE || '';
+  // Окрема сторінка однієї категорії (page.html?cat=homework): без сайдбару, лінки на інші категорії ведуть в index.html
+  const SOLO = window.IDIOMA_SOLO || null;
+  const pageUrl = (id) => (BASE ? `${BASE}${id}` : `page.html?cat=${id}`);
+  const homeUrl = (hash) => (BASE ? `${BASE}${hash || ''}` : `index.html${hash || ''}`);
   const $ = (id) => document.getElementById(id);
   const tt = (x) => [x.en, x.tr, x.title].filter(Boolean).map(esc).join(' · ');
   const nav = (x) => x.en ? `<span class="l1">${esc(x.en)}</span><span class="l2">${[x.tr, x.title].filter(Boolean).map(esc).join(' · ')}</span>` : esc(x.title);
@@ -138,7 +142,7 @@ const IDIOMA = (() => {
       <div class="hmenu" data-cat="${esc(c.id)}">
         <button class="hbtn" type="button" aria-haspopup="true" aria-expanded="false">${esc(c.en || c.title)} <span class="chev">▾</span></button>
         <div class="hdrop">
-          <a class="hall" href="#${esc(c.id)}">${tt(c)}</a>
+          <a class="hall" href="${c.solo ? esc(pageUrl(c.id)) : `#${esc(c.id)}`}">${tt(c)}${c.solo ? ' <span class="chev">↗ page</span>' : ''}</a>
           ${c.topics.filter((t) => !t.hidden).map((t) => `<a href="#${esc(c.id)}/${esc(t.id)}"><b>${esc(t.en || t.title)}</b><span>${[t.tr, t.title].filter(Boolean).map(esc).join(' · ')}</span></a>`).join('')}
         </div>
       </div>`).join('');
@@ -203,7 +207,7 @@ const IDIOMA = (() => {
     const metaHTML = meta.length ? `<div class="meta">${meta.map((m) => `<div>${m}</div>`).join('')}</div>` : '';
     const answers = s.answers?.length ? `<div class="sec"><h4>answers · відповіді</h4><div class="examples answers">${s.answers.map((x) => `<div class="ex"><span class="tr ph" data-ph="${esc(x.tr)}">→ ${esc(x.tr)}</span><span class="tl">${esc(translit(x.tr))}</span>${x.en ? `<span class="en">${esc(x.en)}</span>` : ''}<span class="uk">${esc(x.uk)}</span></div>`).join('')}</div></div>` : '';
     const examples = s.examples?.length ? `<div class="examples">${s.examples.map((x) => `<div class="ex"><span class="tr ph" data-ph="${esc(x.tr)}">${esc(x.tr)}</span><span class="tl">${esc(translit(x.tr))}</span>${x.en ? `<span class="en">${esc(x.en)}</span>` : ''}<span class="uk">${esc(x.uk)}</span></div>`).join('')}</div>` : '';
-    const table = s.table ? `<table class="tbl">${s.table.title ? `<caption>${esc(s.table.title)}</caption>` : ''}
+    const table = s.table ? `<table class="tbl${s.table.prose ? ' prose' : ''}">${s.table.title ? `<caption>${esc(s.table.title)}</caption>` : ''}
       <thead><tr>${s.table.head.map((h) => `<th>${esc(h)}</th>`).join('')}</tr></thead>
       <tbody>${s.table.rows.map((r) => `<tr>${r.map((c, ci) => (isTurkishText(c) && !NON_TR_COL.test(s.table.head[ci] || '')) ? `<td><span class="ph" data-ph="${esc(c)}">${esc(c)}</span></td>` : `<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table>` : '';
     const dialogue = s.dialogue?.length ? `<div class="dialogue">${s.dialogue.map((l) => `
@@ -262,7 +266,8 @@ const IDIOMA = (() => {
 
   // ---------- рендер ----------
   function render() {
-    const [catId, anchor] = location.hash.replace('#', '').split('/');
+    let [catId, anchor] = location.hash.replace('#', '').split('/');
+    if (SOLO) { if (catId !== SOLO) { anchor = catId; } catId = SOLO; }
     const c = findCat(catId);
     state.cat = c ? c.id : null;
     markActive();
@@ -272,7 +277,7 @@ const IDIOMA = (() => {
       stage.innerHTML = catHTML(c); stage.dataset.cat = c.id;
       stage.querySelectorAll('.speak').forEach((b) => b.addEventListener('click', () => speak(b.dataset.say)));
     }
-    $('crumbs').innerHTML = `<b>${tt(c)}</b>`;
+    $('crumbs').innerHTML = SOLO ? `<a class="back" href="${esc(homeUrl(''))}">← ${esc(CFG.brand)}</a> · <b>${tt(c)}</b>` : `<b>${tt(c)}</b>`;
     document.querySelectorAll('.entry.hl').forEach((x) => x.classList.remove('hl'));
     if (anchor) {
       const el = document.getElementById(anchor);
@@ -329,7 +334,7 @@ const IDIOMA = (() => {
       if (!m.has(key)) m.set(key, { tr: tr.replace(/\s*\(.*$/, ''), en: en || '', uk: (uk || '').replace(/<[^>]+>/g, ''), href: e.href, where: e.s.tr });
     };
     all.forEach((e) => {
-      if (e.c.id === 'verbs' || e.c.id === 'grammar' || e.c.id === 'series' || e.c.id === 'homework' || e.c.id === 'course') return;
+      if (e.c.id === 'verbs' || e.c.id === 'grammar' || e.c.id === 'series' || e.c.id === 'homework' || e.c.id === 'course' || e.c.id === 'lessons') return;
       (e.s.words || []).forEach((w) => add(e, w.tr, wordGloss(w), w.uk));
       (e.s.parts || []).forEach((p) => { if (p.t === 'word' && !/\s/.test(p.m)) add(e, p.m, p.e || glossOf(p.m), p.d); });
     });
@@ -363,7 +368,7 @@ const IDIOMA = (() => {
       });
     });
     const WORDLIST = (e) => e.s.id && /^(adj-|yesno-|num-)/.test(e.s.id);
-    const PHRASE_CATS = (e) => !['verbs', 'grammar', 'course', 'homework', 'numbers', 'series'].includes(e.c.id) && !WORDLIST(e);
+    const PHRASE_CATS = (e) => !['verbs', 'grammar', 'course', 'homework', 'numbers', 'series', 'lessons'].includes(e.c.id) && !WORDLIST(e);
     const phrases = entries.filter(PHRASE_CATS).length;
     const rules = entries.filter((e) => e.c.id === 'grammar').length;
     let sentences = 0, dialogues = 0, lines = 0;
@@ -400,7 +405,7 @@ const IDIOMA = (() => {
     $('modalBody').querySelectorAll('a[href^="#"]').forEach((l) => { if (l.getAttribute('href') === '#') l.removeAttribute('href'); else l.addEventListener('click', closeModal); });
   }
   // колонки таблиць, у яких не турецький текст (переклади, вимова, пояснення) — не клікабельні
-  const NON_TR_COL = /english|вимова|укра|переклад|^як$|де було|підказка|розбір|правило|значення|^#$|число/i;
+  const NON_TR_COL = /english|вимова|укра|переклад|^як$|де було|підказка|розбір|правило|значення|^#$|число|who|material|what is in it|конспект|why/i;
   const isTurkishText = (t) => LANG.isTarget(t) && !/[а-яіїєґА-ЯІЇЄҐ]/.test(t) && !/^[\d\s.,:;/–—-]*$/.test(t);
 
   // тема: night / day, запам'ятовується у localStorage (може бути недоступний)
@@ -424,10 +429,22 @@ const IDIOMA = (() => {
     document.querySelector('.brand-title').textContent = CFG.brand; document.querySelector('.brand-sub').textContent = CFG.sub; $('search').placeholder = CFG.search; document.title = CFG.title || `${CFG.brand} · ${LANG.name || ''}`;
     if (CFG.site && $('brandSite')) { const a = $('brandSite'); a.textContent = `← ${CFG.site.label}`; a.href = CFG.site.url; a.hidden = false; }
     initTheme();
+    if (SOLO) {
+      document.body.classList.add('solo');
+      const c = findCat(SOLO);
+      $('crumbs').innerHTML = `<a class="back" href="${esc(homeUrl(''))}">← ${esc(CFG.brand)}</a>`;
+      if (c) document.title = `${c.en || c.title} · ${CFG.brand}`;
+      // лінки на інші категорії ведуть у повний конспект
+      document.addEventListener('click', (e) => {
+        const a = e.target.closest('a[href^="#"]'); if (!a) return;
+        const target = a.getAttribute('href').slice(1).split('/')[0];
+        if (target && target !== SOLO && findCat(target)) { e.preventDefault(); location.href = homeUrl(a.getAttribute('href')); }
+      });
+    }
     buildIndex();
     buildLexicon();
     renderNav();
-    renderHeader();
+    if (!SOLO) renderHeader();
     render();
     if ('speechSynthesis' in window) { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
     $('menuBtn').addEventListener('click', (e) => { e.stopPropagation(); $('sidebar').classList.toggle('open'); });

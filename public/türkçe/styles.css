@@ -168,6 +168,7 @@ table.tbl { border-collapse: collapse; width: 100%; font-size: 13px; margin-top:
 .tbl th, .tbl td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
 .tbl th { font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: var(--ink-3); font-weight: 500; }
 .tbl td:nth-child(2) { font-family: var(--font-mono); font-size: 12.5px; }
+.tbl.prose td:nth-child(2) { font-family: inherit; font-size: inherit; } /* table.prose: true — друга колонка це речення, не форма */
 .tbl tr:last-child td { border-bottom: 0; }
 
 /* граф звʼязків: права колонка як нотатки на полях */
@@ -331,3 +332,11 @@ code.ph { border-bottom: 1px solid var(--line-strong); }
 /* вчитель: українська прихована, щоб не заважала (можна показати класом show-uk на body) */
 body.teacher:not(.show-uk) .entry .trans .uk, body.teacher:not(.show-uk) .ex .uk, body.teacher:not(.show-uk) .notes .uk, body.teacher:not(.show-uk) .part i, body.teacher:not(.show-uk) .line .ukt { display: none; }
 body.teacher .main::before { opacity: .9; }
+
+/* ---------- окрема сторінка (page.html?cat=…): без сайдбару ---------- */
+body.solo .sidebar, body.solo .menu-btn { display: none; }
+body.solo .topbar { padding-left: 44px; }
+body.solo .crumbs { display: block; }
+body.solo .crumbs .back { font-family: var(--font-mono); color: var(--ink-2); letter-spacing: .06em; }
+body.solo .crumbs .back:hover { color: var(--ink); text-decoration: none; }
+body.solo .doc { max-width: 1040px; }

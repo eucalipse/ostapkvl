@@ -6,6 +6,8 @@ const nextConfig = {
   async rewrites() {
     return [
       { source: "/turkce", destination: "/türkçe/index.html" },
+      { source: "/turkce/homework", destination: "/türkçe/page.html?cat=homework" },
+      { source: "/turkce/lessons", destination: "/türkçe/page.html?cat=lessons" },
       { source: "/turkce/:path*", destination: "/türkçe/:path*" },
       { source: "/t%C3%BCrk%C3%A7e", destination: "/türkçe/index.html" },
       { source: "/t%C3%BCrk%C3%A7e/:path*", destination: "/türkçe/:path*" },

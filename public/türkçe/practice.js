@@ -4,7 +4,7 @@
   const KEY = () => `idioma-review-${(IDIOMA.langCode && IDIOMA.langCode()) || 'xx'}`;
   const INTERVALS = [0, 1, 3, 7, 14, 30, 60, 120]; // дні; крок 0 = ще раз сьогодні
   const NEW_PER_DAY = 10;
-  const PHRASE_CATS_EXCLUDE = new Set(['verbs', 'grammar', 'course', 'homework', 'numbers', 'series']);
+  const PHRASE_CATS_EXCLUDE = new Set(['verbs', 'grammar', 'course', 'homework', 'numbers', 'series', 'lessons']);
   let state = {}; // id → { step, due, reps, lapses, last }
   let queue = []; let idx = 0; let revealed = false; let dir = 'tr-en';
   const $ = (id) => document.getElementById(id);
