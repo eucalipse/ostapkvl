@@ -38,7 +38,7 @@
 
   <script>(() => { const q = new URLSearchParams(location.search); const seg = location.pathname.split('/').filter(Boolean).pop() || '';
     window.IDIOMA_VIEW = q.get('view') || (seg === 'teacher' ? 'teacher' : null);
-    window.IDIOMA_SOLO = q.get('cat') || (seg === 'teacher' || seg === 'homework' ? 'lessons' : (/^[a-z-]+$/.test(seg) ? seg : 'lessons')); })();</script>
+    window.IDIOMA_SOLO = q.get('cat') || (seg === 'teacher' ? 'lessons' : (/^[a-z-]+$/.test(seg) ? seg : 'lessons')); })();</script>
   <script>window.IDIOMA_BASE='/turkce/';</script>
   <script src="/turkce/app.js"></script>
   <script src="/turkce/lang/tr.js"></script>

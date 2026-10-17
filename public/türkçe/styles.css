@@ -383,3 +383,8 @@ body.solo:not(.tview) .main .topbar { grid-column: 1 / -1; }
   .phrases .phead .mclose { display: inline-flex; align-items: center; justify-content: center; }
   .hbtn.phrases-btn { display: flex; }
 }
+
+/* репліки учня в діалозі (dialogue[].me = true): зеленим, щоб готувати свою частину */
+.line.me .tr { color: var(--pen-green); }
+.line.me .who { color: var(--pen-green); }
+.line.me .tl { color: color-mix(in srgb, var(--pen-green) 70%, var(--ink)); }

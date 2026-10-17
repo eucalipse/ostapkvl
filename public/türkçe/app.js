@@ -212,7 +212,7 @@ const IDIOMA = (() => {
       <thead><tr>${s.table.head.map((h) => `<th>${esc(h)}</th>`).join('')}</tr></thead>
       <tbody>${s.table.rows.map((r) => `<tr>${r.map((c, ci) => (isTurkishText(c) && !NON_TR_COL.test(s.table.head[ci] || '')) ? `<td><span class="ph" data-ph="${esc(c)}">${esc(c)}</span>${VIEW === 'teacher' ? `<span class="tl tcell">${esc(translit(c))}</span>` : ''}</td>` : `<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table>` : '';
     const dialogue = s.dialogue?.length ? `<div class="dialogue">${s.dialogue.map((l) => `
-      <div class="line"><span class="who">${esc(l.who)}</span><span class="tr ph" data-ph="${esc(l.tr)}">${esc(l.tr)}</span><span class="uk"><span class="tl">${esc(translit(l.tr))}</span> ${l.en ? `<span class="en">${esc(l.en)}</span>` : ''}<span class="ukt">${l.en ? ' · ' : ''}${esc(l.uk)}</span></span></div>`).join('')}</div>` : '';
+      <div class="line${l.me ? ' me' : ''}"><span class="who">${esc(l.who)}</span><span class="tr ph" data-ph="${esc(l.tr)}">${esc(l.tr)}</span><span class="uk"><span class="tl">${esc(translit(l.tr))}</span> ${l.en ? `<span class="en">${esc(l.en)}</span>` : ''}<span class="ukt">${l.en ? ' · ' : ''}${esc(l.uk)}</span></span></div>`).join('')}</div>` : '';
     const notes = s.notes?.length ? `<ul class="notes">${s.notes.map((n) => typeof n === 'string' ? `<li><span class="uk">${n}</span></li>` : `<li>${n.en ? `<span class="en">${n.en}</span>` : ''}${n.uk ? `<span class="uk">${n.uk}</span>` : ''}</li>`).join('')}</ul>` : '';
 
     // граф: правила для цього запису, приклади для правила, зворотні лінки з дієслів, схожі записи
