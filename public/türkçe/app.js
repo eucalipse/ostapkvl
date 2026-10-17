@@ -210,7 +210,7 @@ const IDIOMA = (() => {
     const examples = s.examples?.length ? `<div class="examples">${s.examples.map((x) => `<div class="ex"><span class="tr ph" data-ph="${esc(x.tr)}">${esc(x.tr)}</span><span class="tl">${esc(translit(x.tr))}</span>${x.en ? `<span class="en">${esc(x.en)}</span>` : ''}<span class="uk">${esc(x.uk)}</span></div>`).join('')}</div>` : '';
     const table = s.table ? `<table class="tbl${s.table.prose ? ' prose' : ''}">${s.table.title ? `<caption>${esc(s.table.title)}</caption>` : ''}
       <thead><tr>${s.table.head.map((h) => `<th>${esc(h)}</th>`).join('')}</tr></thead>
-      <tbody>${s.table.rows.map((r) => `<tr>${r.map((c, ci) => (isTurkishText(c) && !NON_TR_COL.test(s.table.head[ci] || '')) ? `<td><span class="ph" data-ph="${esc(c)}">${esc(c)}</span></td>` : `<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table>` : '';
+      <tbody>${s.table.rows.map((r) => `<tr>${r.map((c, ci) => (isTurkishText(c) && !NON_TR_COL.test(s.table.head[ci] || '')) ? `<td><span class="ph" data-ph="${esc(c)}">${esc(c)}</span>${VIEW === 'teacher' ? `<span class="tl tcell">${esc(translit(c))}</span>` : ''}</td>` : `<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table>` : '';
     const dialogue = s.dialogue?.length ? `<div class="dialogue">${s.dialogue.map((l) => `
       <div class="line"><span class="who">${esc(l.who)}</span><span class="tr ph" data-ph="${esc(l.tr)}">${esc(l.tr)}</span><span class="uk"><span class="tl">${esc(translit(l.tr))}</span> ${l.en ? `<span class="en">${esc(l.en)}</span>` : ''}<span class="ukt">${l.en ? ' · ' : ''}${esc(l.uk)}</span></span></div>`).join('')}</div>` : '';
     const notes = s.notes?.length ? `<ul class="notes">${s.notes.map((n) => typeof n === 'string' ? `<li><span class="uk">${n}</span></li>` : `<li>${n.en ? `<span class="en">${n.en}</span>` : ''}${n.uk ? `<span class="uk">${n.uk}</span>` : ''}</li>`).join('')}</ul>` : '';
@@ -304,6 +304,42 @@ const IDIOMA = (() => {
   const runHooks = (c) => renderHooks.forEach((fn) => { try { fn(c); } catch (err) { console.error(err); } });
   function rerender() { const stage = $('stage'); stage.dataset.cat = ''; const y = window.scrollY; render(); window.scrollTo({ top: y }); }
   function closeMenu() { $('sidebar').classList.remove('open'); }
+
+  // ---------- окрема сторінка: сайдбар = список усіх фраз категорії (що треба вивчити), клік = розбір у панелі ----------
+  function phrasesOf(c) {
+    const seen = new Set(); const out = [];
+    const add = (t, tr, en, uk) => {
+      if (!tr || !isTurkishText(tr) || /_{3,}/.test(tr)) return;
+      const key = normPhrase(tr); if (!key || seen.has(key)) return; seen.add(key);
+      const hit = phraseIndex.get(key);
+      if (!hit) { // не запис конспекту: беремо лише те, що аналізатор упізнає як турецьке (хоч половина слів зі знайомою основою/суфіксом)
+        const a = analyze(tr); const known = a.words.filter((w) => w.segs.some((g) => g.en)).length;
+        if (!/[çğışöüİ]/.test(tr) && known < Math.ceil(a.words.length / 2)) return;
+        if (known === 0) return;
+      }
+      if (!en && !uk && hit) { en = hit.s.en; uk = hit.s.uk; }
+      out.push({ t, tr: tr.trim(), en: en || '', uk: uk || '' });
+    };
+    all.filter((e) => e.c === c && (VIEW !== 'teacher' || e.s.submit)).forEach((e) => {
+      const s = e.s, t = e.t;
+      if (!s.status && !s.table) add(t, s.tr, s.en, s.uk);
+      (s.dialogue || []).forEach((l) => add(t, l.tr, l.en, l.uk));
+      (s.examples || []).forEach((x) => add(t, x.tr, x.en, x.uk));
+      (s.answers || []).forEach((x) => add(t, x.tr, x.en, x.uk));
+      if (s.table) s.table.rows.forEach((r) => r.forEach((cell, ci) => { if (!NON_TR_COL.test(s.table.head[ci] || '')) add(t, cell); }));
+    });
+    return out;
+  }
+  function renderSoloNav(c) {
+    const list = phrasesOf(c);
+    const byTopic = new Map(); list.forEach((x) => { if (!byTopic.has(x.t)) byTopic.set(x.t, []); byTopic.get(x.t).push(x); });
+    $('nav').innerHTML = `<div class="lp-head"><span class="k">phrases to learn · фрази</span><span class="n">${list.length}</span></div>` + [...byTopic.entries()].map(([t, xs]) => `
+      <div class="lp-topic"><div class="lp-t">${esc(t.en || t.title)}</div>${xs.map((x) => `<a class="lp ph" data-ph="${esc(x.tr)}" href="#"><b>${esc(x.tr)}</b><i>${esc(translit(x.tr))}</i>${x.en || x.uk ? `<span>${esc(x.en)}${x.en && x.uk ? ' · ' : ''}${esc(x.uk)}</span>` : ''}</a>`).join('')}</div>`).join('');
+    $('nav').querySelectorAll('.lp').forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); openModal(a.dataset.ph); }));
+    $('sidebarFoot').textContent = `${list.length} ${CFG.footer.entries}`;
+    $('search').placeholder = 'filter · фільтр';
+    $('search').oninput = (e) => { const q = low(e.target.value.trim()); $('nav').querySelectorAll('.lp').forEach((a) => { a.hidden = !!q && !low(a.textContent).includes(q); }); $('nav').querySelectorAll('.lp-topic').forEach((d) => { d.hidden = !!q && ![...d.querySelectorAll('.lp')].some((a) => !a.hidden); }); };
+  }
 
   // ---------- модалка з розбором речення ----------
   function modalHTML(a) {
@@ -416,7 +452,7 @@ const IDIOMA = (() => {
     $('modalBody').querySelectorAll('a[href^="#"]').forEach((l) => { if (l.getAttribute('href') === '#') l.removeAttribute('href'); else l.addEventListener('click', closeModal); });
   }
   // колонки таблиць, у яких не турецький текст (переклади, вимова, пояснення) — не клікабельні
-  const NON_TR_COL = /english|вимова|укра|переклад|^як$|де було|підказка|розбір|правило|значення|^#$|число|who|material|what is in it|конспект|why/i;
+  const NON_TR_COL = /english|вимова|укра|переклад|^як$|де було|підказка|розбір|правило|значення|^#$|число|who|material|what is in it|конспект|why|video|source|what to do/i;
   const isTurkishText = (t) => LANG.isTarget(t) && !/[а-яіїєґА-ЯІЇЄҐ]/.test(t) && !/^[\d\s.,:;/–—-]*$/.test(t);
 
   // тема: night / day, запам'ятовується у localStorage (може бути недоступний)
@@ -445,6 +481,7 @@ const IDIOMA = (() => {
       if (VIEW === 'teacher') document.body.classList.add('tview');
       const c = findCat(SOLO);
       $('crumbs').innerHTML = `<a class="back" href="${esc(homeUrl(''))}">← ${esc(CFG.brand)}</a>`;
+      if (c) { document.querySelector('.brand-sub').textContent = `${c.en || c.title} · ← ${CFG.brand}`; const bs = $('brandSite'); if (bs) bs.hidden = true; }
       if (c) document.title = `${c.en || c.title} · ${CFG.brand}`;
       // лінки на інші категорії ведуть у повний конспект
       document.addEventListener('click', (e) => {
@@ -455,7 +492,7 @@ const IDIOMA = (() => {
     }
     buildIndex();
     buildLexicon();
-    renderNav();
+    if (SOLO) { const c = findCat(SOLO); if (c && VIEW !== 'teacher') renderSoloNav(c); } else renderNav();
     if (!SOLO) renderHeader();
     render();
     if ('speechSynthesis' in window) { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
@@ -464,8 +501,8 @@ const IDIOMA = (() => {
     $('statsBtn').addEventListener('click', openStats);
     $('todayBtn').addEventListener('click', () => IDIOMA.practice?.openToday());
     $('wordsBtn').addEventListener('click', openWords);
-    $('search').addEventListener('input', (e) => renderSearch(e.target.value));
-    document.querySelector('.brand').addEventListener('click', () => { location.hash = ''; closeMenu(); });
+    if (!SOLO) $('search').addEventListener('input', (e) => renderSearch(e.target.value));
+    document.querySelector('.brand').addEventListener('click', () => { if (SOLO) { location.href = homeUrl(''); return; } location.hash = ''; closeMenu(); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeMenu(); closeModal(); } });
     $('stage').addEventListener('click', (e) => { const ph = e.target.closest('.ph'); if (ph && !e.target.closest('a')) { e.preventDefault(); openModal(ph.dataset.ph); } });
     $('modal').addEventListener('click', (e) => { if (e.target === $('modal') || e.target.closest('.mclose')) closeModal(); });
