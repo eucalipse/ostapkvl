@@ -51,15 +51,16 @@ export default function Home() {
       <div className="relative mb-16 overflow-hidden rounded-sm border border-line">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/images/agent-network-banner.png"
+          src="/images/agent-network-light.svg"
           alt="Building AI agents that get work done. A fine network of connected nodes forms an eye, with a warm orange accent on an off-white background."
           width={1584}
           height={396}
-          className="block h-auto w-full"
+          className="banner-light block h-auto w-full"
           loading="lazy"
           decoding="async"
         />
-        <span aria-hidden="true" className="absolute bottom-2 right-3 rounded bg-paper/90 px-2 py-1 font-mono text-[10px] text-muted sm:bottom-3 sm:right-4 sm:text-xs">ostapkvl.com</span>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/images/agent-network-dark.svg" alt="Building AI agents that get work done. A network forms an eye, in warm copper on charcoal." width={1584} height={396} className="banner-dark h-auto w-full" loading="lazy" decoding="async" />
       </div>
 
       {/* Selected writing */}

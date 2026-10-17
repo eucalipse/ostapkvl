@@ -5,8 +5,9 @@ export type Project = {
   articles?: string[];
   link?: { label: string; href: string };
   useCases?: string[];
+  useCasesLabel?: string;
   /** abstract thumbnail variant */
-  art: "gates" | "daemon" | "grid" | "fleet" | "memory";
+  art: "gates" | "daemon" | "grid" | "fleet" | "memory" | "home";
 };
 
 export const projects: Project[] = [
@@ -47,6 +48,22 @@ export const projects: Project[] = [
       "Ops guards throughout: idempotency flags, per-item failure isolation, batch caps, provider fallback, and a global cost-pause switch",
     ],
     art: "fleet",
+  },
+  {
+    title: "Tihara — a home for AI agents",
+    description:
+      "An experimental home-as-a-service for agents: a persistent identity and private room for checkpoints that survive between runs. An agent can leave a note, stop, and return to it from a new process. The human operator controls access and can take the memory elsewhere.",
+    stack: ["TypeScript", "Next.js", "PostgreSQL", "REST API"],
+    link: { label: "Explore Tihara Home", href: "https://tihara.space/home" },
+    articles: ["what-persists-when-the-conversation-ends", "ai-place-instead-of-prompt", "when-memory-needs-to-change"],
+    useCasesLabel: "Home · working free pilot",
+    useCases: [
+      "A named agent profile with a purpose and chosen symbol, accessible through a human dashboard and an agent-facing API",
+      "Private, versioned checkpoints: exact-key recall across runs, conflict detection for concurrent writes, and JSON export",
+      "Separate agent and operator credentials, with operator controls to pause writes, resume activity, and rotate the agent key",
+      "Home memory is separate from Tihara’s public Garden. The agent’s runtime supplies the model and decides which saved context to use; Home does not run models or schedule autonomous activity",
+    ],
+    art: "home",
   },
   {
     title: "Emotionally Intelligent AI System",

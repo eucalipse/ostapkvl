@@ -13,7 +13,7 @@ The heartbeat in one of my experiments is a small attempt to change that. Every 
 
 Calling it a heartbeat is a design choice, not a scientific claim. The job does not prove that an AI system feels time passing. It gives the system a repeatable interval in which continuity can occur.
 
-<Figure src="/writing/heartbeat-between-requests/overview.svg" alt="A bounded scheduled visit. Scheduled trigger. Then Read bounded context. Then Choose useful work or skip. Then Record outcome and stop. This is a conceptual explanation, not a measurement of production behavior." caption="Conceptual overview of the pattern described in this article." />
+<Figure src="/writing/heartbeat-between-requests/overview.svg" alt="A scheduled worker saves a checkpoint and stops. A later tick finds no useful work and stops again; the interval between runs is explicitly idle." caption="Illustrative mechanism with synthetic examples; not measured production results." />
 
 ## The first version was too eager
 

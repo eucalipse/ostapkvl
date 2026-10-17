@@ -8,7 +8,7 @@ export function PostList({ posts }: { posts: PostMeta[] }) {
   const [topic, setTopic] = useState<string | null>(null);
   const topics = Array.from(new Set(posts.flatMap(post => post.tags))).sort();
   const visible = topic ? posts.filter(post => post.tags.includes(topic)) : posts;
-  const buttonClass = (active: boolean) => `rounded-full border px-3 py-1.5 text-sm transition-colors ${active ? "border-accent bg-accent text-white" : "border-line text-muted hover:border-accent hover:text-accent"}`;
+  const buttonClass = (active: boolean) => `rounded-full border px-3 py-1.5 text-sm transition-colors ${active ? "border-accent bg-accent text-paper" : "border-line text-muted hover:border-accent hover:text-accent"}`;
   return <>
     <div aria-label="Filter articles by topic" role="group" className="mt-8 flex flex-wrap gap-2">
       <button type="button" aria-pressed={topic === null} onClick={() => setTopic(null)} className={buttonClass(topic === null)}>All ({posts.length})</button>

@@ -174,6 +174,9 @@ Object.assign(figures, attentionFigures(C, { text, rect, lines, arrow, svg }));
 import humanFigures from "./figures-human.mjs";
 Object.assign(figures, humanFigures(C, {text, lines, rect, arrow, svg}));
 
+import editorialFigures from "./figures-editorial.mjs";
+Object.assign(figures, editorialFigures(C, {text, rect, arrow, svg}));
+
 // Codex-drafted articles add their figures below (see the article's FIGURE SPECS).
 import("./figures-extra.mjs").then((m) => Object.assign(figures, m.default(C, { text, lines, rect, arrow, chip, svg, SERIF, SANS, MONO, W, H }))).catch(() => {}).finally(() => {
   const only = process.argv[2];

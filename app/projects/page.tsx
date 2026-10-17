@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 function Thumb({
   variant,
 }: {
-  variant: "gates" | "daemon" | "grid" | "fleet" | "memory";
+  variant: "gates" | "daemon" | "grid" | "fleet" | "memory" | "home";
 }) {
   const stroke = "#C05621";
   return (
@@ -22,6 +22,13 @@ function Thumb({
       className="h-16 w-28 shrink-0"
       fill="none"
     >
+      {variant === "home" && (
+        <>
+          <path d="M16 32L60 8l44 24M25 28v36h70V28" stroke={stroke} />
+          <path d="M48 64V40h24v24M35 35h6M79 35h6" stroke={stroke} />
+          <circle cx="60" cy="27" r="4" fill={stroke} />
+        </>
+      )}
       {variant === "gates" && (
         <>
           <rect x="6" y="26" width="24" height="20" stroke={stroke} />
@@ -115,7 +122,7 @@ export default function Projects() {
               {project.useCases && (
                 <div className="mt-4 max-w-prose border-l-2 border-accent/40 pl-4">
                   <p className="font-mono text-xs uppercase tracking-wider text-muted">
-                    AI in production
+                    {project.useCasesLabel ?? "AI in production"}
                   </p>
                   <ul className="mt-2 space-y-1.5 text-sm text-muted">
                     {project.useCases.map((useCase) => (

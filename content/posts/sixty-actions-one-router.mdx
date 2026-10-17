@@ -14,7 +14,7 @@ Flat tool lists fail in several ways at once, and the ways stack. The obvious on
 
 The less obvious one is attention. Models choose well between ten clearly distinct tools. They choose badly between sixty where many overlap — and real product catalogs always overlap: update versus reschedule, archive versus delete, three different kinds of "send". And the failure is silent. The model does not say "I am not sure which tool". It picks one, fills the arguments with full confidence, and moves on.
 
-<Figure src="/writing/sixty-actions-one-router/overview.svg" alt="Route to a constrained capability. Read the request. Then Select an action contract. Then Validate parameters and policy. Then Execute through the action lifecycle. This is a conceptual explanation, not a measurement of production behavior." caption="Conceptual overview of the pattern described in this article." />
+<Figure src="/writing/sixty-actions-one-router/overview.svg" alt="A request is checked against typed arguments and policy before dispatch. Invalid or ambiguous requests are rejected or clarified." caption="Illustrative mechanism with synthetic examples; not measured production results." />
 
 ## The router is a classifier, not an agent
 

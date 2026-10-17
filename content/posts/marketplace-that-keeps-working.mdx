@@ -13,7 +13,7 @@ In a marketplace project I work on, I have been building automation around that 
 
 This is an architectural account based on the implementation, with product names and operational details omitted. It is not a claim that every available workflow is currently enabled.
 
-<Figure src="/writing/marketplace-that-keeps-working/flow.svg" alt="Conceptual marketplace loop: observe, select permitted work, execute, record outcomes, and return to observation. Human policy controls the loop." caption="Conceptual architecture; not a measured performance chart." />
+<Figure src="/writing/marketplace-that-keeps-working/flow.svg" alt="An observed signal passes an allowed-work gate into a bounded job, or goes to an exception queue. Human policy determines the operating envelope." caption="Illustrative mechanism with synthetic examples; not measured production results." />
 
 ## Give background work a lifecycle
 
@@ -47,7 +47,7 @@ A discovery job can propose a new source. An enrichment job can prepare a better
 
 The sequence below is a conceptual view of those responsibilities, not a claim that every job is currently enabled or that all work passes through a single chain.
 
-<Figure src="/writing/marketplace-that-keeps-working/workers.svg" alt="Marketplace work is divided into discovery, enrichment, presentation, and request handling. Each stage has its own outcome, while policy determines which jobs may run and exceptions return to an operator." caption="Separate responsibilities, with policy and human review around them. Job availability is different from current execution status." />
+<Figure src="/writing/marketplace-that-keeps-working/workers.svg" alt="Eligible work is split between discovery, enrichment, and request handling, each with a separate responsibility before result review." caption="Illustrative mechanism with synthetic examples; not measured production results." />
 
 The distinction between a successful operation and a successful business outcome matters here too. Saving a description proves that a record was updated. It does not prove that someone found the right service or received a useful response.
 

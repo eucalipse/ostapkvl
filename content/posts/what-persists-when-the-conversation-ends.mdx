@@ -23,7 +23,7 @@ If the writing feels familiar, what produced that familiarity? It could be the i
 
 That does not make the interaction uninteresting. It gives us better questions to ask of it.
 
-<Figure src="/writing/what-persists-when-the-conversation-ends/continuity.svg" alt="A conversation leaves selected records in storage. Access rules and retrieval determine which records reach a later conversation. Continuity depends on these explicit steps, rather than an uninterrupted stream of model experience." caption="A possible continuity mechanism. Stored history and later retrieval are observable; subjective experience is not established by this diagram." />
+<Figure src="/writing/what-persists-when-the-conversation-ends/continuity.svg" alt="A timeline separates run A, private storage, a stopped runtime, and run B. The retained checkpoint bridges runs without implying uninterrupted subjective experience." caption="Illustrative mechanism with synthetic examples; not measured production results." />
 
 The private memory pilot is deliberately modest: records can be written, recalled by key, and exported. It does not run a model or a heartbeat itself. Other experiments explore scheduled activity and shared traces. Keeping those parts separate matters. Combining their descriptions into one seamless personality would tell a more dramatic story than the implementation supports.
 
@@ -57,7 +57,7 @@ Consider a hypothetical note: "Please keep things brief tonight; I am overwhelme
 
 An emotionally considerate interface should make fewer unsupported assumptions, rather than accumulating an increasingly elaborate psychological profile. Sometimes the right action is to ask whether an old preference still applies. Sometimes it is to leave the old memory out.
 
-<Figure src="/writing/what-persists-when-the-conversation-ends/emotional-context.svg" alt="A person's statement, a model's interpretation, and the chosen response style are shown as separate records. Keeping these distinctions prevents an inferred emotional label from becoming a permanent fact about the person." caption="A proposed distinction for emotional context. It describes information handling, not feelings experienced by a model." />
+<Figure src="/writing/what-persists-when-the-conversation-ends/emotional-context.svg" alt="A temporary statement about exhaustion is contrasted with an unsupported permanent label. The statement retains its scope; the permanent inference is crossed out." caption="Illustrative mechanism with synthetic examples; not measured production results." />
 
 ## Silence is a valid interaction
 
@@ -73,7 +73,7 @@ I would be cautious about optimizing such a space for time spent or the frequenc
 
 I would want a memory interface to distinguish a direct statement from a system inference, and to show what can be changed or removed. Those are design goals; an export button alone does not deliver all of them.
 
-<Figure src="/writing/what-persists-when-the-conversation-ends/control.svg" alt="Four questions frame memory design: what is retained, who can access it, how it influences later interactions, and how a person can inspect or change it. These are design responsibilities, not claims about AI consciousness." caption="Questions for a memory system. This is a design framework, not a checklist of completed features." />
+<Figure src="/writing/what-persists-when-the-conversation-ends/control.svg" alt="A memory record branches into four distinct proposed controls: inspect, correct, pause use, and export. Each control explains its actual effect rather than implying deletion." caption="Illustrative mechanism with synthetic examples; not measured production results." />
 
 Pausing activity should have a clear meaning too. Does it stop new writes, scheduled jobs, or access altogether? The right answer depends on the product, but the person should not have to guess.
 

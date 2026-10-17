@@ -7,7 +7,7 @@ category: "Experiments"
 tags: ["Agent architecture", "Reliability"]
 ---
 
-<Figure src="/writing/agent-actions-under-retries/flow.svg" alt="Track the operation: Proposed action + operation ID; Approval bound to payload; Execute with current permissions; Success / failure / unknown; Reconcile before unsafe retries." caption="Conceptual architecture; not a measured performance chart." />
+<Figure src="/writing/agent-actions-under-retries/flow.svg" alt="A provider commits an effect before its response is lost. The recovery lane queries the same operation ID before deciding whether to retry." caption="Illustrative mechanism with synthetic examples; not measured production results." />
 
 
 Imagine an agent submitting a service request. The API accepts it, creates the record, and then the connection drops before the response arrives.

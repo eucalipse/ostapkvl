@@ -7,7 +7,7 @@ category: "Experiments"
 tags: ["Agent architecture", "Coding"]
 ---
 
-<Figure src="/writing/parallel-agents-shared-codebase/flow.svg" alt="Coordinate before parallelizing: Agree on shared contracts; Independent tasks and environments; Commits with evidence; Test the combined revision; Integrate under one owner." caption="Conceptual architecture; not a measured performance chart." />
+<Figure src="/writing/parallel-agents-shared-codebase/flow.svg" alt="A shared contract fans out to UI, API, and checking agents, then converges at an integration boundary where the combined revision must be tested." caption="Illustrative mechanism with synthetic examples; not measured production results." />
 
 
 Two coding agents can each produce a correct-looking patch and still break the application together.

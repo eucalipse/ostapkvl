@@ -16,7 +16,7 @@ It took me most of an afternoon to reconstruct what happened. I had to find the 
 
 Some background. At my current company, a US professional-services firm, we run a platform where agents can take more than 60 different actions across 13 integrations: sending emails, updating records, scheduling, drafting documents. Each action type runs through an approval gate — propose, confirm, or execute — depending on how much we trust the agent with that category. After the meeting-email incident we rebuilt the recording layer from scratch. The rest of this article is what came out of that.
 
-<Figure src="/writing/agent-observability/overview.svg" alt="Follow an action. Trigger and context. Then Proposal and decision. Then Execution and result. Then Trace for investigation. This is a conceptual explanation, not a measurement of production behavior." caption="Conceptual overview of the pattern described in this article." />
+<Figure src="/writing/agent-observability/overview.svg" alt="Four timeline lanes follow one operation through a model draft, a human approval wait, execution, and a receipt. Bar widths are schematic, not measured latency." caption="Illustrative mechanism with synthetic examples; not measured production results." />
 
 ## What every recorded action needs
 

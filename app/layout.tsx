@@ -5,6 +5,7 @@ import Script from "next/script";
 import { site } from "@/data/site";
 import { AnalyticsTracker } from "./analytics-tracker";
 import "./globals.css";
+import { ThemeToggle } from "./theme-toggle";
 
 const serif = Newsreader({
   subsets: ["latin"],
@@ -72,8 +73,9 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${serif.variable} ${sans.variable} ${mono.variable}`}>
+    <html suppressHydrationWarning lang="en" className={`${serif.variable} ${sans.variable} ${mono.variable}`}>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: `(function(){var t;try{t=localStorage.getItem('ostapkvl-theme')}catch(e){}document.documentElement.dataset.theme=t==='light'||t==='dark'?t:matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'})()` }} />
         <script
           async
           src="https://plausible.io/js/pa-G9clyl_6s2S99aKdMfLDZ.js"
@@ -97,14 +99,14 @@ plausible.init();`,
         />
         <AnalyticsTracker />
         <header className="no-print border-b border-line" data-analytics-placement="header">
-          <div className="mx-auto flex max-w-wide items-baseline justify-between px-6 py-5">
+          <div className="mx-auto flex max-w-wide flex-wrap items-center justify-between gap-4 px-6 py-5">
             <Link
               href="/"
               className="font-serif text-lg font-medium tracking-tight hover:text-accent"
             >
               Ostap Kovalisko
             </Link>
-            <nav className="flex gap-5 text-sm sm:gap-7">
+            <nav aria-label="Main navigation" className="flex flex-wrap items-center gap-4 text-sm sm:gap-7">
               {nav.map((item) => (
                 <Link
                   key={item.href}
@@ -114,6 +116,7 @@ plausible.init();`,
                   {item.label}
                 </Link>
               ))}
+              <ThemeToggle />
             </nav>
           </div>
         </header>
