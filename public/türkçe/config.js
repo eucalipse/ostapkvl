@@ -5,6 +5,7 @@ IDIOMA.config({
   title: 'Türkçe — Ostap Kovalisko',     // <title> у стилі сайту
   site: { label: 'ostapkvl.com', url: 'https://ostapkvl.com' },
   teacherTitle: 'Ostap · Homework',
+  teacherHeading: 'Homework',
   teacherIntro: 'Ostap’s homework answers. Each exercise is marked with its lesson date. Click 🔈 to hear a line.',  // сторінка /turkce/teacher (page.html?cat=homework&view=teacher)  // лінк назад на сайт над брендом; прибрати, коли переїдемо
   target: 'tr',          // мова, яку вчать (має збігатися з lang/<code>.js)
   native: 'uk',          // рідна мова пояснень

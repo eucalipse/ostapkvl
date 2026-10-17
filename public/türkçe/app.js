@@ -8,7 +8,7 @@ const IDIOMA = (() => {
   const STOP = new Set(['-mak', '-mek', 'ben', 'ostap', '—', 'корінь', 'суфікс часу', 'суфікс особи']);
   const state = { cat: null };
   const BASE = window.IDIOMA_BASE || '';
-  // Окрема сторінка однієї категорії (page.html?cat=homework): без сайдбару, лінки на інші категорії ведуть в index.html
+  // Окрема сторінка однієї категорії (page.html?cat=lessons): без сайдбару, лінки на інші категорії ведуть в index.html
   const SOLO = window.IDIOMA_SOLO || null;
   const VIEW = window.IDIOMA_VIEW || null; // 'teacher' = лише записи з submit: true, без української й нотаток (сторінка для вчительки)
   const pageUrl = (id) => (BASE ? `${BASE}${id}` : `page.html?cat=${id}`);
@@ -247,7 +247,7 @@ const IDIOMA = (() => {
     const entries = all.filter((e) => e.c === c && (VIEW !== 'teacher' || e.s.submit));
     const topics = c.topics.filter((t) => !t.hidden && (VIEW !== 'teacher' || entries.some((e) => e.t === t)));
     if (VIEW === 'teacher') return `<div class="doc">
-      <h1>${esc(c.en || c.title)}</h1>
+      <h1>${esc(CFG.teacherHeading || c.en || c.title)}</h1>
       <p class="tview-intro">${esc(CFG.teacherIntro || '')}</p>
       ${topics.map((t) => `
         <section class="topic-sec" id="${esc(t.id)}">
@@ -326,19 +326,41 @@ const IDIOMA = (() => {
       (s.dialogue || []).forEach((l) => add(t, l.tr, l.en, l.uk));
       (s.examples || []).forEach((x) => add(t, x.tr, x.en, x.uk));
       (s.answers || []).forEach((x) => add(t, x.tr, x.en, x.uk));
-      if (s.table) s.table.rows.forEach((r) => r.forEach((cell, ci) => { if (!NON_TR_COL.test(s.table.head[ci] || '')) add(t, cell); }));
+      if (s.table) {
+        const head = s.table.head || []; const enCol = head.findIndex((h) => /english/i.test(h)); const ukCol = head.findIndex((h) => /укра/i.test(h));
+        s.table.rows.forEach((r) => r.forEach((cell, ci) => {
+          if (NON_TR_COL.test(head[ci] || '')) return;
+          // «A — B» у клітинці = окремі репліки; переклади в колонках English/Українська розбиті так само, тож пари беремо за індексом
+          const parts = String(cell).split(/\s+—\s+/); const ens = enCol >= 0 ? String(r[enCol] || '').split(/\s+—\s+/) : []; const uks = ukCol >= 0 ? String(r[ukCol] || '').split(/\s+—\s+/) : [];
+          parts.forEach((part, pi) => add(t, part, parts.length === ens.length ? ens[pi] : '', parts.length === uks.length ? uks[pi] : ''));
+        }));
+      }
     });
     return out;
   }
   function renderSoloNav(c) {
+    // ліворуч: теми лише цієї категорії (як у звичайному сайдбарі)
+    $('nav').innerHTML = `<div class="cat active" data-cat="${esc(c.id)}">
+        <div class="cat-head" data-cat="${esc(c.id)}"><span class="lbl">${nav(c)}</span><span class="n">${c.topics.reduce((n, t) => n + t.slides.length, 0)}</span></div>
+        <div class="topics">${c.topics.filter((t) => !t.hidden).map((t) => `<a class="topic" href="#${esc(c.id)}/${esc(t.id)}">${nav(t)}</a>`).join('')}</div>
+      </div>`;
+    $('nav').querySelectorAll('.topic').forEach((a) => a.addEventListener('click', closeMenu));
+    $('sidebarFoot').textContent = `${c.topics.length} ${CFG.footer.topics} · ${all.filter((e) => e.c === c).length} ${CFG.footer.entries}`;
+    // праворуч: усі фрази категорії
     const list = phrasesOf(c);
-    const byTopic = new Map(); list.forEach((x) => { if (!byTopic.has(x.t)) byTopic.set(x.t, []); byTopic.get(x.t).push(x); });
-    $('nav').innerHTML = `<div class="lp-head"><span class="k">phrases to learn · фрази</span><span class="n">${list.length}</span></div>` + [...byTopic.entries()].map(([t, xs]) => `
-      <div class="lp-topic"><div class="lp-t">${esc(t.en || t.title)}</div>${xs.map((x) => `<a class="lp ph" data-ph="${esc(x.tr)}" href="#"><b>${esc(x.tr)}</b><i>${esc(translit(x.tr))}</i>${x.en || x.uk ? `<span>${esc(x.en)}${x.en && x.uk ? ' · ' : ''}${esc(x.uk)}</span>` : ''}</a>`).join('')}</div>`).join('');
-    $('nav').querySelectorAll('.lp').forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); openModal(a.dataset.ph); }));
-    $('sidebarFoot').textContent = `${list.length} ${CFG.footer.entries}`;
-    $('search').placeholder = 'filter · фільтр';
-    $('search').oninput = (e) => { const q = low(e.target.value.trim()); $('nav').querySelectorAll('.lp').forEach((a) => { a.hidden = !!q && !low(a.textContent).includes(q); }); $('nav').querySelectorAll('.lp-topic').forEach((d) => { d.hidden = !!q && ![...d.querySelectorAll('.lp')].some((a) => !a.hidden); }); };
+    // групи = уроки: теми з однаковою датою в id (ders-2026-10-17 + hw-2026-10-17) ідуть в одну групу з назвою теми уроку
+    const groupKey = (t) => (t.id.match(/\d{4}-\d{2}-\d{2}/) || [t.id])[0];
+    const groups = new Map();
+    list.forEach((x) => { const k = groupKey(x.t); if (!groups.has(k)) groups.set(k, { label: x.t.en || x.t.title, xs: [] }); const g = groups.get(k); if (/^ders-/.test(x.t.id)) g.label = x.t.en || x.t.title; g.xs.push(x); });
+    const box = $('phrasesList'); if (!box) return;
+    box.innerHTML = [...groups.values()].map((g) => `
+      <div class="lp-topic"><div class="lp-t">${esc(g.label)} · ${g.xs.length}</div>${g.xs.map((x) => `<a class="lp ph" data-ph="${esc(x.tr)}" href="#"><b>${esc(x.tr)}</b><i>${esc(translit(x.tr))}</i>${x.en || x.uk ? `<span>${esc(x.en)}${x.en && x.uk ? ' · ' : ''}${esc(x.uk)}</span>` : ''}</a>`).join('')}</div>`).join('');
+    $('phrasesN').textContent = list.length;
+    $('phrases').hidden = false; $('phrasesBtn').hidden = false; $('phrasesBtn').textContent = `Phrases · ${list.length}`;
+    box.querySelectorAll('.lp').forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); openModal(a.dataset.ph); $('phrases').classList.remove('open'); }));
+    $('phrasesFilter').oninput = (e) => { const q = low(e.target.value.trim()); box.querySelectorAll('.lp').forEach((a) => { a.hidden = !!q && !low(a.textContent).includes(q); }); box.querySelectorAll('.lp-topic').forEach((d) => { d.hidden = !!q && ![...d.querySelectorAll('.lp')].some((a) => !a.hidden); }); };
+    $('phrasesBtn').addEventListener('click', () => $('phrases').classList.toggle('open'));
+    $('phrasesClose').addEventListener('click', () => $('phrases').classList.remove('open'));
   }
 
   // ---------- модалка з розбором речення ----------
@@ -420,7 +442,7 @@ const IDIOMA = (() => {
     const rules = entries.filter((e) => e.c.id === 'grammar').length;
     let sentences = 0, dialogues = 0, lines = 0;
     entries.forEach((e) => { sentences += (e.s.examples || []).length + (e.s.answers || []).length; if (e.s.dialogue?.length) { dialogues++; lines += e.s.dialogue.length; } });
-    const hw = entries.filter((e) => e.c.id === 'homework');
+    const hw = entries.filter((e) => e.c.id === 'lessons' && e.s.status);
     const hwDone = hw.filter((e) => e.s.status === 'done').length;
     const vocab = Object.keys(gloss).filter((k) => !k.startsWith('-') && !k.endsWith('-')).length;
     const morph = Object.keys(gloss).filter((k) => k.startsWith('-') || k.endsWith('-')).length;
@@ -441,7 +463,7 @@ const IDIOMA = (() => {
         ${tile(s.morph, 'suffixes & roots', 'суфіксів і коренів', '#grammar/suffixes')}
         ${tile(s.sentences, 'example sentences', 'речень у прикладах', '#')}
         ${tile(s.lines, 'dialogue lines', 'реплік у діалогах', '#greetings/dialogues')}
-        ${tile(`${s.hwDone} / ${s.hw}`, 'homework done', 'домашніх зроблено', '#homework')}
+        ${tile(`${s.hwDone} / ${s.hw}`, 'homework done', 'домашніх зроблено', '#lessons')}
       </div>
       <p class="mnote">${s.entries} entries · ${s.topics} topics · ${s.sources} sources · записів · тем · джерел</p>
       <table class="tbl"><thead><tr><th>Category · категорія</th><th>Topics</th><th>Entries</th></tr></thead>
@@ -501,7 +523,7 @@ const IDIOMA = (() => {
     $('statsBtn').addEventListener('click', openStats);
     $('todayBtn').addEventListener('click', () => IDIOMA.practice?.openToday());
     $('wordsBtn').addEventListener('click', openWords);
-    if (!SOLO) $('search').addEventListener('input', (e) => renderSearch(e.target.value));
+    $('search').addEventListener('input', (e) => renderSearch(e.target.value));
     document.querySelector('.brand').addEventListener('click', () => { if (SOLO) { location.href = homeUrl(''); return; } location.hash = ''; closeMenu(); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeMenu(); closeModal(); } });
     $('stage').addEventListener('click', (e) => { const ph = e.target.closest('.ph'); if (ph && !e.target.closest('a')) { e.preventDefault(); openModal(ph.dataset.ph); } });

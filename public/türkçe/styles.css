@@ -335,7 +335,7 @@ body.teacher .main::before { opacity: .9; }
 
 /* ---------- окрема сторінка (page.html?cat=…): без сайдбару ---------- */
 body.tview .sidebar, body.tview .menu-btn { display: none; }
-body.solo:not(.tview) .sidebar { width: 300px; }
+
 body.tview .topbar { padding-left: 44px; }
 body.solo .crumbs { display: block; }
 body.solo .crumbs .back { font-family: var(--font-mono); color: var(--ink-2); letter-spacing: .06em; }
@@ -363,3 +363,23 @@ body.tview .tl.tcell { display: block; margin: 2px 0 0; }
 .lp i { font-family: var(--font-display); font-style: italic; font-size: 12px; color: var(--marker-ink); }
 .lp span { font-size: 11.5px; color: var(--ink-3); margin-top: 1px; }
 .lp[hidden], .lp-topic[hidden] { display: none; }
+
+/* права колонка з фразами (окремі сторінки) */
+body.solo:not(.tview) .main { display: grid; grid-template-columns: minmax(0, 1fr) 300px; grid-template-rows: auto 1fr; align-items: start; }
+body.solo:not(.tview) .main .topbar { grid-column: 1 / -1; }
+.phrases { position: sticky; top: 50px; max-height: calc(100vh - 50px); overflow-y: auto; border-left: 1px solid var(--line); background: var(--paper); padding-bottom: 20px; }
+.phrases .phead { display: flex; align-items: baseline; gap: 10px; padding: 14px 20px 6px; }
+.phrases .phead .k { font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: var(--ink-3); flex: 1; }
+.phrases .phead .n { font-family: var(--font-mono); font-size: 11px; color: var(--ink-3); }
+.phrases .phead .mclose { display: none; position: static; float: none; }
+.phrases .search { display: block; width: calc(100% - 40px); margin: 4px 20px 8px; }
+.phrases .lp { padding-left: 18px; }
+.phrases .lp-t { padding-left: 20px; }
+.hbtn.phrases-btn { display: none; }
+@media (max-width: 860px) {
+  body.solo:not(.tview) .main { display: block; }
+  .phrases { display: none; position: fixed; inset: 0; z-index: 40; max-height: none; border-left: 0; padding-top: env(safe-area-inset-top, 0px); }
+  .phrases.open { display: block; }
+  .phrases .phead .mclose { display: inline-flex; align-items: center; justify-content: center; }
+  .hbtn.phrases-btn { display: flex; }
+}

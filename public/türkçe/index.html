@@ -29,8 +29,9 @@
   </aside>
 
   <main class="main" id="main">
-    <div class="topbar"><div class="crumbs" id="crumbs"></div><div class="topbar-right"><nav class="hmenus" id="hmenus"></nav><button class="hbtn today" id="todayBtn" type="button">Today</button><button class="hbtn" id="wordsBtn" type="button">Words</button><button class="hbtn" id="statsBtn" type="button">Stats</button><button class="theme-btn" id="themeBtn" title="Night / day">☾</button></div></div>
+    <div class="topbar"><div class="crumbs" id="crumbs"></div><div class="topbar-right"><nav class="hmenus" id="hmenus"></nav><button class="hbtn phrases-btn" id="phrasesBtn" type="button" hidden>Phrases</button><button class="hbtn today" id="todayBtn" type="button">Today</button><button class="hbtn" id="wordsBtn" type="button">Words</button><button class="hbtn" id="statsBtn" type="button">Stats</button><button class="theme-btn" id="themeBtn" title="Night / day">☾</button></div></div>
     <section class="stage" id="stage"></section>
+    <aside class="phrases" id="phrases" hidden><div class="phead"><span class="k">phrases to learn · фрази</span><span class="n" id="phrasesN"></span><button class="mclose" id="phrasesClose" aria-label="Close">✕</button></div><input class="search" id="phrasesFilter" type="search" placeholder="filter · фільтр" autocomplete="off"><div id="phrasesList"></div></aside>
   </main>
 
   <div class="drawer" id="modal"><div class="dcard"><button class="mclose" aria-label="Close">✕</button><div id="modalBody"></div></div></div>
@@ -67,7 +68,6 @@
   <script src="/turkce/data/grammar.js"></script>
   <script src="/turkce/data/series.js"></script>
   <script src="/turkce/data/lessons.js"></script>
-  <script src="/turkce/data/homework.js"></script>
   <script>IDIOMA.start();</script>
 </body>
 </html>

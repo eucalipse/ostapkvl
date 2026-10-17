@@ -40,7 +40,7 @@
     load();
     const d = due().length, n = Math.max(0, Math.min(NEW_PER_DAY - newToday(), fresh().length)), done = doneToday();
     const st = IDIOMA.stats();
-    const hw = IDIOMA.entries().filter((e) => e.c.id === 'homework');
+    const hw = IDIOMA.entries().filter((e) => e.c.id === 'lessons' && e.s.status);
     const html = `<div class="mhead"><span class="phrase">Today · Bugün · Сьогодні</span></div>
       <p class="mnote">${today()} · ${IDIOMA.sync?.status?.() || 'local only · лише локально'}</p>
       <div class="stiles">
