@@ -3,8 +3,8 @@ export const site = {
   url: "https://ostapkvl.com",
   title: "Ostap Kovalisko — Chief Architect",
   description:
-    "Chief Architect at Mission Law and founder of Eucalipse. I build production AI agent platforms with human approval gates and full audit trails.",
-  email: "ostap@eucalipse.com",
+    "Chief Architect at Mission Law and founder of Eucalipse. AI engineering, software architecture, and business operations systems with human review and traceable actions.",
+  email: "me@ostapkvl.com",
   linkedin: "https://www.linkedin.com/in/ostap-kovalisko",
   instagram: "https://www.instagram.com/yet.another.travel",
   eucalipse: "https://eucalipse.com",
