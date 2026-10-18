@@ -1,0 +1,182 @@
+---
+title: "An expensive planner, a cheaper executor"
+date: "2026-10-18"
+dek: "A practical way to test mixed-model coding: spend on the decisions, bound the implementation, and count the cost of fixing mistakes."
+readTime: "8 min read"
+category: "Experiments"
+tags: ["AI agents", "Model routing", "Developer tools"]
+draft: true
+---
+
+Imagine asking an agent to improve a CSV importer. The change sounds small: reject duplicate supplier IDs and show useful errors. A capable model starts exploring. It reads the parser, follows the database writes, checks the upload screen, and notices that validation happens after some records have already been saved.
+
+That discovery matters more than the loop that checks for duplicates.
+
+I want to test a division of work around that difference. A more capable model investigates the design and sets the boundaries. A lower-cost model implements a bounded change. A separate review checks the actual result.
+
+This is a proposed workflow, not a report of savings I have measured. The question is whether the implementation savings survive the extra planning, handoff, and repair work.
+
+## Decide what deserves the expensive thinking
+
+The planner's job is to find decisions that would be expensive to get wrong. In the importer example: should one invalid row reject the whole file? Are existing supplier IDs duplicates too? Does validation run before any writes? Can two simultaneous uploads get past the same check?
+
+The executor needs those answers. It does not need forty messages about approaches the planner abandoned.
+
+Some tasks will not benefit from this split. A typo fix has little design uncertainty. A concurrency bug may keep producing new information that changes the design. In the first case, planning can cost more than implementation. In the second, a neat handoff may become obsolete after the first experiment.
+
+I would start with work that has a clear boundary and observable acceptance criteria: adding a validation rule, extending a parser, or implementing an already-decided interface. “Refactor the whole application” is a poor first test.
+
+Anthropic's Erik S. and Barry Zhang describe routing, orchestrator-worker, and evaluator-optimizer patterns in [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents). Their advice to add complexity only when it earns its place applies here. A planner/executor arrangement combines familiar patterns; its value still needs to be measured on your tasks.
+
+<Figure src="/writing/an-expensive-planner-a-cheaper-executor/workflow.svg" alt="A planner produces a bounded handoff for an executor; independent checks and review lead to acceptance, a bounded repair, or escalation back to planning." caption="Separate decisions, implementation, and verification. A failed assumption returns to planning rather than becoming an endless repair loop." />
+
+## Hand over a contract the executor can check
+
+A handoff should be short enough to use and specific enough to challenge. “Implement the plan above” is neither.
+
+For the importer, an example contract could look like this. These are hypothetical requirements, not a description of an existing repository.
+
+```text
+Goal: validate an uploaded CSV before importing supplier rows.
+Base: record the actual commit and relevant working-tree changes.
+
+Rules:
+- Ignore wholly blank rows.
+- Trim supplier IDs; preserve case.
+- Reject an empty ID on a nonblank row.
+- Reject repeated IDs within this file after trimming.
+- Report CSV record numbers, counting the header as record 1.
+- If any validation error exists, perform no database writes.
+
+Scope:
+- CSV validation and the existing error display.
+- Preserve the current behavior for IDs already in the database.
+- No schema migration or new dependency.
+
+Acceptance cases:
+- A valid file imports as before.
+- A duplicate in the last record leaves zero imported records.
+- Whitespace variants of the same ID are duplicates.
+- A quoted multiline cell does not corrupt record numbering.
+
+Evidence:
+- Planner supplies verified file paths and existing test commands.
+- Executor records actual test results and any untested behavior.
+
+Stop:
+- Existing transaction behavior contradicts the zero-write rule.
+- The change requires a database or concurrency-policy decision.
+```
+
+Notice the uncomfortable part: this contract deliberately leaves existing-database behavior alone. That is a scope choice, not a claim that uniqueness is solved. If the real requirement is global uniqueness, the planner must address database constraints and concurrent writes before handing the task over.
+
+Include the revision because a precise plan for yesterday's code can be wrong today. Include working-tree changes because a commit alone does not describe an edited checkout. If the executor finds different code, it should report the mismatch rather than quietly inventing a new architecture.
+
+[Download the example handoff and prompts as Markdown](/writing/an-expensive-planner-a-cheaper-executor/prompts.md).
+
+## A prompt for the planner
+
+I would give the planner repository access, the actual request, and this instruction. The output is a decision record, not a demand for a transcript of internal reasoning.
+
+```text
+Investigate this request before proposing implementation.
+Read the relevant code and repository instructions.
+
+Produce a compact handoff containing:
+1. Goal and observable acceptance criteria.
+2. Verified revision, relevant working-tree changes, and file paths.
+3. Decisions, brief reasons, and explicit non-goals.
+4. Existing interfaces and invariants to preserve.
+5. Commands discovered in the repository for verification.
+6. Bounded implementation steps and escalation conditions.
+
+Separate observed facts from assumptions and open questions.
+Do not invent filenames, commands, or test results.
+If an unresolved product decision changes correctness, identify it.
+Do not implement the change in this planning step.
+```
+
+A shorter plan is useful only if it keeps the information needed to do the work. Removing the zero-write invariant saves a handful of tokens and creates a very different task.
+
+## A prompt for the executor
+
+The executor gets the handoff and access to the relevant code. A summary is an entry point into the repository, not a replacement for reading it.
+
+```text
+Implement the attached handoff in the current checkout.
+First verify its revision, paths, assumptions, and relevant local edits.
+Preserve unrelated work. Read the affected code before editing.
+
+Stay within the specified scope and preserve its invariants.
+If the handoff contradicts the code or needs a new design decision,
+stop that part and report the specific contradiction.
+
+Run the relevant available checks. Report exact commands and results.
+Make at most two repair attempts for the same failing acceptance case;
+then return the failure and evidence for replanning.
+
+Deliver the diff summary, verification evidence, remaining risks,
+and any acceptance criterion you could not verify.
+Do not merge, deploy, or publish unless separately authorized.
+```
+
+Two repairs is an example budget, not a magic number. The important thing is that the loop has a limit and that crossing it changes the next action. Otherwise a cheaper model can spend an expensive afternoon repeating the same mistake.
+
+## Review the code, not the completion message
+
+I want the reviewer to receive the request, acceptance criteria, current diff, and actual verification output in a fresh context. Starting with “the implementation is correct and all tests pass” gives it a conclusion to repeat.
+
+```text
+Review the actual diff against the original request and acceptance criteria.
+Inspect affected code and available test evidence independently.
+Treat the executor's summary as a claim to verify.
+
+Look for violated invariants, missing edge cases, and regressions.
+For each actionable finding, give a location, a failure scenario,
+and the evidence supporting it. Mark uncertainty explicitly.
+
+State which acceptance criteria are verified, unverified, or failed.
+Distinguish a command that passed from behavior that was never tested.
+Do not approve solely because the implementation follows the plan:
+the plan itself may be wrong.
+```
+
+A fresh context reduces dependence on the executor's narrative. It does not make reviewers infallible. Two models can share a blind spot, and a test can encode the wrong requirement. Changes with serious consequences still need an appropriate human decision.
+
+## Count the whole task
+
+“Fewer tokens” and “a lower bill” are different goals. A mixed-model workflow can use more tokens but spend less if much of the work uses a lower rate. It can also spend less on generation and more on repair.
+
+For a simple illustration, suppose a single-model task costs 12 units: 3 to plan, 7 to implement, and 2 to verify. A mixed workflow costs 3 to plan, 2 to implement, 1 to hand over context, and 2 to verify: 8 units. Add 6 units of repair and it costs 14.
+
+Those are invented cost units, not prices, measurements, or predicted savings. Verification costs are held equal just to isolate the trade-off; in a real comparison they can differ.
+
+<Figure src="/writing/an-expensive-planner-a-cheaper-executor/cost.svg" alt="Illustrative stacked bars total 12 cost units for a single-model workflow, 8 for a mixed workflow without repair, and 14 when the mixed workflow needs 6 units of repair." caption="Synthetic arithmetic, not benchmark results. Planning, implementation, handoff, verification, and repair all belong in the comparison." />
+
+In this example, the mixed workflow has a four-unit margin. Once its extra repair cost reaches four, the saving disappears. The useful question is how often your tasks consume that margin.
+
+<Figure src="/writing/an-expensive-planner-a-cheaper-executor/break-even.svg" alt="A synthetic break-even chart shows mixed-workflow cost increasing from 8 units as repair cost grows, crossing the fixed 12-unit baseline at 4 additional repair units." caption="A sensitivity analysis of the same invented example. The crossing point follows from the assumptions; it is not an empirical model ranking." />
+
+Record uncached input, cache writes, cache reads, output, and paid tools separately where the provider exposes them. [Anthropic's prompt-caching documentation](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) distinguishes those token categories and their rates. Reusing history is discounted under applicable caching conditions; it is not automatically free. Moving work to another provider does not carry the original provider's cache along with it.
+
+Keep human review time and elapsed time beside the bill. A cheaper run that needs half an hour of rescue may be a poor trade. If you convert that time into money, show the assumed hourly rate. Under a subscription, API list prices are an estimate of equivalent usage, not necessarily what you paid.
+
+## What the research does and does not establish
+
+[FrugalGPT](https://arxiv.org/abs/2305.05176) studies cost-aware use of multiple language models, including cascades. [RouteLLM](https://arxiv.org/abs/2406.18665) studies learned routing between stronger and weaker models using preference data. Both are useful starting points for thinking about model allocation.
+
+Neither paper establishes that a particular planner-to-coding-agent handoff will save money in your repository. Selecting a model for a query and transferring an evolving implementation task are different problems. A handoff adds its own failure modes: stale context, omitted constraints, duplicated investigation, and ambiguous ownership of repairs.
+
+I would treat a pairing such as Astra for planning and Claude for execution as an experiment label. Record the actual model identifiers, client versions, settings, and rates before making a comparison. Brand names alone do not define the experiment.
+
+## Run a small comparison before building an orchestrator
+
+Take a small set of bounded tasks from a public or synthetic repository. Define acceptance checks before either workflow runs. Include a few tasks that should expose the limits of the handoff, rather than selecting only easy implementation work.
+
+Run both approaches from equivalent clean starting states. Repeat runs, record cache conditions, and keep the tools and permissions comparable. Cap repair attempts. Count abandoned runs in the cost, rather than deleting them because they did not produce a result.
+
+Report total spend divided by independently accepted tasks alongside the acceptance rate and elapsed time. If nothing passes, the cost per accepted task is undefined, not zero. A small experiment is a screening tool; it is not a universal leaderboard.
+
+This connects to [building an evaluation set from reviewed work](/writing/evals-that-grow-themselves): the quality gate should stay stable while the model arrangement changes. It also connects to [spending human attention where mistakes matter](/writing/human-attention-is-the-bottleneck). A lower-cost workflow should not earn its saving by quietly removing the checks that made the result trustworthy.
+
+The first version of this experiment can be three prompts and a results sheet. If the handoff keeps working and the total cost falls, automate the repetitive parts. If the planner keeps having to come back and repair the same decisions, that is useful evidence too: the boundary is in the wrong place.
