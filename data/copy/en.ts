@@ -9,7 +9,7 @@ export const en: Copy = {
     subtitle: "Chief Architect · I build AI agents that run business operations.",
     intro: "I build AI systems with typed actions, human approval flows, and source-backed review. I'm Chief Architect at {missionLaw}, a US law firm, and founder of {eucalipse}, where we've shipped 50+ software projects since 2019. Before that: founder or CTO of three startups, one acquired.",
     readWriting: "Read the writing",
-    discuss: "Discuss a project",
+    discuss: "Get in touch",
     selectedWriting: "Selected writing",
     allArticles: "All articles",
     selectedWork: "Selected work",

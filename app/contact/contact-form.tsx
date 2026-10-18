@@ -1,13 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { landings, type LandingLocale } from "@/data/landings";
+import { getLanding, type SiteLocale } from "@/data/landings";
 import { site } from "@/data/site";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
-export function ContactForm({ locale = "en" }: { locale?: LandingLocale | "en" }) {
-  const c = locale === "en" ? { name:"Name", email:"Email", message:"Message", send:"Send message", sending:"Sending…", sent:"Message sent.", thanks:"Thanks — I usually reply within a day, any timezone.", error:"Could not send. You can write to", note:"Usually reply within a day, any timezone." } : landings[locale];
+export function ContactForm({ locale = "en" }: { locale?: SiteLocale }) {
+  const c = getLanding(locale);
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
 

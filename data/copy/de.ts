@@ -9,7 +9,7 @@ export const de: Copy = {
     subtitle: "Chief Architect · Ich baue KI-Agenten, die den Geschäftsbetrieb am Laufen halten.",
     intro: "Ich baue KI-Systeme mit typisierten Aktionen, menschlichen Freigabeschritten und quellengestützter Prüfung. Ich bin Chief Architect bei {missionLaw}, einer US-Anwaltskanzlei, und Gründer von {eucalipse}, wo wir seit 2019 über 50 Softwareprojekte ausgeliefert haben. Davor: Gründer oder CTO von drei Start-ups, eines davon übernommen.",
     readWriting: "Artikel lesen",
-    discuss: "Über ein Projekt sprechen",
+    discuss: "Kontakt aufnehmen",
     selectedWriting: "Ausgewählte Artikel",
     allArticles: "Alle Artikel",
     selectedWork: "Ausgewählte Arbeiten",

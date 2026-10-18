@@ -1,163 +1,163 @@
 export const landings = {
   "es": {
     "title": "Arquitectura de IA para operaciones reales",
-    "description": "Consultoría en arquitectura de IA, diseño de agentes y revisión de sistemas antes de su puesta en producción.",
+    "description": "Eucalipse: revisiones de arquitectura de IA, diseño de agentes y preparación para producción para equipos de operaciones. Fundada por Ostap Kovalisko.",
     "hero": "Agentes de IA que hacen el trabajo.",
-    "intro": "Soy Ostap Kovalisko, Chief Architect y fundador de Eucalipse. Ayudo a los equipos a diseñar agentes con límites claros, revisión humana y acciones trazables.",
-    "cta": "Hablemos de tu proyecto",
-    "services": "Dónde puedo ayudarte",
+    "intro": "Soy Ostap Kovalisko, Chief Architect en Mission Law y fundador de Eucalipse. Eucalipse ayuda a los equipos a diseñar y poner en marcha agentes con límites claros, revisión humana y acciones trazables. Yo marco la dirección y reviso la arquitectura; el equipo de Eucalipse construye.",
+    "cta": "Hablar con Eucalipse",
+    "services": "Dónde puede ayudar Eucalipse",
     "items": [
       [
         "Revisión de arquitectura",
-        "Identificar riesgos en los flujos de datos, los permisos, las integraciones y la ejecución de acciones. Definir qué conviene cambiar primero."
+        "Una segunda opinión sobre los flujos de datos, los permisos, las integraciones y la ejecución de acciones antes de ampliar la autonomía. Qué riesgos importan y qué cambiar primero."
       ],
       [
         "Diseño de agentes",
-        "Convertir una necesidad operativa en un flujo concreto: qué puede hacer el agente, qué debe comprobar y cuándo necesita aprobación."
+        "Convertir una necesidad operativa en un flujo concreto: qué puede hacer el agente, qué debe comprobar y cuándo necesita la aprobación de una persona."
       ],
       [
         "Preparación para producción",
-        "Revisar evaluaciones, observabilidad, reintentos y recuperación ante fallos antes de ampliar la autonomía del sistema."
+        "Evaluaciones, observabilidad, reintentos y recuperación ante fallos, revisados antes de que el sistema gane más autonomía."
       ]
     ],
-    "process": "Empezamos por un problema concreto",
-    "processText": "Cuéntame qué proceso quieres mejorar, qué existe hoy y dónde se atasca. Primero acordamos el alcance y el resultado esperado; después, el trabajo técnico.",
-    "availability": "Acepto proyectos seleccionados compatibles con mis compromisos actuales. Las colaboraciones se pueden organizar directamente o a través de Eucalipse.",
+    "process": "Empieza por un problema concreto",
+    "processText": "Cuéntanos qué proceso quieres mejorar, qué existe hoy y dónde se atasca. Primero el alcance y el resultado esperado; después, el trabajo técnico.",
+    "availability": "Trabajo a tiempo completo como Chief Architect en Mission Law. Eucalipse opera de forma independiente con su propio equipo, y yo participo como fundador: dirección y revisiones de arquitectura, no la entrega del día a día.",
     "reading": "Cómo pienso sobre estos sistemas",
     "article": "La atención humana es ahora el cuello de botella",
     "articleText": "Una propuesta para diseñar la revisión alrededor de la evidencia, la incertidumbre y el coste de un error.",
     "english": "Leer el artículo en inglés",
-    "contact": "Cuéntame qué estás construyendo",
-    "contactText": "Describe el problema, el estado actual del sistema y tus plazos. Acordaremos el idioma de las reuniones y de los entregables antes de empezar.",
+    "contact": "Cuéntanos qué estás construyendo",
+    "contactText": "Describe el problema, el estado actual del sistema y tus plazos. Los mensajes llegan al equipo de Eucalipse y yo también los leo. Acordaremos el idioma de las reuniones y de los entregables antes de empezar.",
     "name": "Nombre",
     "email": "Correo electrónico",
     "message": "Mensaje",
     "send": "Enviar mensaje",
     "sending": "Enviando…",
     "sent": "Mensaje enviado.",
-    "thanks": "Gracias. Me pondré en contacto contigo para hablar de los próximos pasos.",
+    "thanks": "Gracias. El equipo de Eucalipse se pondrá en contacto contigo para hablar de los próximos pasos.",
     "error": "No se ha podido enviar el mensaje. Puedes escribirme a",
-    "note": "Utilizaré tus datos para responder a tu consulta."
+    "note": "Utilizaremos tus datos solo para responder a tu consulta."
   },
   "fr": {
     "title": "Architecture IA pour les opérations métier",
-    "description": "Conseil en architecture IA, conception d’agents et revue des systèmes avant leur mise en production.",
+    "description": "Eucalipse : revues d’architecture IA, conception d’agents et préparation à la production pour les équipes opérationnelles. Fondée par Ostap Kovalisko.",
     "hero": "Des agents IA qui font avancer le travail.",
-    "intro": "Je suis Ostap Kovalisko, Chief Architect et fondateur d’Eucalipse. J’aide les équipes à concevoir des agents aux limites explicites, avec une validation humaine et des actions traçables.",
-    "cta": "Parlons de votre projet",
-    "services": "Comment je peux vous aider",
+    "intro": "Je suis Ostap Kovalisko, Chief Architect chez Mission Law et fondateur d’Eucalipse. Eucalipse aide les équipes à concevoir et à mettre en service des agents aux limites explicites, avec une validation humaine et des actions traçables. Je fixe la direction et je revois l’architecture ; l’équipe d’Eucalipse construit.",
+    "cta": "Parler à Eucalipse",
+    "services": "Comment Eucalipse peut vous aider",
     "items": [
       [
         "Revue d’architecture",
-        "Identifier les risques liés aux données, aux autorisations, aux intégrations et à l’exécution des actions. Définir les changements prioritaires."
+        "Un second regard sur les flux de données, les autorisations, les intégrations et l’exécution des actions avant d’élargir l’autonomie. Quels risques comptent, et quoi changer en premier."
       ],
       [
         "Conception d’agents",
-        "Traduire un besoin opérationnel en un processus concret : ce que l’agent peut faire, ce qu’il doit vérifier et quand une validation est nécessaire."
+        "Traduire un besoin opérationnel en un processus concret : ce que l’agent peut faire, ce qu’il doit vérifier et quand une personne doit valider."
       ],
       [
         "Préparation à la production",
-        "Examiner les évaluations, l’observabilité, les nouvelles tentatives et la reprise après incident avant d’accroître l’autonomie du système."
+        "Évaluations, observabilité, nouvelles tentatives et reprise après incident, revues avant que le système ne gagne en autonomie."
       ]
     ],
-    "process": "Partons d’un problème concret",
-    "processText": "Expliquez-moi le processus à améliorer, ce qui existe aujourd’hui et les points de blocage. Nous convenons d’abord du périmètre et du résultat attendu, puis du travail technique.",
-    "availability": "J’accepte des missions sélectionnées, compatibles avec mes engagements actuels. Elles peuvent être organisées directement ou par l’intermédiaire d’Eucalipse.",
+    "process": "Tout commence par un problème concret",
+    "processText": "Expliquez-nous le processus à améliorer, ce qui existe aujourd’hui et les points de blocage. D’abord le périmètre et le résultat attendu, puis le travail technique.",
+    "availability": "Je travaille à temps plein comme Chief Architect chez Mission Law. Eucalipse fonctionne de manière indépendante avec sa propre équipe, et j’y interviens en tant que fondateur : direction et revues d’architecture, pas la livraison au quotidien.",
     "reading": "Mon approche de ces systèmes",
     "article": "L’attention humaine est devenue le facteur limitant",
     "articleText": "Une proposition pour organiser la revue autour des preuves, de l’incertitude et du coût d’une erreur.",
     "english": "Lire l’article en anglais",
-    "contact": "Parlez-moi de votre projet",
-    "contactText": "Décrivez le problème, l’état actuel du système et vos délais. Nous conviendrons de la langue des réunions et des livrables avant de commencer.",
+    "contact": "Parlez-nous de votre projet",
+    "contactText": "Décrivez le problème, l’état actuel du système et vos délais. Les messages arrivent à l’équipe d’Eucalipse et je les lis aussi. Nous conviendrons de la langue des réunions et des livrables avant de commencer.",
     "name": "Nom",
     "email": "Adresse e-mail",
     "message": "Message",
     "send": "Envoyer le message",
     "sending": "Envoi…",
     "sent": "Message envoyé.",
-    "thanks": "Merci. Je vous recontacterai pour discuter des prochaines étapes.",
+    "thanks": "Merci. L’équipe d’Eucalipse vous recontactera pour discuter des prochaines étapes.",
     "error": "Le message n’a pas pu être envoyé. Vous pouvez m’écrire à",
-    "note": "Vos coordonnées serviront à répondre à votre demande."
+    "note": "Vos coordonnées serviront uniquement à répondre à votre demande."
   },
   "pt": {
     "title": "Arquitetura de IA para operações reais",
-    "description": "Consultoria em arquitetura de IA, design de agentes e revisão de sistemas antes de entrarem em produção.",
+    "description": "Eucalipse: revisões de arquitetura de IA, design de agentes e preparação para produção para equipes de operações. Fundada por Ostap Kovalisko.",
     "hero": "Agentes de IA que fazem o trabalho.",
-    "intro": "Sou Ostap Kovalisko, Chief Architect e fundador da Eucalipse. Ajudo equipes a projetar agentes com limites claros, revisão humana e ações rastreáveis.",
-    "cta": "Vamos falar sobre o seu projeto",
-    "services": "Onde posso ajudar",
+    "intro": "Sou Ostap Kovalisko, Chief Architect na Mission Law e fundador da Eucalipse. A Eucalipse ajuda equipes a projetar e colocar em produção agentes com limites claros, revisão humana e ações rastreáveis. Eu defino a direção e reviso a arquitetura; a equipe da Eucalipse constrói.",
+    "cta": "Falar com a Eucalipse",
+    "services": "Onde a Eucalipse pode ajudar",
     "items": [
       [
         "Revisão de arquitetura",
-        "Identificar riscos nos fluxos de dados, nas permissões, nas integrações e na execução de ações. Definir o que vale a pena mudar primeiro."
+        "Uma segunda opinião sobre fluxos de dados, permissões, integrações e execução de ações antes de ampliar a autonomia. Quais riscos importam e o que mudar primeiro."
       ],
       [
         "Design de agentes",
-        "Transformar uma necessidade operacional em um fluxo concreto: o que o agente pode fazer, o que precisa verificar e quando precisa de aprovação."
+        "Transformar uma necessidade operacional em um fluxo concreto: o que o agente pode fazer, o que precisa verificar e quando uma pessoa precisa aprovar."
       ],
       [
         "Preparação para produção",
-        "Revisar avaliações, observabilidade, novas tentativas e recuperação de falhas antes de ampliar a autonomia do sistema."
+        "Avaliações, observabilidade, novas tentativas e recuperação de falhas, revisadas antes de o sistema ganhar mais autonomia."
       ]
     ],
-    "process": "Começamos por um problema concreto",
-    "processText": "Conte-me qual processo você quer melhorar, o que existe hoje e onde ele trava. Primeiro combinamos o escopo e o resultado esperado; depois vem o trabalho técnico.",
-    "availability": "Aceito projetos selecionados, compatíveis com os meus compromissos atuais. As colaborações podem ser organizadas diretamente ou por meio da Eucalipse.",
+    "process": "Começa por um problema concreto",
+    "processText": "Conte-nos qual processo você quer melhorar, o que existe hoje e onde ele trava. Primeiro o escopo e o resultado esperado; depois, o trabalho técnico.",
+    "availability": "Trabalho em tempo integral como Chief Architect na Mission Law. A Eucalipse opera de forma independente com a própria equipe, e eu participo como fundador: direção e revisões de arquitetura, não a entrega do dia a dia.",
     "reading": "Como penso sobre esses sistemas",
     "article": "A atenção humana é agora o gargalo",
     "articleText": "Uma proposta para desenhar a revisão em torno da evidência, da incerteza e do custo de um erro.",
     "english": "Ler o artigo em inglês",
-    "contact": "Conte-me o que você está construindo",
-    "contactText": "Descreva o problema, o estado atual do sistema e os seus prazos. Combinamos o idioma das reuniões e das entregas antes de começar.",
+    "contact": "Conte-nos o que você está construindo",
+    "contactText": "Descreva o problema, o estado atual do sistema e os seus prazos. As mensagens chegam à equipe da Eucalipse e eu também as leio. Combinamos o idioma das reuniões e das entregas antes de começar.",
     "name": "Nome",
     "email": "E-mail",
     "message": "Mensagem",
     "send": "Enviar mensagem",
     "sending": "Enviando…",
     "sent": "Mensagem enviada.",
-    "thanks": "Obrigado. Entrarei em contato para conversar sobre os próximos passos.",
+    "thanks": "Obrigado. A equipe da Eucalipse entrará em contato para conversar sobre os próximos passos.",
     "error": "Não foi possível enviar a mensagem. Você pode me escrever em",
-    "note": "Usarei os seus dados apenas para responder à sua mensagem."
+    "note": "Usaremos os seus dados apenas para responder à sua mensagem."
   },
   "de": {
     "title": "KI-Architektur für den operativen Betrieb",
-    "description": "Beratung zu KI-Architektur, Agenten-Design und Systemprüfung vor dem Produktivbetrieb.",
+    "description": "Eucalipse: KI-Architektur-Reviews, Agenten-Design und Produktionsreife für Operations-Teams. Gegründet von Ostap Kovalisko.",
     "hero": "KI-Agenten, die Arbeit erledigen.",
-    "intro": "Ich bin Ostap Kovalisko, Chief Architect und Gründer von Eucalipse. Ich helfe Teams, Agenten mit klaren Grenzen, menschlicher Prüfung und nachvollziehbaren Aktionen zu entwerfen.",
-    "cta": "Lassen Sie uns über Ihr Projekt sprechen",
-    "services": "Wobei ich helfen kann",
+    "intro": "Ich bin Ostap Kovalisko, Chief Architect bei Mission Law und Gründer von Eucalipse. Eucalipse hilft Teams, Agenten mit klaren Grenzen, menschlicher Prüfung und nachvollziehbaren Aktionen zu entwerfen und in Betrieb zu nehmen. Ich gebe die Richtung vor und prüfe die Architektur; das Eucalipse-Team baut.",
+    "cta": "Mit Eucalipse sprechen",
+    "services": "Wobei Eucalipse helfen kann",
     "items": [
       [
         "Architektur-Review",
-        "Risiken in Datenflüssen, Berechtigungen, Integrationen und der Ausführung von Aktionen erkennen. Festlegen, was zuerst geändert werden sollte."
+        "Eine zweite Meinung zu Datenflüssen, Berechtigungen, Integrationen und der Ausführung von Aktionen, bevor die Autonomie erweitert wird. Welche Risiken zählen und was zuerst geändert werden sollte."
       ],
       [
         "Agenten-Design",
-        "Einen operativen Bedarf in einen konkreten Ablauf übersetzen: was der Agent tun darf, was er prüfen muss und wann eine Freigabe nötig ist."
+        "Einen operativen Bedarf in einen konkreten Ablauf übersetzen: was der Agent tun darf, was er prüfen muss und wann ein Mensch freigeben muss."
       ],
       [
         "Produktionsreife",
-        "Evaluierungen, Observability, Wiederholungen und Fehlerbehandlung prüfen, bevor die Autonomie des Systems erweitert wird."
+        "Evaluierungen, Observability, Wiederholungen und Fehlerbehandlung, geprüft bevor das System mehr Autonomie bekommt."
       ]
     ],
-    "process": "Wir beginnen mit einem konkreten Problem",
-    "processText": "Erzählen Sie mir, welchen Prozess Sie verbessern möchten, was heute existiert und wo es hakt. Zuerst klären wir Umfang und erwartetes Ergebnis, danach folgt die technische Arbeit.",
-    "availability": "Ich übernehme ausgewählte Projekte, die mit meinen aktuellen Verpflichtungen vereinbar sind. Die Zusammenarbeit kann direkt oder über Eucalipse organisiert werden.",
+    "process": "Es beginnt mit einem konkreten Problem",
+    "processText": "Erzählen Sie uns, welchen Prozess Sie verbessern möchten, was heute existiert und wo es hakt. Zuerst Umfang und erwartetes Ergebnis, danach die technische Arbeit.",
+    "availability": "Ich arbeite in Vollzeit als Chief Architect bei Mission Law. Eucalipse arbeitet unabhängig mit eigenem Team, und ich bin als Gründer beteiligt: Richtung und Architektur-Reviews, nicht die tägliche Umsetzung.",
     "reading": "Wie ich über diese Systeme denke",
     "article": "Menschliche Aufmerksamkeit ist jetzt der Engpass",
     "articleText": "Ein Vorschlag, die Prüfung um Belege, Unsicherheit und die Kosten eines Fehlers herum zu gestalten.",
     "english": "Artikel auf Englisch lesen",
-    "contact": "Erzählen Sie mir, was Sie bauen",
-    "contactText": "Beschreiben Sie das Problem, den aktuellen Stand des Systems und Ihre Zeitpläne. Die Sprache für Meetings und Ergebnisse legen wir vor dem Start fest.",
+    "contact": "Erzählen Sie uns, was Sie bauen",
+    "contactText": "Beschreiben Sie das Problem, den aktuellen Stand des Systems und Ihre Zeitpläne. Nachrichten gehen an das Eucalipse-Team, und ich lese sie ebenfalls. Die Sprache für Meetings und Ergebnisse legen wir vor dem Start fest.",
     "name": "Name",
     "email": "E-Mail",
     "message": "Nachricht",
     "send": "Nachricht senden",
     "sending": "Wird gesendet…",
     "sent": "Nachricht gesendet.",
-    "thanks": "Danke. Ich melde mich bei Ihnen, um die nächsten Schritte zu besprechen.",
+    "thanks": "Danke. Das Eucalipse-Team meldet sich bei Ihnen, um die nächsten Schritte zu besprechen.",
     "error": "Die Nachricht konnte nicht gesendet werden. Sie können mir schreiben an",
-    "note": "Ihre Angaben verwende ich nur, um auf Ihre Anfrage zu antworten."
+    "note": "Ihre Angaben verwenden wir nur, um auf Ihre Anfrage zu antworten."
   }
 } as const;
 export type LandingLocale = keyof typeof landings;
@@ -179,34 +179,34 @@ export type LandingCopy = {
 /** English version of the consulting landing, used for /contact. Same shape as the translations. */
 export const landingEn: LandingCopy = {
   title: "AI architecture for real operations",
-  description: "AI architecture consulting, agent design, and system review before production.",
+  description: "Eucalipse: AI architecture reviews, agent design, and production readiness for operations teams. Founded by Ostap Kovalisko.",
   hero: "AI agents that get work done.",
-  intro: "I'm Ostap Kovalisko, Chief Architect and founder of Eucalipse. I help teams design agents with clear boundaries, human review, and traceable actions.",
-  cta: "Let's talk about your project",
-  services: "Where I can help",
+  intro: "I'm Ostap Kovalisko, Chief Architect at Mission Law and founder of Eucalipse. Eucalipse helps teams design and ship agents with clear boundaries, human review, and traceable actions. I set the direction and review the architecture; the Eucalipse team does the building.",
+  cta: "Talk to Eucalipse",
+  services: "Where Eucalipse can help",
   items: [
-    ["Architecture review", "Find the risks in data flows, permissions, integrations, and action execution. Decide what is worth changing first."],
-    ["Agent design", "Turn an operational need into a concrete flow: what the agent may do, what it must check, and when it needs approval."],
-    ["Production readiness", "Review evaluations, observability, retries, and failure recovery before widening the system's autonomy."],
+    ["Architecture review", "A second opinion on data flows, permissions, integrations, and action execution before you scale autonomy. Which risks matter, and what to change first."],
+    ["Agent design", "Turning an operational need into a concrete flow: what the agent may do, what it must check, and when a person needs to approve."],
+    ["Production readiness", "Evaluations, observability, retries, and failure recovery, reviewed before the system gets more autonomy."],
   ],
-  process: "We start with a concrete problem",
-  processText: "Tell me which process you want to improve, what exists today, and where it gets stuck. First we agree on scope and the expected result; then comes the technical work.",
-  availability: "I take on selected projects that fit my current commitments. Engagements can be arranged directly or through Eucalipse.",
+  process: "It starts with a concrete problem",
+  processText: "Tell us which process you want to improve, what exists today, and where it gets stuck. Scope and expected result come first; then the technical work.",
+  availability: "I work full-time as Chief Architect at Mission Law. Eucalipse operates independently with its own team, and I stay involved at the founder level: direction and architecture reviews, not day-to-day delivery.",
   reading: "How I think about these systems",
   article: "Human attention is the bottleneck now",
   articleText: "A proposal for designing review around evidence, uncertainty, and the cost of a mistake.",
   english: "Read the article",
-  contact: "Tell me what you're building",
-  contactText: "Describe the problem, the current state of the system, and your timeline. I usually reply within a day, any timezone.",
+  contact: "Tell us what you're building",
+  contactText: "Describe the problem, the current state of the system, and your timeline. Messages go to the Eucalipse team, and I read them too. Usually a reply within a day, any timezone.",
   name: "Name",
   email: "Email",
   message: "Message",
   send: "Send message",
   sending: "Sending…",
   sent: "Message sent.",
-  thanks: "Thanks — I usually reply within a day, any timezone.",
+  thanks: "Thanks — the Eucalipse team usually replies within a day, any timezone.",
   error: "Could not send. You can write to",
-  note: "Usually reply within a day, any timezone.",
+  note: "We use your details only to reply to your message.",
 };
 
 export function getLanding(locale: SiteLocale): LandingCopy {

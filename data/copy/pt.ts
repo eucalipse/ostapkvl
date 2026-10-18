@@ -9,7 +9,7 @@ export const pt: Copy = {
     subtitle: "Chief Architect · Construo agentes de IA que cuidam das operações de negócio.",
     intro: "Construo sistemas de IA com ações tipadas, fluxos de aprovação humana e revisão baseada em fontes. Sou Chief Architect na {missionLaw}, um escritório de advocacia dos EUA, e fundador da {eucalipse}, onde entregamos mais de 50 projetos de software desde 2019. Antes disso: fundador ou CTO de três startups, uma delas adquirida.",
     readWriting: "Ler os artigos",
-    discuss: "Falar sobre um projeto",
+    discuss: "Entre em contato",
     selectedWriting: "Artigos em destaque",
     allArticles: "Todos os artigos",
     selectedWork: "Trabalho em destaque",
