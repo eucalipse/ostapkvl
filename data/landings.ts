@@ -78,6 +78,92 @@ export const landings = {
     "thanks": "Merci. Je vous recontacterai pour discuter des prochaines étapes.",
     "error": "Le message n’a pas pu être envoyé. Vous pouvez m’écrire à",
     "note": "Vos coordonnées serviront à répondre à votre demande."
+  },
+  "pt": {
+    "title": "Arquitetura de IA para operações reais",
+    "description": "Consultoria em arquitetura de IA, design de agentes e revisão de sistemas antes de entrarem em produção.",
+    "hero": "Agentes de IA que fazem o trabalho.",
+    "intro": "Sou Ostap Kovalisko, Chief Architect e fundador da Eucalipse. Ajudo equipes a projetar agentes com limites claros, revisão humana e ações rastreáveis.",
+    "cta": "Vamos falar sobre o seu projeto",
+    "services": "Onde posso ajudar",
+    "items": [
+      [
+        "Revisão de arquitetura",
+        "Identificar riscos nos fluxos de dados, nas permissões, nas integrações e na execução de ações. Definir o que vale a pena mudar primeiro."
+      ],
+      [
+        "Design de agentes",
+        "Transformar uma necessidade operacional em um fluxo concreto: o que o agente pode fazer, o que precisa verificar e quando precisa de aprovação."
+      ],
+      [
+        "Preparação para produção",
+        "Revisar avaliações, observabilidade, novas tentativas e recuperação de falhas antes de ampliar a autonomia do sistema."
+      ]
+    ],
+    "process": "Começamos por um problema concreto",
+    "processText": "Conte-me qual processo você quer melhorar, o que existe hoje e onde ele trava. Primeiro combinamos o escopo e o resultado esperado; depois vem o trabalho técnico.",
+    "availability": "Aceito projetos selecionados, compatíveis com os meus compromissos atuais. As colaborações podem ser organizadas diretamente ou por meio da Eucalipse.",
+    "reading": "Como penso sobre esses sistemas",
+    "article": "A atenção humana é agora o gargalo",
+    "articleText": "Uma proposta para desenhar a revisão em torno da evidência, da incerteza e do custo de um erro.",
+    "english": "Ler o artigo em inglês",
+    "contact": "Conte-me o que você está construindo",
+    "contactText": "Descreva o problema, o estado atual do sistema e os seus prazos. Combinamos o idioma das reuniões e das entregas antes de começar.",
+    "name": "Nome",
+    "email": "E-mail",
+    "message": "Mensagem",
+    "send": "Enviar mensagem",
+    "sending": "Enviando…",
+    "sent": "Mensagem enviada.",
+    "thanks": "Obrigado. Entrarei em contato para conversar sobre os próximos passos.",
+    "error": "Não foi possível enviar a mensagem. Você pode me escrever em",
+    "note": "Usarei os seus dados apenas para responder à sua mensagem."
+  },
+  "de": {
+    "title": "KI-Architektur für den operativen Betrieb",
+    "description": "Beratung zu KI-Architektur, Agenten-Design und Systemprüfung vor dem Produktivbetrieb.",
+    "hero": "KI-Agenten, die Arbeit erledigen.",
+    "intro": "Ich bin Ostap Kovalisko, Chief Architect und Gründer von Eucalipse. Ich helfe Teams, Agenten mit klaren Grenzen, menschlicher Prüfung und nachvollziehbaren Aktionen zu entwerfen.",
+    "cta": "Lassen Sie uns über Ihr Projekt sprechen",
+    "services": "Wobei ich helfen kann",
+    "items": [
+      [
+        "Architektur-Review",
+        "Risiken in Datenflüssen, Berechtigungen, Integrationen und der Ausführung von Aktionen erkennen. Festlegen, was zuerst geändert werden sollte."
+      ],
+      [
+        "Agenten-Design",
+        "Einen operativen Bedarf in einen konkreten Ablauf übersetzen: was der Agent tun darf, was er prüfen muss und wann eine Freigabe nötig ist."
+      ],
+      [
+        "Produktionsreife",
+        "Evaluierungen, Observability, Wiederholungen und Fehlerbehandlung prüfen, bevor die Autonomie des Systems erweitert wird."
+      ]
+    ],
+    "process": "Wir beginnen mit einem konkreten Problem",
+    "processText": "Erzählen Sie mir, welchen Prozess Sie verbessern möchten, was heute existiert und wo es hakt. Zuerst klären wir Umfang und erwartetes Ergebnis, danach folgt die technische Arbeit.",
+    "availability": "Ich übernehme ausgewählte Projekte, die mit meinen aktuellen Verpflichtungen vereinbar sind. Die Zusammenarbeit kann direkt oder über Eucalipse organisiert werden.",
+    "reading": "Wie ich über diese Systeme denke",
+    "article": "Menschliche Aufmerksamkeit ist jetzt der Engpass",
+    "articleText": "Ein Vorschlag, die Prüfung um Belege, Unsicherheit und die Kosten eines Fehlers herum zu gestalten.",
+    "english": "Artikel auf Englisch lesen",
+    "contact": "Erzählen Sie mir, was Sie bauen",
+    "contactText": "Beschreiben Sie das Problem, den aktuellen Stand des Systems und Ihre Zeitpläne. Die Sprache für Meetings und Ergebnisse legen wir vor dem Start fest.",
+    "name": "Name",
+    "email": "E-Mail",
+    "message": "Nachricht",
+    "send": "Nachricht senden",
+    "sending": "Wird gesendet…",
+    "sent": "Nachricht gesendet.",
+    "thanks": "Danke. Ich melde mich bei Ihnen, um die nächsten Schritte zu besprechen.",
+    "error": "Die Nachricht konnte nicht gesendet werden. Sie können mir schreiben an",
+    "note": "Ihre Angaben verwende ich nur, um auf Ihre Anfrage zu antworten."
   }
 } as const;
 export type LandingLocale = keyof typeof landings;
+export type SiteLocale = LandingLocale | "en";
+export const landingLocales = Object.keys(landings) as LandingLocale[];
+export function localeFromPath(path: string | null): SiteLocale {
+  const seg = (path ?? "").split("/")[1];
+  return seg && seg in landings ? (seg as LandingLocale) : "en";
+}

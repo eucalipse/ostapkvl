@@ -1,10 +1,12 @@
 "use client";
 import { usePathname } from "next/navigation";
-import { landings } from "@/data/landings";
+import { landings, localeFromPath } from "@/data/landings";
+import { stripLocale } from "@/lib/i18n";
 export function SiteSignature() {
  const path=usePathname();
- const locale=path==="/es"?"es":path==="/fr"?"fr":"en";
- const hero=path==="/" || locale!=="en";
+ const locale=localeFromPath(path);
+ const base=stripLocale(path);
+ const hero=base==="/" || (locale!=="en" && base==="/contact");
  return <div lang={locale} className={`site-signature no-print mx-auto max-w-wide px-6 ${hero?"signature-hero":"signature-strip"}`}>
   <div className="signature-frame relative overflow-hidden border-b border-line">
    {/* eslint-disable-next-line @next/next/no-img-element */}

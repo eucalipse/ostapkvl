@@ -1,11 +1,20 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import type { SiteLocale } from "@/data/landings";
 
 type Theme = "light" | "dark";
 const key = "ostapkvl-theme";
 
-export function ThemeToggle({ locale = "en" }: { locale?: "en" | "es" | "fr" }) {
+const labels: Record<SiteLocale, { light: string; dark: string }> = {
+  en: { light: "Switch to light mode", dark: "Switch to dark mode" },
+  es: { light: "Activar modo claro", dark: "Activar modo oscuro" },
+  fr: { light: "Activer le mode clair", dark: "Activer le mode sombre" },
+  pt: { light: "Ativar modo claro", dark: "Ativar modo escuro" },
+  de: { light: "Hellen Modus aktivieren", dark: "Dunklen Modus aktivieren" },
+};
+
+export function ThemeToggle({ locale = "en" }: { locale?: SiteLocale }) {
   const [theme, setTheme] = useState<Theme>("light");
   const preference = useRef<Theme | null>(null);
 
@@ -35,7 +44,7 @@ export function ThemeToggle({ locale = "en" }: { locale?: "en" | "es" | "fr" }) 
     };
   }, []);
 
-  const label = locale === "es" ? (theme === "dark" ? "Activar modo claro" : "Activar modo oscuro") : locale === "fr" ? (theme === "dark" ? "Activer le mode clair" : "Activer le mode sombre") : `Switch to ${theme === "dark" ? "light" : "dark"} mode`;
+  const label = theme === "dark" ? labels[locale].light : labels[locale].dark;
 
   return (
     <button

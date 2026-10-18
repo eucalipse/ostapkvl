@@ -12,6 +12,8 @@ export type PostMeta = {
   readTime: string;
   category?: "Production" | "Experiments" | "Consciousness & AI";
   draft?: boolean;
+  /** BCP 47 language of the article body; defaults to "en". */
+  lang: string;
   tags: string[];
 };
 
@@ -34,6 +36,7 @@ export function getAllPosts(includeDrafts = false): PostMeta[] {
         readTime: data.readTime as string,
         category: (data.category as PostMeta["category"]) ?? "Production",
         draft: data.draft === true,
+        lang: typeof data.lang === "string" ? data.lang : "en",
         tags: Array.isArray(data.tags) ? data.tags.filter((tag: unknown): tag is string => typeof tag === "string") : [],
       };
     })
@@ -54,7 +57,8 @@ export function getPost(slug: string, includeDrafts = false): Post | null {
     readTime: data.readTime as string,
     category: (data.category as PostMeta["category"]) ?? "Production",
     draft: data.draft === true,
-        tags: Array.isArray(data.tags) ? data.tags.filter((tag: unknown): tag is string => typeof tag === "string") : [],
+    lang: typeof data.lang === "string" ? data.lang : "en",
+    tags: Array.isArray(data.tags) ? data.tags.filter((tag: unknown): tag is string => typeof tag === "string") : [],
     content,
   };
 }

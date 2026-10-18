@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { site } from "@/data/site";
 import { ContactForm } from "./contact-form";
+import { alternatesFor } from "@/lib/i18n";
 
 export const metadata: Metadata = {
   title: "Contact",
-  alternates: { canonical: "/contact", languages: { en: "/contact", es: "/es", fr: "/fr", "x-default": "/contact" } },
+  alternates: alternatesFor("/contact", "en"),
   description:
     "Discuss AI architecture consulting and advisory with Ostap Kovalisko. Selected engagements arranged directly or through Eucalipse.",
 };
