@@ -1,6 +1,6 @@
 # Planner, executor, reviewer: example prompts
 
-Source: ostapkvl.com · Draft · Adapt the hypothetical requirements to your repository.
+Source: ostapkvl.com · Adapt the hypothetical requirements to your repository.
 
 ```text
 Goal: validate an uploaded CSV before importing supplier rows.
