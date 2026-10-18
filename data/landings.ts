@@ -167,3 +167,48 @@ export function localeFromPath(path: string | null): SiteLocale {
   const seg = (path ?? "").split("/")[1];
   return seg && seg in landings ? (seg as LandingLocale) : "en";
 }
+
+export type LandingCopy = {
+  title: string; description: string; hero: string; intro: string; cta: string; services: string;
+  items: ReadonlyArray<readonly [string, string]>;
+  process: string; processText: string; availability: string; reading: string;
+  article: string; articleText: string; english: string; contact: string; contactText: string;
+  name: string; email: string; message: string; send: string; sending: string; sent: string; thanks: string; error: string; note: string;
+};
+
+/** English version of the consulting landing, used for /contact. Same shape as the translations. */
+export const landingEn: LandingCopy = {
+  title: "AI architecture for real operations",
+  description: "AI architecture consulting, agent design, and system review before production.",
+  hero: "AI agents that get work done.",
+  intro: "I'm Ostap Kovalisko, Chief Architect and founder of Eucalipse. I help teams design agents with clear boundaries, human review, and traceable actions.",
+  cta: "Let's talk about your project",
+  services: "Where I can help",
+  items: [
+    ["Architecture review", "Find the risks in data flows, permissions, integrations, and action execution. Decide what is worth changing first."],
+    ["Agent design", "Turn an operational need into a concrete flow: what the agent may do, what it must check, and when it needs approval."],
+    ["Production readiness", "Review evaluations, observability, retries, and failure recovery before widening the system's autonomy."],
+  ],
+  process: "We start with a concrete problem",
+  processText: "Tell me which process you want to improve, what exists today, and where it gets stuck. First we agree on scope and the expected result; then comes the technical work.",
+  availability: "I take on selected projects that fit my current commitments. Engagements can be arranged directly or through Eucalipse.",
+  reading: "How I think about these systems",
+  article: "Human attention is the bottleneck now",
+  articleText: "A proposal for designing review around evidence, uncertainty, and the cost of a mistake.",
+  english: "Read the article",
+  contact: "Tell me what you're building",
+  contactText: "Describe the problem, the current state of the system, and your timeline. I usually reply within a day, any timezone.",
+  name: "Name",
+  email: "Email",
+  message: "Message",
+  send: "Send message",
+  sending: "Sending…",
+  sent: "Message sent.",
+  thanks: "Thanks — I usually reply within a day, any timezone.",
+  error: "Could not send. You can write to",
+  note: "Usually reply within a day, any timezone.",
+};
+
+export function getLanding(locale: SiteLocale): LandingCopy {
+  return locale === "en" ? landingEn : landings[locale];
+}

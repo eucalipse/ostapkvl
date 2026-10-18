@@ -6,7 +6,7 @@ export function SiteSignature() {
  const path=usePathname();
  const locale=localeFromPath(path);
  const base=stripLocale(path);
- const hero=base==="/" || (locale!=="en" && base==="/contact");
+ const hero=base==="/" || base==="/contact";
  return <div lang={locale} className={`site-signature no-print mx-auto max-w-wide px-6 ${hero?"signature-hero":"signature-strip"}`}>
   <div className="signature-frame relative overflow-hidden border-b border-line">
    {/* eslint-disable-next-line @next/next/no-img-element */}

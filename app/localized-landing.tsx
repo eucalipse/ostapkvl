@@ -1,9 +1,10 @@
 import Link from "next/link";
-import { landings, type LandingLocale } from "@/data/landings";
+import { getLanding, type SiteLocale } from "@/data/landings";
+import { site } from "@/data/site";
 import { ContactForm } from "./contact/contact-form";
 
-export function LocalizedLanding({ locale }: { locale: LandingLocale }) {
- const c = landings[locale];
+export function LocalizedLanding({ locale }: { locale: SiteLocale }) {
+ const c = getLanding(locale);
  return <main lang={locale} className="mx-auto max-w-wide px-6 pb-16" data-analytics-placement={`landing-${locale}`}>
   <section className="py-12 sm:py-16">
    <p className="font-mono text-xs text-accent">Ostap Kovalisko · Chief Architect · Eucalipse</p>
@@ -17,6 +18,6 @@ export function LocalizedLanding({ locale }: { locale: LandingLocale }) {
   </section>
   <section className="max-w-prose py-8"><h2 className="font-serif text-3xl">{c.process}</h2><p className="mt-4">{c.processText}</p><p className="mt-4 text-sm text-muted">{c.availability}</p></section>
   <section className="my-10 border border-line p-6 sm:p-8"><p className="text-sm text-muted">{c.reading}</p><h2 className="mt-3 font-serif text-2xl">{c.article}</h2><p className="mt-3 max-w-prose">{c.articleText}</p><Link href="/writing/human-attention-is-the-bottleneck" hrefLang="en" className="mt-4 inline-block text-accent hover:underline">{c.english} →</Link></section>
-  <section id="contact" className="scroll-mt-8 border-t border-line pt-12"><h2 className="font-serif text-3xl">{c.contact}</h2><p className="mt-4 max-w-prose text-muted">{c.contactText}</p><ContactForm locale={locale} /></section>
+  <section id="contact" className="scroll-mt-8 border-t border-line pt-12"><h2 className="font-serif text-3xl">{c.contact}</h2><p className="mt-4 max-w-prose text-muted">{c.contactText}</p><p className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-sm"><a href={`mailto:${site.email}`} className="text-accent hover:underline">{site.email}</a><a href={site.linkedin} className="text-accent hover:underline">LinkedIn →</a></p><ContactForm locale={locale} /></section>
  </main>;
 }

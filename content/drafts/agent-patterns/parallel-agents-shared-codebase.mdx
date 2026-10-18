@@ -1,0 +1,63 @@
+---
+title: "Parallel agents need an integration plan"
+date: "2026-10-31"
+dek: "Worktrees isolate edits. Contracts, environment boundaries, and combined checks make parallel work useful."
+readTime: "3 min read"
+category: "Experiments"
+draft: true
+---
+
+![Coordinate before parallelizing: Agree on shared contracts; Independent tasks and environments; Commits with evidence; Test the combined revision; Integrate under one owner.](/images/writing/parallel-agents-shared-codebase.svg)
+
+
+Two coding agents can each produce a correct-looking patch and still break the application together.
+
+Consider a hypothetical feature: one agent changes a request API, another builds its interface, and a third adds a worker. They edit different files without textual conflicts. But the interface sends a field the API renamed, and the worker interprets missing values differently from both.
+
+Parallel implementation was possible. Independent decisions about the shared contract caused the failure.
+
+## Split work where decisions are independent
+
+Before delegating, establish the shared interface: field meanings, errors, authorization expectations, and compatibility requirements. Assign responsibility for changing it.
+
+Define tasks through outputs and acceptance conditions. "Build the frontend" is too open. "Implement this form against the agreed request schema, including these validation errors" creates a reviewable boundary.
+
+Some tasks should wait. If the API shape is still being discovered, parallelize research or test-case design while one owner settles it. Three implementations against three guesses are expensive speculation.
+
+## Isolate more than files
+
+[Git worktrees](https://git-scm.com/docs/git-worktree) provide separate working trees attached to one repository. Each worker can have a branch and its own uncommitted edits. Worktrees share repository data and are not security sandboxes.
+
+Also separate test databases or schemas, ports, and access to shared services. Otherwise one worker can reset the database while another investigates a failing test. Separate directories do not prevent that.
+
+Each handoff should identify the starting revision, expected output, owned areas, shared contracts, available environment, required checks, and conditions for stopping to request a decision.
+
+File ownership is only a coordination convention unless enforced. It should never be mistaken for access control.
+
+## Ask for a reviewable handoff
+
+A finished worker should return a commit, the behavior it changes, checks performed, and unresolved assumptions.
+
+Keep integration under one accountable owner. That can be a person supported by an agent. Several workers independently moving the main branch while assuming someone else checked the combination is a poor default.
+
+Land compatible shared foundations first, then integrate consumers. When a contract changes, notify affected tasks and invalidate evidence that depended on its earlier version.
+
+## Test the combination that will land
+
+Passing tests on separate branches does not establish that the branches work together.
+
+A merge queue checks a candidate against the current target branch and changes ahead of it. GitHub Actions workflows providing required checks need a `merge_group` trigger as well as their appropriate PR trigger. See [GitHub's merge queue documentation](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue).
+
+The queue only enforces the checks it receives. A frontend build and API unit tests can pass while the actual request is incompatible. Exercise the shared boundary, for example by sending the form payload through real request validation.
+
+A smaller team can serialize integration, update against the current base, and verify the combined revision before landing. If the target branch moves after verification, check the new combination too.
+
+## Put a budget on concurrency
+
+More workers create review work, competing assumptions, and simultaneous test runs. Start with a small number of independent tasks and measure time to an accepted result, including review and rework.
+
+Track integration failures, repeated work, waiting time, and patches discarded because another task invalidated their assumptions. Token cost matters, but a cheap patch needing hours of reconciliation is not cheap delivery.
+
+Set a stopping rule for workers that cannot resolve failures after a bounded number of attempts. Ask for evidence and the remaining decision instead of another broad rewrite.
+
+The speedup comes from overlapping independent work while keeping dependencies visible and the resulting product coherent.

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="760" viewBox="0 0 900 760" role="img" aria-labelledby="title desc">
+<title id="title">Evidence before acceptance</title>
+<desc id="desc">Discover candidate sources. Then Extract structured candidates. Then Check identity and validity. Then Accept or route to review. Then Revisit sources for freshness. Conceptual flow: acceptance is not permanent truth</desc>
+<rect width="900" height="760" rx="24" fill="#f7f6f2"/>
+<g font-family="Arial, sans-serif" fill="#142c43">
+<text x="60" y="65" font-size="30" font-weight="700">Evidence before acceptance</text>
+<rect x="60" y="100" width="780" height="80" rx="14" fill="#ffffff" stroke="#b9cbd4"/>
+<circle cx="102" cy="140" r="22" fill="#1c5869"/>
+<text x="102" y="148" text-anchor="middle" font-size="22" fill="white">1</text>
+<text x="145" y="149" font-size="25">Discover candidate sources</text>
+<path d="M450 184 v20 m-7 -7 l7 7 7 -7" fill="none" stroke="#1c5869" stroke-width="3"/>
+<rect x="60" y="212" width="780" height="80" rx="14" fill="#ffffff" stroke="#b9cbd4"/>
+<circle cx="102" cy="252" r="22" fill="#1c5869"/>
+<text x="102" y="260" text-anchor="middle" font-size="22" fill="white">2</text>
+<text x="145" y="261" font-size="25">Extract structured candidates</text>
+<path d="M450 296 v20 m-7 -7 l7 7 7 -7" fill="none" stroke="#1c5869" stroke-width="3"/>
+<rect x="60" y="324" width="780" height="80" rx="14" fill="#ffffff" stroke="#b9cbd4"/>
+<circle cx="102" cy="364" r="22" fill="#1c5869"/>
+<text x="102" y="372" text-anchor="middle" font-size="22" fill="white">3</text>
+<text x="145" y="373" font-size="25">Check identity and validity</text>
+<path d="M450 408 v20 m-7 -7 l7 7 7 -7" fill="none" stroke="#1c5869" stroke-width="3"/>
+<rect x="60" y="436" width="780" height="80" rx="14" fill="#ffffff" stroke="#b9cbd4"/>
+<circle cx="102" cy="476" r="22" fill="#1c5869"/>
+<text x="102" y="484" text-anchor="middle" font-size="22" fill="white">4</text>
+<text x="145" y="485" font-size="25">Accept or route to review</text>
+<path d="M450 520 v20 m-7 -7 l7 7 7 -7" fill="none" stroke="#1c5869" stroke-width="3"/>
+<rect x="60" y="548" width="780" height="80" rx="14" fill="#ffffff" stroke="#b9cbd4"/>
+<circle cx="102" cy="588" r="22" fill="#1c5869"/>
+<text x="102" y="596" text-anchor="middle" font-size="22" fill="white">5</text>
+<text x="145" y="597" font-size="25">Revisit sources for freshness</text>
+<text x="60" y="705" font-size="20" fill="#526575">Conceptual flow: acceptance is not permanent truth</text>
+</g></svg>

@@ -9,8 +9,8 @@ export default function Image() {
     eyebrow: "currently: building AI agents · 57 countries and counting",
     title: "Ostap Kovalisko.",
     subline:
-      "Chief Architect · I build AI agents that run business operations — multi-model consensus, approval gates, full audit trails.",
-    footer: "production AI agents",
+      "Chief Architect · AI engineering and software architecture — typed actions, human approval, source-backed review.",
+    footer: "AI systems · software architecture",
     titleSize: 96,
   });
 }
