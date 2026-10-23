@@ -174,7 +174,7 @@ export const education = [
 ];
 
 export const languages =
-  "Ukrainian and Polish (native), English (full professional), Spanish (professional), French (working)";
+  "Ukrainian and Polish (native), English (C1), Spanish (B2), French (B1), Turkish (A1)";
 
 export type Publication = {
   title: string;

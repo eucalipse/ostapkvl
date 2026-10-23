@@ -41,7 +41,7 @@ export const es: Copy = {
     languages: "ucraniano y polaco (nativo), inglés (profesional completo), español (profesional), francés (operativo)",
     press: "Prensa y publicaciones",
     beyond: "Más allá del trabajo",
-    beyondText: "57 países y contando. Trabajo entre Europa y América Latina en horario de EE. UU. Los idiomas son una pasión: hablo seis y estoy aprendiendo dos más, entre ellos el turco. Algunos fragmentos del camino, abstraídos:",
+    beyondText: "57 países y contando. Trabajo entre Europa y América Latina en horario de EE. UU. Los idiomas son una pasión: ucraniano y polaco nativos, luego inglés (C1), español (B2), francés (B1) -- y ahora turco (A1). Algunos fragmentos del camino, abstraídos:",
     downloadCv: "Descargar CV",
   },
   projects: {

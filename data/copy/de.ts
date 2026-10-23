@@ -41,7 +41,7 @@ export const de: Copy = {
     languages: "Ukrainisch und Polnisch (Muttersprachen), Englisch (verhandlungssicher), Spanisch (fließend), Französisch (gute Kenntnisse)",
     press: "Presse und Veröffentlichungen",
     beyond: "Neben der Arbeit",
-    beyondText: "57 Länder und es werden mehr. Ich arbeite zwischen Europa und Lateinamerika zu US-Zeiten. Sprachen sind eine Leidenschaft: Ich spreche sechs und lerne zwei weitere, darunter Türkisch. Ein paar Fragmente von der Straße, abstrahiert:",
+    beyondText: "57 Länder und es werden mehr. Ich arbeite zwischen Europa und Lateinamerika zu US-Zeiten. Sprachen sind eine Leidenschaft: Ukrainisch und Polnisch als Muttersprachen, dazu Englisch (C1), Spanisch (B2), Französisch (B1) -- und jetzt Türkisch (A1). Ein paar Fragmente von der Straße, abstrahiert:",
     downloadCv: "Lebenslauf herunterladen",
   },
   projects: {

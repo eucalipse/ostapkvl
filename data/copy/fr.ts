@@ -41,7 +41,7 @@ export const fr: Copy = {
     languages: "ukrainien et polonais (langues maternelles), anglais (professionnel complet), espagnol (professionnel), français (opérationnel)",
     press: "Presse et publications",
     beyond: "En dehors du travail",
-    beyondText: "57 pays et ce n'est pas fini. Je travaille entre l'Europe et l'Amérique latine sur les horaires américains. Les langues sont une passion : j'en parle six et j'en apprends deux autres, dont le turc. Quelques fragments de la route, abstraits :",
+    beyondText: "57 pays et ce n'est pas fini. Je travaille entre l'Europe et l'Amérique latine sur les horaires américains. Les langues sont une passion : ukrainien et polonais natifs, puis anglais (C1), espagnol (B2), français (B1) -- et maintenant turc (A1). Quelques fragments de la route, abstraits :",
     downloadCv: "Télécharger le CV",
   },
   projects: {
