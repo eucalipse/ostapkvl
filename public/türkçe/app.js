@@ -203,14 +203,25 @@ const IDIOMA = (() => {
     const parts = s.parts?.length ? `<div class="parts">${s.parts.map(partHTML).join('')}</div>` : '';
     const meta = [];
     if (s.verbs?.length) meta.push(`<span class="k">verbs · дієслова</span> ${s.verbs.map((inf) => { const v = verbIndex[inf]; return v ? `<a href="${v.href}"><b>${esc(inf)}</b></a> ${esc(v.s.en)} <em>${esc(v.s.uk)}</em>` : `<b>${esc(inf)}</b>`; }).join(' · ')}`);
-    if (s.words?.length) meta.push(`<span class="k">words · слова</span> ${s.words.map((w) => { const en = wordGloss(w); return `<b>${esc(w.tr)}</b>${en ? ` ${esc(en)}` : ''} <em>${esc(w.uk)}</em>${w.note ? ` <em>(${esc(w.note)})</em>` : ''}`; }).join(' · ')}`);
+    if (s.words?.length) meta.push(`<span class="k">words · слова</span> ${s.words.map((w) => { const en = wordGloss(w); return `<b>${esc(w.tr)}</b><span class="tl">${esc(translit(w.tr))}</span>${en ? ` ${esc(en)}` : ''} <em>${esc(w.uk)}</em>${w.note ? ` <em>(${esc(w.note)})</em>` : ''}`; }).join(' · ')}`);
     if (s.forms?.length) meta.push(...s.forms.map((f) => `<span class="k">${esc(f.label)}</span> ${f.items.map((x) => `<code class="ph" data-ph="${esc(x.replace(/-/g, '').replace(/\s*\(.*$/, ''))}">${esc(x)}</code>`).join(' ')}`));
     const metaHTML = meta.length ? `<div class="meta">${meta.map((m) => `<div>${m}</div>`).join('')}</div>` : '';
     const answers = s.answers?.length ? `<div class="sec"><h4>answers · відповіді</h4><div class="examples answers">${s.answers.map((x) => `<div class="ex"><span class="tr ph" data-ph="${esc(x.tr)}">→ ${esc(x.tr)}</span><span class="tl">${esc(translit(x.tr))}</span>${x.en ? `<span class="en">${esc(x.en)}</span>` : ''}<span class="uk">${esc(x.uk)}</span></div>`).join('')}</div></div>` : '';
     const examples = s.examples?.length ? `<div class="examples">${s.examples.map((x) => `<div class="ex"><span class="tr ph" data-ph="${esc(x.tr)}">${esc(x.tr)}</span><span class="tl">${esc(translit(x.tr))}</span>${x.en ? `<span class="en">${esc(x.en)}</span>` : ''}<span class="uk">${esc(x.uk)}</span></div>`).join('')}</div>` : '';
-    const table = s.table ? `<table class="tbl${s.table.prose ? ' prose' : ''}">${s.table.title ? `<caption>${esc(s.table.title)}</caption>` : ''}
-      <thead><tr>${s.table.head.map((h) => `<th>${esc(h)}</th>`).join('')}</tr></thead>
-      <tbody>${s.table.rows.map((r) => `<tr>${r.map((c, ci) => (isTurkishText(c) && !NON_TR_COL.test(s.table.head[ci] || '')) ? `<td><span class="ph" data-ph="${esc(c)}">${esc(c)}</span>${VIEW === 'teacher' ? `<span class="tl tcell">${esc(translit(c))}</span>` : ''}</td>` : `<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table>` : '';
+    // Таблиці: транскрипція НЕ окремою колонкою, а дрібним курсивом під турецьким словом (правило користувача, 19.10.2026).
+    // Колонка «Вимова» в даних (одразу після слова) ховається, її значення йде під слово; інші турецькі клітинки отримують авто-транскрипцію.
+    const T = s.table; const tHead = T ? T.head || [] : [];
+    const pronCol = tHead.findIndex((h) => /вимова/i.test(h));
+    const tHide = (ci) => ci === pronCol || (VIEW === 'teacher' && (T.teacherHide || []).includes(ci));
+    const cellHTML = (r, c, ci) => {
+      const tr = isTurkishText(c) && !NON_TR_COL.test(tHead[ci] || '');
+      const pron = ci === pronCol - 1 && r[pronCol] ? r[pronCol] : (tr ? translit(c) : '');
+      const word = tr ? `<span class="ph" data-ph="${esc(c)}">${esc(c)}</span>` : esc(c);
+      return word + (pron ? `<span class="tl tcell">${esc(pron)}</span>` : '');
+    };
+    const table = T ? `<table class="tbl${T.prose ? ' prose' : ''}">${T.title ? `<caption>${esc(T.title)}</caption>` : ''}
+      <thead><tr>${tHead.map((h, ci) => tHide(ci) ? '' : `<th>${esc(h)}</th>`).join('')}</tr></thead>
+      <tbody>${T.rows.map((r, ri) => `<tr>${r.map((c, ci) => { if (tHide(ci)) return ''; const sp = (T.spoiler || []).includes(ci) && VIEW !== 'teacher'; if (VIEW === 'teacher' && (T.blank || []).includes(ri) && (T.blankCols || T.spoiler || []).includes(ci)) return '<td class="blank">……………</td>'; const inner = cellHTML(r, c, ci); return sp ? `<td><span class="spoiler" title="click to reveal · клік відкриває">${inner}</span></td>` : `<td>${inner}</td>`; }).join('')}</tr>`).join('')}</tbody></table>` : '';
     const dialogue = s.dialogue?.length ? `<div class="dialogue">${s.dialogue.map((l) => `
       <div class="line${l.me ? ' me' : ''}"><span class="who">${esc(l.who)}</span><span class="tr ph" data-ph="${esc(l.tr)}">${esc(l.tr)}</span><span class="uk"><span class="tl">${esc(translit(l.tr))}</span> ${l.en ? `<span class="en">${esc(l.en)}</span>` : ''}<span class="ukt">${l.en ? ' · ' : ''}${esc(l.uk)}</span></span></div>`).join('')}</div>` : '';
     const notes = s.notes?.length ? `<ul class="notes">${s.notes.map((n) => typeof n === 'string' ? `<li><span class="uk">${n}</span></li>` : `<li>${n.en ? `<span class="en">${n.en}</span>` : ''}${n.uk ? `<span class="uk">${n.uk}</span>` : ''}</li>`).join('')}</ul>` : '';
@@ -339,19 +350,23 @@ const IDIOMA = (() => {
     return out;
   }
   function renderSoloNav(c) {
-    // ліворуч: теми лише цієї категорії (як у звичайному сайдбарі)
+    // ліворуч: на сторінці уроків лише уроки (теми без hw-), на сторінці вчительки лише домашні (теми з записами submit)
+    const isHw = (t) => /^hw-/.test(t.id);
+    const topics = c.topics.filter((t) => !t.hidden && (VIEW === 'teacher' ? all.some((e) => e.t === t && e.s.submit) : !isHw(t)));
+    const label = (t) => (VIEW === 'teacher' ? esc(t.en || t.title) : nav(t));
+    const head = VIEW === 'teacher' ? `<span class="l1">Homework</span><span class="l2">Ödev</span>` : nav(c);
     $('nav').innerHTML = `<div class="cat active" data-cat="${esc(c.id)}">
-        <div class="cat-head" data-cat="${esc(c.id)}"><span class="lbl">${nav(c)}</span><span class="n">${c.topics.reduce((n, t) => n + t.slides.length, 0)}</span></div>
-        <div class="topics">${c.topics.filter((t) => !t.hidden).map((t) => `<a class="topic" href="#${esc(c.id)}/${esc(t.id)}">${nav(t)}</a>`).join('')}</div>
+        <div class="cat-head" data-cat="${esc(c.id)}"><span class="lbl">${head}</span><span class="n">${topics.length}</span></div>
+        <div class="topics">${topics.map((t) => `<a class="topic" href="#${esc(c.id)}/${esc(t.id)}">${label(t)}</a>`).join('')}</div>
       </div>`;
     $('nav').querySelectorAll('.topic').forEach((a) => a.addEventListener('click', closeMenu));
-    $('sidebarFoot').textContent = `${c.topics.length} ${CFG.footer.topics} · ${all.filter((e) => e.c === c).length} ${CFG.footer.entries}`;
+    $('sidebarFoot').textContent = `${topics.length} ${CFG.footer.topics} · ${all.filter((e) => e.c === c && (VIEW !== 'teacher' || e.s.submit)).length} ${CFG.footer.entries}`;
+    if (VIEW === 'teacher') return;
     // праворуч: усі фрази категорії
     const list = phrasesOf(c);
-    // групи = уроки: теми з однаковою датою в id (ders-2026-10-17 + hw-2026-10-17) ідуть в одну групу з назвою теми уроку
-    const groupKey = (t) => (t.id.match(/\d{4}-\d{2}-\d{2}/) || [t.id])[0];
+    // групи = теми: урок окремо, домашнє окремо (прохання користувача 19.10.2026)
     const groups = new Map();
-    list.forEach((x) => { const k = groupKey(x.t); if (!groups.has(k)) groups.set(k, { label: x.t.en || x.t.title, xs: [] }); const g = groups.get(k); if (/^ders-/.test(x.t.id)) g.label = x.t.en || x.t.title; g.xs.push(x); });
+    list.forEach((x) => { const k = x.t.id; if (!groups.has(k)) groups.set(k, { label: x.t.en || x.t.title, xs: [] }); groups.get(k).xs.push(x); });
     const box = $('phrasesList'); if (!box) return;
     box.innerHTML = [...groups.values()].map((g) => `
       <div class="lp-topic"><div class="lp-t">${esc(g.label)} · ${g.xs.length}</div>${g.xs.map((x) => `<a class="lp ph" data-ph="${esc(x.tr)}" href="#"><b>${esc(x.tr)}</b><i>${esc(translit(x.tr))}</i>${x.en || x.uk ? `<span>${esc(x.en)}${x.en && x.uk ? ' · ' : ''}${esc(x.uk)}</span>` : ''}</a>`).join('')}</div>`).join('');
@@ -474,7 +489,7 @@ const IDIOMA = (() => {
     $('modalBody').querySelectorAll('a[href^="#"]').forEach((l) => { if (l.getAttribute('href') === '#') l.removeAttribute('href'); else l.addEventListener('click', closeModal); });
   }
   // колонки таблиць, у яких не турецький текст (переклади, вимова, пояснення) — не клікабельні
-  const NON_TR_COL = /english|вимова|укра|переклад|^як$|де було|підказка|розбір|правило|значення|^#$|число|who|material|what is in it|конспект|why|video|source|what to do/i;
+  const NON_TR_COL = /english|вимова|укра|переклад|^як$|де було|підказка|розбір|правило|значення|^#$|число|who|material|what is in it|конспект|why|video|source|what to do|scrambled|karışık/i;
   const isTurkishText = (t) => LANG.isTarget(t) && !/[а-яіїєґА-ЯІЇЄҐ]/.test(t) && !/^[\d\s.,:;/–—-]*$/.test(t);
 
   // тема: night / day, запам'ятовується у localStorage (може бути недоступний)
@@ -503,7 +518,7 @@ const IDIOMA = (() => {
       if (VIEW === 'teacher') document.body.classList.add('tview');
       const c = findCat(SOLO);
       $('crumbs').innerHTML = `<a class="back" href="${esc(homeUrl(''))}">← ${esc(CFG.brand)}</a>`;
-      if (c) { document.querySelector('.brand-sub').textContent = `${c.en || c.title} · ← ${CFG.brand}`; const bs = $('brandSite'); if (bs) bs.hidden = true; }
+      if (c) { document.querySelector('.brand-sub').textContent = VIEW === 'teacher' ? (CFG.teacherTitle || 'Homework') : `${c.en || c.title} · ← ${CFG.brand}`; const bs = $('brandSite'); if (bs) bs.hidden = true; }
       if (c) document.title = `${c.en || c.title} · ${CFG.brand}`;
       // лінки на інші категорії ведуть у повний конспект
       document.addEventListener('click', (e) => {
@@ -514,7 +529,7 @@ const IDIOMA = (() => {
     }
     buildIndex();
     buildLexicon();
-    if (SOLO) { const c = findCat(SOLO); if (c && VIEW !== 'teacher') renderSoloNav(c); } else renderNav();
+    if (SOLO) { const c = findCat(SOLO); if (c) renderSoloNav(c); } else renderNav();
     if (!SOLO) renderHeader();
     render();
     if ('speechSynthesis' in window) { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
@@ -526,7 +541,10 @@ const IDIOMA = (() => {
     $('search').addEventListener('input', (e) => renderSearch(e.target.value));
     document.querySelector('.brand').addEventListener('click', () => { if (SOLO) { location.href = homeUrl(''); return; } location.hash = ''; closeMenu(); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeMenu(); closeModal(); } });
-    $('stage').addEventListener('click', (e) => { const ph = e.target.closest('.ph'); if (ph && !e.target.closest('a')) { e.preventDefault(); openModal(ph.dataset.ph); } });
+    $('stage').addEventListener('click', (e) => {
+      const sp = e.target.closest('.spoiler'); if (sp && !sp.classList.contains('open')) { e.preventDefault(); sp.classList.add('open'); return; } // схована відповідь: перший клік лише відкриває
+      const ph = e.target.closest('.ph'); if (ph && !e.target.closest('a')) { e.preventDefault(); openModal(ph.dataset.ph); }
+    });
     $('modal').addEventListener('click', (e) => { if (e.target === $('modal') || e.target.closest('.mclose')) closeModal(); });
     window.addEventListener('hashchange', render);
   }
