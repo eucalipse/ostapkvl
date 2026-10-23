@@ -33,7 +33,7 @@
     state[id] = s; save();
     return days;
   }
-  const fmtIn = (days) => days === 0 ? 'in 10 min · за 10 хв' : days === 1 ? 'tomorrow · завтра' : days < 30 ? `in ${days} days · за ${days} дн.` : `in ${Math.round(days / 30)} mo · за ${Math.round(days / 30)} міс.`;
+  const fmtIn = (days) => days === 0 ? 'later this session · ще цієї сесії' : days === 1 ? 'tomorrow · завтра' : days < 30 ? `in ${days} days · за ${days} дн.` : `in ${Math.round(days / 30)} mo · за ${Math.round(days / 30)} міс.`;
 
   // ---------- Today ----------
   function openToday() {
@@ -94,7 +94,7 @@
     else { $('pAgain').addEventListener('click', () => answerCard(false)); $('pOk').addEventListener('click', () => answerCard(true)); document.querySelectorAll('#modalBody .speak').forEach((b) => b.addEventListener('click', () => IDIOMA.speak?.(b.dataset.say))); document.querySelectorAll('#modalBody a[href^="#"]').forEach((l) => l.addEventListener('click', () => IDIOMA.closePanel())); }
   }
   function reveal() { revealed = true; render(); if (dir === 'en-tr') IDIOMA.speak?.(queue[idx].s.tr); }
-  function answerCard(ok) { grade(queue[idx], ok); idx++; revealed = false; render(); }
+  function answerCard(ok) { grade(queue[idx], ok); if (!ok) queue.push(queue[idx]); idx++; revealed = false; render(); }
   document.addEventListener('keydown', (ev) => {
     if (!document.getElementById('modal')?.classList.contains('open') || !queue.length || idx >= queue.length) return;
     if (/^(INPUT|TEXTAREA|SELECT)$/.test(ev.target.tagName) || ev.target.isContentEditable) return;
@@ -105,5 +105,5 @@
   });
 
   IDIOMA.practice = { openToday, start, due, grade, state: () => state, load, merge: (remote) => { load(); Object.entries(remote || {}).forEach(([id, r]) => { const l = state[id]; if (!l || (r.last || '') > (l.last || '')) state[id] = r; }); try { localStorage.setItem(KEY(), JSON.stringify(state)); } catch (e) {} } };
-  document.addEventListener('DOMContentLoaded', () => { load(); const b = document.getElementById('todayBtn'); if (b) b.addEventListener('click', openToday); });
+  document.addEventListener('DOMContentLoaded', load); // кнопку Today біндить app.js
 })();

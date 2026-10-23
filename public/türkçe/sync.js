@@ -73,7 +73,7 @@
   function renderAuth(box) {
     if (!box) return;
     if (!cfg()) { box.innerHTML = '<p class="mnote">cloud sync is off (no supabase keys in config.js)</p>'; return; }
-    if (user) { box.innerHTML = `<p class="mnote">signed in as ${user.email} · <a href="#" id="signOut">sign out</a></p>`; $('signOut').addEventListener('click', async (e) => { e.preventDefault(); await client.auth.signOut(); user = null; IDIOMA.practice.openToday(); }); return; }
+    if (user) { box.innerHTML = `<p class="mnote">signed in as ${user.email} · <a href="#" id="signOut">sign out</a></p>`; $('signOut').addEventListener('click', async (e) => { e.preventDefault(); await client.auth.signOut(); user = null; try { localStorage.removeItem(`idioma-review-${(IDIOMA.langCode && IDIOMA.langCode()) || 'xx'}`); } catch (err) {} IDIOMA.practice.load(); IDIOMA.practice.openToday(); }); return; }
     box.innerHTML = `<form id="magic" class="magic"><label class="k" for="magicEmail">sign in to sync · увійти для синхронізації</label><div><input id="magicEmail" type="email" placeholder="you@email" required autocomplete="email"><button class="pbtn" type="submit">Send link</button></div><p class="mnote" id="magicMsg"></p></form>`;
     $('magic').addEventListener('submit', async (e) => { e.preventDefault(); const email = $('magicEmail').value.trim(); const err = await signIn(email); $('magicMsg').textContent = err || `link sent to ${email} · check your mail · лінк надіслано`; });
   }

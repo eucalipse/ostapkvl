@@ -17,7 +17,7 @@ cp -R "$SRC/." "$OUT/"
 rm -f "$OUT/deploy-idioma.sh"
 
 # /turkce/foo.js → foo.js in both HTML entry points
-sed -i '' 's|src="/turkce/|src="|g; s|href="/turkce/|href="|g' "$OUT/index.html" "$OUT/page.html"
+sed -i '' 's|src="/turkce/|src="|g; s|href="/turkce/|href="|g; s|window.IDIOMA_BASE=./turkce/.|window.IDIOMA_BASE=""|g' "$OUT/index.html" "$OUT/page.html"
 
 cat > "$OUT/vercel.json" <<'JSON'
 {

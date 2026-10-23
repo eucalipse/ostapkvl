@@ -161,12 +161,12 @@ const IDIOMA = (() => {
 
   // ---------- пошук ----------
   function renderSearch(q) {
-    q = q.trim().toLowerCase();
+    q = low(q.trim());
     if (!q) { renderNav(); markActive(); return; }
     const hits = all.filter((e) => {
       const s = e.s;
-      const hay = [s.tr, s.uk, s.en, s.say, ...(s.words || []).map((w) => w.tr + ' ' + w.uk), ...(s.parts || []).map((p) => p.m + ' ' + p.d), ...(s.examples || []).map((x) => x.tr), ...(s.notes || []).map((n) => typeof n === 'string' ? n : (n.en || '') + ' ' + (n.uk || ''))].join(' ').toLowerCase();
-      return hay.includes(q);
+      const hay = [s.tr, s.uk, s.en, s.say, ...(s.words || []).map((w) => w.tr + ' ' + w.uk), ...(s.parts || []).map((p) => p.m + ' ' + p.d), ...(s.examples || []).map((x) => x.tr), ...(s.notes || []).map((n) => typeof n === 'string' ? n : (n.en || '') + ' ' + (n.uk || ''))].join(' ');
+      return low(hay).includes(q);
     });
     $('nav').innerHTML = `<div class="search-results">${hits.length ? hits.map((e) => `
       <a class="hit" href="${e.href}"><div class="t">${esc(e.s.tr)}</div><div class="u">${esc(e.s.en || e.s.uk)} · ${tt(e.t)}</div></a>`).join('')
@@ -494,8 +494,8 @@ const IDIOMA = (() => {
 
   // тема: night / day, запам'ятовується у localStorage (може бути недоступний)
   function applyTheme(t) {
-    if (t) document.documentElement.dataset.theme = t; else delete document.documentElement.dataset.theme;
     const dark = t ? t === 'night' : matchMedia('(prefers-color-scheme: dark)').matches;
+    document.documentElement.dataset.theme = dark ? 'night' : 'day';
     $('themeBtn').textContent = dark ? '☀' : '☾';
   }
   function initTheme() {
