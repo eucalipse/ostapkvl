@@ -54,7 +54,7 @@ const personJsonLd = {
   jobTitle: "Chief Architect",
   url: site.url,
   email: site.email,
-  sameAs: [site.linkedin, site.instagram, site.eucalipse],
+  sameAs: [site.linkedin, site.eucalipse],
   knowsAbout: [
     "AI agents",
     "Large language models",
@@ -113,9 +113,6 @@ plausible.init();`,
               </a>
               <a href={site.linkedin} className="hover:text-accent">
                 LinkedIn
-              </a>
-              <a href={site.instagram} className="hover:text-accent">
-                Instagram
               </a>
             </div>
             <p className="font-mono text-xs">© 2026 Ostap Kovalisko</p>

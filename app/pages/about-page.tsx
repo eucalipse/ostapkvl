@@ -22,7 +22,6 @@ export function AboutPage({ locale }: { locale: SiteLocale }) {
   const links = {
     missionLaw: <a href={site.missionLawLinkedin} aria-label="Mission Law on LinkedIn" className={linkClass}>Mission Law</a>,
     eucalipse: <a href={site.eucalipseLinkedin} aria-label="Eucalipse on LinkedIn" className={linkClass}>Eucalipse</a>,
-    instagram: <a href={site.instagram} className={linkClass}>@yet.another.travel</a>,
   };
   return (
     <main lang={locale} className="mx-auto max-w-prose px-6 py-16">
@@ -75,6 +74,30 @@ export function AboutPage({ locale }: { locale: SiteLocale }) {
       <section className="mt-14">
         <h2 className="font-mono text-xs uppercase tracking-widest text-muted">{c.beyond}</h2>
         <p className="mt-4 text-sm text-muted">{richText(c.beyondText, links)}</p>
+        <div className="mt-6 grid grid-cols-3 gap-px border border-line bg-line">
+          {[
+            { src: "/about/travel/t1-aerial.jpg", alt: "Aerial view over a coastal city, abstracted duotone" },
+            { src: "/about/travel/t2-wing.jpg", alt: "Airplane wing over clouds, abstracted duotone" },
+            { src: "/about/travel/t3-ridge.jpg", alt: "Mountain ridge against an evening sky, abstracted duotone" },
+            { src: "/about/travel/t4-waves.jpg", alt: "Ocean surf from above, abstracted duotone" },
+            { src: "/about/travel/t5-coast.jpg", alt: "Cliff coastline from above, abstracted duotone" },
+            { src: "/about/travel/t6-jungle.jpg", alt: "Cloud forest in the mist, abstracted duotone" },
+            { src: "/about/travel/t7-cove.jpg", alt: "Rocky cove and breaking waves, abstracted duotone" },
+            { src: "/about/travel/t8-lake.jpg", alt: "Lake between dry hills, abstracted duotone" },
+            { src: "/about/travel/t9-trees.jpg", alt: "Illuminated garden towers at night, abstracted duotone" },
+          ].map((img) => (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              key={img.src}
+              src={img.src}
+              alt={img.alt}
+              loading="lazy"
+              width={640}
+              height={800}
+              className="aspect-[4/5] w-full bg-paper object-cover"
+            />
+          ))}
+        </div>
       </section>
 
       <div className="mt-14">

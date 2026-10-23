@@ -41,7 +41,7 @@ export const en: Copy = {
     languages: "Ukrainian and Polish (native), English (full professional), Spanish (professional), French (working)",
     press: "Press & publications",
     beyond: "Beyond work",
-    beyondText: "57 countries and counting. I work between Europe and Latin America on US hours and document the road at {instagram}. Languages are a passion: I speak six and I'm learning two more, Turkish among them.",
+    beyondText: "57 countries and counting. I work between Europe and Latin America on US hours. Languages are a passion: I speak six and I'm learning two more, Turkish among them. A few fragments from the road, abstracted:",
     downloadCv: "Download CV",
   },
   projects: {

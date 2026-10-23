@@ -6,7 +6,6 @@ export const site = {
     "Chief Architect at Mission Law and founder of Eucalipse. AI engineering, software architecture, and business operations systems with human review and traceable actions.",
   email: "me@ostapkvl.com",
   linkedin: "https://www.linkedin.com/in/ostap-kovalisko",
-  instagram: "https://www.instagram.com/yet.another.travel",
   eucalipse: "https://eucalipse.com",
   missionLawLinkedin: "https://www.linkedin.com/company/missionlaw",
   eucalipseLinkedin: "https://www.linkedin.com/company/17897576",
