@@ -1,9 +1,9 @@
 IDIOMA.register({
   "id": "songs",
   "nav": "header",
-  "en": "Songs",
-  "tr": "Şarkılar",
-  "title": "Пісні",
+  "en": "Music",
+  "tr": "Müzik",
+  "title": "Музика",
   "icon": "🎵",
   "topics": [
     {
@@ -11,7 +11,7 @@ IDIOMA.register({
       "en": "Suspus — Ceza (2015)",
       "tr": "Suspus — Ceza",
       "title": "Suspus — Ceza · турецький реп",
-      "source": { "label": "Ceza — Suspus (2015, Esen Müzik) · текст: genius.com/Ceza-suspus-lyrics · відео: youtube.com/watch?v=uoEcvggHMh8" },
+      "source": { "label": "Ceza — Suspus (2015, Esen Müzik) · текст: genius.com/Ceza-suspus-lyrics · переклад (EN): lyricstranslate.com/en/suspus-silent-haze.html · відео: youtube.com/watch?v=uoEcvggHMh8" },
       "slides": [
         {
           "id": "suspus-intro",
@@ -32,7 +32,7 @@ IDIOMA.register({
           ],
           "notes": [
             { "en": "The album, the song and the video are all built around this one word: people pressured into silence. Rap is fast here — the goal at A1 is not to follow lines, but to start catching single words you know.", "uk": "Альбом, пісня і кліп збудовані навколо одного слова: люди, яких змусили мовчати. Реп швидкий — на A1 мета не встигати за рядками, а виловлювати окремі знайомі слова." },
-            { "en": "Full lyrics: open the Genius page from the source label above and keep it side by side with this vocab.", "uk": "Повний текст: відкрий сторінку Genius з посилання вище і тримай поруч із цим словником." }
+            { "en": "Full lyrics: Genius (link in the source label). English translation: lyricstranslate.com/en/suspus-silent-haze.html — there are four EN versions there, plus German; open lyricstranslate.com/en/ceza-lyrics.html for all Ceza songs with translations.", "uk": "Повний текст: Genius (лінк у джерелі вище). Переклад англійською: lyricstranslate.com/en/suspus-silent-haze.html — там чотири EN-версії і німецька; на lyricstranslate.com/en/ceza-lyrics.html — усі пісні Ceza з перекладами." }
           ]
         },
         {
