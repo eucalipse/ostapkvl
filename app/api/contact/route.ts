@@ -41,7 +41,9 @@ export async function POST(request: Request) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: `Ostap Kovalisko <${site.email}>`,
+        // Resend can only send from a verified domain (eucalipse.com is verified;
+        // ostapkvl.com is not), so the from stays here while replies go to site.email.
+        from: "Ostap Kovalisko <contact@eucalipse.com>",
         to: [site.email],
         reply_to: email,
         subject: `ostapkvl.com contact from ${name}`,
