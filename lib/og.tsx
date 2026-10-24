@@ -42,7 +42,7 @@ export function ogCard(opts: {
           backgroundColor: "#ECEEF1",
           color: "#1A1815",
           padding: "64px 72px",
-          borderTop: "10px solid #C05621",
+          borderTop: "10px solid #2E4EC4",
         }}
       >
         <div
@@ -57,7 +57,7 @@ export function ogCard(opts: {
             style={{
               width: 14,
               height: 14,
-              backgroundColor: "#C05621",
+              backgroundColor: "#2E4EC4",
               marginRight: 16,
               marginTop: 7,
             }}

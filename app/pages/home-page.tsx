@@ -14,11 +14,11 @@ export function HomePage({ locale }: { locale: SiteLocale }) {
   const p = (path: string) => localizedPath(locale, path);
   const links = {
     missionLaw: <a href={site.missionLawLinkedin} aria-label="Mission Law on LinkedIn" className={linkClass}>Mission Law</a>,
-    eucalipse: <a href={site.eucalipseLinkedin} aria-label="Eucalipse on LinkedIn" className={linkClass}>Eucalipse</a>,
+    eucalipse: <Link href="/eucalipse" className={linkClass}>Eucalipse</Link>,
   };
   const nowLinks = {
     missionLaw: <a href={site.missionLawLinkedin} aria-label="Mission Law on LinkedIn" className="underline decoration-line underline-offset-4 hover:text-accent">Mission Law</a>,
-    eucalipse: <a href={site.eucalipse} className="underline decoration-line underline-offset-4 hover:text-accent">Eucalipse</a>,
+    eucalipse: <Link href="/eucalipse" className="underline decoration-line underline-offset-4 hover:text-accent">Eucalipse</Link>,
   };
   const dash = c.now.indexOf(" — ");
   const nowWord = dash >= 0 ? c.now.slice(0, dash) : c.now;

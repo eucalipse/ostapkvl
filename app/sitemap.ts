@@ -12,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
     }))
   );
+  pages.push({ url: `${site.url}/eucalipse`, lastModified: new Date() });
   const posts = getAllPosts().map((post) => ({
     url: `${site.url}/writing/${post.slug}`,
     lastModified: new Date(post.date),

@@ -21,7 +21,7 @@ export function AboutPage({ locale }: { locale: SiteLocale }) {
   const c = getCopy(locale).about;
   const links = {
     missionLaw: <a href={site.missionLawLinkedin} aria-label="Mission Law on LinkedIn" className={linkClass}>Mission Law</a>,
-    eucalipse: <a href={site.eucalipseLinkedin} aria-label="Eucalipse on LinkedIn" className={linkClass}>Eucalipse</a>,
+    eucalipse: <Link href="/eucalipse" className={linkClass}>Eucalipse</Link>,
   };
   return (
     <main lang={locale} className="mx-auto max-w-prose px-6 py-16">

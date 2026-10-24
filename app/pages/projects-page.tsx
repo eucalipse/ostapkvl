@@ -5,7 +5,7 @@ import { getCopy } from "@/data/copy";
 import type { SiteLocale } from "@/data/landings";
 
 function Thumb({ variant }: { variant: "gates" | "daemon" | "grid" | "fleet" | "memory" | "home" }) {
-  const stroke = "#C05621";
+  const stroke = "#2E4EC4";
   return (
     <svg viewBox="0 0 120 72" aria-hidden="true" className="h-16 w-28 shrink-0" fill="none">
       {variant === "home" && (<>
