@@ -1,61 +1,60 @@
 ---
 title: "The agent is waiting for you"
-date: "2026-10-17"
+date: "2026-10-24"
 dek: "A wall of running sessions is useful. A clear answer to who needs a decision is more useful."
 readTime: "4 min read"
 category: "Experiments"
 tags: ["Agent architecture", "Human review", "Coding"]
-draft: true
 ---
 
-Imagine returning to a desk with several coding sessions open. One is running tests. Another has finished its patch. A third has been waiting for permission to continue.
+The agent that needs you most may be the one producing no output.
 
-All three windows look busy enough at a glance. Only one needs you now.
+Imagine returning to several coding sessions. One is running tests. Another has finished its patch. A third is waiting for permission to continue. A wall of terminals leaves you to work out which needs a decision.
 
-That is what I want an agent console to show me. I do not want to spend the time saved by delegation searching for the next decision.
+I want an agent console to bring that decision to me. Otherwise, I spend the time saved by delegation searching for the next decision.
 
-[Ed Engelking II’s write-up of Podium](https://edengelking.com/blog/podium-a-control-room-for-claude-code/) made this problem concrete. His console brings Claude Code sessions and their child agents into one view, with optional browser responses. Podium is his project, not mine. Reading about it prompted a design question for my own workflow: what should the first screen ask me to notice?
+[Ed Engelking II’s write-up of Podium](https://edengelking.com/blog/podium-a-control-room-for-claude-code/) made this problem concrete. His console brings Claude Code sessions and their child agents into one view, with optional browser responses. It prompted a design question for my own workflow: what should the first screen ask me to notice?
 
-## Start with the interrupted work
+## Put blocked decisions first
 
-A grid of cards gives a useful sense of the room. I would still put a decision inbox above it.
+A grid of session cards gives a useful overview. I would put a decision inbox above it.
 
-Consider a hypothetical task that changes a supplier import. One worker needs to know whether to preserve an old field. Another has completed a copy update. A third is offline, and the console has no recent information about it.
+Consider a hypothetical supplier import. One worker needs to know whether to preserve an old field. Another has finished a copy update. A third has stopped reporting, so the console no longer knows its state.
 
-Using the same green or amber badge for all of them makes me do the sorting. The first needs a choice. The second needs review when there is time. The third needs an honest statement that the picture may be out of date.
+Those items need different treatment: a choice to unblock the import, a patch to review, and a warning that a status is stale. Giving them the same amber badge makes me do the sorting.
 
 <Figure src="/writing/the-agent-is-waiting-for-you/inbox.svg" alt="A proposed decision inbox separates an unresolved schema question, a patch ready for review, and a disconnected reporter whose current state is unknown. The examples are synthetic." caption="Original interface sketch with synthetic tasks. This is a proposal, not a screenshot of Podium or a working console." />
 
-For each question, I want the context: what is blocked, who owns it, what happens after a decision, and which revision the question concerns. A summary should help me return to the original session without reconstructing the task from its title.
+The field question should tell me which import revision it concerns, who owns the decision, and what proceeds after I answer. It should take me back to the original session without making me reconstruct the task from its title.
 
-I would not automatically make the oldest item the most important. A long-running optional experiment may matter less than a small decision blocking several dependent tasks. The console should show why it put one item first and let me change that order.
+Age alone should not determine priority. A decision blocking the import and its dependent tasks may matter more than an older optional experiment. The console should show why it put an item first and let me change the order.
 
-## Unknown is a real state
+## Keep unknown states visible
 
-The collector disappearing does not mean the agent finished. A quiet session may be waiting, working without new events, or disconnected.
+A reporter disappearing does not mean the agent finished. A quiet session may be waiting, working without new events, or disconnected.
 
-A dashboard can look good and still mislead me. Every status needs to say when it was last observed and when it becomes stale. “Running, last observed recently” is different from “running, reporter missing.” Missing telemetry should not become a reassuring zero.
-
-The same applies to context and cost. If an adapter cannot report context usage, show that it is unavailable. If cost comes from token counts and a pricing table, call it an estimate. Do not make a precise-looking total by mixing unlike measurements.
+Every status needs a last-observed time and a point at which it becomes stale. If the reporter disappears during a test run, the screen should say that the current result is unknown. Keeping a green “running” badge would hide the gap.
 
 <Figure src="/writing/the-agent-is-waiting-for-you/freshness.svg" alt="A reporter timeline shows an observed running state, loss of connection, an unknown interval, and a reconnect snapshot. The gap is not inferred to be successful completion." caption="A proposed state-reconciliation rule. Time spacing is schematic." />
 
-## Activity is not an accepted result
+Apply the same honesty to context and cost. If an adapter cannot report context usage, show “unavailable.” If cost comes from token counts and a pricing table, label it an estimate. Combining unlike measurements into a precise-looking total makes the screen harder to trust.
 
-A session tree can tell me how many workers exist. It cannot, by itself, tell me whether their patches fit together.
+## Attach success to the revision checked
 
-I would attach evidence to the revision it actually checks. A test run on yesterday’s branch should not light up today’s integration candidate. If a worker changes a shared interface, the console should make the affected dependencies visible rather than congratulate everyone for completing their separate tasks.
+A session tree shows who is working. It cannot establish that their patches fit together.
 
-This is the same problem I describe in [Parallel agents need an integration plan](/writing/parallel-agents-shared-codebase). A control room lets me see the coordination work. Someone still has to do it.
+Suppose the import worker changes the shared field while another worker still uses the old version. A successful test run from before that change cannot validate the combined patch. Attach checks to the revision they tested and show which dependent tasks the change affects.
 
-I would resist ranking people by token usage or number of spawned agents. Both can rise when the work is going badly. A useful pilot would measure waiting time, repeated interruptions, integration failures, and time to an accepted result.
+This is the problem in [Parallel agents need an integration plan](/writing/parallel-agents-shared-codebase). The console can expose a dependency; someone still has to resolve it and check the result.
 
-## Build the small read-only version first
+That is also why I would avoid ranking work by token usage or number of spawned agents. Both can rise during rework. I would measure time spent waiting for decisions, repeated interruptions, integration failures, and time to an accepted result.
 
-Anthropic’s [mods documentation](https://code.claude.com/docs/en/plugins/mods/overview) describes in-process handlers that can observe or change session events. That makes richer integration possible, but the exact capabilities still need checking against the runtime version in use.
+## Test whether a small console saves attention
 
-I would start small: a few sessions, one machine, no remote approval button. Collect enough information to show where attention is needed, then test whether that saves actual context switching.
+Anthropic’s [mods documentation](https://code.claude.com/docs/en/plugins/mods/overview) describes handlers that run inside Claude Code and can observe or change session events. I would check the capabilities against the runtime version in use before choosing what to collect.
 
-Before building another console, I would compare the requirements with [Podium’s existing implementation](https://github.com/eengelking/podium). Extending a useful open-source project may be a better decision than creating another dashboard.
+My first version would cover a few sessions on one machine, with no remote approval button. Its job would be to show the next decision and enough context to return to the right session.
 
-I would test one thing, carefully: when I return to the desk, do I find the right decision sooner? If the screen only gives me another place to watch work happen, I have added a window rather than removed a problem.
+Before building it, I would compare those requirements with [Podium’s existing implementation](https://github.com/eengelking/podium). Extending it may solve the problem without another dashboard.
+
+The test is simple: when I return to the desk, do I find the right decision sooner? If I still have to open every terminal to work out who needs me, the console has not done its job.
