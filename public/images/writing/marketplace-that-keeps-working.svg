@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="900" height="760" viewBox="0 0 900 760" role="img" aria-labelledby="title desc">
 <title id="title">A bounded operating loop</title>
 <desc id="desc">Observe incoming signals. Then Select permitted work. Then Run a bounded job. Then Record outcome and exceptions. Then Observe again. Human policy controls priorities and pauses</desc>
-<rect width="900" height="760" rx="24" fill="#f7f6f2"/>
+<rect width="900" height="760" rx="24" fill="#f6f8fa"/>
 <g font-family="Arial, sans-serif" fill="#142c43">
 <text x="60" y="65" font-size="30" font-weight="700">A bounded operating loop</text>
 <rect x="60" y="100" width="780" height="80" rx="14" fill="#ffffff" stroke="#b9cbd4"/>

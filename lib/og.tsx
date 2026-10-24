@@ -39,7 +39,7 @@ export function ogCard(opts: {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          backgroundColor: "#FAF8F4",
+          backgroundColor: "#ECEEF1",
           color: "#1A1815",
           padding: "64px 72px",
           borderTop: "10px solid #C05621",
@@ -50,7 +50,7 @@ export function ogCard(opts: {
             display: "flex",
             fontFamily: "IBM Plex Mono",
             fontSize: 24,
-            color: "#6E675F",
+            color: "#69707A",
           }}
         >
           <div
@@ -81,7 +81,7 @@ export function ogCard(opts: {
               marginTop: 26,
               fontFamily: "IBM Plex Mono",
               fontSize: 26,
-              color: "#6E675F",
+              color: "#69707A",
               maxWidth: 980,
               lineHeight: 1.45,
             }}
@@ -97,7 +97,7 @@ export function ogCard(opts: {
             paddingTop: 26,
             fontFamily: "IBM Plex Mono",
             fontSize: 22,
-            color: "#6E675F",
+            color: "#69707A",
           }}
         >
           <span>{opts.footer}</span>

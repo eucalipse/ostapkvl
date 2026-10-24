@@ -4,11 +4,11 @@
 
 :root {
   color-scheme: light;
-  --paper: 250 248 244;
+  --paper: 236 238 241;
   --ink: 26 24 21;
   --accent: 192 86 33;
-  --muted: 110 103 95;
-  --line: 222 219 214;
+  --muted: 105 112 122;
+  --line: 211 216 223;
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
@@ -104,7 +104,7 @@ button:focus-visible {
 }
 .article-body pre {
   background: #1a1815;
-  color: #faf8f4;
+  color: #eceef1;
   border-radius: 6px;
   padding: 1.1rem 1.3rem;
   overflow-x: auto;

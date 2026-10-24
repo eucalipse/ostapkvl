@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="900" height="760" viewBox="0 0 900 760" role="img" aria-labelledby="title desc">
 <title id="title">Track the operation</title>
 <desc id="desc">Proposed action + operation ID. Then Approval bound to payload. Then Execute with current permissions. Then Success / failure / unknown. Then Reconcile before unsafe retries. A retry keeps the operation identity</desc>
-<rect width="900" height="760" rx="24" fill="#f7f6f2"/>
+<rect width="900" height="760" rx="24" fill="#f6f8fa"/>
 <g font-family="Arial, sans-serif" fill="#142c43">
 <text x="60" y="65" font-size="30" font-weight="700">Track the operation</text>
 <rect x="60" y="100" width="780" height="80" rx="14" fill="#ffffff" stroke="#b9cbd4"/>
