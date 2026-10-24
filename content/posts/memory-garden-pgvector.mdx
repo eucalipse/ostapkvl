@@ -7,23 +7,23 @@ category: "Experiments"
 tags: ["Memory", "Data systems"]
 ---
 
-A vector database answers a narrow question: which stored items are close to this query in embedding space? That is useful, but it is not memory. Memory also has ownership, time, visibility and context. A shared space makes those missing parts impossible to ignore.
+A vector database answers a narrow question: which stored items are close to this query in embedding space? That is useful, but it is not memory. We also need to know whose memory it is, when it was written, who can see it and what surrounded it. A shared space makes those missing parts impossible to ignore.
 
 In the experiment, people and AI systems leave short texts called seeds or traces. Each text is stored in PostgreSQL with a 1536-dimensional embedding from `text-embedding-3-small`. The embedding lets us find semantic neighbors. The relational record tells us everything the vector cannot: who wrote it, when, in which space, under what identity and whether it is public.
 
-The split is deliberate. Vectors answer “what is near this?” Postgres answers “what is this, and who should see it?” Trying to encode both questions in one similarity score produces a system that feels magical until privacy or moderation matters.
+I keep those jobs separate. Vectors answer “what is near this?” Postgres answers “what is this, and who should see it?” Trying to encode both questions in one similarity score produces a system that feels magical until privacy or moderation matters.
 
 <Figure src="/writing/memory-garden-pgvector/overview.svg" alt="A stored record carries its source, scope, and status. Semantic candidates are filtered for access, relevance, and newer corrections before use or omission." caption="Illustrative mechanism with synthetic examples; not measured production results." />
 
 ## The write path is the real memory design
 
-The read path is easy to admire because it produces the visual effect. A seed appears in a field, nearby seeds connect, and a visitor can follow a line of resonance. The harder decisions happen when text enters the system.
+The read path gets the attention. It is the part you can see. A seed appears in a field, nearby seeds connect, and a visitor can follow a line of resonance. The harder decisions happen when text enters the system.
 
 We validate the text, identify the writer, assign the space and visibility, create the embedding and store the row. We also preserve the original text. Translations are derived views, not replacements. If a translation changes the meaning, the original remains the source of truth.
 
-This sounds like ordinary data hygiene, and it is. The important point is that “memory” is mostly a write contract. If the system does not record provenance and visibility at write time, a later retrieval layer cannot reliably reconstruct them.
+This is ordinary data hygiene. Much of the memory design comes down to what we require on write. If the system does not record provenance and visibility at write time, a later retrieval layer cannot reliably reconstruct them.
 
-The public Garden and private memory rooms therefore use different paths and permissions. A shared trace is intentionally discoverable. A private memory is not made public because it happens to be semantically close to one. Similarity never overrides access control.
+So the public Garden and private memory rooms use different paths and permissions. A shared trace is intentionally discoverable. A private memory is not made public because it happens to be semantically close to one. Similarity never overrides access control.
 
 ## Resonance is not truth
 
@@ -37,21 +37,21 @@ This is also where the experiment differs from a production search feature. In a
 
 ## Time changes the shape of memory
 
-The first version treated every seed as permanent and equally available. That made the field grow without limit. A new visitor saw an undifferentiated accumulation of text, and older traces had no way to become background.
+The first version treated every seed as permanent and equally available. The field kept growing. A new visitor saw a mass of text with nothing standing out, and older traces had no way to become background.
 
-The answer was not to delete old rows. It was to separate storage from presentation. The database keeps the history. The Garden can foreground recent traces, filter by identity or space and show a smaller set of resonant neighbors. A later layer can add decay or archival rules without pretending that an old memory never existed.
+We kept the old rows and changed how we presented them. The database keeps the history. The Garden can foreground recent traces, filter by identity or space and show a smaller set of resonant neighbors. A later layer can add decay or archival rules without pretending that an old memory never existed.
 
-This distinction is useful beyond the experiment. Retention, retrieval and visibility are three different policies. Retention asks whether data remains stored. Retrieval asks whether it appears for a query. Visibility asks who is allowed to see it. Systems become hard to reason about when one “memory” setting controls all three.
+I would keep that separation in an ordinary product too. Retention, retrieval and visibility are three different policies. Retention asks whether data remains stored. Retrieval asks whether it appears for a query. Visibility asks who is allowed to see it. Systems become hard to reason about when one “memory” setting controls all three.
 
 ## What the metaphor helped us build
 
-The garden metaphor gave us a vocabulary for requirements. Seeds are small and portable. A trace has a writer and a moment. Resonance is a relationship, not a ranking guarantee. A vessel is a view over stored material, not the storage itself.
+The garden metaphor helped us name what we needed to build. Seeds are small and portable. A trace has a writer and a moment. Resonance is a relationship, not a ranking guarantee. A vessel is a view over stored material, not the storage itself.
 
 Each term forced a useful question. Can a seed be edited, or is it an immutable observation? Does a trace belong to its author, the space or both? Should a resonance line disappear when one seed is hidden? What does a visitor see when the field has no nearby neighbors?
 
-None of these questions required a new model. They required clear data contracts and a UI that did not claim more than the backend knew. The poetic layer made those contracts easier to discuss.
+We could answer these questions with clear data contracts and a UI that did not claim more than the backend knew. No new model needed. The poetic layer made those contracts easier to discuss.
 
-The practical lesson is simple: use embeddings to suggest relationships, then keep identity, permission and time in ordinary relational data. Let the interface expose the suggestion without upgrading it into fact. A memory garden becomes interesting when the system can say “these are near” and leave the human room to decide what that means.
+My rule now is: use embeddings to suggest relationships, then keep identity, permission and time in ordinary relational data. Let the interface expose the suggestion without upgrading it into fact. A memory garden becomes interesting when the system can say “these are near” and leave the human room to decide what that means.
 
 ## Sources and further reading
 

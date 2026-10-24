@@ -7,7 +7,7 @@ export const en: Copy = {
     description: "Chief Architect at Mission Law and founder of Eucalipse. AI engineering, software architecture, and business operations systems with human review and traceable actions.",
     status: "currently: building AI agents · 57 countries and counting",
     subtitle: "Chief Architect · I build AI agents that run business operations.",
-    intro: "I build AI systems with typed actions, human approval flows, and source-backed review. I'm Chief Architect at {missionLaw}, a US law firm, and founder of {eucalipse}, where we've shipped 50+ software projects since 2019. Before that: founder or CTO of three startups, one acquired.",
+    intro: "I build AI systems with typed actions, human approval flows, and source-backed review. I'm Chief Architect at {missionLaw}, a US law firm, and founder of {eucalipse}, an independent studio that has shipped 50+ software projects since 2019. Before that: founder or CTO of three startups, one acquired.",
     readWriting: "Read the writing",
     discuss: "Get in touch",
     selectedWriting: "Selected writing",
@@ -25,7 +25,7 @@ export const en: Copy = {
     intro: [
       "I'm Chief Architect at {missionLaw}, a US law firm. I lead AI engineering and shape the architecture of the firm's client and internal operations platform. My work spans billing, company and user management, onboarding, document workflows, and integrations, alongside building and mentoring the engineering team.",
       "I also designed and built the core AI operations system: typed actions, human approval flows, retrieval, model routing, and review interfaces. My current focus is turning incoming requests into source-backed drafts that people can verify, with missing information and conflicting sources made visible.",
-      "I'm also a serial founder. Three startups as CTO or technical co-founder — one acquired — and a software agency, {eucalipse}, that has shipped 50+ projects since 2019. These days I work across US time zones from wherever the map takes me.",
+      "I'm also a serial founder. Three startups as CTO or technical co-founder — one acquired — and {eucalipse}, an independent studio with its own team, 50+ projects shipped since 2019. There I stay at the founder level: direction and architecture reviews. These days I work across US time zones from wherever the map takes me.",
     ],
     experience: "Experience",
     timeline: [

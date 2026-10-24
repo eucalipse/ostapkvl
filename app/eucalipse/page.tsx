@@ -80,12 +80,12 @@ export default function EucalipsePage() {
           architect.
         </p>
         <div className="mt-8 flex flex-wrap gap-4">
-          <Link href="/contact" className="border border-ink bg-ink px-5 py-2.5 text-sm text-paper transition-colors hover:border-accent hover:bg-accent">
+          <a href={site.eucalipse} className="border border-ink bg-ink px-5 py-2.5 text-sm text-paper transition-colors hover:border-accent hover:bg-accent">
+            Discuss a project with Eucalipse →
+          </a>
+          <Link href="/contact" className="border border-line px-5 py-2.5 text-sm transition-colors hover:border-accent hover:text-accent">
             {landingEn.cta}
           </Link>
-          <a href={site.eucalipse} className="border border-line px-5 py-2.5 text-sm transition-colors hover:border-accent hover:text-accent">
-            eucalipse.com →
-          </a>
         </div>
       </section>
     </main>

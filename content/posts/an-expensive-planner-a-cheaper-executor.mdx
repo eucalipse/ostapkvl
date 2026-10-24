@@ -9,11 +9,11 @@ tags: ["AI agents", "Model routing", "Developer tools"]
 
 Imagine asking an agent to improve a CSV importer. The change sounds small: reject duplicate supplier IDs and show useful errors. A capable model starts exploring. It reads the parser, follows the database writes, checks the upload screen, and notices that validation happens after some records have already been saved.
 
-That discovery matters more than the loop that checks for duplicates.
+Finding that matters more than writing the duplicate-checking loop.
 
-I want to test a division of work around that difference. A more capable model investigates the design and sets the boundaries. A lower-cost model implements a bounded change. A separate review checks the actual result.
+I want to split the work at that point and test what happens. A more capable model investigates the design and sets the boundaries. A lower-cost model then implements the bounded change, which gets a separate review.
 
-This is a proposed workflow, not a report of savings I have measured. The question is whether the implementation savings survive the extra planning, handoff, and repair work.
+This is a proposed workflow, not a report of savings I have measured. I want to know whether cheaper implementation still saves money after planning, handoff, and repairs.
 
 ## Decide what deserves the expensive thinking
 
@@ -23,7 +23,7 @@ The executor needs those answers. It does not need forty messages about approach
 
 Some tasks will not benefit from this split. A typo fix has little design uncertainty. A concurrency bug may keep producing new information that changes the design. In the first case, planning can cost more than implementation. In the second, a neat handoff may become obsolete after the first experiment.
 
-I would start with work that has a clear boundary and observable acceptance criteria: adding a validation rule, extending a parser, or implementing an already-decided interface. “Refactor the whole application” is a poor first test.
+I would start with work I can bound and check: adding a validation rule, extending a parser, or implementing an already-decided interface. “Refactor the whole application” is a poor first test.
 
 Anthropic's Erik S. and Barry Zhang describe routing, orchestrator-worker, and evaluator-optimizer patterns in [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents). Their advice to add complexity only when it earns its place applies here. A planner/executor arrangement combines familiar patterns; its value still needs to be measured on your tasks.
 
@@ -67,7 +67,7 @@ Stop:
 - The change requires a database or concurrency-policy decision.
 ```
 
-Notice the uncomfortable part: this contract deliberately leaves existing-database behavior alone. That is a scope choice, not a claim that uniqueness is solved. If the real requirement is global uniqueness, the planner must address database constraints and concurrent writes before handing the task over.
+Here is the uncomfortable part: this contract deliberately leaves existing-database behavior alone. That is a scope choice, not a claim that uniqueness is solved. If the real requirement is global uniqueness, the planner must address database constraints and concurrent writes before handing the task over.
 
 Include the revision because a precise plan for yesterday's code can be wrong today. Include working-tree changes because a commit alone does not describe an edited checkout. If the executor finds different code, it should report the mismatch rather than quietly inventing a new architecture.
 
@@ -119,7 +119,7 @@ and any acceptance criterion you could not verify.
 Do not merge, deploy, or publish unless separately authorized.
 ```
 
-Two repairs is an example budget, not a magic number. The important thing is that the loop has a limit and that crossing it changes the next action. Otherwise a cheaper model can spend an expensive afternoon repeating the same mistake.
+Two repairs is an example budget, not a magic number. The loop needs a limit, and reaching it must change what happens next. Otherwise a cheaper model can spend an expensive afternoon repeating the same mistake.
 
 ## Review the code, not the completion message
 
@@ -140,7 +140,7 @@ Do not approve solely because the implementation follows the plan:
 the plan itself may be wrong.
 ```
 
-A fresh context reduces dependence on the executor's narrative. It does not make reviewers infallible. Two models can share a blind spot, and a test can encode the wrong requirement. Changes with serious consequences still need an appropriate human decision.
+A fresh context gives the reviewer less of the executor's story to lean on. It does not make reviewers infallible. Two models can share a blind spot, and a test can encode the wrong requirement. Changes with serious consequences still need an appropriate human decision.
 
 ## Count the whole task
 
@@ -162,7 +162,7 @@ Keep human review time and elapsed time beside the bill. A cheaper run that need
 
 ## What the research does and does not establish
 
-[FrugalGPT](https://arxiv.org/abs/2305.05176) studies cost-aware use of multiple language models, including cascades. [RouteLLM](https://arxiv.org/abs/2406.18665) studies learned routing between stronger and weaker models using preference data. Both are useful starting points for thinking about model allocation.
+[FrugalGPT](https://arxiv.org/abs/2305.05176) studies cost-aware use of multiple language models, including cascades. [RouteLLM](https://arxiv.org/abs/2406.18665) studies learned routing between stronger and weaker models using preference data. Both can help when deciding which model should do which work.
 
 Neither paper establishes that a particular planner-to-coding-agent handoff will save money in your repository. Selecting a model for a query and transferring an evolving implementation task are different problems. A handoff adds its own failure modes: stale context, omitted constraints, duplicated investigation, and ambiguous ownership of repairs.
 
@@ -174,8 +174,8 @@ Take a small set of bounded tasks from a public or synthetic repository. Define 
 
 Run both approaches from equivalent clean starting states. Repeat runs, record cache conditions, and keep the tools and permissions comparable. Cap repair attempts. Count abandoned runs in the cost, rather than deleting them because they did not produce a result.
 
-Report total spend divided by independently accepted tasks alongside the acceptance rate and elapsed time. If nothing passes, the cost per accepted task is undefined, not zero. A small experiment is a screening tool; it is not a universal leaderboard.
+Report total spend divided by independently accepted tasks alongside the acceptance rate and elapsed time. If nothing passes, the cost per accepted task is undefined, not zero. A small experiment helps you decide what to try next. It cannot rank models for everyone.
 
 This connects to [building an evaluation set from reviewed work](/writing/evals-that-grow-themselves): the quality gate should stay stable while the model arrangement changes. It also connects to [spending human attention where mistakes matter](/writing/human-attention-is-the-bottleneck). A lower-cost workflow should not earn its saving by quietly removing the checks that made the result trustworthy.
 
-The first version of this experiment can be three prompts and a results sheet. If the handoff keeps working and the total cost falls, automate the repetitive parts. If the planner keeps having to come back and repair the same decisions, that is useful evidence too: the boundary is in the wrong place.
+I can start this experiment with three prompts and a results sheet. If the handoff keeps working and the total cost falls, automate the repetitive parts. If the planner keeps having to come back and repair the same decisions, that is useful evidence too: the boundary is in the wrong place.

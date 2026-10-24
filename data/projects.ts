@@ -28,7 +28,7 @@ export const projects: Project[] = [
   {
     title: "Eucalipse",
     description:
-      "The software agency behind the rest: 50+ projects shipped since 2019, from SaaS platforms to AI operations systems for SMBs across retail, accounting, and consulting. Architecture, hiring, and delivery under one roof.",
+      "The independent studio behind many of the rest: 50+ projects shipped since 2019, from SaaS platforms to AI operations systems for SMBs across retail, accounting, and consulting. The studio's own team builds; I set direction and review the architecture.",
     stack: ["TypeScript", "Next.js", "Postgres", "Claude / GPT / Gemini"],
     link: { label: "eucalipse.com", href: "https://eucalipse.com" },
     art: "grid",

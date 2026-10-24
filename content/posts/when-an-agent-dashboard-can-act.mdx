@@ -8,7 +8,7 @@ tags: ["Agent architecture", "Human review", "Reliability"]
 draft: true
 ---
 
-A button labelled “Approve” looks small. The authority behind it is not.
+A small button labelled “Approve” can carry a lot of authority.
 
 Imagine a console showing a coding session that wants permission to change a configuration file. You read the request, leave the tab open, and return later. In the meantime the terminal received an answer, the task restarted, or the proposed change was revised.
 
@@ -20,11 +20,11 @@ This is a hypothetical example, but it is the first test I would write for a bro
 
 [Ed Engelking II’s Podium launch post](https://edengelking.com/blog/podium-a-control-room-for-claude-code/) describes an optional way to answer waiting Claude Code sessions from a browser. He explicitly treats that as a security boundary and describes controls around it. I have not audited Podium’s implementation; this article is a proposal for how I would evaluate a similar capability in my own workflow.
 
-The distinction I want to preserve is between seeing a request, answering a question, and authorizing an action. They can share a screen without sharing a permission.
+I want separate permissions for seeing a request, answering a question, and authorizing an action. They can share a screen without sharing a permission.
 
 ## Bind the decision to the request
 
-For a proposed control design, I would give each pending request an identity, an expiration and a version. The approval would refer to a particular session instance and the exact proposed action, not merely to a session name.
+In a control panel, I would give each pending request an identity, an expiration and a version. The approval would refer to a particular session instance and the exact proposed action, not merely to a session name.
 
 Changing the arguments should invalidate the old approval. Restarting the task should not inherit a browser click intended for its previous instance. If the terminal already resolved the request, the browser should report that result rather than submit another answer.
 
@@ -32,19 +32,19 @@ Changing the arguments should invalidate the old approval. Restarting the task s
 
 The runtime should recheck these conditions when it receives the answer. The browser’s view is not the authority on whether the request is still pending. Nor should the console override a denial imposed by the runtime’s own policy.
 
-Ordinary text answers deserve a boundary too. A viewer who can read the transcript should not automatically be allowed to inject the next instruction into it.
+Ordinary text answers need permissions too. A viewer who can read the transcript should not automatically be allowed to inject the next instruction into it.
 
 ## A delivered answer is not an executed action
 
 There are several moments a UI might call “done”: the browser submitted an answer, the server stored it, the runtime accepted it, or the underlying action completed.
 
-Those are different outcomes. I would show them separately.
+I would show each outcome separately.
 
 Suppose the browser loses its connection just after sending an approval. Retrying with a new request identity could duplicate an effect. The safer protocol retains the identity, asks what happened, and leaves the outcome unknown until it has evidence.
 
 <Figure src="/writing/when-an-agent-dashboard-can-act/delivery.svg" alt="Separate timeline lanes distinguish browser submission, server acknowledgement, runtime acceptance, and the final action receipt. A missing final receipt leaves the outcome unknown." caption="Schematic delivery timeline. A server acknowledgement is not proof of execution." />
 
-This connects to [The agent timed out. Did the action happen?](/writing/agent-actions-under-retries). A friendly button cannot erase distributed-systems ambiguity.
+This connects to [The agent timed out. Did the action happen?](/writing/agent-actions-under-retries). A friendly button does not tell us what happened on the other side of a dropped connection.
 
 ## Observation and control should use different permissions
 
@@ -52,7 +52,7 @@ I would start with read-only observation. A later version could let the owner an
 
 For team use, I would want explicit permissions by project, session and action. A shared wall screen may need to show that someone is blocked without displaying the sensitive contents of their prompt. Audit records should identify who acted and what request they resolved without indiscriminately retaining secrets.
 
-Anthropic’s [mods documentation](https://code.claude.com/docs/en/plugins/mods/overview) says mods run with the user’s permissions and are not sandboxed. That is relevant to installation trust. It does not, on its own, establish that a web console built around a mod has correct authorization.
+Anthropic’s [mods documentation](https://code.claude.com/docs/en/plugins/mods/overview) says mods run with the user’s permissions and are not sandboxed. That matters when deciding whether to install a mod. It does not, on its own, establish that a web console built around a mod has correct authorization.
 
 ## Test the unpleasant paths
 
@@ -62,4 +62,4 @@ For the last case, one valid answer should win atomically and the other interfac
 
 I would also test that the system continues safely when the console is unavailable. Losing the dashboard must not silently turn a required approval into permission to proceed.
 
-None of this is a claim that I have shipped such a console. It is the boundary I want in the plan before implementation. The convenience is real: fewer windows, fewer forgotten questions. The design earns that convenience when a click means exactly what the person understood it to mean.
+I have not shipped such a console. These are the limits I would put in the plan before building it. The convenience is real: fewer windows, fewer forgotten questions. For that convenience to be worth it, a click must mean exactly what the person understood it to mean.

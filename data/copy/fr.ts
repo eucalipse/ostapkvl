@@ -7,7 +7,7 @@ export const fr: Copy = {
     description: "Chief Architect chez Mission Law et fondateur d’Eucalipse. Ingénierie IA, architecture logicielle et systèmes d’opérations avec validation humaine et actions traçables.",
     status: "en ce moment : je construis des agents IA · 57 pays et ce n’est pas fini",
     subtitle: "Chief Architect · Je construis des agents IA qui font tourner les opérations.",
-    intro: "Je construis des systèmes d’IA avec des actions typées, des flux de validation humaine et une revue fondée sur les sources. Je suis Chief Architect chez {missionLaw}, un cabinet d’avocats américain, et fondateur d’{eucalipse}, où nous avons livré plus de 50 projets logiciels depuis 2019. Avant cela : fondateur ou CTO de trois startups, dont une rachetée.",
+    intro: "Je construis des systèmes d’IA avec des actions typées, des flux de validation humaine et une revue fondée sur les sources. Je suis Chief Architect chez {missionLaw}, un cabinet d’avocats américain, et fondateur d’{eucalipse}, un studio indépendant qui a livré plus de 50 projets logiciels depuis 2019. Avant cela : fondateur ou CTO de trois startups, dont une rachetée.",
     readWriting: "Lire les articles",
     discuss: "Prendre contact",
     selectedWriting: "Articles choisis",
@@ -25,7 +25,7 @@ export const fr: Copy = {
     intro: [
       "Je suis Chief Architect chez {missionLaw}, un cabinet d’avocats américain. Je dirige l’ingénierie IA et je définis l’architecture de la plateforme d’opérations internes et clients du cabinet. Mon travail couvre la facturation, la gestion des sociétés et des utilisateurs, l’onboarding, les flux documentaires et les intégrations, ainsi que la constitution et l’accompagnement de l’équipe d’ingénierie.",
       "J’ai aussi conçu et construit le système central d’opérations IA : actions typées, flux de validation humaine, récupération d’information, routage de modèles et interfaces de revue. Mon objectif actuel : transformer les demandes entrantes en brouillons appuyés sur des sources que les gens peuvent vérifier, avec les informations manquantes et les sources contradictoires rendues visibles.",
-      "Je suis aussi un entrepreneur en série. Trois startups comme CTO ou cofondateur technique — dont une rachetée — et une agence logicielle, {eucalipse}, qui a livré plus de 50 projets depuis 2019. Aujourd’hui je travaille sur les fuseaux horaires américains, depuis l’endroit où la carte m’emmène.",
+      "Je suis aussi un entrepreneur en série. Trois startups comme CTO ou cofondateur technique — dont une rachetée — et {eucalipse}, un studio indépendant avec sa propre équipe, plus de 50 projets livrés depuis 2019. J’y reste au niveau fondateur : direction et revues d’architecture. Aujourd’hui je travaille sur les fuseaux horaires américains, depuis l’endroit où la carte m’emmène.",
     ],
     experience: "Expérience",
     timeline: [
@@ -51,7 +51,7 @@ export const fr: Copy = {
     items: {
       "AI Operations Platform": { title: "Plateforme d’opérations IA", description: "La plateforme centrale d’opérations IA que j’ai conçue et construite chez Mission Law : contrats d’actions typées, flux proposer/confirmer/exécuter, récupération d’information, routage de modèles et interfaces de revue. Les flux d’intake actuels relient les valeurs proposées à leurs sources et exposent les informations manquantes et les conflits pour la revue humaine. L’évaluation, les intégrations en production et la fiabilisation constituent la prochaine étape." },
       "Ostavio": { description: "Un daemon IA personnel pour les opérations d’une entreprise. Il surveille les e-mails, les tâches et la facturation, prépare des briefings matinaux et propose des actions que le propriétaire approuve d’un geste. La même architecture que les plateformes d’agents d’entreprise, ramenée à un seul opérateur." },
-      "Eucalipse": { description: "L’agence logicielle derrière le reste : plus de 50 projets livrés depuis 2019, des plateformes SaaS aux systèmes d’opérations IA pour des PME du commerce, de la comptabilité et du conseil. Architecture, recrutement et livraison sous un même toit." },
+      "Eucalipse": { description: "Le studio indépendant derrière beaucoup des autres : plus de 50 projets depuis 2019, des plateformes SaaS aux systèmes d’opérations IA pour des PME du commerce, de la comptabilité et du conseil. L’équipe du studio construit ; je fixe la direction et je revois l’architecture." },
       "Automated Booking Marketplace": {
         title: "Place de marché de réservation automatisée",
         description: "Une place de marché de réservation construite de façon indépendante, avec plus de 87 000 fiches de prestataires. Une quarantaine de tâches planifiées, sur deux environnements d’exécution, prennent en charge l’enrichissement des fiches, la traduction, la génération de contenu et le tri des e-mails, avec une revue humaine pour les demandes ambiguës et des contrôles pour plafonner ou suspendre les coûts de traitement.",

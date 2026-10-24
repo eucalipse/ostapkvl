@@ -7,7 +7,7 @@ export const de: Copy = {
     description: "Chief Architect bei Mission Law und Gründer von Eucalipse. KI-Engineering, Softwarearchitektur und Betriebssysteme für Unternehmen mit menschlicher Prüfung und nachvollziehbaren Aktionen.",
     status: "gerade: KI-Agenten bauen · 57 Länder und es werden mehr",
     subtitle: "Chief Architect · Ich baue KI-Agenten, die den Geschäftsbetrieb am Laufen halten.",
-    intro: "Ich baue KI-Systeme mit typisierten Aktionen, menschlichen Freigabeschritten und quellengestützter Prüfung. Ich bin Chief Architect bei {missionLaw}, einer US-Anwaltskanzlei, und Gründer von {eucalipse}, wo wir seit 2019 über 50 Softwareprojekte ausgeliefert haben. Davor: Gründer oder CTO von drei Start-ups, eines davon übernommen.",
+    intro: "Ich baue KI-Systeme mit typisierten Aktionen, menschlichen Freigabeschritten und quellengestützter Prüfung. Ich bin Chief Architect bei {missionLaw}, einer US-Anwaltskanzlei, und Gründer von {eucalipse}, einem unabhängigen Studio, das seit 2019 über 50 Softwareprojekte ausgeliefert hat. Davor: Gründer oder CTO von drei Start-ups, eines davon übernommen.",
     readWriting: "Artikel lesen",
     discuss: "Kontakt aufnehmen",
     selectedWriting: "Ausgewählte Artikel",
@@ -25,7 +25,7 @@ export const de: Copy = {
     intro: [
       "Ich bin Chief Architect bei {missionLaw}, einer US-Anwaltskanzlei. Ich leite das KI-Engineering und präge die Architektur der Mandanten- und Betriebsplattform der Kanzlei. Meine Arbeit umfasst Abrechnung, Unternehmens- und Nutzerverwaltung, Onboarding, Dokumenten-Workflows und Integrationen sowie den Aufbau und die Begleitung des Engineering-Teams.",
       "Ich habe außerdem das zentrale KI-Betriebssystem entworfen und gebaut: typisierte Aktionen, menschliche Freigabeschritte, Retrieval, Modell-Routing und Prüfoberflächen. Mein aktueller Schwerpunkt: eingehende Anfragen in quellengestützte Entwürfe verwandeln, die Menschen prüfen können, mit sichtbar gemachten Lücken und widersprüchlichen Quellen.",
-      "Ich bin auch Seriengründer. Drei Start-ups als CTO oder technischer Mitgründer — eines davon übernommen — und eine Softwareagentur, {eucalipse}, die seit 2019 über 50 Projekte ausgeliefert hat. Heute arbeite ich in US-Zeitzonen, von wo auch immer mich die Karte hinführt.",
+      "Ich bin auch Seriengründer. Drei Start-ups als CTO oder technischer Mitgründer — eines davon übernommen — und {eucalipse}, ein unabhängiges Studio mit eigenem Team, über 50 ausgelieferte Projekte seit 2019. Dort bleibe ich auf Gründerebene: Richtung und Architektur-Reviews. Heute arbeite ich in US-Zeitzonen, von wo auch immer mich die Karte hinführt.",
     ],
     experience: "Erfahrung",
     timeline: [
@@ -51,7 +51,7 @@ export const de: Copy = {
     items: {
       "AI Operations Platform": { title: "KI-Betriebsplattform", description: "Die zentrale KI-Betriebsplattform, die ich bei Mission Law entworfen und gebaut habe: typisierte Aktionsverträge, Abläufe nach dem Muster Vorschlagen/Bestätigen/Ausführen, Retrieval, Modell-Routing und Prüfoberflächen. Die aktuellen Intake-Workflows verknüpfen vorgeschlagene Formularwerte mit ihren Quellen und legen fehlende Informationen und Konflikte für die menschliche Prüfung offen. Evaluierung, Live-Integrationen und Produktionshärtung sind die nächste Etappe." },
       "Ostavio": { description: "Ein persönlicher KI-Daemon für den Geschäftsbetrieb. Er beobachtet E-Mails, Aufgaben und Abrechnung, bereitet morgendliche Briefings vor und schlägt Aktionen vor, die der Inhaber mit einem Tippen freigibt. Dieselbe Architektur wie bei Agentenplattformen für Unternehmen, verkleinert auf eine einzelne Person." },
-      "Eucalipse": { description: "Die Softwareagentur hinter dem Rest: über 50 Projekte seit 2019, von SaaS-Plattformen bis zu KI-Betriebssystemen für kleine und mittlere Unternehmen in Handel, Buchhaltung und Beratung. Architektur, Recruiting und Lieferung unter einem Dach." },
+      "Eucalipse": { description: "Das unabhängige Studio hinter vielen der übrigen: über 50 Projekte seit 2019, von SaaS-Plattformen bis zu KI-Betriebssystemen für kleine und mittlere Unternehmen in Handel, Buchhaltung und Beratung. Das Team des Studios baut; ich gebe die Richtung vor und prüfe die Architektur." },
       "Automated Booking Marketplace": {
         title: "Automatisierter Buchungsmarktplatz",
         description: "Ein unabhängig gebauter Buchungsmarktplatz mit über 87.000 Anbietereinträgen. Rund 40 geplante Jobs in zwei Laufzeitumgebungen unterstützen die Anreicherung der Einträge, Übersetzung, Content-Erstellung und E-Mail-Triage, mit menschlicher Prüfung bei mehrdeutigen Anfragen und Kontrollen, um Verarbeitungskosten zu begrenzen oder zu pausieren.",

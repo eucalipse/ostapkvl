@@ -14,15 +14,15 @@ Two coding agents can each produce a correct-looking patch and still break the a
 
 Consider a hypothetical feature: one agent changes a request API, another builds its interface, and a third adds a worker. They edit different files without textual conflicts. But the interface sends a field the API renamed, and the worker interprets missing values differently from both.
 
-Parallel implementation was possible. Independent decisions about the shared contract caused the failure.
+They could implement in parallel. They could not each decide what the shared contract meant.
 
 ## Split work where decisions are independent
 
-Before delegating, establish the shared interface: field meanings, errors, authorization expectations, and compatibility requirements. Assign responsibility for changing it.
+Before handing out work, agree on the shared interface: field meanings, errors, authorization expectations, and compatibility requirements. Assign responsibility for changing it.
 
-Define tasks through outputs and acceptance conditions. "Build the frontend" is too open. "Implement this form against the agreed request schema, including these validation errors" creates a reviewable boundary.
+Say what each task should produce and how you will check it. "Build the frontend" is too open. "Implement this form against the agreed request schema, including these validation errors" gives the reviewer something specific to check.
 
-Some tasks should wait. If the API shape is still being discovered, parallelize research or test-case design while one owner settles it. Three implementations against three guesses are expensive speculation.
+Some tasks should wait. If the API shape is still being discovered, parallelize research or test-case design while one owner settles it. Three implementations against three guesses cost a lot to throw away.
 
 ## Isolate more than files
 
@@ -32,13 +32,13 @@ Also separate test databases or schemas, ports, and access to shared services. O
 
 Each handoff should identify the starting revision, expected output, owned areas, shared contracts, available environment, required checks, and conditions for stopping to request a decision.
 
-File ownership is only a coordination convention unless enforced. It should never be mistaken for access control.
+Unless something enforces file ownership, it is just an agreement between workers. It does not control access.
 
 ## Ask for a reviewable handoff
 
 A finished worker should return a commit, the behavior it changes, checks performed, and unresolved assumptions.
 
-Keep integration under one accountable owner. That can be a person supported by an agent. Several workers independently moving the main branch while assuming someone else checked the combination is a poor default.
+Put one owner in charge of integration. That can be a person supported by an agent. If several workers move the main branch independently, each may assume someone else checked the combination.
 
 Land compatible shared foundations first, then integrate consumers. When a contract changes, notify affected tasks and invalidate evidence that depended on its earlier version.
 
@@ -48,7 +48,7 @@ Passing tests on separate branches does not establish that the branches work tog
 
 A merge queue checks a candidate against the current target branch and changes ahead of it. GitHub Actions workflows providing required checks need a `merge_group` trigger as well as their appropriate PR trigger. See [GitHub's merge queue documentation](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue).
 
-The queue only enforces the checks it receives. A frontend build and API unit tests can pass while the actual request is incompatible. Exercise the shared boundary, for example by sending the form payload through real request validation.
+The queue cannot enforce checks nobody gave it. A frontend build and API unit tests can pass while the actual request is incompatible. Exercise the shared boundary, for example by sending the form payload through real request validation.
 
 A smaller team can serialize integration, update against the current base, and verify the combined revision before landing. If the target branch moves after verification, check the new combination too.
 
@@ -56,11 +56,11 @@ A smaller team can serialize integration, update against the current base, and v
 
 More workers create review work, competing assumptions, and simultaneous test runs. Start with a small number of independent tasks and measure time to an accepted result, including review and rework.
 
-Track integration failures, repeated work, waiting time, and patches discarded because another task invalidated their assumptions. Token cost matters, but a cheap patch needing hours of reconciliation is not cheap delivery.
+Track integration failures, repeated work, waiting time, and patches discarded because another task invalidated their assumptions. Token cost matters, but a cheap patch can still take hours to reconcile.
 
 Set a stopping rule for workers that cannot resolve failures after a bounded number of attempts. Ask for evidence and the remaining decision instead of another broad rewrite.
 
-The speedup comes from overlapping independent work while keeping dependencies visible and the resulting product coherent.
+Run independent work at the same time, but keep track of the dependencies. The patches still have to become one working product.
 
 ## Sources and further reading
 

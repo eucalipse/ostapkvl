@@ -7,7 +7,7 @@ export const pt: Copy = {
     description: "Chief Architect na Mission Law e fundador da Eucalipse. Engenharia de IA, arquitetura de software e sistemas de operações com revisão humana e ações rastreáveis.",
     status: "agora: construindo agentes de IA · 57 países e contando",
     subtitle: "Chief Architect · Construo agentes de IA que cuidam das operações de negócio.",
-    intro: "Construo sistemas de IA com ações tipadas, fluxos de aprovação humana e revisão baseada em fontes. Sou Chief Architect na {missionLaw}, um escritório de advocacia dos EUA, e fundador da {eucalipse}, onde entregamos mais de 50 projetos de software desde 2019. Antes disso: fundador ou CTO de três startups, uma delas adquirida.",
+    intro: "Construo sistemas de IA com ações tipadas, fluxos de aprovação humana e revisão baseada em fontes. Sou Chief Architect na {missionLaw}, um escritório de advocacia dos EUA, e fundador da {eucalipse}, um estúdio independente que entregou mais de 50 projetos de software desde 2019. Antes disso: fundador ou CTO de três startups, uma delas adquirida.",
     readWriting: "Ler os artigos",
     discuss: "Entre em contato",
     selectedWriting: "Artigos em destaque",
@@ -25,7 +25,7 @@ export const pt: Copy = {
     intro: [
       "Sou Chief Architect na {missionLaw}, um escritório de advocacia dos EUA. Lidero a engenharia de IA e defino a arquitetura da plataforma de operações internas e de clientes do escritório. Meu trabalho abrange faturamento, gestão de empresas e usuários, onboarding, fluxos de documentos e integrações, além de formar e orientar a equipe de engenharia.",
       "Também projetei e construí o sistema central de operações com IA: ações tipadas, fluxos de aprovação humana, recuperação de informação, roteamento de modelos e interfaces de revisão. Meu foco atual é transformar solicitações recebidas em rascunhos apoiados em fontes que as pessoas possam verificar, com informações ausentes e fontes em conflito à vista.",
-      "Também sou empreendedor em série. Três startups como CTO ou cofundador técnico — uma adquirida — e uma agência de software, a {eucalipse}, que entregou mais de 50 projetos desde 2019. Hoje trabalho no horário dos EUA de onde o mapa me levar.",
+      "Também sou empreendedor em série. Três startups como CTO ou cofundador técnico — uma adquirida — e a {eucalipse}, um estúdio independente com equipe própria, com mais de 50 projetos entregues desde 2019. Lá fico no nível de fundador: direção e revisões de arquitetura. Hoje trabalho no horário dos EUA de onde o mapa me levar.",
     ],
     experience: "Experiência",
     timeline: [
@@ -51,7 +51,7 @@ export const pt: Copy = {
     items: {
       "AI Operations Platform": { title: "Plataforma de operações com IA", description: "A plataforma central de operações com IA que projetei e construí na Mission Law: contratos de ações tipadas, fluxos de propor/confirmar/executar, recuperação de informação, roteamento de modelos e interfaces de revisão. Os fluxos de intake atuais ligam os valores propostos às suas fontes e expõem informações ausentes e conflitos para a revisão humana. Avaliação, integrações ao vivo e robustez para produção são a próxima etapa." },
       "Ostavio": { description: "Um daemon de IA pessoal para operações de negócio. Ele acompanha e-mails, tarefas e faturamento, prepara resumos matinais e propõe ações que o dono aprova com um toque. A mesma arquitetura das plataformas de agentes corporativas, reduzida a um único operador." },
-      "Eucalipse": { description: "A agência de software por trás do resto: mais de 50 projetos entregues desde 2019, de plataformas SaaS a sistemas de operações com IA para PMEs de varejo, contabilidade e consultoria. Arquitetura, contratação e entrega sob o mesmo teto." },
+      "Eucalipse": { description: "O estúdio independente por trás de muitos dos demais: mais de 50 projetos desde 2019, de plataformas SaaS a sistemas de operações com IA para PMEs de varejo, contabilidade e consultoria. A equipe do estúdio constrói; eu defino a direção e reviso a arquitetura." },
       "Automated Booking Marketplace": {
         title: "Marketplace de reservas automatizado",
         description: "Um marketplace de reservas construído de forma independente, com mais de 87 mil anúncios de fornecedores. Cerca de 40 tarefas agendadas em dois runtimes dão suporte ao enriquecimento de anúncios, tradução, geração de conteúdo e triagem de e-mails, com revisão humana para pedidos ambíguos e controles para limitar ou pausar os custos de processamento.",

@@ -7,15 +7,15 @@ category: "Production"
 tags: ["Evals", "Human review"]
 ---
 
-An assistant reads a supplier email and fills in a request form. The supplier is right. The delivery address is right. The requested date looks reasonable. You change the prompt, run the email again, and the form still looks reasonable.
+An assistant reads a supplier email and fills in a request form. It gets the supplier and delivery address right. The requested date looks reasonable too. You change the prompt, run the email again, and the form still looks reasonable.
 
 Did anything improve?
 
-That is a harder question than it sounds. A filled form looks convincing, especially when you already expect the assistant to work. A blank field draws your eye. A wrong value sitting neatly in the right box often does not.
+Looking at the form will not tell you. A filled form looks convincing, especially when you already expect the assistant to work. A blank field draws your eye. A wrong value sitting neatly in the right box often does not.
 
 We built a small regression harness for an assistant that turns emails and calls into structured request forms. It replays past requests where we know the final, human-confirmed form, then compares the output field by field. Every prompt or model change goes through the same items before it ships.
 
-The useful part was getting a repeatable answer to a boring question: what did this change break?
+Now we can get a repeatable answer to a boring question: what did this change break?
 
 ## Start with requests you can read yourself
 
@@ -27,13 +27,13 @@ Each example needs the source material and the confirmed form. Keep the inputs a
 
 Take a logistics request: “please arrange collection next week” does not give a collection date. The final form might contain Tuesday because someone called the supplier afterward. Against the original email, leaving the date blank was correct.
 
-This is where building an eval forces you to clarify the job. Are we extracting what the source says, or completing the form using other information? Both can be useful. They need different inputs and different expectations.
+Building the eval forced us to settle what the job was. Are we extracting what the source says, or completing the form using other information? Both can be useful. They need different inputs and different expectations.
 
 A small set makes those disagreements visible. A large set assembled carelessly gives you a precise score for a question you have not settled.
 
 ## A blank and an invention are different failures
 
-We score each field as right, wrong, missing, guessed, or invented. The difference between them matters more than the overall percentage.
+We score each field as right, wrong, missing, guessed, or invented. I care more about which kind of error we made than the overall percentage.
 
 Right means the value matches the confirmed answer and has support in the available source. Wrong means there was support for a value, but the assistant picked the wrong one, like the delivery address copied into the billing address. Missing means the source supplied an answer and the assistant left it out. An expected blank is right, not missing.
 
@@ -41,13 +41,13 @@ Guessed means the assistant resolved something the evidence left uncertain. Thin
 
 I want the uncertain cases called out even when a guess happens to match what the reviewer eventually chose. Getting lucky is not a behavior I want to reward.
 
-For this assistant, the cheaper error is usually a blank. Someone sees it and asks a question. A confident wrong value can survive review and become the detail someone uses to book a collection. The form looks more complete while the work becomes less reliable.
+For this assistant, the cheaper error is usually a blank. Someone sees it and asks a question. A confident wrong value can survive review and become the detail someone uses to book a collection. The form looks complete. Someone may now book the wrong collection.
 
 That is why invented values need their own count. A change can improve total fields right while introducing inventions in fields that were previously blank. I would not call that an improvement without reading those cases.
 
 We also check whether each quoted source snippet exists word for word in the input. This is a separate check. A correct value with a fabricated quotation still fails the evidence requirement.
 
-An exact quotation does not prove the value follows from it. It only proves the words were there. That limitation belongs beside the score, because it is easy to give a passing check more meaning than it deserves.
+An exact quotation does not prove the value follows from it. It only proves the words were there. Put that limit beside the score. A passing check is easy to read as proof of more than it checked.
 
 ## Pick a model for the step
 
@@ -69,7 +69,7 @@ The model that wins extraction does not automatically win detection. Buying the 
 
 ## Let review produce the next example
 
-The best part of this setup is that the labels come from work people already do.
+We get the labels from reviews people already do.
 
 A person opens the review screen, checks the proposed form, corrects it, and confirms. That confirmed request becomes a candidate example. We save the source alongside the confirmed values, so the next replay has both the question and the answer. Before it joins the set, we check that each expected value is supported by the original inputs, not by something learned later.
 
@@ -77,7 +77,7 @@ The test set grows as the assistant gets used. We do not have to start a separat
 
 <Figure src="/writing/evals-that-grow-themselves/review-eval-loop.svg" alt="Human confirmation produces a labeled example that expands the test set used for every change. A passing CI gate allows shipping and more reviewed requests, while a failure sends the change back for revision." caption="The workflow I am setting up: review supplies the examples, and a CI gate checks every change before it ships." />
 
-That does not make the labels infallible. Someone can confirm the wrong value. Someone can add information the assistant never saw. I still want to inspect disagreements and keep a fixed version of the test set for each comparison. I also keep a few examples aside that I never look at while tuning prompts, so I do not fit the prompt to the test. Otherwise new examples can move the score while we are trying to measure a prompt change.
+Those labels can still be wrong. Someone can confirm the wrong value. Someone can add information the assistant never saw. I still want to inspect disagreements and keep a fixed version of the test set for each comparison. I also keep a few examples aside that I never look at while tuning prompts, so I do not fit the prompt to the test. Otherwise new examples can move the score while we are trying to measure a prompt change.
 
 Real requests also leave gaps. We keep a small synthetic set for cases that rarely appear naturally, such as conflicting sources or “same as last time” when the previous request is unavailable. Those cases should test whether the assistant admits what it cannot establish.
 
@@ -85,7 +85,7 @@ I keep their results separate from the real requests. Passing examples we wrote 
 
 ## Make the result block a change
 
-Running the harness before shipping is the habit. Making it a gate in CI is how I would enforce that habit.
+We run the harness before shipping. I would put a gate in CI to make sure we keep doing it.
 
 A prompt edit should produce a comparison against the current version: fields gained, fields lost, missing values, guesses, inventions, quotation failures, cost, and time. The failures should link back to the request and the changed fields.
 

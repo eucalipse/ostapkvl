@@ -11,7 +11,7 @@ Imagine telling an assistant that you prefer early meetings. A few weeks later, 
 
 The next suggestion is 8:30 a.m.
 
-There is nothing spectacular about this failure. No dramatic hallucination. The assistant may have retrieved a perfectly accurate record of something you really said. That is what makes it irritating. You did the work of explaining yourself twice, and the older explanation won.
+It is an ordinary failure, with no dramatic hallucination. The assistant may have retrieved a perfectly accurate record of something you really said. That is what makes it irritating. You did the work of explaining yourself twice, and the older explanation won.
 
 This is a hypothetical example, but it is the sort of test I want a memory system to pass before I trust it with more intimate context.
 
@@ -21,11 +21,11 @@ This is a hypothetical example, but it is the sort of test I want a memory syste
 
 My first instinct as a builder is to preserve information. Storage is cheap enough to make keeping everything seem responsible. But a pile of accurate sentences can still produce an inaccurate picture of a person.
 
-“I prefer mornings” and “keep mornings free” need a relationship. The second statement might replace the first. It might apply only during a busy week. It might refer to appointments rather than work meetings. The wording matters, and sometimes the right next step is a question.
+“I prefer mornings” and “keep mornings free” need a relationship. The second statement might replace the first, or apply only during a busy week. Perhaps it refers to appointments rather than work meetings. The wording matters, and sometimes the right next step is a question.
 
 I would rather see “Does that replace your usual preference, or just apply this week?” than have the software quietly make the choice for me.
 
-That is a small interruption. It buys something useful: a chance to correct the system before its interpretation turns into a recommendation.
+That small interruption gives me a chance to correct the system before its interpretation turns into a recommendation.
 
 <Figure src="/writing/when-memory-needs-to-change/record.svg" width={1200} height={800} alt="A notebook-style memory record separates the original statement, its scope, current status, and the later correction that supersedes it." caption="Proposed record design, not a shipped feature." />
 
@@ -33,7 +33,7 @@ That is a small interruption. It buys something useful: a chance to correct the 
 
 The [LongMemEval-V2 preprint](https://arxiv.org/abs/2605.12493), submitted in May 2026 and marked work in progress, looks at an adjacent engineering problem: how agents use experience from web environments. Its tasks include changing state, workflow knowledge, and recognizing misleading premises. The benchmark asks memory systems to gather evidence for answering questions from earlier trajectories.
 
-That framing is useful. A long history and a useful answer are separate achievements. The paper also reports latency costs for its stronger methods. Better answers can cost time.
+Keeping a long history is one thing. Using it to answer well is another. The paper also reports latency costs for its stronger methods. Better answers can cost time.
 
 My meeting example is not a result from that benchmark. It is a smaller proposed test inspired by the same distinction: what was retained, what was selected, and what the answer actually used.
 
@@ -47,13 +47,13 @@ A preference should be editable without an argument. “You told me this before�
 
 I also want the interface to distinguish replacing a preference from deleting a record. A system might stop using an old note while retaining it in history. That can be useful for explaining a past decision, but it is not the same as erasure. If I request deletion, the product needs to describe what it removes, including derived summaries and any retention limits.
 
-This is where the friendly language has to meet the actual machinery. “Of course, I have forgotten that” is a poor substitute for checking what can still be retrieved.
+The friendly language needs to match what the software does. “Of course, I have forgotten that” is a poor substitute for checking what can still be retrieved.
 
 ## Try to make it fail
 
-A useful experiment would compare three versions of the same task: no saved history, the relevant original messages, and a summary of those messages. Keep the model and instructions fixed. Repeat the test because a single good answer proves little.
+I would compare three versions of the same task: no saved history, the relevant original messages, and a summary of those messages. Keep the model and instructions fixed. Repeat the test because a single good answer proves little.
 
-Then introduce a correction. Try a temporary exception. Include an ambiguous update where asking a question is better than guessing. Finally, remove the old record and check the retrieval path directly.
+Then introduce a correction and try a temporary exception. Include an ambiguous update where asking a question is better than guessing. Finally, remove the old record and check the retrieval path directly.
 
 I would score use of the current preference separately from whether the assistant correctly explains its source. It could suggest a good meeting time for the wrong reason. It could also quote the right note and still ignore it.
 
@@ -61,4 +61,4 @@ I would score use of the current preference separately from whether the assistan
 
 The experiment would tell us something about memory behavior. It would not establish whether the system experiences remembering. That remains a different question, as I discuss in [What persists when the conversation ends?](/writing/what-persists-when-the-conversation-ends).
 
-What matters to me here is quite ordinary. People change their plans, habits, and minds. I want the software to leave room for that. Remembering me should include listening when I tell it something new.
+What I want here is ordinary. People change their plans, habits, and minds. I want the software to leave room for that. Remembering me should include listening when I tell it something new.

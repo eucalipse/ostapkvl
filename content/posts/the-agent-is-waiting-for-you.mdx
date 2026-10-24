@@ -12,7 +12,7 @@ Imagine returning to a desk with several coding sessions open. One is running te
 
 All three windows look busy enough at a glance. Only one needs you now.
 
-That is the part of an agent console I find interesting. I do not want to spend the time saved by delegation searching for the next decision.
+That is what I want an agent console to show me. I do not want to spend the time saved by delegation searching for the next decision.
 
 [Ed Engelking II’s write-up of Podium](https://edengelking.com/blog/podium-a-control-room-for-claude-code/) made this problem concrete. His console brings Claude Code sessions and their child agents into one view, with optional browser responses. Podium is his project, not mine. Reading about it prompted a design question for my own workflow: what should the first screen ask me to notice?
 
@@ -22,19 +22,19 @@ A grid of cards gives a useful sense of the room. I would still put a decision i
 
 Consider a hypothetical task that changes a supplier import. One worker needs to know whether to preserve an old field. Another has completed a copy update. A third is offline, and the console has no recent information about it.
 
-Those situations should not compete for attention using the same green or amber badge. The first needs a choice. The second needs review when there is time. The third needs an honest statement that the picture may be out of date.
+Using the same green or amber badge for all of them makes me do the sorting. The first needs a choice. The second needs review when there is time. The third needs an honest statement that the picture may be out of date.
 
 <Figure src="/writing/the-agent-is-waiting-for-you/inbox.svg" alt="A proposed decision inbox separates an unresolved schema question, a patch ready for review, and a disconnected reporter whose current state is unknown. The examples are synthetic." caption="Original interface sketch with synthetic tasks. This is a proposal, not a screenshot of Podium or a working console." />
 
-The useful unit is a question with context: what is blocked, who owns it, what happens after a decision, and which revision the question concerns. A summary should help me return to the original session without reconstructing the task from its title.
+For each question, I want the context: what is blocked, who owns it, what happens after a decision, and which revision the question concerns. A summary should help me return to the original session without reconstructing the task from its title.
 
-I would not automatically make the oldest item the most important. A long-running optional experiment may matter less than a small decision blocking several dependent tasks. The console needs visible reasons for its ordering, and a way to disagree with them.
+I would not automatically make the oldest item the most important. A long-running optional experiment may matter less than a small decision blocking several dependent tasks. The console should show why it put one item first and let me change that order.
 
 ## Unknown is a real state
 
 The collector disappearing does not mean the agent finished. A quiet session may be waiting, working without new events, or disconnected.
 
-This is where an attractive dashboard can become misleading. Every status needs a freshness boundary. “Running, last observed recently” is different from “running, reporter missing.” Missing telemetry should not become a reassuring zero.
+A dashboard can look good and still mislead me. Every status needs to say when it was last observed and when it becomes stale. “Running, last observed recently” is different from “running, reporter missing.” Missing telemetry should not become a reassuring zero.
 
 The same applies to context and cost. If an adapter cannot report context usage, show that it is unavailable. If cost comes from token counts and a pricing table, call it an estimate. Do not make a precise-looking total by mixing unlike measurements.
 
@@ -46,7 +46,7 @@ A session tree can tell me how many workers exist. It cannot, by itself, tell me
 
 I would attach evidence to the revision it actually checks. A test run on yesterday’s branch should not light up today’s integration candidate. If a worker changes a shared interface, the console should make the affected dependencies visible rather than congratulate everyone for completing their separate tasks.
 
-This is the same problem I describe in [Parallel agents need an integration plan](/writing/parallel-agents-shared-codebase). A control room makes coordination visible; it does not remove the need for it.
+This is the same problem I describe in [Parallel agents need an integration plan](/writing/parallel-agents-shared-codebase). A control room lets me see the coordination work. Someone still has to do it.
 
 I would resist ranking people by token usage or number of spawned agents. Both can rise when the work is going badly. A useful pilot would measure waiting time, repeated interruptions, integration failures, and time to an accepted result.
 
@@ -54,8 +54,8 @@ I would resist ranking people by token usage or number of spawned agents. Both c
 
 Anthropic’s [mods documentation](https://code.claude.com/docs/en/plugins/mods/overview) describes in-process handlers that can observe or change session events. That makes richer integration possible, but the exact capabilities still need checking against the runtime version in use.
 
-My first experiment would be deliberately smaller than a fleet platform: a few sessions, one machine, no remote approval button. Collect enough information to show where attention is needed, then test whether that saves actual context switching.
+I would start small: a few sessions, one machine, no remote approval button. Collect enough information to show where attention is needed, then test whether that saves actual context switching.
 
 Before building another console, I would compare the requirements with [Podium’s existing implementation](https://github.com/eengelking/podium). Extending a useful open-source project may be a better decision than creating another dashboard.
 
-The test is simple to describe, even if it takes care to run: when I return to the desk, do I find the right decision sooner? If the screen only gives me another place to watch work happen, I have added a window rather than removed a problem.
+I would test one thing, carefully: when I return to the desk, do I find the right decision sooner? If the screen only gives me another place to watch work happen, I have added a window rather than removed a problem.

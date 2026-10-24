@@ -11,13 +11,13 @@ Imagine writing a long message, deleting most of it, and finally sending: “Can
 
 An assistant replies, “Of course. One thing at a time.”
 
-That can be a good response. It respects the request. It does not demand an explanation. It leaves you with less to handle.
+That can be a good response. It respects the request without asking you to explain yourself. You have less to handle.
 
 Now imagine the reply continuing: “I know exactly how you feel. I have been thinking about you.”
 
 The interaction has changed. The words suggest something about an inner life and activity between conversations. Before deciding whether those claims are justified, I want to know what the system actually did.
 
-I use these imagined exchanges because the difference is small enough to fit on a screen and large enough to affect the relationship someone thinks they are entering.
+These imagined replies differ by a few words on a screen. Those words can change the relationship someone thinks they are entering.
 
 <Figure src="/writing/when-an-assistant-says-i-understand/conversation.svg" width={1200} height={800} alt="Two alternative assistant replies respond to the same request for simplicity. One adjusts the interaction; the other adds claims about feelings and activity between sessions." caption="Invented dialogue comparing responsiveness with additional claims about the system." />
 
@@ -25,9 +25,9 @@ I use these imagined exchanges because the difference is small enough to fit on 
 
 An assistant can keep an answer brief, remember an instruction, or ask before offering advice. Those are things a person can experience directly.
 
-I do not think we need to dismiss the relief someone feels when software responds usefully. A conversation can help a person organize a difficult thought. That human experience deserves a better response than “it is just text.”
+I take seriously the relief someone can feel when software responds usefully. A conversation can help a person organize a difficult thought. That human experience deserves a better response than “it is just text.”
 
-But the meaning of an interaction to its user does not, by itself, establish what the system experiences. These questions can sit beside each other without forcing an answer to either one.
+But the meaning of an interaction to its user does not, by itself, establish what the system experiences. We can ask both questions without forcing an answer to either one.
 
 The December 2025 preprint [Humanlike AI Design Increases Anthropomorphism but Yields Divergent Outcomes on Engagement and Trust Globally](https://arxiv.org/abs/2512.17898) studies the human side. In its experiments, humanlike design increased anthropomorphism, while trust and engagement effects varied across contexts. I would be careful about turning that into a universal design recipe. It measures people's responses to systems, not the systems' subjective experience.
 
@@ -35,25 +35,25 @@ The December 2025 preprint [Humanlike AI Design Increases Anthropomorphism but Y
 
 ## A sentence about a mind is still a sentence
 
-If a model says it is confused, that report might be useful. It could prompt a clarification or warn us that the answer needs checking. It still leaves open how the report was produced and how reliable it is.
+If a model says it is confused, that report might be useful. It could prompt a clarification or warn us that the answer needs checking. We still need to ask how it produced that report and whether we can rely on it.
 
 Anthropic's October 2025 [introspection study](https://www.anthropic.com/research/introspection) approached part of this problem through controlled interventions on internal representations. It found limited, unreliable abilities to report injected concepts under particular conditions. The researchers explicitly distinguish those findings from establishing consciousness.
 
 That is a different kind of evidence from asking a chatbot whether it has feelings. An experimenter controls a change and compares a report against it. Even then, the interpretation has limits.
 
-In an application I can inspect stored messages, prompts, retrieved notes, and tool calls. That is valuable evidence about the application. It does not give me the experimental access to model internals used in that study.
+In an application I can inspect stored messages, prompts, retrieved notes, and tool calls. Those records tell me useful things about the application. Those records do not give me the experimental access to model internals used in that study.
 
 <Figure src="/writing/when-an-assistant-says-i-understand/evidence.svg" width={1200} height={800} alt="An evidence ledger contrasts a self-report, an application trace, and a controlled model intervention, identifying what each can be checked against." caption="Three kinds of evidence and what each can be checked against." />
 
 ## What I would put on the screen
 
-I would prefer a small, understandable explanation near the place where a claim matters.
+I want a short, plain explanation beside the claim it explains.
 
 If the assistant uses an old preference, let me inspect the note. If a scheduled task ran while I was away, show what ran and when. If nothing ran, avoid language that implies the system spent the evening waiting or worrying.
 
 This does not require a cold interface. “You asked for a shorter version last time; would that help today?” can be both considerate and specific. It gives the person a way to say no.
 
-A memory control matters more here than another paragraph about trust. So does a visible way to pause notifications or remove a preference. The interaction should not become harder to leave because the writing became more persuasive.
+A memory control matters more here than another paragraph about trust. So does a visible way to pause notifications or remove a preference. More persuasive writing should not make it harder to leave.
 
 <Figure src="/writing/when-an-assistant-says-i-understand/interface.svg" width={1200} height={800} alt="A proposed assistant panel offers a shorter answer, shows the saved preference used, and provides controls to change the preference or pause reminders." caption="Illustrative interface, using synthetic text. Controls shown are design proposals." />
 
@@ -61,6 +61,6 @@ A memory control matters more here than another paragraph about trust. So does a
 
 I do not know a simple test that turns a fluent exchange into a settled answer about consciousness. Nor does uncertainty give a product permission to imply whatever makes the conversation more compelling.
 
-For me, the practical test is whether the system's behavior supports its words. If it says it remembered, can I inspect what it used? If it says it acted, can I see the result? If it says it will stop, does it?
+I check whether the system does what its words suggest. If it says it remembered, can I inspect what it used? If it says it acted, can I see the result? If it says it will stop, does it?
 
 “I understand” can be a conversational courtesy. I would still rather have an assistant demonstrate that it understood the request: a shorter answer, an accurate correction, a question instead of an assumption. Start there. Let the larger question stay a question.

@@ -61,7 +61,7 @@ export const experience: CvEntry[] = [
     "orgLinkedin": site.eucalipseLinkedin,
     "note": "Agency founded in 2019; 50+ projects shipped",
     "bullets": [
-      "Lead architecture and delivery for AI-enabled operations systems and custom software through Eucalipse.",
+      "Founder-level role in an independently run studio: I set direction and review architecture for AI-enabled operations systems and custom software; the Eucalipse team delivers.",
       "Design agent workflows around business data, typed actions, human review, and traceable execution; develop retrieval, model routing, integrations, and evaluation approaches.",
       "Work with clients on architecture, implementation, and the transition from prototypes to maintainable systems."
     ]

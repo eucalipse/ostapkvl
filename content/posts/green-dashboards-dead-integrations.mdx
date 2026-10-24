@@ -9,7 +9,7 @@ tags: ["Reliability"]
 
 We found three broken integrations in one afternoon because we were trying to record a demo.
 
-That is the embarrassing version, and also the useful one. We had health checks. We had logs. We had scheduled jobs that kept running. What we did not have was evidence that a request could still travel through the system and come back with an answer.
+Embarrassing, but useful. We had health checks and logs, and the scheduled jobs kept running. What we did not have was evidence that a request could still travel through the system and come back with an answer.
 
 I build AI agents that help run business operations. A lot of that work happens between systems: a comment arrives, the assistant reads the context, something gets drafted or answered. When those connections stop working, there may be nothing visibly wrong. A person asks a question, gets no answer, and carries on without the assistant.
 
@@ -21,13 +21,13 @@ The first failure was in our shared inbox tool. People could mention the assista
 
 The tool started sending comment events under a new event name. Our handler only matched the old names. The requests still reached us. We received them, wrote a line to the log, and then ignored them because they did not match a branch we handled.
 
-Mentions could follow that path without producing an assistant response.
+A mention could pass through all of that and get no response.
 
 There was no exception. Nothing timed out. The webhook endpoint had done exactly what its code said to do. Unfortunately, that code treated an event it did not recognize as something uninteresting.
 
 A log line saying that an event arrived looked like evidence the integration worked. It only proved that the first part worked. We were not checking whether the event became an assistant request, or whether that request produced a reply.
 
-The fix started with handling the new event. But stopping there would have left the same mistake waiting for the next change.
+We added a handler for the new event. Without other changes, the next renamed event could break it again.
 
 We needed tests for both payload shapes, using representative examples of the old and new events. Each test had to reach the same outcome: a comment mentioning the assistant becomes work for the assistant. A test that only checks whether the endpoint accepts the payload would have passed throughout the failure.
 
@@ -39,9 +39,9 @@ The next failure was in the background worker that diagnoses errors. Its product
 
 Every item it tried to process failed with "401 unauthorized", the API's way of saying the key is no good. Meanwhile, the health endpoint kept saying ok.
 
-The worker existed. It could wake up and attempt work. It could not perform the task it was there to perform. Our health check never reached the dependency that made that task possible.
+The worker could wake up and attempt work. It just could not do its job. Our health check never reached the dependency that made that task possible.
 
-There was an uncomfortable detail here: the worker meant to help explain errors was itself broken. That made it especially important for its failure to be visible somewhere outside its own diagnosis path.
+The worker meant to explain errors was itself broken. Awkward. We needed to see its failure somewhere outside its own diagnosis path.
 
 Then we looked at Slack.
 
@@ -63,7 +63,7 @@ For that, I want to know when it last completed useful work. Could it authentica
 
 Those answers need separate states. A successful read with no new messages is idle. A failed read is an error. An authentication failure should mark the job as failed and alert someone who can fix the credentials or account. It should never become an empty result.
 
-We also needed to pay attention to suspicious zeroes.
+We also needed to investigate suspicious zeroes.
 
 Suppose a supplier inbox usually produces assistant requests during the working week. Then it produces none. That does not prove something is broken. The team might be away, or the workflow might have changed. But it is enough to ask whether the source is still connected.
 
@@ -75,7 +75,7 @@ I would also put the last successful completion beside the current status. “Ru
 
 Watching real traffic still leaves a gap. Sometimes there genuinely is no work. We need a way to test the path without waiting for a person to discover it is broken.
 
-That is what an end-to-end canary is for.
+An end-to-end canary can do that.
 
 A scheduler posts a synthetic message in a designated test location. The message mentions the assistant and asks for a harmless, recognizable response. It enters through the same integration as an ordinary request. The assistant processes it and posts a reply. A separate checker waits for that reply and alerts if it does not arrive within the expected window.
 
@@ -83,15 +83,15 @@ A scheduler posts a synthetic message in a designated test location. The message
 
 The checker needs to look at the destination. An internal “reply sent” log is not enough. Give each synthetic request an identifier so an old reply cannot satisfy a new check.
 
-The message should exercise a small, safe task. An illustrative example is asking the assistant to acknowledge a test supplier reference. It should not contact a supplier or change an operational record.
+The message should exercise a small, safe task. For example, ask the assistant to acknowledge a test supplier reference. It should not contact a supplier or change an operational record.
 
-This also makes loop guards necessary. The assistant must recognize its own account and ignore its own replies. Otherwise, the reply can arrive as another comment event and start another run. Tests should cover both incoming payload shapes and the assistant’s outgoing messages returning through the webhook.
+That path also needs loop guards. The assistant must recognize its own account and ignore its own replies. Otherwise, the reply can arrive as another comment event and start another run. Tests should cover both incoming payload shapes and the assistant’s outgoing messages returning through the webhook.
 
 The checker itself needs watching too: if a scheduled check does not run, that should also raise an alert. And the alert path needs to be independent. If we are checking Slack access, relying only on that same Slack integration to report failure defeats the check.
 
 ## The demo was an accidental audit
 
-A demo forces a useful sequence. Start where a person starts. Make a request. Wait for the result. Look at the place where the result should appear.
+A demo makes you follow the whole sequence. Start where a person starts. Make a request. Wait for the result. Look at the place where the result should appear.
 
 That afternoon, we finally did that across paths we had assumed were working.
 

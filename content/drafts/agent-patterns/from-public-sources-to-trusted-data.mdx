@@ -7,9 +7,9 @@ category: "Experiments"
 draft: true
 ---
 
-Public information is often available without being usable. It may be spread across pages, documents, embedded tools, and feeds. Sources move, formats change, and an apparently relevant page can belong to the wrong organization.
+Finding public information does not mean you can use it yet. It may be spread across pages, documents, embedded tools, and feeds. Sources move, formats change, and an apparently relevant page can belong to the wrong organization.
 
-In a data infrastructure project I work on, the core challenge is turning that fragmented material into structured records that can be checked and refreshed. I describe it here as local information infrastructure, leaving the particular product category and dataset out of the discussion.
+In a data infrastructure project, I work on turning those scattered sources into structured records we can check and refresh. I describe it here as local information infrastructure, leaving the particular product category and dataset out of the discussion.
 
 The architecture below reflects the repository's discovery and validation components. It does not imply that every source is correct or that every stage operates without supervision.
 
@@ -19,17 +19,17 @@ The architecture below reflects the repository's discovery and validation compon
 
 The discovery pipeline starts with predictable locations, then scores links from the source site. Model-assisted classification is a later step when simpler methods have not settled the question. Extraction follows discovery.
 
-This order matters. A known format or stable path does not need an open-ended investigation. Reserve model calls for ambiguous structure and content, where interpretation can add value.
+A known format or stable path does not need an open-ended investigation. Reserve model calls for ambiguous structure and content, where a model can help interpret what it finds.
 
 Each stage should preserve how it reached its result. Finding a source through a predictable path and selecting one through model classification are different kinds of evidence. Keeping that distinction makes debugging and later rechecking easier.
 
 ## A plausible page can be the wrong source
 
-One of the most instructive checks in this project rejects generic provider pages that resemble an organization's own source.
+One useful check rejects generic provider pages that resemble an organization's own source.
 
 Imagine a shared software vendor publishing a demonstration page. It contains realistic records and relevant language. An extractor may read it perfectly and still associate its contents with the wrong organization.
 
-This is an identity problem before it is an extraction problem. The question is not only "does this page contain usable data?" It is also "does this source actually represent the entity we are updating?"
+Before extracting anything, we need to check whose page it is. The question is not only "does this page contain usable data?" It is also "does this source actually represent the entity we are updating?"
 
 The implementation includes explicit validation rules and a distinction between passing checks and qualifying for automatic approval. Model confidence is an input to that decision, not a substitute for those rules.
 
@@ -37,22 +37,22 @@ The implementation includes explicit validation rules and a distinction between 
 
 A useful pipeline preserves the source, discovery method, parser version, and processing outcome. The repository contains structures for tracking sources and parse runs, along with an administrative review queue.
 
-That separation allows a candidate to remain unresolved instead of being forced into accepted or discarded too early. It also gives an operator somewhere to inspect failures without rerunning the entire discovery process.
+A candidate can stay unresolved until we have enough evidence to accept or discard it. The review queue also gives an operator somewhere to inspect failures without rerunning the entire discovery process.
 
 For a public-facing product, I would make acceptance mean something explicit: the required checks passed for this source and this extraction. It should not mean the data has become permanently true.
 
 ## Freshness is another kind of correctness
 
-A record can be extracted accurately and become stale later. Successful processing therefore cannot be the only reason to skip a source forever.
+A record can be extracted accurately and become stale later. Processing a source successfully once is no reason to skip it forever.
 
-The pipeline has a forced re-extraction option alongside its normal skip behavior. The general design lesson is to distinguish initial discovery from refresh policy. Known sources need revisiting even when they produced useful records before.
+The pipeline has a forced re-extraction option alongside its normal skip behavior. I treat initial discovery and refresh policy as separate jobs. Known sources need revisiting even when they produced useful records before.
 
 The refresh policy should account for change frequency and the consequence of stale information. When an update fails, preserve the difference between previously accepted data and newly verified data. Otherwise the interface can imply freshness that the pipeline has not established.
 
 ## Measure accepted usefulness
 
-The count of extracted records tells only part of the story. I would also track source attribution errors, review backlog, stale records, refresh failures, and corrections after acceptance.
+Counting extracted records does not tell me whether they are useful. I would also track source attribution errors, review backlog, stale records, refresh failures, and corrections after acceptance.
 
 Those measurements point to different fixes. Wrong attribution needs better source checks. Unreadable documents need extraction work. Stale records need a refresh strategy. A model upgrade cannot be assumed to solve all three.
 
-The product may ultimately present a simple record or subscription. Behind it is a continuing process of finding evidence, interpreting it, deciding what can be accepted, and checking again when the world changes.
+The user may only see a simple record or subscription. Behind it is a continuing process of finding evidence, interpreting it, deciding what can be accepted, and checking again when the world changes.

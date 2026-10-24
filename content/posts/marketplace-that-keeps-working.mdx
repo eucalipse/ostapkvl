@@ -7,11 +7,11 @@ category: "Experiments"
 tags: ["Agent architecture", "Data systems"]
 ---
 
-A marketplace looks like a collection of pages. Keeping those pages useful is an ongoing operation: information changes, listings need attention, messages arrive, and gaps appear in the catalog.
+A marketplace looks like a collection of pages. Keeping those pages useful takes ongoing work: information changes, listings need attention, messages arrive, and gaps appear in the catalog.
 
-In a marketplace project I work on, I have been building automation around that ongoing work. The interesting goal is a product that keeps useful processes moving between human visits. That is a narrower claim than a business that runs itself, and a more useful engineering target.
+In a marketplace project I work on, I have been building automation around that ongoing work. I want useful work to keep moving between human visits. That gives me something concrete to build. A business that runs itself is a much larger claim.
 
-This is an architectural account based on the implementation, with product names and operational details omitted. It is not a claim that every available workflow is currently enabled.
+I describe the architecture as implemented here, leaving out product names and operational details. It is not a claim that every available workflow is currently enabled.
 
 <Figure src="/writing/marketplace-that-keeps-working/flow.svg" alt="An observed signal passes an allowed-work gate into a bounded job, or goes to an exception queue. Human policy determines the operating envelope." caption="Illustrative mechanism with synthetic examples; not measured production results." />
 
@@ -19,13 +19,13 @@ This is an architectural account based on the implementation, with product names
 
 The implementation separates marketplace surfaces from background jobs. Its job catalog includes discovery, enrichment, content preparation, reporting, and inbox workflows. Scheduling and explicit triggers provide different ways to start work.
 
-The useful abstraction is a job with a known purpose, a bounded execution, and a recorded outcome. A language model can help interpret unstructured material inside that job. It does not need to decide the entire operating policy on every run.
+I start with a job: give it a clear purpose, limit its run, and record what happened. A language model can help interpret unstructured material inside that job. It does not need to decide the entire operating policy on every run.
 
 I think of the product as several smaller loops: maintaining information, handling incoming signals, and bringing exceptions back to an operator. They can run at different frequencies and have different permissions.
 
 ## Automation should follow the product's current needs
 
-More catalog entries are not always the next useful outcome. The marketplace might need better existing listings, stronger ownership verification, or a clearer path from interest to a completed interaction.
+Adding more catalog entries is not always the most useful next step. The marketplace might need better existing listings, stronger ownership verification, or a clearer path from interest to a completed interaction.
 
 That is why I would avoid using "self-regulating" to mean that the model independently sets business priorities. The implementation includes controls for pausing categories of work. Human choices still determine which activities are worth running.
 
@@ -33,15 +33,15 @@ A recurring schedule is open-loop automation until its outcomes affect what happ
 
 ## Preserve distinctions the model would otherwise flatten
 
-A discovered business is different from a business that has claimed its listing. An enriched description is different from verified availability. An incoming request is different from a confirmed transaction.
+Finding a business does not mean that business has claimed its listing. A better description is not verified availability. And an incoming request is still a long way from a confirmed transaction.
 
 These distinctions belong in the product's state and interface. Better prose cannot resolve missing evidence. If an automated process improves a description, it should not silently upgrade the commercial status of the listing.
 
-Similarly, an attempted enrichment should be distinguishable from a successful one. Marking both as processed may prevent repeated spending, but it can also hide unresolved quality problems. Explicit failed, skipped, and completed states make the next operational decision easier.
+We also need to show whether enrichment was attempted and whether it succeeded. Marking both as processed may prevent repeated spending, but it can also hide unresolved quality problems. Explicit failed, skipped, and completed states make the next operational decision easier.
 
 ## Give each worker a narrow responsibility
 
-The implementation separates jobs such as discovery, enrichment, translation, reporting, and inbox processing. These names matter because they describe different permissions and different definitions of success.
+The implementation separates jobs such as discovery, enrichment, translation, reporting, and inbox processing. Each job needs different permissions and its own definition of success.
 
 A discovery job can propose a new source. An enrichment job can prepare a better description from available material. An inbox workflow can classify a request and prepare a reply. None of those outcomes should silently stand in for a confirmed transaction or an owner-verified listing.
 
@@ -49,27 +49,27 @@ The sequence below is a conceptual view of those responsibilities, not a claim t
 
 <Figure src="/writing/marketplace-that-keeps-working/workers.svg" alt="Eligible work is split between discovery, enrichment, and request handling, each with a separate responsibility before result review." caption="Illustrative mechanism with synthetic examples; not measured production results." />
 
-The distinction between a successful operation and a successful business outcome matters here too. Saving a description proves that a record was updated. It does not prove that someone found the right service or received a useful response.
+A job can succeed without helping the business. Saving a description proves that a record was updated. It does not prove that someone found the right service or received a useful response.
 
 ## Work with incomplete information
 
 Marketplace data rarely arrives as a clean form. A source may contain an old description, several contact details, or an image that is hard to interpret. A model can help organize this material, but the system still needs a way to represent what remains unknown.
 
-My preferred rule is to make missing information visible rather than manufacture completeness. A listing without a verified detail can remain incomplete. A request that cannot be matched confidently can go to review.
+I would rather show a gap than fill it with a guess. A listing without a verified detail can remain incomplete. A request that cannot be matched confidently can go to review.
 
 Provider fallback addresses a different problem. It can help when one service is unavailable or unsuitable for a particular input, but another provider returning an answer does not establish that the answer is true. The acceptance checks should survive a provider change.
 
-In a mature version of this system, I would want every operator to answer three questions quickly: what changed, why was that change allowed, and what still needs a decision? Those are design targets, not guarantees supplied by the presence of an agent.
+In a mature version of this system, I would want every operator to answer three questions quickly: what changed, why was that change allowed, and what still needs a decision? Those are things I want to build. Adding an agent does not guarantee them.
 
 ## Stopping is part of the design
 
-The code includes category-level pauses. That is a valuable reminder that autonomy needs an off switch at the level where cost and risk occur.
+The code includes category-level pauses. We need to be able to stop the category of work that is costing too much or causing trouble.
 
 The stronger version of this pattern combines batch limits, run history, timeouts, and an operator's ability to suspend one workflow while leaving unrelated work available. A single global on/off switch is too coarse for a product with several kinds of automation.
 
-The human role shifts toward deciding priorities, reviewing exceptions, and checking whether the loops are producing useful outcomes. Those are substantial responsibilities. Automating routine work does not remove them.
+The human role shifts toward deciding priorities, reviewing exceptions, and checking whether the loops are producing useful outcomes. That is still substantial work, even with routine jobs automated.
 
-A marketplace can feel alive because information is maintained and incoming work is noticed. The engineering achievement is making those processes dependable and inspectable, with enough control to change direction when the business needs something different.
+A marketplace can feel alive because information is maintained and incoming work is noticed. My job is to make those processes dependable, let people inspect them, and give them enough control to change direction when the business needs something different.
 
 ## Sources and further reading
 

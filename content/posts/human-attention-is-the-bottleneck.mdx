@@ -11,7 +11,7 @@ Imagine a review queue filling with drafted replies, extracted fields, and propo
 
 I want to build interfaces that help with that decision. Showing every field with the same emphasis leaves the reviewer to discover which details matter. A source conflict can sit beside a routine label and look equally ordinary.
 
-The design question is where to ask for attention, what evidence to put there, and how to tell whether the interface actually helps.
+I need to decide where the reviewer should look and what evidence they need there. Then I need to check whether that helps.
 
 ## Not every check deserves the same attention
 
@@ -23,7 +23,7 @@ I would put guesses, conflicting sources, and missing required checks at the top
 
 <Figure src="/writing/human-attention-is-the-bottleneck/attention-budget.svg" width={1200} height={930} alt="Two synthetic supplier review screens compare a uniform list with a decision-focused interface. The second screen highlights conflicting bank details and an ambiguous date, allows inspection of source-matched fields, and blocks saving until the issues are resolved." caption="Illustrative interfaces using synthetic data. The difference is what the reviewer is asked to decide, not a measured speed improvement." />
 
-The intended benefit is to spend less effort finding the problem and more effort deciding what to do about it. That needs to be tested: measure review time and missed errors together. A faster approval is not an improvement if reviewers overlook more mistakes.
+I want reviewers to spend less time hunting for the problem so they can spend more time deciding what to do. That needs to be tested: measure review time and missed errors together. A faster approval is not an improvement if reviewers overlook more mistakes.
 
 ## Route by what a mistake costs, not by confidence alone
 
@@ -31,7 +31,7 @@ The usual way to decide what a person must check is a confidence threshold. If t
 
 Confidence alone is a bad router, for two reasons. First, models are often confidently wrong, especially when a source is stale. Second, and more important, a 95% sure guess about an email tag and a 95% sure guess about a supplier's bank account are not the same thing. The first mistake costs a minute. The second can cost real money and a very bad week.
 
-What works better is to look at two things together: how unsure the model is, and what it costs if it is wrong.
+Look at two things together: how unsure the model is, and what it costs if it is wrong.
 
 <Figure src="/writing/human-attention-is-the-bottleneck/risk-matrix.svg" width={1200} height={890} alt="A risk map places internal labels and payment recipient changes against uncertainty and mistake cost. High-impact actions require verification and approval even when sources agree; uncertain low-impact actions may be sampled or clarified." caption="Illustrative policy examples, not calibrated risk scores. Context and existing controls determine the actual impact." />
 
@@ -42,21 +42,21 @@ In practice this turns into a short list of rules, written down where everyone c
 - Medium impact: propose it. A person approves with one click.
 - High impact: a person decides. The AI prepares everything the person needs, but never acts on its own.
 
-The interesting part is that these rules are about meaning, not about code paths or confidence numbers. "A new supplier outside our usual country goes to a person." "Any field where somebody wrote 'other' goes to a person." "Everything else can be drafted automatically." A manager can read that and argue with it. A threshold alone does not explain which consequence the business is willing to accept.
+These rules describe business decisions. Someone can read them without knowing the code paths or confidence numbers. "A new supplier outside our usual country goes to a person." "Any field where somebody wrote 'other' goes to a person." "Everything else can be drafted automatically." A manager can read that and argue with it. A threshold alone does not explain which consequence the business is willing to accept.
 
 ## Review the intent, not the diff
 
 Engineers know this problem from code review. When a reviewer gets a two thousand line diff, they skim it. When they get two lines with a clear sentence about why, they actually think.
 
-For business work, I would start each review with the request, what is unusual, and what needs a decision. For example: "New supplier, standard payment terms, start date inferred from the email, bank details differ between two sources." The summary guides attention; the underlying fields and source evidence remain accessible.
+For business work, I would start each review with the request, what is unusual, and what needs a decision. For example: "New supplier, standard payment terms, start date inferred from the email, bank details differ between two sources." The summary tells the reviewer where to look. They can still open the fields and source evidence.
 
-That is the experience I want from an assistant: preparation that leads to a clear question. The summary itself also needs checking, because a model can omit the very issue a reviewer needed to see.
+I want the assistant to do the preparation, then ask me a clear question. The summary itself also needs checking, because a model can omit the very issue a reviewer needed to see.
 
 <Figure src="/writing/human-attention-is-the-bottleneck/request-evidence.svg" width={1200} height={870} alt="A synthetic supplier request asks to start early next month and supplies bank details. The agent proposes a date and account, but the exact date is unsupported and the account conflicts with the existing record. Human clarification and independent verification are required before saving." caption="An annotated example: the proposal, evidence, and decision remain separate. All names and values are illustrative." />
 
 ## What this means if you are building with AI
 
-A few practical things I would build into this design:
+Here is what I would build into it:
 
 **Measure review time, not only accuracy.** If the model gets better but reviewers take just as long, you have not saved anything. Record how long each review takes and how many fields people changed. Pair those measures with missed errors and downstream corrections.
 
@@ -64,9 +64,9 @@ A few practical things I would build into this design:
 
 **Write the routing rules in plain language.** Keep them in a place where the people who carry the risk can read them and change them. If only engineers can see why something went to review, nobody else will trust the system.
 
-**Never hide the thing the model did not check.** If a required source was not available, say so on the screen. A missing check that is shown lets a person decide what to do. If the check is required, the draft should stay blocked until it is done. A missing check that is hidden is how a wrong value slips through quietly.
+**Never hide the thing the model did not check.** If a required source was not available, say so on the screen. Seeing that gap lets a person decide what to do. If the check is required, the draft should stay blocked until it is done. Hide the missing check and a wrong value can slip through quietly.
 
-The model will keep getting faster and cheaper. People will not. The tools that win will be the ones that treat a person's attention as the most expensive thing in the room, and spend it only where it matters.
+The model will keep getting faster and cheaper. People will not. I expect the best tools to treat a person's attention as the most expensive thing in the room. Spend it where it matters.
 
 <Figure src="/writing/human-attention-is-the-bottleneck/attention-routing.svg" width={1200} height={900} alt="A qualitative routing map separates routine reversible work, uncertain low-impact work, and high-impact or conflicting work. Policy determines execution and review, while monitoring can return any category to human oversight." caption="A conceptual routing policy. The lanes do not represent measured volumes or percentages." />
 

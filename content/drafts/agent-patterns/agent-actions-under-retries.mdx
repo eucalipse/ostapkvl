@@ -12,9 +12,9 @@ draft: true
 
 Imagine an agent submitting a service request. The API accepts it, creates the record, and then the connection drops before the response arrives.
 
-The agent sees a timeout. The business sees a completed action. Retrying without understanding that difference can create a second request.
+The agent sees a timeout, but the action has already happened. If it retries without checking, it can create a second request.
 
-This hypothetical example exposes a useful boundary. A tool schema can validate required fields. It cannot establish whether the action is authorized, whether the data is current, or whether an earlier attempt already succeeded.
+In this hypothetical example, a valid tool call is not enough. A tool schema can validate required fields. It cannot establish whether the action is authorized, whether the data is current, or whether an earlier attempt already succeeded.
 
 ## Give the operation an identity
 
@@ -26,7 +26,7 @@ Attempt 1: provider accepted; response lost
 Attempt 2: reconcile or retry operation R
 ```
 
-A retry keeps the operation identity. Generating a fresh identity on every attempt defeats deduplication. Reusing one for genuinely new work suppresses legitimate actions. This decision belongs in application code using explicit business semantics.
+A retry keeps the operation identity. Generating a fresh identity on every attempt defeats deduplication. Reusing one for genuinely new work suppresses legitimate actions. Application code should decide which work is new, using explicit business rules.
 
 [Stripe's idempotent request API](https://docs.stripe.com/api/idempotent_requests) is a concrete example: it stores results for an idempotency key and checks subsequent parameters. Its retention and error behavior belong to that specific contract. Another integration may offer different guarantees, or none.
 
@@ -34,9 +34,9 @@ A retry keeps the operation identity. Generating a fresh identity on every attem
 
 Suppose a reviewer approves creating a request for company A, but the agent later changes the target to company B. The earlier approval should not survive just because the operation name is unchanged.
 
-A proposed design would store the target, normalized payload, relevant resource version, and approval together. A material payload change creates a new proposal. At execution, the server checks current permissions and resource preconditions again.
+I would store the target, normalized payload, relevant resource version, and approval together. A material payload change creates a new proposal. At execution, the server checks current permissions and resource preconditions again.
 
-Permission can be revoked or a record can change after approval. Approval records intent at a moment in time; execution still needs to establish that the action is valid now. The model should not be able to manufacture approval or bypass authorization through another tool.
+After approval, someone can revoke permission or change the record. Approval records intent at a moment in time; execution still needs to establish that the action is valid now. The model should not be able to manufacture approval or bypass authorization through another tool.
 
 ## Make uncertainty an explicit state
 
@@ -46,15 +46,15 @@ proposed -> approved -> running -> succeeded
                             -> outcome_unknown -> reconciling
 ```
 
-An unknown outcome differs from a confirmed failure. Query the provider using an operation reference where supported. If the outcome remains ambiguous and repetition would be costly, stop automatic retries and request an operational decision.
+“We do not know what happened” is different from “it failed.” Query the provider using an operation reference where supported. If the outcome remains ambiguous and repetition would be costly, stop automatic retries and ask an operator to decide.
 
-A local database transaction cannot guarantee exactly-once effects in an unrelated service. An outbox can durably record intent, but its consumer still needs deduplication or reconciliation. Define the boundary before claiming exactly-once behavior.
+A local database transaction cannot guarantee exactly-once effects in an unrelated service. An outbox can durably record intent, but its consumer still needs deduplication or reconciliation. Say where the guarantee ends before claiming exactly-once behavior.
 
 For multi-step work, record each external effect separately. If creating a record succeeds but its notification fails, retry the notification step rather than replaying everything. Compensation is a new action with its own risks: deleting a record does not erase an email someone received.
 
 ## Test the transitions people forget
 
-Useful cases include two workers claiming the same operation, a crash after external success, stale approval, and a retry with changed parameters.
+Test two workers claiming the same operation, a crash after external success, stale approval, and a retry with changed parameters.
 
 These can be tested independently of the model. Keep separate agent evaluations for choosing the correct operation and responding honestly to uncertainty. Otherwise infrastructure bugs get mistaken for model-quality problems.
 
@@ -62,4 +62,4 @@ These can be tested independently of the model. Keep separate agent evaluations 
 
 The interface should distinguish prepared, approved, submitted, and confirmed. If the outcome is unknown, explain that the system is checking before trying again.
 
-A confident success message can make someone stop watching an incomplete task. A confident failure message can make them repeat an action that already happened. Completion means establishing the required external outcome; a plausible final sentence only ends the conversation.
+A confident success message can make someone stop watching an incomplete task. A confident failure message can make them repeat an action that already happened. To call the task complete, check that the required external action happened. A plausible final sentence only ends the conversation.

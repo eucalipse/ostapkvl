@@ -10,15 +10,15 @@ tags: ["Coding", "Human review"]
 <Figure src="/writing/review-the-decision-not-just-the-diff/flow.svg" alt="A review packet binds intent, invariant, code, and evidence to revision abc123. A substantive edit creates revision def456 and requires renewed review." caption="Illustrative mechanism with synthetic examples; not measured production results." />
 
 
-An agent can finish a patch while the reviewer is still understanding the problem. Producing another change is cheap. Deciding whether it belongs in the product still takes attention.
+An agent can finish a patch while the reviewer is still working out what the problem is. Producing another change is cheap. Deciding whether it belongs in the product still takes attention.
 
 Anthropic's account of [redesigning source control](https://www.anthropic.com/engineering/redesigning-source-control) gives an extreme example. It reports more than 30,000 merged changes per day by September 2026, and describes Scion, its internal version control system, alongside Antique, its review tool. The article primarily explains Scion. It does not establish that ordinary review commands are useless, or that every team needs new source control.
 
-The following is a proposed workflow for a smaller team, rather than a description of Antique.
+Here is the workflow I would try on a smaller team. I am not describing Antique.
 
 ## Start with a claim someone can challenge
 
-Consider an agent fixing duplicate invoice creation after a timeout. A summary that says "improve retry handling" tells the reviewer almost nothing. A useful review starts with intended behavior:
+Consider an agent fixing duplicate invoice creation after a timeout. A summary that says "improve retry handling" tells the reviewer almost nothing. I would start the review by saying what should happen:
 
 ```
 Problem: a timeout can cause duplicate invoices.
@@ -29,11 +29,11 @@ Evidence: timeout-after-success and concurrent-retry checks.
 Open question: how long must operation identities be retained?
 ```
 
-That is a small specification. It gives the reviewer something to disagree with before getting lost in implementation details. The diff remains essential: it shows whether the implementation matches the claim.
+That is a small specification. The reviewer can disagree with it before getting lost in the code. The diff remains essential: it shows whether the implementation matches the claim.
 
 ## Separate explanations from evidence
 
-The authoring agent can explain why its patch should work. That explanation should not also count as verification.
+Ask the authoring agent why its patch should work. Then check the patch: the explanation is not verification.
 
 For this hypothetical example, a useful check forces the dangerous sequence: the provider creates an invoice, the response disappears, and the worker retries. A happy-path test cannot establish the retry invariant.
 
@@ -47,13 +47,13 @@ A second agent is useful when its task is to find a counterexample. Here, I woul
 
 This uses the evaluator–optimizer pattern described in [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents): feedback becomes useful when evaluation criteria are clear. Agreement between two models still does not prove correctness. Both can inherit the same mistaken assumption.
 
-The human decision becomes focused: is this the right behavior, is the evidence sufficient, and is the remaining uncertainty acceptable?
+That leaves the person with a clearer decision: is this the right behavior, is the evidence sufficient, and is the remaining uncertainty acceptable?
 
 ## Approval has a scope
 
 Approval should refer to a particular implementation and its assumptions. If the agent later changes the persistence layer, earlier approval may no longer cover the change.
 
-A practical starting point is to invalidate approval after substantive edits and show what changed since the last review. I would not ask a model alone to determine that a security-sensitive edit preserves an earlier approval's meaning.
+I would start by invalidating approval after substantive edits and showing what changed since the last review. I would not ask a model alone to determine that a security-sensitive edit preserves an earlier approval's meaning.
 
 Also distinguish permission to merge from permission to release. A reviewed patch might still need a migration order, staged rollout, or operational owner.
 
@@ -61,7 +61,7 @@ Also distinguish permission to merge from permission to release. A reviewed patc
 
 Track review waiting time, reviewer effort, findings that led to changes, and defects discovered after release. Sample apparently routine changes too; a quiet queue can mean good code, or inattentive review.
 
-The smallest useful implementation is a PR template, revision-linked checks, a focused reviewer, and explicit release ownership. Each approval should be explainable when someone asks a week later why the change was allowed through.
+Start with a PR template and checks tied to the revision. Give the reviewer a focused job and name the person responsible for release. Each approval should be explainable when someone asks a week later why the change was allowed through.
 
 ## Sources and further reading
 
