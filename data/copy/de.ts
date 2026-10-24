@@ -6,7 +6,7 @@ export const de: Copy = {
     title: "Ostap Kovalisko — Chief Architect",
     description: "Chief Architect bei Mission Law und Gründer von Eucalipse. KI-Engineering, Softwarearchitektur und Betriebssysteme für Unternehmen mit menschlicher Prüfung und nachvollziehbaren Aktionen.",
     status: "gerade: KI-Agenten bauen · 57 Länder und es werden mehr",
-    subtitle: "Chief Architect · Ich baue KI-Agenten, die den Geschäftsbetrieb am Laufen halten.",
+    subtitle: "Chief Architect bei Mission Law · Ich baue KI-Agenten, die den Geschäftsbetrieb am Laufen halten.",
     intro: "Ich baue KI-Systeme mit typisierten Aktionen, menschlichen Freigabeschritten und quellengestützter Prüfung. Ich bin Chief Architect bei {missionLaw}, einer US-Anwaltskanzlei, und Gründer von {eucalipse}, einem unabhängigen Studio, das seit 2019 über 50 Softwareprojekte ausgeliefert hat. Davor: Gründer oder CTO von drei Start-ups, eines davon übernommen.",
     readWriting: "Artikel lesen",
     discuss: "Kontakt aufnehmen",

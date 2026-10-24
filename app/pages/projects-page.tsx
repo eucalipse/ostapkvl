@@ -75,7 +75,8 @@ export function ProjectsPage({ locale }: { locale: SiteLocale }) {
             <article key={project.title} className="flex flex-col gap-6 bg-paper p-8 sm:flex-row sm:items-start">
               <Thumb variant={project.art} />
               <div>
-                <h2 className="font-serif text-2xl font-medium">{t?.title ?? project.title}</h2>
+                {project.context && <p className="font-mono text-xs uppercase tracking-wider text-muted">{project.context}</p>}
+                <h2 className="mt-1 font-serif text-2xl font-medium">{t?.title ?? project.title}</h2>
                 <p className="mt-3 max-w-prose">{t?.description ?? project.description}</p>
                 <Articles slugs={project.articles} />
                 {useCases && (

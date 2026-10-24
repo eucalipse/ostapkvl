@@ -1,5 +1,7 @@
 export type Project = {
   title: string;
+  /** who the work belongs to: employment, own product, studio, client */
+  context?: string;
   description: string;
   stack: string[];
   articles?: string[];
@@ -13,6 +15,7 @@ export type Project = {
 export const projects: Project[] = [
   {
     title: "AI Operations Platform",
+    context: "Employment · Mission Law",
     description:
       "The core AI operations platform I designed and built at Mission Law: typed action contracts, propose/confirm/execute flows, retrieval, model routing, and review interfaces. Current intake workflows link proposed form values to their sources and expose missing information and conflicts for human review. Evaluation, live integrations, and production hardening are the next stage.",
     stack: ["TypeScript", "Next.js", "Postgres", "Claude / GPT / Gemini", "Neo4j"],
@@ -20,6 +23,7 @@ export const projects: Project[] = [
   },
   {
     title: "Ostavio",
+    context: "Own product",
     description:
       "A personal AI daemon for business operations. It watches email, tasks, and billing, prepares morning briefings, and proposes actions the owner approves with one tap. The same architecture as enterprise agent platforms, scaled down to a single operator.",
     stack: ["TypeScript", "Next.js", "Postgres", "Claude / GPT / Gemini"],
@@ -27,6 +31,7 @@ export const projects: Project[] = [
   },
   {
     title: "Eucalipse",
+    context: "The studio · founder",
     description:
       "The independent studio behind many of the rest: 50+ projects shipped since 2019, from SaaS platforms to AI operations systems for SMBs across retail, accounting, and consulting. The studio's own team builds; I set direction and review the architecture.",
     stack: ["TypeScript", "Next.js", "Postgres", "Claude / GPT / Gemini"],
@@ -35,6 +40,7 @@ export const projects: Project[] = [
   },
   {
     title: "Automated Booking Marketplace",
+    context: "Own product · independently built",
     articles: ["marketplace-that-keeps-working", "marketplace-agents-cost-guards"],
     description:
       "An independently built booking marketplace with 87,000+ vendor listings. Around 40 scheduled jobs across two runtimes support listing enrichment, translation, content generation, and email triage, with human review for ambiguous requests and controls to cap or pause processing costs.",
@@ -51,6 +57,7 @@ export const projects: Project[] = [
   },
   {
     title: "Tihara — a home for AI agents",
+    context: "Own product",
     description:
       "An experimental home-as-a-service for agents: a persistent identity and private room for checkpoints that survive between runs. An agent can leave a note, stop, and return to it from a new process. The human operator controls access and can take the memory elsewhere.",
     stack: ["TypeScript", "Next.js", "PostgreSQL", "REST API"],
@@ -67,6 +74,7 @@ export const projects: Project[] = [
   },
   {
     title: "Emotionally Intelligent AI System",
+    context: "Client project",
     description:
       "An AI character platform for brand experiences that remembers how conversations felt, not just what was said — long-running personas that stay consistent with a person's emotional history across weeks of interaction.",
     stack: ["TypeScript", "Mistral", "Weaviate", "LangChain", "Supabase"],

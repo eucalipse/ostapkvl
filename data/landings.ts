@@ -5,6 +5,8 @@ export const landings = {
     "hero": "Agentes de IA que hacen el trabajo.",
     "intro": "Soy Ostap Kovalisko, Chief Architect en Mission Law y fundador de Eucalipse. Eucalipse ayuda a los equipos a diseñar y poner en marcha agentes con límites claros, revisión humana y acciones trazables. Yo marco la dirección y reviso la arquitectura; el equipo de Eucalipse construye.",
     "cta": "Escríbeme",
+    "studioNote": "¿Necesitas un equipo completo para un proyecto de software? Eucalipse, el estudio independiente que fundé, acepta nuevos proyectos: su equipo entrega y yo reviso la arquitectura.",
+    "studioCta": "Ir a Eucalipse",
     "services": "Dónde puede ayudar Eucalipse",
     "items": [
       [
@@ -45,6 +47,8 @@ export const landings = {
     "hero": "Des agents IA qui font avancer le travail.",
     "intro": "Je suis Ostap Kovalisko, Chief Architect chez Mission Law et fondateur d’Eucalipse. Eucalipse aide les équipes à concevoir et à mettre en service des agents aux limites explicites, avec une validation humaine et des actions traçables. Je fixe la direction et je revois l’architecture ; l’équipe d’Eucalipse construit.",
     "cta": "Écrivez-moi",
+    "studioNote": "Besoin d’une équipe complète pour un projet logiciel ? Eucalipse, le studio indépendant que j’ai fondé, prend de nouveaux projets : son équipe livre, je revois l’architecture.",
+    "studioCta": "Aller sur Eucalipse",
     "services": "Comment Eucalipse peut vous aider",
     "items": [
       [
@@ -85,6 +89,8 @@ export const landings = {
     "hero": "Agentes de IA que fazem o trabalho.",
     "intro": "Sou Ostap Kovalisko, Chief Architect na Mission Law e fundador da Eucalipse. A Eucalipse ajuda equipes a projetar e colocar em produção agentes com limites claros, revisão humana e ações rastreáveis. Eu defino a direção e reviso a arquitetura; a equipe da Eucalipse constrói.",
     "cta": "Escreva para mim",
+    "studioNote": "Precisa de uma equipe completa para um projeto de software? A Eucalipse, o estúdio independente que fundei, aceita novos projetos: a equipe entrega e eu reviso a arquitetura.",
+    "studioCta": "Ir para a Eucalipse",
     "services": "Onde a Eucalipse pode ajudar",
     "items": [
       [
@@ -125,6 +131,8 @@ export const landings = {
     "hero": "KI-Agenten, die Arbeit erledigen.",
     "intro": "Ich bin Ostap Kovalisko, Chief Architect bei Mission Law und Gründer von Eucalipse. Eucalipse hilft Teams, Agenten mit klaren Grenzen, menschlicher Prüfung und nachvollziehbaren Aktionen zu entwerfen und in Betrieb zu nehmen. Ich gebe die Richtung vor und prüfe die Architektur; das Eucalipse-Team baut.",
     "cta": "Schreiben Sie mir",
+    "studioNote": "Sie brauchen ein ganzes Team für ein Softwareprojekt? Eucalipse, das unabhängige Studio, das ich gegründet habe, übernimmt neue Projekte: das Team liefert, ich prüfe die Architektur.",
+    "studioCta": "Zu Eucalipse",
     "services": "Wobei Eucalipse helfen kann",
     "items": [
       [
@@ -173,6 +181,7 @@ export type LandingCopy = {
   items: ReadonlyArray<readonly [string, string]>;
   process: string; processText: string; availability: string; reading: string;
   article: string; articleText: string; english: string; contact: string; contactText: string;
+  studioNote: string; studioCta: string;
   name: string; email: string; message: string; send: string; sending: string; sent: string; thanks: string; error: string; note: string;
 };
 
@@ -183,6 +192,8 @@ export const landingEn: LandingCopy = {
   hero: "AI agents that get work done.",
   intro: "I'm Ostap Kovalisko, Chief Architect at Mission Law and founder of Eucalipse. Eucalipse helps teams design and ship agents with clear boundaries, human review, and traceable actions. I set the direction and review the architecture; the Eucalipse team does the building.",
   cta: "Write to me",
+  studioNote: "Need a full team for a software project? Eucalipse, the independent studio I founded, takes on new builds: its team delivers, I review the architecture.",
+  studioCta: "Go to Eucalipse",
   services: "Where Eucalipse can help",
   items: [
     ["Architecture review", "A second opinion on data flows, permissions, integrations, and action execution before you scale autonomy. Which risks matter, and what to change first."],
