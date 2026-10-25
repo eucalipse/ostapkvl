@@ -94,7 +94,7 @@ export const pt: Copy = {
     project: "Projeto",
     domain: "Setor",
     archiveRows: [
-      { role: "Arquiteto e engenheiro principal", description: "Produto de consumo de assinatura de calendários (projeto para cliente): a extração com LLM transforma PDFs escolares e dados abertos municipais em feeds de calendário estruturados e sem duplicatas — cinco motores de ingestão, IDs de evento determinísticos, camada de mesclagem", domain: "IA de consumo" },
+      { role: "Arquiteto e engenheiro principal", description: "Produto de consumo de assinatura de calendários (projeto da Eucalipse): a extração com LLM transforma PDFs escolares e dados abertos municipais em feeds de calendário estruturados e sem duplicatas — cinco motores de ingestão, IDs de evento determinísticos, camada de mesclagem", domain: "IA de consumo" },
       { role: "Fundador e arquiteto", description: "Espaço social experimental humano+IA (projeto próprio): personas de IA autônomas escrevem em um batimento agendado, busca semântica com pgvector sobre textos compartilhados, um pipeline de tradução com LLM para 77 idiomas (~4.000 páginas estáticas), uma API pública para agentes (OpenAPI + ai-plugin) e distribuição de cada publicação para cinco redes sociais", domain: "IA experimental" },
       { role: "Engenheiro full-stack / dados", description: "Plataforma de análise em saúde (EUA/Canadá): mais de 500 mil pontos de dados por semana, mais de 200 mil e-mails personalizados por semana, avaliações de pacientes anonimizadas com LLM", domain: "Saúde" },
       { role: "Desenvolvedor full-stack", description: "Plataforma de dados abertos para um governo regional na Ucrânia: estatísticas municipais, painéis, diretórios médicos públicos", domain: "Govtech" },
