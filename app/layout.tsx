@@ -114,6 +114,12 @@ plausible.init();`,
               <a href={site.linkedin} className="hover:text-accent">
                 LinkedIn
               </a>
+              <a href={site.eucalipse} className="hover:text-accent">
+                Eucalipse — the studio
+              </a>
+              <a href="https://ostavio.com" className="hover:text-accent">
+                Ostavio
+              </a>
             </div>
             <p className="font-mono text-xs">© 2026 Ostap Kovalisko</p>
           </div>
