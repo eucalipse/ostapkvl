@@ -91,6 +91,8 @@ export const pt: Copy = {
     draftPreview: "prévia do rascunho",
     archive: "Arquivo de trabalhos",
     archiveNote: "Tudo no arquivo foi entregue por meio da Eucalipse, o estúdio independente que fundei.",
+    archiveSelected: "Trabalhos selecionados do estúdio",
+    archiveMore: "Mais trabalhos do estúdio",
     year: "Ano",
     project: "Projeto",
     domain: "Setor",

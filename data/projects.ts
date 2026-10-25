@@ -126,6 +126,8 @@ export const projects: Project[] = [
 
 export type ArchiveRow = {
   years: string;
+  /** shown in the Selected studio work block above the rest */
+  selected?: boolean;
   role: string;
   description: string;
   domain: string;
@@ -136,6 +138,7 @@ export type ArchiveRow = {
 export const archive: ArchiveRow[] = [
   {
     years: "2026",
+    selected: true,
     role: "Architect & Lead Engineer",
     description:
       "Consumer calendar-subscription product (Eucalipse project): LLM extraction turns school PDFs and municipal open data into structured, deduplicated calendar feeds — five ingestion engines, deterministic event IDs, merge layer",
@@ -144,6 +147,7 @@ export const archive: ArchiveRow[] = [
   },
   {
     years: "2025–26",
+    selected: true,
     articles: ["what-persists-when-the-conversation-ends", "ai-place-instead-of-prompt", "memory-garden-pgvector"],
     role: "Founder & Architect",
     description:
@@ -153,6 +157,7 @@ export const archive: ArchiveRow[] = [
   },
   {
     years: "2024–25",
+    selected: true,
     role: "Full-Stack / Data Engineer",
     description:
       "Healthcare analytics platform (USA/Canada): 500k+ data points/week, 200k+ personalized emails/week, LLM-anonymized patient reviews",
@@ -161,6 +166,7 @@ export const archive: ArchiveRow[] = [
   },
   {
     years: "2022–25",
+    selected: true,
     role: "Full-Stack Developer",
     description:
       "Open-data platform for a regional government in Ukraine: municipality statistics, dashboards, public medical directories",
@@ -234,6 +240,7 @@ export const archive: ArchiveRow[] = [
   },
   {
     years: "2019–21",
+    selected: true,
     role: "Lead Developer",
     description:
       "ERP for a global agriscience leader: 80+ interrelated data models, tens of millions of records, weather/crop system integrations",

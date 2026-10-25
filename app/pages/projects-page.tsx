@@ -52,6 +52,9 @@ function Thumb({ variant }: { variant: "gates" | "daemon" | "grid" | "fleet" | "
 
 export function ProjectsPage({ locale }: { locale: SiteLocale }) {
   const c = getCopy(locale).projects;
+  const indexed = archive.map((row, i) => [row, i] as const);
+  const selectedRows = indexed.filter(([row]) => row.selected);
+  const moreRows = indexed.filter(([row]) => !row.selected);
   const posts = getAllPosts();
   const Articles = ({ slugs }: { slugs?: string[] }) => {
     const visible = posts.filter((post) => slugs?.includes(post.slug));
@@ -104,7 +107,8 @@ export function ProjectsPage({ locale }: { locale: SiteLocale }) {
       <section className="mt-20">
         <h2 className="font-mono text-xs uppercase tracking-widest text-muted">{c.archive}</h2>
         <p className="mt-3 max-w-prose text-sm text-muted">{c.archiveNote}</p>
-        <div className="mt-6 overflow-x-auto">
+        <p className="mt-8 font-mono text-xs uppercase tracking-wider text-accent">{c.archiveSelected}</p>
+        <div className="mt-3 overflow-x-auto">
           <table className="w-full min-w-[640px] border-y border-line text-left">
             <thead>
               <tr className="border-b border-line font-mono text-xs uppercase tracking-wider text-muted">
@@ -114,7 +118,28 @@ export function ProjectsPage({ locale }: { locale: SiteLocale }) {
               </tr>
             </thead>
             <tbody className="divide-y divide-line">
-              {archive.map((row, i) => {
+              {selectedRows.map(([row, i]) => {
+                const t = c.archiveRows[i];
+                return (
+                  <tr key={row.years + row.description}>
+                    <td className="whitespace-nowrap py-4 pr-6 align-top font-mono text-xs text-muted">{row.years}</td>
+                    <td className="py-4 pr-6 align-top text-sm">
+                      {t?.description ?? row.description}
+                      <Articles slugs={row.articles} />
+                      <span className="mt-1.5 block font-mono text-xs text-muted/80">{row.stack.join(" · ")}</span>
+                    </td>
+                    <td className="whitespace-nowrap py-4 align-top font-mono text-xs text-muted">{t?.domain ?? row.domain}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+        <p className="mt-10 font-mono text-xs uppercase tracking-wider text-muted">{c.archiveMore}</p>
+        <div className="mt-3 overflow-x-auto">
+          <table className="w-full min-w-[640px] border-y border-line text-left">
+            <tbody className="divide-y divide-line">
+              {moreRows.map(([row, i]) => {
                 const t = c.archiveRows[i];
                 return (
                   <tr key={row.years + row.description}>

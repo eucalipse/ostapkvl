@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getAllPosts } from "@/lib/posts";
+import { projects } from "@/data/projects";
 import { site } from "@/data/site";
 import { getCopy } from "@/data/copy";
 import type { SiteLocale } from "@/data/landings";
@@ -11,6 +12,11 @@ const linkClass = "text-accent underline decoration-line underline-offset-4 hove
 export function HomePage({ locale }: { locale: SiteLocale }) {
   const c = getCopy(locale).home;
   const posts = getAllPosts().slice(0, 3);
+  const pc = getCopy(locale).projects;
+  const featuredSlugs = ["automated-booking-marketplace", "ai-operations-platform", "ostavio"];
+  const featured = featuredSlugs
+    .map((slug) => projects.find((p) => p.slug === slug))
+    .filter((p): p is NonNullable<typeof p> => Boolean(p));
   const p = (path: string) => localizedPath(locale, path);
   const links = {
     missionLaw: <a href={site.missionLawLinkedin} aria-label="Mission Law on LinkedIn" className={linkClass}>Mission Law</a>,
@@ -58,10 +64,18 @@ export function HomePage({ locale }: { locale: SiteLocale }) {
           <h2 className="font-mono text-xs uppercase tracking-widest text-muted">{c.selectedWork}</h2>
           <Link href={p("/projects")} className="text-sm text-accent hover:underline">{c.allProjects} →</Link>
         </div>
-        <div className="mt-8 border border-line bg-paper p-8">
-          <h3 className="font-serif text-2xl font-medium">{c.workTitle}</h3>
-          <p className="mt-3 max-w-prose">{c.workBody}</p>
-          <p className="mt-4 font-mono text-xs text-muted">TypeScript · Next.js · Postgres · Claude / GPT / Gemini · Neo4j</p>
+        <div className="mt-8 grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-3">
+          {featured.map((project) => {
+            const t = pc.items[project.title];
+            return (
+              <Link key={project.slug} href={`/projects/${project.slug}`} className="group flex flex-col bg-paper p-6 transition-colors hover:bg-accent/5">
+                <p className="font-mono text-xs uppercase tracking-wider text-muted">{project.context}</p>
+                <h3 className="mt-2 font-serif text-xl font-medium leading-snug group-hover:text-accent">{t?.title ?? project.title}</h3>
+                <p className="mt-2 text-sm text-muted">{(t?.description ?? project.description).split(". ")[0]}.</p>
+                <p className="mt-auto pt-4 font-mono text-xs text-muted/80">{project.stack.slice(0, 4).join(" · ")}</p>
+              </Link>
+            );
+          })}
         </div>
       </section>
 

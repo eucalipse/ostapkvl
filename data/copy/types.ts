@@ -44,6 +44,8 @@ export type Copy = {
     draftPreview: string;
     archive: string;
     archiveNote: string;
+    archiveSelected: string;
+    archiveMore: string;
     year: string;
     project: string;
     domain: string;
