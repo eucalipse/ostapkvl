@@ -43,6 +43,7 @@ export type Copy = {
     read: string;
     draftPreview: string;
     archive: string;
+    archiveNote: string;
     year: string;
     project: string;
     domain: string;

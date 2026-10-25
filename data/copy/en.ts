@@ -53,6 +53,7 @@ export const en: Copy = {
     read: "Read",
     draftPreview: "draft preview",
     archive: "Work archive",
+    archiveNote: "Everything in the archive was delivered through Eucalipse, the independent studio I founded.",
     year: "Year",
     project: "Project",
     domain: "Domain",

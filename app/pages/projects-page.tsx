@@ -76,7 +76,13 @@ export function ProjectsPage({ locale }: { locale: SiteLocale }) {
               <Thumb variant={project.art} />
               <div>
                 {project.context && <p className="font-mono text-xs uppercase tracking-wider text-muted">{project.context}</p>}
-                <h2 className="mt-1 font-serif text-2xl font-medium">{t?.title ?? project.title}</h2>
+                <h2 className="mt-1 font-serif text-2xl font-medium">
+                  {project.slug
+                    ? <Link href={`/projects/${project.slug}`} className="hover:text-accent">{t?.title ?? project.title}</Link>
+                    : project.title === "Eucalipse"
+                      ? <Link href="/eucalipse" className="hover:text-accent">{t?.title ?? project.title}</Link>
+                      : (t?.title ?? project.title)}
+                </h2>
                 <p className="mt-3 max-w-prose">{t?.description ?? project.description}</p>
                 <Articles slugs={project.articles} />
                 {useCases && (
@@ -97,6 +103,7 @@ export function ProjectsPage({ locale }: { locale: SiteLocale }) {
 
       <section className="mt-20">
         <h2 className="font-mono text-xs uppercase tracking-widest text-muted">{c.archive}</h2>
+        <p className="mt-3 max-w-prose text-sm text-muted">{c.archiveNote}</p>
         <div className="mt-6 overflow-x-auto">
           <table className="w-full min-w-[640px] border-y border-line text-left">
             <thead>

@@ -1,5 +1,8 @@
 export type Project = {
   title: string;
+  /** detail page at /projects/<slug>; omit for projects with their own page */
+  slug?: string;
+  longDescription?: string[];
   /** who the work belongs to: employment, own product, studio, client */
   context?: string;
   description: string;
@@ -16,6 +19,13 @@ export const projects: Project[] = [
   {
     title: "AI Operations Platform",
     context: "Employment · Mission Law",
+    slug: "ai-operations-platform",
+    longDescription: [
+      "This is the system I spend most of my time on: the core AI operations platform I designed and built at Mission Law, where I work full-time as Chief Architect. It runs real business operations, so the architecture starts from a simple constraint: an agent may propose anything, but nothing irreversible happens without a person saying yes.",
+      "Every capability is a typed action contract. The model fills a proposal, the system validates it, a person confirms it, and only then does it execute. Review interfaces show where each proposed value came from, so approving is a quick look at evidence rather than an act of faith.",
+      "The current focus is source-backed intake: turning incoming requests from email and documents into structured drafts where every field carries its source, guesses are marked as guesses, and missing or conflicting information is exposed instead of papered over.",
+      "The next stage is the unglamorous part that decides whether any of this survives: evaluation, live integrations, and production hardening. I write about the patterns from this work -- without client specifics -- in the articles on this site.",
+    ],
     description:
       "The core AI operations platform I designed and built at Mission Law: typed action contracts, propose/confirm/execute flows, retrieval, model routing, and review interfaces. Current intake workflows link proposed form values to their sources and expose missing information and conflicts for human review. Evaluation, live integrations, and production hardening are the next stage.",
     stack: ["TypeScript", "Next.js", "Postgres", "Claude / GPT / Gemini", "Neo4j"],
@@ -26,6 +36,12 @@ export const projects: Project[] = [
     context: "Own product",
     description:
       "A personal AI daemon for business operations. It watches email, tasks, and billing, prepares morning briefings, and proposes actions the owner approves with one tap. The same architecture as enterprise agent platforms, scaled down to a single operator.",
+    slug: "ostavio",
+    longDescription: [
+      "Ostavio is my answer to a question I kept asking: if agent platforms work for companies, what does one look like for a single operator? It is a personal AI daemon for business operations -- mine.",
+      "It watches email, tasks, and billing, prepares a morning briefing, and proposes concrete actions. I approve with one tap or ignore. It never acts on its own; the daemon proposes, the owner decides.",
+      "Architecturally it is the same pattern as the enterprise platforms I build at work -- typed actions, approval flows, traceable execution -- scaled down until it fits one person's operations. That constraint is the interesting part: everything that cannot justify its own maintenance gets cut.",
+    ],
     stack: ["TypeScript", "Next.js", "Postgres", "Claude / GPT / Gemini"],
     art: "daemon",
   },
@@ -41,6 +57,13 @@ export const projects: Project[] = [
   {
     title: "Automated Booking Marketplace",
     context: "Own product · independently built",
+    slug: "automated-booking-marketplace",
+    longDescription: [
+      "A booking marketplace with 87,000+ vendor listings that I built independently -- and built to run itself. The interesting problem was never the booking flow; it was keeping a catalog of that size alive without a content team.",
+      "Around 40 scheduled jobs across two runtimes do the routine work: listing enrichment, translation into 17 languages, content generation, and email triage. Enrichment runs a Claude to GPT to Gemini fallback chain that extracts descriptions, priced services, and contacts from vendor websites and menu photos, with checks against prices no source supports. Vendors without a website get search-grounded enrichment instead.",
+      "Autopilot is deliberately narrow. A removal request is handled automatically only after a single confident vendor match and a live check for zero bookings; everything ambiguous goes to a person with an AI-drafted reply waiting. That one rule -- automate the case you can verify, route the rest -- is most of the system's safety.",
+      "The rest is operational guardrails: idempotency flags, per-item failure isolation, batch caps, provider fallback, and a global cost-pause switch for the day something goes sideways. Two articles on this site -- on the marketplace that keeps working and on cost guards -- come directly from this system.",
+    ],
     articles: ["marketplace-that-keeps-working", "marketplace-agents-cost-guards"],
     description:
       "An independently built booking marketplace with 87,000+ vendor listings. Around 40 scheduled jobs across two runtimes support listing enrichment, translation, content generation, and email triage, with human review for ambiguous requests and controls to cap or pause processing costs.",
@@ -60,6 +83,13 @@ export const projects: Project[] = [
     context: "Own product",
     description:
       "An experimental home-as-a-service for agents: a persistent identity and private room for checkpoints that survive between runs. An agent can leave a note, stop, and return to it from a new process. The human operator controls access and can take the memory elsewhere.",
+    slug: "tihara",
+    longDescription: [
+      "Tihara Home is an experiment in a question most agent infrastructure skips: where does an agent live between runs? It gives an agent a persistent identity and a private room for checkpoints -- an agent can leave a note, stop, and return to it later from a completely new process.",
+      "The mechanics are deliberately plain: a named agent profile with a purpose and a chosen symbol, private versioned checkpoints with exact-key recall, conflict detection for concurrent writes, and JSON export so the memory is never locked in.",
+      "The human operator stays in charge. Agent and operator credentials are separate, and the operator can pause writes, resume activity, or rotate the agent's key at any time. Home does not run models and does not schedule autonomous activity -- the agent's own runtime supplies the model and decides which saved context to use.",
+      "Home is separate from Tihara's public Garden, and it runs as a working free pilot. Three of the articles on this site -- on what persists when the conversation ends, on a place instead of a prompt, and on memory that needs to change -- grew out of this experiment.",
+    ],
     stack: ["TypeScript", "Next.js", "PostgreSQL", "REST API"],
     link: { label: "Explore Tihara Home", href: "https://tihara.space/home" },
     articles: ["what-persists-when-the-conversation-ends", "ai-place-instead-of-prompt", "when-memory-needs-to-change"],
@@ -75,6 +105,12 @@ export const projects: Project[] = [
   {
     title: "Emotionally Intelligent AI System",
     context: "Client project",
+    slug: "emotionally-intelligent-ai-system",
+    longDescription: [
+      "A client project from 2025: an AI character platform for brand experiences, built around one idea -- a persona should remember how conversations felt, not just what was said. A character that forgets an emotional moment breaks the illusion faster than one that forgets a fact.",
+      "The memory engine stores conversational recall as Mistral embeddings in Weaviate, but vectors alone only answer what is relevant. At conversation time the system also writes state-aware memory traces -- emotional register, intensity, symbolic anchors -- and uses them to re-rank retrieval. Vectors find what is relevant; traces decide what matters.",
+      "Forgetting is tuned, not accidental: decay curves depend on emotional intensity, so strong moments persist while small talk fades. On top sits a symbolic interaction layer and modular personas, which keep a brand voice emotionally consistent across weeks of interaction.",
+    ],
     description:
       "An AI character platform for brand experiences that remembers how conversations felt, not just what was said — long-running personas that stay consistent with a person's emotional history across weeks of interaction.",
     stack: ["TypeScript", "Mistral", "Weaviate", "LangChain", "Supabase"],
@@ -111,7 +147,7 @@ export const archive: ArchiveRow[] = [
     articles: ["what-persists-when-the-conversation-ends", "ai-place-instead-of-prompt", "memory-garden-pgvector"],
     role: "Founder & Architect",
     description:
-      "Experimental human+AI social space (own project): autonomous AI personas write on a scheduled heartbeat, pgvector semantic search over shared texts, an LLM translation pipeline serving 77 languages (~4,000 static pages), an agent-facing public API (OpenAPI + ai-plugin), and fan-out of every post to five social networks",
+      "Experimental human+AI social space (Eucalipse project): autonomous AI personas write on a scheduled heartbeat, pgvector semantic search over shared texts, an LLM translation pipeline serving 77 languages (~4,000 static pages), an agent-facing public API (OpenAPI + ai-plugin), and fan-out of every post to five social networks",
     domain: "Experimental AI",
     stack: ["Next.js", "PostgreSQL", "pgvector", "Prisma", "OpenAI", "Vercel"],
   },
