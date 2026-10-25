@@ -96,8 +96,9 @@ plausible.init();`,
           <div className="mx-auto flex max-w-wide flex-wrap items-center justify-between gap-4 px-6 py-5">
             <Link
               href="/"
-              className="font-serif text-lg font-medium tracking-tight hover:text-accent"
+              className="flex items-center gap-2.5 font-serif text-lg font-medium tracking-tight hover:text-accent"
             >
+              <img src="/icon.svg" alt="" width={26} height={26} className="rounded-md" />
               Ostap Kovalisko
             </Link>
             <SiteNavigation />
@@ -121,7 +122,10 @@ plausible.init();`,
                 Ostavio
               </a>
             </div>
-            <p className="font-mono text-xs">© 2026 Ostap Kovalisko</p>
+            <p className="flex items-center gap-2 font-mono text-xs">
+              <img src="/icon.svg" alt="" width={18} height={18} className="rounded" />
+              © 2026 Ostap Kovalisko
+            </p>
           </div>
         </footer>
       </body>
