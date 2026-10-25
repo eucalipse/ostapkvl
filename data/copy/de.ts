@@ -94,7 +94,7 @@ export const de: Copy = {
     project: "Projekt",
     domain: "Bereich",
     archiveRows: [
-      { role: "Gründer und Architekt", description: "Kalenderabonnement-Produkt für Endkunden (eigenes Produkt): LLM-Extraktion verwandelt Schul-PDFs und kommunale offene Daten in strukturierte, deduplizierte Kalender-Feeds — fünf Ingestion-Engines, deterministische Ereignis-IDs, Merge-Schicht", domain: "Consumer-KI" },
+      { role: "Architekt und leitender Entwickler", description: "Kalenderabonnement-Produkt für Endkunden (Kundenprojekt): LLM-Extraktion verwandelt Schul-PDFs und kommunale offene Daten in strukturierte, deduplizierte Kalender-Feeds — fünf Ingestion-Engines, deterministische Ereignis-IDs, Merge-Schicht", domain: "Consumer-KI" },
       { role: "Gründer und Architekt", description: "Experimenteller sozialer Raum für Menschen und KI (eigenes Projekt): autonome KI-Personas schreiben in einem geplanten Takt, semantische pgvector-Suche über geteilte Texte, eine LLM-Übersetzungspipeline für 77 Sprachen (~4.000 statische Seiten), eine öffentliche API für Agenten (OpenAPI + ai-plugin) und Verteilung jedes Beitrags an fünf soziale Netzwerke", domain: "Experimentelle KI" },
       { role: "Full-Stack-/Data-Engineer", description: "Analyseplattform im Gesundheitswesen (USA/Kanada): über 500.000 Datenpunkte pro Woche, über 200.000 personalisierte E-Mails pro Woche, LLM-anonymisierte Patientenbewertungen", domain: "Gesundheit" },
       { role: "Full-Stack-Entwickler", description: "Open-Data-Plattform für eine Regionalregierung in der Ukraine: Gemeindestatistiken, Dashboards, öffentliche Arztverzeichnisse", domain: "Govtech" },

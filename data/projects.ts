@@ -100,9 +100,9 @@ export type ArchiveRow = {
 export const archive: ArchiveRow[] = [
   {
     years: "2026",
-    role: "Founder & Architect",
+    role: "Architect & Lead Engineer",
     description:
-      "Consumer calendar-subscription product (own product): LLM extraction turns school PDFs and municipal open data into structured, deduplicated calendar feeds — five ingestion engines, deterministic event IDs, merge layer",
+      "Consumer calendar-subscription product (client project): LLM extraction turns school PDFs and municipal open data into structured, deduplicated calendar feeds — five ingestion engines, deterministic event IDs, merge layer",
     domain: "Consumer AI",
     stack: ["Next.js", "Supabase", "Gemini", "Python", "Stripe"],
   },
