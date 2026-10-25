@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Newsreader, Source_Sans_3, IBM_Plex_Mono } from "next/font/google";
 import Link from "next/link";
+import { BrandMark } from "./brand-mark";
 import Script from "next/script";
 import { site } from "@/data/site";
 import { AnalyticsTracker } from "./analytics-tracker";
@@ -98,7 +99,7 @@ plausible.init();`,
               href="/"
               className="flex items-center gap-2.5 font-serif text-lg font-medium tracking-tight hover:text-accent"
             >
-              <img src="/icon.svg" alt="" width={26} height={26} className="rounded-md" />
+              <BrandMark size={26} />
               Ostap Kovalisko
             </Link>
             <SiteNavigation />
@@ -123,7 +124,7 @@ plausible.init();`,
               </a>
             </div>
             <p className="flex items-center gap-2 font-mono text-xs">
-              <img src="/icon.svg" alt="" width={18} height={18} className="rounded" />
+              <BrandMark size={18} />
               © 2026 Ostap Kovalisko
             </p>
           </div>
