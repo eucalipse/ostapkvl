@@ -45,7 +45,7 @@ export const projects: Project[] = [
       "A workspace for business teams running AI agents: a decision inbox first, agents grouped by business area with runtime and model on every card, honest cost estimates and unknown states. Interactive prototype.",
     stack: ["React", "TypeScript", "Tailwind", "Claude Code / Codex"],
     link: { label: "Open the prototype", href: "https://project-agent-console-demo-745.magicpatterns.app" },
-    articles: ["the-agent-is-waiting-for-you"],
+    articles: ["heedroom-a-decision-inbox-for-business-agents", "the-agent-is-waiting-for-you"],
     art: "gates",
   },
   {

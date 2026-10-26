@@ -1,0 +1,63 @@
+---
+title: "Heedroom: a decision inbox for business agents"
+date: "2026-10-27"
+dek: "Why I am building a workspace for teams that run AI agents on invoices, suppliers and refunds, and what it does differently from tools for coding agents."
+readTime: "5 min read"
+category: "Experiments"
+tags: ["Agent architecture", "Human review", "Operations"]
+draft: true
+---
+
+Most tools for running many AI agents are built for developers. That makes sense. Developers adopted agents first, and their work fits neatly into sessions, branches and diffs.
+
+My work is mostly the other side. I build agents that move business data: they match invoices to orders, set up new suppliers, sort the inbox, draft refund replies, confirm bookings. When those agents get stuck, the question is rarely about code. It is about money or a record, and the person who should answer is often a finance lead or an operations manager, not an engineer.
+
+Heedroom is the workspace I want for that job. Today it is an interactive prototype with synthetic data. This article explains what it does and why.
+
+<Figure src="/writing/heedroom-a-decision-inbox-for-business-agents/workspace.gif" alt="An animated Heedroom workspace. The operator opens the invoices agent, splits the screen with the supplier onboarding agent, answers its question about two bank accounts by choosing the contract account, and returns to an inbox where nothing needs attention." caption="Heedroom prototype with synthetic data. Not a production system." width={1492} height={812} />
+
+## The inbox is the home screen
+
+Open Heedroom and you do not see a wall of agents. You see the inbox: the short list of moments where an agent needs a person.
+
+The example in the prototype is one I have seen in real work. A supplier onboarding agent finds two bank accounts for the same supplier. The signed contract says the account ends in 7001. Yesterday's email from their accountant says 7044.
+
+The agent stops. It does not pick one, because paying the wrong account is money out the door, and the system never chooses between conflicting sources on its own. Instead it sends a question to the inbox.
+
+<Figure src="/writing/heedroom-a-decision-inbox-for-business-agents/inbox.jpg" alt="The Heedroom inbox. On top, a decision card asks which of two bank accounts is correct for supplier Nordwind and lists what it blocks, who owns it, and which sources disagree. Below it, a refund reply ready for review and an agent that has been silent for twelve minutes." caption="The inbox shows a blocked decision first, then work to review, then an honest warning. Synthetic data." width={1230} height={772} />
+
+The question carries its own context: what it blocks, who owns it, and which sources disagree. You can decide from the card without reading the agent's whole history. Choose the contract account and the agent saves the supplier and moves on to the next one.
+
+Below the decision sit two other kinds of items. A refund reply that is drafted and ready to read when you have time. And an agent that stopped reporting twelve minutes ago. They look different on purpose. One needs a choice, one needs a read, one needs an honest warning.
+
+## Agents are grouped by team
+
+The sidebar groups agents the way a business is organised: Finance, Operations, Inbox and admin. A finance lead looks at invoices and refunds. An operations manager looks at suppliers and bookings. Nobody needs to know which repository or branch an agent lives in.
+
+Each agent opens in its own tab, like a document. You can keep the supplier agent and the invoice agent side by side when one depends on the other.
+
+## Every agent shows where it runs
+
+Real setups are mixed. In the prototype, the invoice agent runs on Claude Code with Sonnet, inbox triage uses a small and cheap model, and the refund writer runs in Codex. That is normal, and it matters when something goes wrong.
+
+<Figure src="/writing/heedroom-a-decision-inbox-for-business-agents/agent.jpg" alt="An agent tab in Heedroom. The invoices agent shows its live log with matched invoices and two flagged amount differences, and a side panel with runtime, model, an estimated cost, owner, last signal and a timeline of checkpoints." caption="One agent in its own tab: live log on the left, runtime, model, cost estimate and timeline on the right. Synthetic data." width={1230} height={772} />
+
+So every agent shows its runtime and model, and the status bar shows usage per runtime. It answers the first questions fast: is this a model limit or a data problem, and why did this agent cost more than the others? Costs are always labelled as estimates. Adding exact numbers from one runtime to token-based guesses from another would make a precise-looking total that nobody should trust.
+
+## Silence is a state
+
+An agent that stops reporting has not necessarily finished. It may be waiting, working quietly, or gone. In Heedroom every agent has a last-seen time, and after a while its state becomes "unknown". It does not stay green just because nothing went red.
+
+The same rule applies to checks. If the invoice agent matched an invoice against an order at ten, and someone edited the order at eleven, the old match is about data that no longer exists. A check belongs to the version of the data it saw.
+
+## Why not use a coding tool?
+
+For coding, I would. Claude Code now has [Agent View](https://claude.com/blog/agent-view-in-claude-code), and [Orca](https://www.onorca.dev/) runs many coding agents side by side. I compare them in [The agent is waiting for you](/writing/the-agent-is-waiting-for-you).
+
+Business agents need a different first screen. The decisions are about money and records, the people deciding are not always engineers, and the unit of work is a supplier or an invoice, not a branch.
+
+## What comes next
+
+Heedroom is a prototype, and I am testing it against one question: when someone comes back to their desk, do they find the right decision sooner?
+
+The next step is connecting it to real agents in a small setup, measuring time spent waiting for decisions, and seeing which parts people actually use. If you run AI agents in operations and want to try it with your team, [write to me](mailto:me@ostapkvl.com?subject=Heedroom).
