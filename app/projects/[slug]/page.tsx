@@ -62,6 +62,21 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
         )}
       </section>
 
+      {project.images && project.images.length > 0 && (
+        <section className="border-t border-line py-10">
+          <h2 className="font-mono text-xs uppercase tracking-widest text-muted">Screens</h2>
+          <div className="mt-6 space-y-8">
+            {project.images.map((img) => (
+              <figure key={img.src}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={img.src} alt={img.alt} width={img.width} height={img.height} loading="lazy" className="h-auto w-full rounded-md border border-line" />
+                <figcaption className="mt-2 text-sm text-muted">{img.caption}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </section>
+      )}
+
       {related.length > 0 && (
         <section className="border-t border-line py-10">
           <h2 className="font-mono text-xs uppercase tracking-widest text-muted">From this work</h2>

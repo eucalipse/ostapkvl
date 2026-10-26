@@ -122,6 +122,9 @@ plausible.init();`,
               <a href="https://ostavio.com" className="hover:text-accent">
                 Ostavio
               </a>
+              <a href="https://heedroom.com" className="hover:text-accent">
+                Heedroom
+              </a>
             </div>
             <p className="flex items-center gap-2 font-mono text-xs">
               <BrandMark size={18} />

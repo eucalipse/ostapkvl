@@ -3,6 +3,7 @@ export type Project = {
   /** detail page at /projects/<slug>; omit for projects with their own page */
   slug?: string;
   longDescription?: string[];
+  images?: { src: string; alt: string; caption: string; width: number; height: number }[];
   /** who the work belongs to: employment, own product, studio, client */
   context?: string;
   description: string;
@@ -44,7 +45,12 @@ export const projects: Project[] = [
     description:
       "A workspace for business teams running AI agents: a decision inbox first, agents grouped by business area with runtime and model on every card, honest cost estimates and unknown states. Interactive prototype.",
     stack: ["React", "TypeScript", "Tailwind", "Claude Code / Codex"],
-    link: { label: "Open the prototype", href: "https://project-agent-console-demo-745.magicpatterns.app" },
+    link: { label: "heedroom.com", href: "https://heedroom.com" },
+    images: [
+      { src: "/writing/heedroom-a-decision-inbox-for-business-agents/workspace.gif", alt: "An animated Heedroom workspace: the operator opens an agent, splits the screen, answers a question about two bank accounts by choosing the contract account, and returns to an empty inbox.", caption: "The full flow, from a blocked question to a resumed agent. Synthetic data.", width: 1492, height: 812 },
+      { src: "/writing/heedroom-a-decision-inbox-for-business-agents/inbox.jpg", alt: "The Heedroom inbox: a blocked decision about two bank accounts for a supplier on top, then a refund reply ready for review and an agent that went silent.", caption: "The inbox is the home screen.", width: 1230, height: 772 },
+      { src: "/writing/heedroom-a-decision-inbox-for-business-agents/agent.jpg", alt: "An agent tab in Heedroom with a live log of matched invoices, two flagged amount differences, and a side panel with runtime, model, cost estimate and timeline.", caption: "Each agent in its own tab, with runtime, model and an honest cost estimate.", width: 1230, height: 772 },
+    ],
     articles: ["heedroom-a-decision-inbox-for-business-agents", "the-agent-is-waiting-for-you"],
     art: "gates",
   },
