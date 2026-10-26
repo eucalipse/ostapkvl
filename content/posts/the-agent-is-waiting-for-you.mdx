@@ -1,57 +1,67 @@
 ---
 title: "The agent is waiting for you"
 date: "2026-10-24"
-dek: "A wall of running agents is useful. A clear answer to who needs a decision is more useful."
-readTime: "5 min read"
+dek: "Agent View and Orca now handle many coding agents well. Business teams running agents need the same idea, tuned for money and data instead of diffs."
+readTime: "6 min read"
 category: "Experiments"
 tags: ["Agent architecture", "Human review", "Operations"]
 ---
 
 The agent that needs you most may be the one producing no output.
 
-Picture a back office run by six AI agents. One is checking October invoices against orders. One is sorting the morning inbox. One is drafting a reply to a refund request. And one has stopped, because it found two different bank accounts for the same supplier and does not know which to use.
+Picture a back office run by six AI agents. One checks October invoices against orders. One sorts the morning inbox. One drafts a reply to a refund request. And one has stopped, because it found two different bank accounts for the same supplier and does not know which one to use.
 
 From a distance, all six look busy. Only one needs you, and it is the quiet one.
 
-I want an agent console to bring that decision to me. Otherwise I spend the time I saved by delegating on searching for the next decision.
+I want a console that brings that decision to me. Otherwise I spend the time I saved by delegating on hunting for the next decision.
 
-[Ed Engelking II's write-up of Podium](https://edengelking.com/blog/podium-a-control-room-for-claude-code/) made this problem concrete for me. His console brings Claude Code sessions and their child agents into one view. His sessions write code; mine would mostly move business data. The design question is the same: what should the first screen ask me to notice?
+## Coding already has good answers
 
-<Figure src="/writing/the-agent-is-waiting-for-you/console.gif" alt="An animated agent console. Six back-office agents work in a grid while a decision inbox above them highlights one blocked question: two bank accounts were found for a supplier. Opening the session shows the conflicting sources, the operator picks the contract account, and the agent resumes onboarding." caption="Interactive demo built for this article, with synthetic data. Not a screenshot of Podium or of a production system." width={1456} height={840} />
+[Ed Engelking II's write-up of Podium](https://edengelking.com/blog/podium-a-control-room-for-claude-code/) was the first thing that made this problem concrete for me: one view for many Claude Code sessions and their child agents.
 
-You can [click through the live demo](https://project-agent-console-demo-745.magicpatterns.app): open any agent, filter by runtime, and make the decision yourself.
+Since then, two tools made the idea mainstream.
 
-## Put blocked decisions first
+In May 2026 Anthropic shipped [Agent View in Claude Code](https://claude.com/blog/agent-view-in-claude-code) as a research preview. You open it with the left arrow or `claude agents`. Each row shows a session, whether it needs your input, its last response, and when you last touched it. You can peek at the last turn and answer inline, and the session picks back up. It is exactly the core idea: the decision comes to you, not the other way around.
 
-A grid of agent cards gives a useful overview. I would still put a decision inbox above it.
+<Figure src="/writing/the-agent-is-waiting-for-you/agent-view.png" width={1408} height={556} alt="A terminal list of Claude Code sessions grouped into Needs input, Working and Completed. Each row shows a session name, its last message, and the time since the last interaction." caption="Agent View in Claude Code. Screenshot from Anthropic's announcement, claude.com." />
 
-Take the supplier case. The signed contract says the account ends in 7001. Yesterday's email from their accountant says 7044. The onboarding agent should not pick one. A wrong value here is money out the door, so the agent stops and asks.
+[Orca](https://www.onorca.dev/) goes wider. It is a free, open-source app for running Claude Code, Codex and other coding agents in parallel, each in its own git worktree, with terminals, diffs and a browser in one window. It also shows usage for Claude and Codex, and there is a mobile app to watch agents from your phone.
 
-Next to it in the inbox sit two very different things: a refund reply that is drafted and ready for review, and an agent that stopped reporting twelve minutes ago. One needs a choice, one needs a read when there is time, one needs an honest warning. If all three get the same amber badge, I am the one doing the sorting.
+<Figure src="/writing/the-agent-is-waiting-for-you/orca.png" width={1488} height={812} alt="The Orca app: a sidebar of projects and branches, one task running three agents on different runtimes, split terminal panes with Claude Code and Codex, and a status bar with usage for both." caption="Orca, an open-source workspace for coding agents. Screenshot from onorca.dev." />
 
-<Figure src="/writing/the-agent-is-waiting-for-you/inbox.svg" alt="A proposed decision inbox separates an unresolved question that blocks work, an item ready for review, and a disconnected reporter whose current state is unknown. The examples are synthetic." caption="Original interface sketch with synthetic items. This is a proposal, not a screenshot of a working console." />
+If you write code with agents, start with these. For Claude-only work, Agent View is already in the tool you use. For a mix of coding agents, Orca is the more complete option today.
 
-The question card should carry its own context: what it blocks, which sources disagree, and what happens after I answer. I should be able to decide from the card, without opening the agent's full history to reconstruct the task.
+## Business agents need a different first screen
 
-Age alone should not set priority. A decision that blocks supplier onboarding and every payment after it matters more than an older optional report. The console should show why it put an item first and let me change the order.
+My work is mostly the other side: agents that move business data. Invoices, suppliers, refunds, bookings. Here the questions are about money and records, and the people answering them are often not engineers.
 
-## Show where each agent runs
+That changes what the first screen should do. So I built a prototype for it, called Heedroom.
 
-Real setups are mixed. The invoice matcher might run on Claude through Claude Code, the email triage on a small, cheap model, and a coding helper in Codex on an OpenAI model. When something goes wrong, "which agent" is not enough. I want to know which runtime and which model.
+<Figure src="/writing/the-agent-is-waiting-for-you/console.gif" alt="An animated agent workspace. A sidebar groups six back-office agents by team, an inbox shows one blocked question about two bank accounts for a supplier, the operator opens it, picks the contract account, and the onboarding agent resumes." caption="Heedroom, an interactive prototype with synthetic data. Not a screenshot of a production system." width={1492} height={812} />
 
-So every card in my console names both, for example "Claude Code · Sonnet" or "Codex · GPT". It sounds like a detail. It answers real questions fast: is this a model limit or a data problem, why did this agent cost more than the others, and which tool do I open to look closer?
+You can [click through the live prototype](https://project-agent-console-demo-745.magicpatterns.app): open any agent, switch tabs, and make the decision yourself.
 
-It also keeps comparisons honest. Two agents doing similar work on different models are not the same experiment, and the screen should not pretend they are.
+Four things are different from the coding tools.
 
-## Keep unknown states visible
+**The decision carries its own context.** The supplier question does not just say "needs input". It says what it blocks, which sources disagree (the signed contract says the account ends in 7001, yesterday's email says 7044), and what happens after you answer. Paying the wrong account is money out the door, so the agent never picks between conflicting sources on its own. You decide from the card.
 
-An agent that stops reporting has not necessarily finished. A quiet agent may be waiting, working without new events, or gone.
+**Agents are grouped by business area, not by repository.** Finance, Operations, Inbox and admin. A finance lead looks at their team, not at branch names.
 
-Every status needs a last-seen time and a point after which it counts as stale. If the reporter disappears halfway through the invoice run, the screen should say the result is unknown. A green "running" badge would hide the gap.
+**Every agent shows where it runs.** Real setups are mixed: the invoice matcher on Claude, inbox triage on a small cheap model, the refund writer in Codex. When something goes wrong, "which agent" is not enough. You want the runtime and the model, because that tells you whether you have a model limit or a data problem, and why one agent costs more than the others. Costs are shown per runtime and always labelled as estimates.
+
+**Silence is a state, not a success.** An agent that stops reporting has not necessarily finished. It may be waiting, working quietly, or gone. Every status needs a last-seen time and a point after which it counts as stale. A green "running" badge would hide that gap.
 
 <Figure src="/writing/the-agent-is-waiting-for-you/freshness.svg" alt="A reporter timeline shows an observed running state, loss of connection, an unknown interval, and a reconnect snapshot. The gap is not inferred to be successful completion." caption="A proposed state-reconciliation rule. Time spacing is schematic." />
 
-The same honesty applies to cost. If one runtime reports exact usage and another only gives token counts, label the second one an estimate. Adding unlike numbers into one precise-looking total makes the whole screen harder to trust.
+## Put blocked decisions first
+
+In Heedroom the inbox is the home screen, and the agents live in the sidebar. The order matters.
+
+Next to the supplier question sit two very different things: a refund reply that is drafted and ready to read, and an agent that went quiet twelve minutes ago. One needs a choice, one needs a read when there is time, one needs an honest warning. If all three get the same amber badge, I am the one doing the sorting.
+
+<Figure src="/writing/the-agent-is-waiting-for-you/inbox.svg" alt="A proposed decision inbox separates an unresolved question that blocks work, an item ready for review, and a disconnected reporter whose current state is unknown. The examples are synthetic." caption="Original interface sketch with synthetic items. This is a proposal, not a screenshot of a working console." />
+
+Age alone should not set priority. A decision that blocks supplier onboarding, and every payment after it, matters more than an older optional report. The console should show why it put an item first and let me change the order.
 
 ## Tie every check to the data it saw
 
@@ -61,10 +71,12 @@ Say the invoice agent matched invoice 2214 against order 118 at ten o'clock. At 
 
 That is also why I would not rank agents by tokens used or tasks finished. Both go up when work is being redone. I would measure time spent waiting for decisions, repeated interruptions, stale results caught, and time to an accepted result.
 
-## Test whether a small console saves attention
+## Which one would I use
 
-My first version would be small: a few agents, one place, no remote approval button. Its only job is to show the next decision and enough context to make it.
+Only Claude Code, only code: Agent View. It is built in and does the core job.
 
-If the agents are coding sessions, I would compare that with [Podium's existing implementation](https://github.com/eengelking/podium) before building anything, and check what Claude Code's [mods](https://code.claude.com/docs/en/plugins/mods/overview) can observe in the runtime version in use. Extending a tool that exists may solve the problem without another dashboard.
+Several coding agents across Claude Code, Codex and others: Orca, or extend [Podium](https://github.com/eengelking/podium) if you want something you shape yourself.
 
-The test is simple. When I come back to the desk, do I find the right decision sooner? If I still have to open every agent to work out who needs me, the console has not done its job.
+Agents doing business operations, with people who decide about money and records: that is the gap Heedroom is for. It is still a prototype, and I am testing it against one question.
+
+When I come back to the desk, do I find the right decision sooner? If I still have to open every agent to work out who needs me, the console has not done its job.
