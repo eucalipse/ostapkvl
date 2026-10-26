@@ -13,7 +13,7 @@ export function HomePage({ locale }: { locale: SiteLocale }) {
   const c = getCopy(locale).home;
   const posts = getAllPosts().slice(0, 3);
   const pc = getCopy(locale).projects;
-  const featuredSlugs = ["automated-booking-marketplace", "ai-operations-platform", "ostavio"];
+  const featuredSlugs = ["automated-booking-marketplace", "heedroom", "ai-operations-platform"];
   const featured = featuredSlugs
     .map((slug) => projects.find((p) => p.slug === slug))
     .filter((p): p is NonNullable<typeof p> => Boolean(p));

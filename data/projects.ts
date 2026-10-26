@@ -32,6 +32,23 @@ export const projects: Project[] = [
     art: "gates",
   },
   {
+    title: "Heedroom",
+    context: "Own product · prototype",
+    slug: "heedroom",
+    longDescription: [
+      "Heedroom is a workspace for teams that run AI agents in business operations: invoices, supplier onboarding, inbox triage, refunds, bookings. Coding already has good tools for running many agents at once. Back offices do not, and their decisions are about money and data, not diffs.",
+      "The first screen is a decision inbox, not a wall of sessions. When an agent hits something it should not decide alone, like two different bank accounts for the same supplier, the question arrives with its own context: what it blocks, which sources disagree, and what happens after you answer. You decide from the card and the agent picks the work back up.",
+      "Agents are grouped by business area and every one shows where it runs and on which model, for example Claude Code or Codex. Usage and cost are shown per runtime and always labelled as estimates. An agent that stops reporting gets an honest unknown state instead of a reassuring green badge, and every check is tied to the version of the data it actually saw.",
+      "Today Heedroom is an interactive prototype with synthetic data, built to test one question: when you come back to your desk, do you find the right decision sooner? The ideas behind it are written up in the article on agent consoles on this site.",
+    ],
+    description:
+      "A workspace for business teams running AI agents: a decision inbox first, agents grouped by business area with runtime and model on every card, honest cost estimates and unknown states. Interactive prototype.",
+    stack: ["React", "TypeScript", "Tailwind", "Claude Code / Codex"],
+    link: { label: "Open the prototype", href: "https://project-agent-console-demo-745.magicpatterns.app" },
+    articles: ["the-agent-is-waiting-for-you"],
+    art: "gates",
+  },
+  {
     title: "Ostavio",
     context: "Own product",
     description:
