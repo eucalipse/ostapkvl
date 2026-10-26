@@ -36,11 +36,11 @@ If you write code with agents, start with these. For Claude-only work, Agent Vie
 
 My work is mostly the other side: agents that move business data. Invoices, suppliers, refunds, bookings. Here the questions are about money and records, and the people answering them are often not engineers.
 
-That changes what the first screen should do. So I built a prototype for it, called Heedroom.
+That changes what the first screen should do. So I built a prototype for it, called [Heedroom](https://heedroom.com).
 
 <Figure src="/writing/the-agent-is-waiting-for-you/console.gif" alt="An animated agent workspace. A sidebar groups six back-office agents by team, an inbox shows one blocked question about two bank accounts for a supplier, the operator opens it, picks the contract account, and the onboarding agent resumes." caption="Heedroom, an interactive prototype with synthetic data. Not a screenshot of a production system." width={1492} height={812} />
 
-You can [click through the live prototype](https://heedroom.com/app): open any agent, switch tabs, and make the decision yourself.
+You can [click through the live prototype](https://heedroom.com/app): open any agent, switch tabs, and make the decision yourself. The [project page](/projects/heedroom) has more screens, and I describe the product in detail in [Heedroom: a decision inbox for business agents](/writing/heedroom-a-decision-inbox-for-business-agents).
 
 Four things are different from the coding tools.
 
@@ -50,6 +50,8 @@ Four things are different from the coding tools.
 
 **Every agent shows where it runs.** Real setups are mixed: the invoice matcher on Claude, inbox triage on a small cheap model, the refund writer in Codex. When something goes wrong, "which agent" is not enough. You want the runtime and the model, because that tells you whether you have a model limit or a data problem, and why one agent costs more than the others. Costs are shown per runtime and always labelled as estimates.
 
+<Figure src="/writing/heedroom-a-decision-inbox-for-business-agents/agent.jpg" alt="An agent tab in Heedroom with a live log of matched invoices, two flagged amount differences, and a side panel with runtime, model, an estimated cost, owner, last signal and a timeline." caption="One agent in its own tab, with runtime, model and an estimated cost. Synthetic data." width={1230} height={772} />
+
 **Silence is a state, not a success.** An agent that stops reporting has not necessarily finished. It may be waiting, working quietly, or gone. Every status needs a last-seen time and a point after which it counts as stale. A green "running" badge would hide that gap.
 
 <Figure src="/writing/the-agent-is-waiting-for-you/freshness.svg" alt="A reporter timeline shows an observed running state, loss of connection, an unknown interval, and a reconnect snapshot. The gap is not inferred to be successful completion." caption="A proposed state-reconciliation rule. Time spacing is schematic." />
@@ -57,6 +59,8 @@ Four things are different from the coding tools.
 ## Put blocked decisions first
 
 In Heedroom the inbox is the home screen, and the agents live in the sidebar. The order matters.
+
+<Figure src="/writing/heedroom-a-decision-inbox-for-business-agents/inbox.jpg" alt="The Heedroom inbox: a blocked decision about two bank accounts for a supplier on top, then a refund reply ready for review and an agent that went silent twelve minutes ago." caption="The Heedroom inbox. A decision first, then work to review, then an honest warning. Synthetic data." width={1230} height={772} />
 
 Next to the supplier question sit two very different things: a refund reply that is drafted and ready to read, and an agent that went quiet twelve minutes ago. One needs a choice, one needs a read when there is time, one needs an honest warning. If all three get the same amber badge, I am the one doing the sorting.
 
@@ -78,6 +82,6 @@ Only Claude Code, only code: Agent View. It is built in and does the core job.
 
 Several coding agents across Claude Code, Codex and others: Orca, or extend [Podium](https://github.com/eengelking/podium) if you want something you shape yourself.
 
-Agents doing business operations, with people who decide about money and records: that is the gap Heedroom is for. It is still a prototype, and I am testing it against one question.
+Agents doing business operations, with people who decide about money and records: that is the gap [Heedroom](https://heedroom.com) is for. It is still a prototype, and I am testing it against one question.
 
 When I come back to the desk, do I find the right decision sooner? If I still have to open every agent to work out who needs me, the console has not done its job.
