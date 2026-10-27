@@ -2,7 +2,7 @@
 title: "Heedroom: a decision inbox for business agents"
 date: "2026-10-27"
 dek: "Why I am building a workspace for teams that run AI agents on invoices, suppliers and refunds, and what it does differently from tools for coding agents."
-readTime: "5 min read"
+readTime: "7 min read"
 category: "Experiments"
 tags: ["Agent architecture", "Human review", "Operations"]
 ---
@@ -11,11 +11,11 @@ Most tools for running many AI agents are built for developers. That makes sense
 
 My work is mostly the other side. I build agents that move business data: they match invoices to orders, set up new suppliers, sort the inbox, draft refund replies, confirm bookings. When those agents get stuck, the question is rarely about code. It is about money or a record, and the person who should answer is often a finance lead or an operations manager, not an engineer.
 
-Heedroom is the workspace I want for that job. Today it is an interactive prototype with synthetic data. This article explains what it does and why.
+Heedroom is the workspace I want for that job. Today it is an interactive prototype with synthetic data: the main workspace and the sign-up and settings screens of a first version. This article explains what it does and why.
 
 <Figure src="/writing/heedroom-a-decision-inbox-for-business-agents/workspace.gif" alt="An animated Heedroom workspace. The operator opens the invoices agent, splits the screen with the supplier onboarding agent, answers its question about two bank accounts by choosing the contract account, and returns to an inbox where nothing needs attention." caption="Heedroom prototype with synthetic data. Not a production system." width={1492} height={812} />
 
-You can try it yourself at [heedroom.com](https://heedroom.com): open any agent, split the screen, and make the decision. A short overview and more screens are on the [project page](/projects/heedroom).
+You can try it yourself at [heedroom.com](https://heedroom.com): open any agent, split the screen, and make the decision. The sign-in, team and settings screens are at [heedroom.com/account](https://heedroom.com/account). A short overview and more screens are on the [project page](/projects/heedroom).
 
 ## The inbox is the home screen
 
@@ -25,11 +25,19 @@ The example in the prototype is one I have seen in real work. A supplier onboard
 
 The agent stops. It does not pick one, because paying the wrong account is money out the door, and the system never chooses between conflicting sources on its own. Instead it sends a question to the inbox.
 
-<Figure src="/writing/heedroom-a-decision-inbox-for-business-agents/inbox.jpg" alt="The Heedroom inbox. On top, a decision card asks which of two bank accounts is correct for supplier Nordwind and lists what it blocks, who owns it, and which sources disagree. Below it, a refund reply ready for review and an agent that has been silent for twelve minutes." caption="The inbox shows a blocked decision first, then work to review, then an honest warning. Synthetic data." width={1230} height={772} />
+<Figure src="/writing/heedroom-a-decision-inbox-for-business-agents/v1-inbox.jpg" alt="The Heedroom inbox. On top, a decision card asks which of two bank accounts is correct for supplier Nordwind, with its request id, the data version it was asked on, the role required to answer and when it expires. Below it, a refund reply ready for review and an agent whose health is unknown." caption="The inbox shows a blocked decision first, then work to review, then an honest warning. Synthetic data." width={1198} height={800} />
 
-The question carries its own context: what it blocks, who owns it, and which sources disagree. You can decide from the card without reading the agent's whole history. Choose the contract account and the agent saves the supplier and moves on to the next one.
+The question carries its own context: what it blocks, who owns it, and which sources disagree. It also carries a request id, the version of the case it was asked on, the role that may answer it, and when it expires. You do not need to read the agent's whole history to decide.
 
 Below the decision sit two other kinds of items. A refund reply that is drafted and ready to read when you have time. And an agent that stopped reporting twelve minutes ago. They look different on purpose. One needs a choice, one needs a read, one needs an honest warning.
+
+## A decision you can check
+
+Open the question and you see the evidence, not a summary of it. The contract and the email sit side by side, each with the exact document version the agent read and the sentence that matters highlighted.
+
+<Figure src="/writing/heedroom-a-decision-inbox-for-business-agents/v1-decision.jpg" alt="The decision page in Heedroom. The question about two bank accounts sits above two evidence cards: the contract PDF on page four with the account ending 7001, and the accountant's email with the account ending 7044, each with its document version id. A decision audit trail on the right shows when the agent created the question and who it was presented to." caption="The decision page: evidence from both sources and an audit trail of who saw and answered what. Synthetic data." width={1198} height={800} />
+
+Every answer needs a reason, and every step is written down: when the agent asked, who it was presented to, who answered, and when the agent picked the answer up. That trail is what you want when someone asks, three months later, why this supplier is paid to that account.
 
 ## Agents are grouped by team
 
@@ -45,11 +53,23 @@ Real setups are mixed. In the prototype, the invoice agent runs on Claude Code w
 
 So every agent shows its runtime and model, and the status bar shows usage per runtime. It answers the first questions fast: is this a model limit or a data problem, and why did this agent cost more than the others? Costs are always labelled as estimates. Adding exact numbers from one runtime to token-based guesses from another would make a precise-looking total that nobody should trust.
 
+<Figure src="/writing/heedroom-a-decision-inbox-for-business-agents/v1-usage.jpg" alt="The usage page in Heedroom. Two cards show estimated cost today for Claude Code and for Codex, each with the basis of the estimate and how many runs reported usage. A table lists every agent with its runtime and model, tokens, estimated cost and a completeness badge such as complete, partial, not reported or awaiting first report." caption="Usage per runtime and model. Missing data is shown as missing, never as zero. Synthetic data." width={1198} height={800} />
+
+When an agent does not report usage, the table says "not reported". It does not quietly count it as zero.
+
 ## Silence is a state
 
 An agent that stops reporting has not necessarily finished. It may be waiting, working quietly, or gone. In Heedroom every agent has a last-seen time, and after a while its state becomes "unknown". It does not stay green just because nothing went red.
 
-The same rule applies to checks. If the invoice agent matched an invoice against an order at ten, and someone edited the order at eleven, the old match is about data that no longer exists. A check belongs to the version of the data it saw.
+## Answers belong to a version
+
+The same rule applies to answers and checks. A question is asked about one version of the case. If the case changes before someone answers, for example because the supplier sends one more email, the old answer must not slip through.
+
+<Figure src="/writing/heedroom-a-decision-inbox-for-business-agents/v1-stale.jpg" alt="The decision page after the case changed. A warning says the case moved from version seven to version eight after the question was asked, so the answer was recorded but not applied, and the checks will run again. The audit trail shows the case change and the answer marked not applied." caption="An answer given on an old version is recorded, but never applied. Synthetic data." width={1198} height={800} />
+
+Heedroom keeps the answer for the record, marks it "not applied", and runs the checks again on the new version. The case page shows why: every check is tied to the version it ran on, and checks from an older version turn grey instead of staying green.
+
+<Figure src="/writing/heedroom-a-decision-inbox-for-business-agents/v1-case.jpg" alt="The case page for supplier Nordwind. A checks table marks five checks as outdated for version eight, each showing the version it ran on. A documents table lists each file with its source, version and short hash. A timeline on the right shows versions five to eight and what changed in each." caption="The case page: checks tied to the version they saw, and a timeline of what changed. Synthetic data." width={1198} height={800} />
 
 ## Why not use a coding tool?
 
@@ -61,4 +81,4 @@ Business agents need a different first screen. The decisions are about money and
 
 Heedroom is a prototype, and I am testing it against one question: when someone comes back to their desk, do they find the right decision sooner?
 
-The next step is connecting it to real agents in a small setup, measuring time spent waiting for decisions, and seeing which parts people actually use. If you run AI agents in operations and want to try it with your team, [write to me](mailto:me@ostapkvl.com?subject=Heedroom) or start at [heedroom.com](https://heedroom.com).
+The plan for a first real version is deliberately small: one team, three agents, invite-only access, and the sign-up, roles and audit screens you can already click through at [heedroom.com/account](https://heedroom.com/account). The first milestone is one honest loop with a real agent: it finds a conflict, stops, gets an answer from someone allowed to give it, checks that the evidence is still current, and continues exactly once. After that I will measure time spent waiting for decisions, stale answers caught, and how often people get interrupted. If you run AI agents in operations and want to try it with your team, [write to me](mailto:me@ostapkvl.com?subject=Heedroom) or start at [heedroom.com](https://heedroom.com).
