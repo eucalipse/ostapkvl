@@ -77,6 +77,20 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
         </section>
       )}
 
+      {project.links && project.links.length > 0 && (
+        <section className="border-t border-line py-10">
+          <h2 className="font-mono text-xs uppercase tracking-widest text-muted">Compare and try</h2>
+          <div className="mt-6 grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-2">
+            {project.links.map((item) => (
+              <a key={item.href} href={item.href} className="group flex flex-col bg-paper p-6 transition-colors hover:bg-accent/5">
+                <h3 className="font-serif text-lg font-medium leading-snug group-hover:text-accent">{item.label} →</h3>
+                <p className="mt-2 text-sm text-muted">{item.text}</p>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
       {related.length > 0 && (
         <section className="border-t border-line py-10">
           <h2 className="font-mono text-xs uppercase tracking-widest text-muted">From this work</h2>

@@ -10,6 +10,7 @@ export type Project = {
   stack: string[];
   articles?: string[];
   link?: { label: string; href: string };
+  links?: { label: string; href: string; text: string }[];
   useCases?: string[];
   useCasesLabel?: string;
   /** abstract thumbnail variant */
@@ -54,7 +55,19 @@ export const projects: Project[] = [
       { src: "/writing/heedroom-a-decision-inbox-for-business-agents/v1-case.jpg", alt: "The case page: checks marked outdated for the new version, documents with versions and hashes, and a timeline of data versions.", caption: "Checks tied to the version of the data they saw.", width: 1198, height: 800 },
       { src: "/writing/heedroom-a-decision-inbox-for-business-agents/v1-usage.jpg", alt: "The usage page: estimated cost per runtime with its basis and coverage, and a table of agents with models, tokens, estimated cost and completeness.", caption: "Costs are estimates; missing data stays missing.", width: 1198, height: 800 },
     ],
-    articles: ["heedroom-a-decision-inbox-for-business-agents", "the-agent-is-waiting-for-you"],
+    articles: [
+      "heedroom-a-decision-inbox-for-business-agents",
+      "the-agent-is-waiting-for-you",
+      "when-an-agent-dashboard-can-act",
+      "every-value-needs-a-source",
+      "human-attention-is-the-bottleneck",
+    ],
+    links: [
+      { label: "Heedroom vs Orca", href: "https://heedroom.com/compare/orca", text: "Business decisions next to a desktop app for many coding agents." },
+      { label: "Heedroom vs Claude Code Agent View", href: "https://heedroom.com/compare/claude-agent-view", text: "Where Agent View is the better pick, and where it is not." },
+      { label: "Try the prototype", href: "https://heedroom.com/app", text: "The workspace with synthetic data. No sign-up." },
+      { label: "Heedroom at Eucalipse", href: "https://eucalipse.com/heedroom", text: "How the studio presents the product." },
+    ],
     art: "gates",
   },
   {
