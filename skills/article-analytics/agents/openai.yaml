@@ -1,0 +1,4 @@
+interface:
+  display_name: "Article Analytics"
+  short_description: "Extract stats, reconcile data, and suggest useful charts"
+  default_prompt: "Use $article-analytics to inspect my article metrics, reconcile the snapshots, and propose charts with clear sources and coverage."

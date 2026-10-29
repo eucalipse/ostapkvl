@@ -1,0 +1,63 @@
+---
+title: "The question an agent should ask"
+date: "2026-10-29"
+dek: "A useful escalation gives a person a decision they can make, with evidence, consequences and a way to say the evidence is not enough."
+readTime: "4 min read"
+category: "Experiments"
+tags: ["Human review", "Agent architecture", "Operations"]
+draft: true
+---
+
+“Please review” is a task someone has to decipher.
+
+Imagine an agent checking a supplier invoice. The invoice includes a delivery charge. The purchase order does not. The agent stops and sends the invoice to a finance lead with a note: “Discrepancy found. Please review.”
+
+The person now has to discover which discrepancy, find the order, check the contract and work out what the agent intends to do after the review. The system found a reason to interrupt them. It did little to make that interruption useful.
+
+When I think about the decision inbox in [Heedroom](/writing/heedroom-a-decision-inbox-for-business-agents), this is the part I want to get right. A short queue is still expensive if every item starts another investigation.
+
+## Ask about the unresolved fact
+
+In this hypothetical example, the question could be: “Does this order allow a separate delivery charge?”
+
+That is something a person can answer. It identifies the missing fact without assuming the invoice should be paid or rejected.
+
+Below it, I would show the delivery line on the invoice, the relevant order terms and the document versions. If the agent searched for a contract but could not access it, I would say that beside the evidence. The missing contract may be more important than the two documents it did find.
+
+The interface should also explain what is waiting. “Your answer will update the invoice match. Payment still needs its normal approval.” Otherwise a person may think they are confirming a fact when the system treats the click as permission to move money.
+
+## Separate an answer from permission to act
+
+A person can confirm that a delivery charge is permitted without authorizing payment of this invoice. The amount may be wrong. The invoice may be a duplicate. Another check may still be waiting.
+
+I would store those as separate decisions. One answers a question about the record. Another authorizes a particular action against the checked record.
+
+This takes a little more care than a single “Approve” button. It also makes the audit trail easier to read. Someone looking back can see which fact was confirmed and which action was permitted, rather than trying to infer both from a green badge.
+
+## Leave room for an answer outside the menu
+
+Two choices can make the screen feel finished while leaving out the correct response.
+
+“Use the invoice” and “Use the order” are both wrong if neither document establishes whether delivery is included. The person needs an option such as “Need the contract.” That should keep the case blocked and assign the next step to someone who can get it.
+
+Free text helps, but the system must be clear about how it uses it. A note is evidence to consider. It should not quietly become an instruction that expands the agent's permissions.
+
+If the answer changes the allowed action, the system should show that change explicitly and request the appropriate authorization.
+
+## Test the question before polishing the card
+
+I would test this with a few synthetic cases and someone who understands the work. No explanation from the person who designed the screen.
+
+Can they identify what needs deciding? Can they find the evidence that would change their answer? Can they explain what happens next? Do they notice the missing source?
+
+A quick click is not necessarily a good result. The reviewer may have missed an uncertainty that should have stopped them. I would record whether the decision was justified, what they had to open, and which questions they asked before answering.
+
+I would also include a case where the correct response is to defer. An interface that makes approval easy but makes uncertainty awkward will look efficient in a happy-path demo.
+
+## Use repeated questions to improve the workflow
+
+If people keep opening the same additional document, that document probably belongs in the evidence bundle. If they repeatedly forward a question to another team, the ownership rule needs work. If they keep choosing “Need more information,” the agent may be escalating too early.
+
+These are useful observations even before there is enough traffic for a meaningful average. Each points to something concrete that can change in the workflow.
+
+The aim is for a person to spend their attention on the unresolved decision. Finding the relevant sentence, discovering who owns the question and guessing what a button will do are work the system can take off their desk.

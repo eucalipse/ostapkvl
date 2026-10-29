@@ -1,0 +1,74 @@
+---
+title: "What to keep before an agent forgets"
+date: "2026-10-29"
+dek: "A session summary helps an agent continue. A useful checkpoint also preserves the evidence that lets it check where it is continuing from."
+readTime: "4 min read"
+category: "Experiments"
+tags: ["Memory", "Coding", "Reliability"]
+draft: true
+---
+
+Imagine returning to a long debugging session after lunch. The agent has a summary: “The implementation is complete. One test remains.”
+
+Which implementation? Which revision? What did the last failed test actually say?
+
+The summary may be accurate as prose and still leave the next agent with too little to check. It knows the shape of the work, but the evidence has disappeared into the conversation that was shortened.
+
+When I design a handoff between agents, I want the next step to begin with something verifiable. That matters whether context was compacted, the session ended, or a cheaper executor is taking over from a planner.
+
+## Preserve the goal before the activity
+
+A transcript is full of what happened. The next agent needs to know what still counts as success.
+
+“Add a dashboard” is too broad. “Show article views without exposing private stats to an unauthenticated visitor” gives the next agent a behavior to verify. It should also know which decisions the user already made and which parts are still unresolved.
+
+I would put the goal and acceptance criteria at the top of a checkpoint. Then I would identify the current source revision and any local changes. If those were not checked, the checkpoint should say so.
+
+A precise-looking revision copied from an earlier message can be worse than an explicit gap. The next agent may trust it and test the wrong state.
+
+## Keep exact evidence outside the summary
+
+Some things survive paraphrasing well. Others do not.
+
+A failing assertion, a provider error code, a migration name and the exact command used to run a test are worth retaining in their original form. They may be what distinguishes the next useful action from a repeat of an earlier mistake.
+
+I would keep those artifacts in appropriate project or local storage and point to them from the checkpoint. The summary explains why the file matters. The file preserves what was observed.
+
+That does not mean keeping every tool response forever. A log can contain private data or credentials. Retain the relevant evidence, redact where needed, and use storage that fits the project. A public repository is not a general archive for private debugging output.
+
+## Record the approaches that failed
+
+A compact summary often keeps the selected solution and loses the alternatives. That can send a fresh agent back through an attractive dead end.
+
+One sentence may be enough: “The browser-only check was rejected because the server endpoint still returned private data.” A link to the failing request makes the reason inspectable.
+
+I would preserve rejected assumptions that affect the next decision. I would not turn the checkpoint into a diary of every edit. The useful question is whether omitting a detail makes the next agent likely to repeat work or proceed on a false premise.
+
+## Give the next agent a bounded action
+
+Here is the checkpoint structure I would use for the hypothetical dashboard task:
+
+```text
+Goal: authenticated article analytics.
+Current state: identify the actual revision and local changes.
+Verified: list the checks observed passing, with command and output path.
+Unresolved: confirm anonymous requests cannot read the stats endpoint.
+Decision: all provider credentials stay on the server.
+Evidence: point to the relevant request/response and test artifacts.
+Next action: run the anonymous-access check against the current build.
+Stop condition: if it returns private data, fix access before deployment.
+```
+
+Those entries are instructions for what to record, not a claim that the checks have been run. A real checkpoint should replace them with observed facts and explicit unknowns.
+
+The next agent should verify that the files exist and the revision still matches. If someone else changed the project during the break, the checkpoint is a useful historical record, not the current truth.
+
+## Count recovery as part of the handoff
+
+In [An expensive planner, a cheaper executor](/writing/an-expensive-planner-a-cheaper-executor), I argued for counting the cost of correcting mistakes alongside the initial model work. The same accounting belongs here.
+
+A smaller context can still be an expensive handoff if the agent has to rediscover the failing test, repeat rejected approaches or ask the user to explain a decision again.
+
+I would compare time to a verified result, repeated investigations and failed acceptance checks alongside token usage. A shorter summary is a useful input to that experiment. It is not the result.
+
+The checkpoint has done its job when the next agent can find the evidence, see what remains uncertain and take the next bounded step without inventing the missing history.

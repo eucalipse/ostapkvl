@@ -1,0 +1,65 @@
+---
+title: "Two agents, one business record"
+date: "2026-10-29"
+dek: "Independent agents can each do a reasonable job and still produce an inconsistent result. The handoff needs an explicit rule for what changed."
+readTime: "4 min read"
+category: "Experiments"
+tags: ["Agent architecture", "Reliability", "Operations"]
+draft: true
+---
+
+Imagine two agents working on the same supplier. One checks an invoice against an order. The other updates the supplier's delivery terms from a new contract.
+
+Each finishes its own task. The invoice agent reports a match. The supplier agent reports an update. Yet the invoice match used the old terms.
+
+Nothing in the list of successful tasks tells the operator that the combined result needs another look.
+
+This is a design problem I keep returning to as I work on [Heedroom](/writing/heedroom-a-decision-inbox-for-business-agents). Running agents side by side is useful. Their work also needs a way to meet at the same business record.
+
+## Give a check an explicit input version
+
+For this example, I would record the invoice match against the versions of the invoice, order and supplier terms that it actually read.
+
+The result is then a statement about those inputs. “Matched” on its own leaves too much unsaid. “Matched against these document versions” gives the system a way to decide whether the result still applies.
+
+A timestamp helps explain the sequence, but it is not enough to identify the inputs. Documents can arrive late. Two sources can use different clocks. I would keep stable version identities and use time to help a person read the history.
+
+This is the same distinction as keeping a test result with the code revision it tested. A passing test from yesterday does not establish that today's code passes.
+
+## Reject an outdated write at the point of change
+
+Suppose the invoice agent read case version seven. Before it saves the match, the supplier agent creates version eight.
+
+I would make the save conditional on the expected case version. If the version changed, the system rejects the update and tells the agent to read the current record. The comparison and the write need to happen together in the storage layer. Checking once in the interface leaves a gap in which another writer can change the record.
+
+That prevents an old result from silently overwriting newer work. It does not prove the next attempt will be correct. The agent still needs to decide which inputs changed and whether its earlier reasoning survives.
+
+For a small first version, rerunning the relevant checks may be the clearest rule. More selective invalidation can come later, once dependencies are explicit enough to trust.
+
+## A conflict is sometimes a business question
+
+Two updates may touch different fields and still disagree in meaning.
+
+The invoice agent accepts a separate delivery fee. The supplier agent records a contract under which delivery is included. A storage system may happily accept both writes if their field-level checks do not overlap.
+
+The business rule connects them. The record needs a check that asks whether the invoice's delivery fee agrees with the applicable contract terms.
+
+I would keep that check visible in the case. If it fails, the next action stays blocked and the person sees the two facts that disagree. A generic “concurrent update” error does not tell them what to decide.
+
+## Keep the proposed action tied to the same evidence
+
+The version boundary matters again when a person authorizes an action.
+
+A reviewer may approve a payment proposal after seeing one amount and one supplier account. If either changes before execution, the old approval should not authorize the new proposal. The system needs to compare the approved action and its relevant evidence with what it is about to execute.
+
+Holding a database transaction open while someone reads a screen is not a practical solution. I would persist the proposal, release the transaction, and validate the authorization again when execution becomes possible.
+
+External actions introduce another boundary. If a provider call times out, a local database version cannot establish whether it happened. That needs an operation identity and reconciliation, as described in [The agent timed out. Did the action happen?](/writing/agent-actions-under-retries).
+
+## Show the unfinished relationship
+
+On the operator's screen, I want to see “Supplier terms changed; invoice match needs checking again.”
+
+Both agents may be healthy. Both may have completed useful work. The case still has an unresolved dependency, and that is what the operator needs to know.
+
+For me, the test is whether the workspace can explain why a case is ready to continue. A collection of successful runs is part of that evidence. It is not the whole answer.

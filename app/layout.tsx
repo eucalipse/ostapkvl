@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import { Newsreader, Source_Sans_3, IBM_Plex_Mono } from "next/font/google";
 import Link from "next/link";
 import { BrandMark } from "./brand-mark";
-import Script from "next/script";
 import { site } from "@/data/site";
-import { AnalyticsTracker } from "./analytics-tracker";
+import { PublicAnalytics } from "./public-analytics";
 import "./globals.css";
 import { SiteNavigation } from "./site-navigation";
 import { SiteSignature } from "./site-signature";
@@ -71,28 +70,13 @@ export default function RootLayout({
     <html suppressHydrationWarning lang="en" className={`${serif.variable} ${sans.variable} ${mono.variable}`}>
       <head>
         <script dangerouslySetInnerHTML={{ __html: `(function(){var t;try{t=localStorage.getItem('ostapkvl-theme')}catch(e){}document.documentElement.dataset.theme=t==='light'||t==='dark'?t:matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'})()` }} />
-        <script
-          async
-          src="https://plausible.io/js/pa-G9clyl_6s2S99aKdMfLDZ.js"
-        />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
-plausible.init();`,
-          }}
-        />
       </head>
       <body>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
-        <Script
-          src="https://analytics.ahrefs.com/analytics.js"
-          data-key="MPAh8sLkoeSklzzUygH+Qw"
-          strategy="afterInteractive"
-        />
-        <AnalyticsTracker />
+        <PublicAnalytics />
         <header className="no-print border-b border-line" data-analytics-placement="header">
           <div className="mx-auto flex max-w-wide flex-wrap items-center justify-between gap-4 px-6 py-5">
             <Link
