@@ -18,7 +18,7 @@ export type Project = {
 };
 
 /** GitHub org for the open-source projects. Change it here to move them to another org. */
-const GITHUB_ORG_URL = "https://github.com/heedroom-labs";
+const GITHUB_ORG_URL = "https://github.com/quietloop-labs";
 
 export const projects: Project[] = [
   {
