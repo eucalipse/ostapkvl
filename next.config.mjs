@@ -1,5 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Unlisted /ostavioShell: kebab-case alias + noindex header (also set in page metadata).
+  async redirects() {
+    return [{ source: "/ostavio-shell", destination: "/ostavioShell", permanent: true }];
+  },
+  async headers() {
+    return [{ source: "/ostavioShell", headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }] }];
+  },
   // Unlisted static pages served from public/ (kept out of robots and the sitemap).
   // Turkish learning notes live in public/türkçe/. Non-ASCII public paths are not served directly by Next,
   // so everything is reached through the ASCII alias /turkce/… (and /türkçe as a vanity entry point).

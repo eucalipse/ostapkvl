@@ -6,11 +6,11 @@ import { localeFromPath, type SiteLocale } from "@/data/landings";
 import { copy } from "@/data/copy";
 import { siteLocales, localeNames, localizedPath, stripLocale } from "@/lib/i18n";
 
-/** Same page in another language; article and CV pages only exist in English, so they fall back to the writing list or home. */
+/** Same page in another language; article, CV and other English-only pages fall back to the writing list or home. */
 function switchPath(base: string, target: SiteLocale): string {
   if (target === "en") return base;
   if (base.startsWith("/writing/")) return localizedPath(target, "/writing");
-  if (base === "/cv" || base === "/eucalipse") return localizedPath(target, "/");
+  if (base === "/cv" || base === "/eucalipse" || base === "/ostavioShell") return localizedPath(target, "/");
   return localizedPath(target, base);
 }
 
