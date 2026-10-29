@@ -17,6 +17,9 @@ export type Project = {
   art: "gates" | "daemon" | "grid" | "fleet" | "memory" | "home";
 };
 
+/** GitHub org for the open-source projects. Change it here to move them to another org. */
+const GITHUB_ORG_URL = "https://github.com/heedroom-labs";
+
 export const projects: Project[] = [
   {
     title: "AI Operations Platform",
@@ -35,7 +38,7 @@ export const projects: Project[] = [
   },
   {
     title: "Heedroom",
-    context: "Own product · prototype",
+    context: "Open source",
     slug: "heedroom",
     longDescription: [
       "Heedroom is a workspace for teams that run AI agents in business operations: invoices, supplier onboarding, inbox triage, refunds, bookings. Coding already has good tools for running many agents at once. Back offices do not, and their decisions are about money and data, not diffs.",
@@ -63,6 +66,7 @@ export const projects: Project[] = [
       "human-attention-is-the-bottleneck",
     ],
     links: [
+      { label: "Heedroom on GitHub", href: `${GITHUB_ORG_URL}/heedroom`, text: "The source code, MIT licensed. Clone it and self-host it." },
       { label: "Heedroom vs Orca", href: "https://heedroom.com/compare/orca", text: "Business decisions next to a desktop app for many coding agents." },
       { label: "Heedroom vs Claude Code Agent View", href: "https://heedroom.com/compare/claude-agent-view", text: "Where Agent View is the better pick, and where it is not." },
       { label: "Try the prototype", href: "https://heedroom.com/app", text: "The workspace with synthetic data. No sign-up." },
@@ -72,7 +76,7 @@ export const projects: Project[] = [
   },
   {
     title: "Ostavio",
-    context: "Own product",
+    context: "Open source",
     description:
       "A personal AI daemon for business operations. It watches email, tasks, and billing, prepares morning briefings, and proposes actions the owner approves with one tap. The same architecture as enterprise agent platforms, scaled down to a single operator.",
     slug: "ostavio",
@@ -82,6 +86,11 @@ export const projects: Project[] = [
       "Architecturally it is the same pattern as the enterprise platforms I build at work -- typed actions, approval flows, traceable execution -- scaled down until it fits one person's operations. That constraint is the interesting part: everything that cannot justify its own maintenance gets cut.",
     ],
     stack: ["TypeScript", "Next.js", "Postgres", "Claude / GPT / Gemini"],
+    link: { label: "GitHub", href: `${GITHUB_ORG_URL}/ostavio` },
+    links: [
+      { label: "Ostavio on GitHub", href: `${GITHUB_ORG_URL}/ostavio`, text: "The source code, MIT licensed. Self-host your own daemon." },
+      { label: "ostavio.com", href: "https://ostavio.com", text: "The product site and the hosted version." },
+    ],
     art: "daemon",
   },
   {
