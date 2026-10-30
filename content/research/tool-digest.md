@@ -19,14 +19,20 @@ Similar/competing:
 
 ## Rubric: Persistent memory / code graph for coding agents
 
-**Graphicle** — Rust tool giving coding agents a persistent code graph instead of re-reading the repo each call. Open source, Apache-2.0. (Source: LinkedIn, André Lindenberg, Oct 29.)
+**Graphicle** — Rust tool giving coding agents a persistent code graph instead of re-reading the repo each call. Open source, Apache-2.0, ~171 GitHub stars — a small project. (Source: LinkedIn, André Lindenberg, Oct 29.)
 
 Similar/competing:
-- **CodeGraph** — same core mechanism (structural code graph vs. re-reading files), markets a **62% fewer tokens** claim (`unverified`, not independently checked).
-- **Mem0** — "drop-in memory infrastructure for AI agents," persistent context across sessions. Broader scope than Graphicle: general agent memory, not code-graph-specific, but same underlying problem — don't re-derive what's already known.
-- **x402.storage** — pitched as long-term agent memory to save and resume context. Thinner/less mature than the above two, per available info.
+- **Graphify** — a separate, much larger project in the same space (tens of thousands of stars, startup-accelerator backed). Easy to conflate with Graphicle due to the similar name and pitch; they are not the same tool and should never be described interchangeably. Articulates the sharpest version of the graph-vs-embeddings argument: a vector search retrieves what looks similar, a graph retrieves what is actually connected, and the most structurally relevant code to a change is often the least textually similar to any search query. Its specific cost-savings figures are vendor-reported (`unverified`).
+- **CodeGraph** — same core mechanism (structural code graph vs. re-reading files) via tree-sitter AST extraction into an MCP server. Reports a **94% reduction in tool calls** and **82% faster completion** on one benchmark task against VS Code's codebase (`unverified`, vendor-reported).
+- **Aider's repo-map** — open source, tree-sitter based: parses the repo into a graph of files and symbol references, ranks it (PageRank-style) to surface the files relevant to the current edit. No persistent server — rebuilds the map each run. A lighter-weight version of the same idea.
+- **Sourcegraph Cody's context engine** — combines a code graph with embeddings and keyword search; explicitly multi-repo and enterprise-oriented, unlike the single-local-repo tools above.
+- **Continue.dev** — embeddings-only, no graph structure at all. Useful as the contrast case: fine for lookup-style retrieval against documentation or loosely related code, but doesn't capture structural connection the way a graph does.
+- **Mem0** — "drop-in memory infrastructure for AI agents," persistent context across sessions. Broader scope than any of the above: general agent memory, not code-graph-specific, but the same underlying problem — don't re-derive what's already known.
+- **x402.storage** — pitched as long-term agent memory to save and resume context. Thinner/less mature than the others, per available info.
 
 Noise to ignore: Graphicle's own site lists ripgrep/Ruff/bat as "closest alternatives" — these are unrelated Rust CLI tools, not real comparables.
+
+Independent commentary: no neutral (non-vendor) critique of the graph-vs-RAG approach surfaced in research — everything found arguing for code graphs over embeddings came from vendors or vendor-adjacent sources. One arXiv paper surfaced (2609.12464, "Hierarchical Context-Aware Graph RAG vs Standard RAG in Enterprise Code Migration") as a lead, not independently read or verified.
 
 → See cross-link note below: converges with harness-retro on "don't lose what the agent already learned," just scoped differently (code structure vs. cross-session behavioral rules).
 

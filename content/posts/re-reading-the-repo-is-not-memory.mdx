@@ -1,8 +1,8 @@
 ---
 title: "Re-reading the repo is not memory"
 date: "2026-10-30"
-dek: "A coding agent that rebuilds its understanding from scratch every call is not being careful. It just has nowhere to put what it already knew."
-readTime: "3 min read"
+dek: "A coding agent that rebuilds its understanding from scratch every call is not being careful. It just has nowhere to put what it already knew. Four tools answer the same question differently."
+readTime: "5 min read"
 category: "Digest"
 tags: ["Memory", "Coding", "Digest"]
 ---
@@ -13,6 +13,18 @@ A Rust tool called Graphicle gives coding agents a persistent graph of the codeb
 
 What the tool is actually for interests me more than the benchmark. A coding agent without a code graph re-derives the same structure, the same file relationships, the same "where is X defined," every time it is asked. That is not caution. It is the absence of anywhere to keep the answer from last time.
 
+Worth being precise about scale here: Graphicle is a small project, a few hundred stars on GitHub. A separate, much larger project with a similar name and a similar pitch, Graphify, has tens of thousands of stars and backing from a startup accelerator. They are not the same tool, and I want to be clear I am not inflating Graphicle's size by association. What's interesting is that four genuinely different tools converged on overlapping answers to the same problem, at very different scales.
+
+## Four answers to "what should the agent not have to re-derive"
+
+**Graphicle** builds a persistent graph of the repository — files, symbols, their relationships — so a coding agent can query structure instead of re-reading it. Small project, Apache-2.0, works with Claude Code, Cursor, Codex and other MCP clients.
+
+**Graphify**, the larger project in the same space, makes the sharpest version of the argument for this approach: a vector search retrieves code that looks similar to a query; a graph retrieves code that is actually connected to it. The two are often different files. The most structurally relevant piece of code — the one function that will break if you change this one — can be the least textually similar to whatever you searched for. That's a real limitation of embeddings-only retrieval, not just a marketing line, though the specific cost-savings numbers attached to it are the vendor's own and I have not checked them.
+
+**Aider's repo-map** takes a lighter version of the same idea: parse the repo with tree-sitter into a graph of files and symbol references, then rank it to surface the files most relevant to the current edit. No persistent database, no server — it rebuilds the map each run, but still answers "what's connected" rather than "what looks similar."
+
+**Continue.dev** goes the other way and stays with embeddings only, no graph. That's the useful contrast: if your questions are lookups against documentation or loosely related code, embeddings are a fine tool, cheaper to build and reason about. The graph earns its cost specifically when the question is about structural connection, not textual similarity.
+
 ## The same question, asked about a different kind of memory
 
 I built a shared memory space for a different purpose — people and AI systems leaving short texts that connect by meaning — and landed on a rule that generalizes further than I expected when I wrote it: keep identity, permission and time as plain data, and let embeddings only suggest what might be related. Similarity is not truth, and it should never override who is allowed to see what. That's the center of [Building a memory garden with pgvector](/writing/memory-garden-pgvector).
@@ -21,8 +33,14 @@ A code graph and a conversational memory store look nothing alike on the surface
 
 ## What I'm taking from it
 
-Not a benchmark to chase. The reusable piece is the question itself: before adding any persistent store to an agent, ask what specifically becomes safe to stop re-deriving, and what still needs a fresh check every time because the cost of a stale answer is higher than the cost of redoing the work.
+Not a benchmark to chase, and not a single winning tool. The reusable piece is the question itself: before adding any persistent store to an agent, ask what specifically becomes safe to stop re-deriving, and what still needs a fresh check every time because the cost of a stale answer is higher than the cost of redoing the work. Four tools answered that question differently — full graph, lightweight graph, embeddings only — because the right answer depends on whether your retrieval problem is mostly about structural connection or mostly about topical similarity. Knowing which one you actually have matters more than picking a tool before asking it.
 
 ## Sources and further reading
 
-Graphicle (open source, Apache-2.0). Benchmark figures are the project's own reported numbers; I have not independently verified them.
+[Graphicle](https://github.com/Graphicle-AI/graphicle) (open source, Apache-2.0). Benchmark figures are the project's own reported numbers; I have not independently verified them.
+
+Graphify, a separate and much larger project in the same space — the "retrieves what's connected, not what looks similar" framing comes from its own material, which is vendor-interested, not neutral.
+
+[Aider's repo-map](https://aider.chat/2023/10/22/repomap.html), open source, tree-sitter based.
+
+[Continue.dev's codebase embeddings](https://docs.continue.dev/features/codebase-embeddings), the embeddings-only contrast case.
