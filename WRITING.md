@@ -10,6 +10,7 @@ Articles live in `content/posts/<slug>.mdx`. Images live in `public/writing/<slu
   take from it (not "chart" or "diagram"). Use the `<Figure src alt caption />` component; it refuses to render
   without a real alt text.
 - Numbers on illustrative charts are illustrative. Say so in the caption.
+- **Every article gets its own custom Open Graph image**, not the generic typographic `ogCard` fallback. Build a diagram specific to the article's subject (same light paper style as `scripts/figures/build.mjs`: `#FAF8F4` background, Georgia/Helvetica, the existing color palette, `ostapkvl.com` watermark) and wire it into the article's `app/writing/[slug]/opengraph-image.tsx` equivalent, or extend `ogCard`-based generation to render that diagram instead of the plain title/dek card. The generic card is a placeholder until this is done, not an accepted final state.
 
 ## Content
 - No legal / law-firm topics, examples or clients (NDA). Use neutral examples: suppliers, logistics, ESG, operations.

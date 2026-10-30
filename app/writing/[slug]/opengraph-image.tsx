@@ -20,5 +20,6 @@ export default function Image({ params }: { params: { slug: string } }) {
     subline: post.dek,
     footer: "Ostap Kovalisko",
     titleSize: long ? 58 : 68,
+    graphic: post.ogGraphic,
   });
 }

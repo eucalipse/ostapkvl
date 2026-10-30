@@ -15,6 +15,8 @@ export type PostMeta = {
   /** BCP 47 language of the article body; defaults to "en". */
   lang: string;
   tags: string[];
+  /** Selects a custom Open Graph diagram motif instead of the plain typographic card (see WRITING.md). */
+  ogGraphic?: "graph";
 };
 
 /** Public queries exclude drafts; the unlisted preview routes opt in explicitly. */
@@ -38,6 +40,7 @@ export function getAllPosts(includeDrafts = false): PostMeta[] {
         draft: data.draft === true,
         lang: typeof data.lang === "string" ? data.lang : "en",
         tags: Array.isArray(data.tags) ? data.tags.filter((tag: unknown): tag is string => typeof tag === "string") : [],
+        ogGraphic: (data.ogGraphic === "graph" ? "graph" : undefined) as PostMeta["ogGraphic"],
       };
     })
     .filter((p) => includeDrafts || !p.draft)
@@ -59,6 +62,7 @@ export function getPost(slug: string, includeDrafts = false): Post | null {
     draft: data.draft === true,
     lang: typeof data.lang === "string" ? data.lang : "en",
     tags: Array.isArray(data.tags) ? data.tags.filter((tag: unknown): tag is string => typeof tag === "string") : [],
+    ogGraphic: data.ogGraphic === "graph" ? "graph" : undefined,
     content,
   };
 }

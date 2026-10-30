@@ -23,12 +23,35 @@ export function ogFonts() {
   ];
 }
 
+/** A small node-and-edge graph motif for articles about code graphs, memory or structure. */
+function ogGraphMotif() {
+  const nodes: [number, number][] = [
+    [40, 30], [140, 15], [230, 55], [90, 90], [200, 110], [300, 30], [280, 95],
+  ];
+  const edges: [number, number][] = [[0, 1], [1, 2], [0, 3], [3, 4], [1, 4], [2, 5], [4, 6], [5, 6]];
+  return (
+    <svg width="340" height="140" viewBox="0 0 340 140" style={{ position: "absolute", right: 56, top: 64 }}>
+      {edges.map(([a, b], i) => (
+        <line
+          key={i}
+          x1={nodes[a][0]} y1={nodes[a][1]} x2={nodes[b][0]} y2={nodes[b][1]}
+          stroke="#2E4EC4" strokeOpacity={0.35} strokeWidth={1.5}
+        />
+      ))}
+      {nodes.map(([x, y], i) => (
+        <circle key={i} cx={x} cy={y} r={i === 2 || i === 4 ? 7 : 5} fill="#2E4EC4" fillOpacity={i === 2 || i === 4 ? 1 : 0.55} />
+      ))}
+    </svg>
+  );
+}
+
 export function ogCard(opts: {
   eyebrow: string;
   title: string;
   subline: string;
   footer: string;
   titleSize?: number;
+  graphic?: "graph";
 }) {
   return new ImageResponse(
     (
@@ -43,8 +66,10 @@ export function ogCard(opts: {
           color: "#1A1815",
           padding: "64px 72px",
           borderTop: "10px solid #2E4EC4",
+          position: "relative",
         }}
       >
+        {opts.graphic === "graph" && ogGraphMotif()}
         <div
           style={{
             display: "flex",
