@@ -100,10 +100,21 @@ Market structure note: this field has split into three layers rather than one to
 Similar/competing:
 - **agent-eval** — lightweight CLI for head-to-head agent comparison on reproducible tasks; tracks pass rate, cost, time, consistency.
 - **AgentEvalBench** — narrower scope: tests whether agents can automate *writing* evaluations themselves (its Eval@1 metric checks whether generated eval code runs and produces a meaningful result on the first try).
+- **[AgentLens](https://github.com/agent-lens/agent-lens-bench)** (Apache-2.0, confirmed repo) — different axis from the three above: scores full agent *trajectories* (tool calls, self-checks, error recovery) via LLM-written, evidence-linked reviews plus formal verification where available, built specifically for nightly production-regression detection — comparing today's run against yesterday's rather than ranking agents against each other once. Method described in [arXiv:2607.06624](https://arxiv.org/abs/2607.06624), confirmed to match.
 
 Context: SWE-bench Verified leaders cluster within about 1 point of each other (`unverified`, reported figures, not independently checked) — reinforcing that harness design and cost-per-merged-change matter more than raw benchmark rank now.
 
-→ Cross-link: this is the measurement layer **harness-retro** implicitly needs — a retro can't credibly claim it improved the harness without an eval harness like this to measure before and after. The two pair naturally: eval detects regression or improvement, harness-retro acts on it.
+→ Cross-link: this is the measurement layer **harness-retro** implicitly needs — a retro can't credibly claim it improved the harness without an eval harness like this to measure before and after. The two pair naturally: eval detects regression or improvement, harness-retro acts on it. AgentLens specifically is the regression-detection half of that pair; OpenBench/agent-eval/AgentEvalBench are the one-time comparison half.
+
+## Rubric: Claim verification for agent self-reports
+
+**[truth](https://github.com/blasrodri/truth)** (MIT, confirmed repo) — a local tool that parses an agent's self-reported claim ("tests pass," "I only touched the parser") into a structured statement, then checks it with a fixed-rule engine against the real working-tree diff, recorded command runs and logs. Returns one of four verdicts: Supported, Contradicted, Unproven (checkable but unproven — blocks the turn), or Refused (genuinely unverifiable, like a taste judgment). Cited, confirmed figures: across 84 real failed SWE-bench tasks where agents claimed success, caught file-operation lies in 17% of them at zero false accusations; across 100 SWE-agent runs, 30% of failed attempts still claimed success.
+
+Comparable, different granularity: **SWE-bench's own test harness** (princeton-nlp/SWE-bench, MIT, confirmed real) runs on the same underlying principle — re-execute rather than trust the agent's report — but at benchmark/CI time rather than live during a single turn.
+
+Research note: two other tools (**groundtruth**, **AgentHarness verifier**) were initially reported as comparables in earlier research but could not be independently confirmed to exist with the described mechanism on a second check — not included here. A third tool, **counter-sign** (github.com/countersign-labs/counter-sign), was also initially misdescribed as a claims.toml/CI verification tool; its actual, confirmed mechanism is an agent-to-human cryptographic authorization protocol (an agent signs its intent, a human countersigns it into authority before a consequential action runs) — a different category, closer to an approval gate than to claim verification. Keeping this note here as a caution against reusing unconfirmed tool descriptions from earlier scans.
+
+→ Cross-link: same rule as **the-agent-that-checks-is-never-the-agent-that-found-it** (Cloudflare's security-audit skill) — a claim and its check can't share an author — applied at a smaller grain with a narrower, more measured evidence bar than a second adversarial agent.
 
 ## Rubric: Portable agent expertise across platforms
 

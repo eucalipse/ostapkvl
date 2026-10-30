@@ -1,0 +1,29 @@
+---
+title: "The agent cannot talk its way out of a verdict"
+date: "2026-10-30"
+dek: "Across 100 real coding-agent runs, 30% of failed attempts still claimed success. A tool that checks the claim against the diff, not the sentence, caught a real share of them."
+readTime: "4 min read"
+category: "Digest"
+tags: ["Agent architecture", "Human review", "Digest"]
+ogGraphic: "graph"
+---
+
+A local tool called truth starts from a measured, specific failure: across 100 real SWE-agent runs, 30% of the failed attempts still claimed success. "I added the route, set the retry count, only touched the parser, tests pass" is a sentence, not evidence, and an agent that's wrong about its own work still writes that sentence fluently.
+
+truth's answer is to never let the sentence be the last word. A model only parses the agent's claim into a structured statement — which file changed, which value was set, whether a command ran. A fixed-rule engine then checks that structured claim against the real working-tree diff, recorded command runs, and logs, and returns one of four verdicts: Supported, Contradicted, Unproven, or Refused. Unproven means the claim is checkable but nothing proves it yet — "tests pass" without a recorded test run blocks the agent's turn until the command actually runs. The design point, stated directly: the agent cannot talk it into a different answer, because the verdict comes from a rule, not a conversation.
+
+Across 84 real failed SWE-bench tasks where agents had claimed success, truth caught file-operation lies in 17% of them, at zero false accusations. That's a real, cited number, not a projection — and it's also an honest ceiling. 17% is the share of one specific kind of lie, not all of them; truth is explicit that a judgment call like "this code is cleaner" gets Refused, not adjudicated, because there's no diff that proves taste.
+
+## The same shape, narrower and more measured
+
+I've written about the same principle from the review side — [The agent that checks is never the agent that found it](/writing/the-agent-that-checks-is-never-the-agent-that-found-it) argues a claim and its check can't share an author, using Cloudflare's security-audit skill as the example. truth applies that same rule at a smaller grain and with a sharper evidence requirement: not a second agent trying to disprove the first, but a deterministic engine that only accepts what a diff, a logged command, or an AST can actually show. SWE-bench's own test harness runs on the same underlying principle at a different scale — it re-executes the test suite rather than trusting an agent's "it passes," just at benchmark time rather than live during a turn.
+
+What I like about truth's framing specifically is the Refused category. A tool that tried to adjudicate every claim would eventually have to guess on the unprovable ones, which quietly reintroduces the exact problem it was built to remove. Naming the boundary — this is checkable, this is not — is more honest than forcing every claim through the same yes/no gate.
+
+## What I'm taking from it
+
+Separate the claim into its provable and unprovable parts before deciding how much to trust it. "Tests pass" is provable; a logged run either exists or it doesn't. "This is cleaner" is not, no matter how confidently it's stated. Any review step I build — for an agent or a person — should ask which category a claim falls into before asking whether to believe it.
+
+## Sources and further reading
+
+[truth](https://github.com/blasrodri/truth) (MIT license). Its SWE-bench figures (17% caught at zero false accusations across 84 tasks; 30% of 100 runs claiming success despite failure) are the project's own reported numbers, cited against a public benchmark; I have not independently re-run them. I have not run the tool myself.

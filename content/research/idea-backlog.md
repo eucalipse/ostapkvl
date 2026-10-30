@@ -19,6 +19,26 @@ Run new entries through the idea-triage workflow (see `skills/idea-triage/SKILL.
 - **What it is:** A tool treating earned agent expertise as portable state: `stato crystallize` packages what an agent learned in a session into a snapshot; slice extracts a specific skill from it, graft adds an external skill onto a project, merge combines expertise from multiple sources. Explicitly cross-platform — plan in one tool, build in another, carry the expertise with you. Available on PyPI and GitHub.
 - **Possible angle:** Genuinely new mechanism versus everything already in `content/research/tool-digest.md` — not code-graph memory (Graphicle/Graphify, structural understanding of one repo), not harness-retro (self-improving rules within one repo), not multi-agent coordination (BAND, real-time shared room). This is specifically about expertise trapped in a stateless session unless someone explicitly exports it. Strong comparable found: Hivemind, a self-hosted "shared brain" that automatically mines patterns from live sessions and propagates them to every connected agent in real time (continuous/automatic vs. Stato's explicit, curated snapshot). AGENTS.md is the adjacent standard (describes what a project is, not what an agent learned) — useful contrast, not a competitor. Angle: explicit-and-curated vs. automatic-and-continuous is a real design fork, same shape as the approval-gate questions already running through this site's writing.
 - **Status:** seed, not triaged — strongest candidate of the two in today's backlog, since the comparables are concrete and the mechanism doesn't overlap existing digest entries.
+
+## 2026-10-30 — scan mode run (10 parallel scans across the 5 vetted sources)
+
+Ran idea-triage Scan mode 10 times with different category focuses to survey the sources broadly. Four clean misses (multi-agent coordination, self-improving harness, sandboxing, agent-to-agent protocols — nothing genuinely new found, reported honestly rather than stretched), two marginal (memory/code-graph space is saturated; context-compression is a real category but no fresh tool), and two strong finds written up as published digest articles below. One finding (groundtruth, AgentHarness verifier, and counter-sign's claims.toml mechanism) turned out to be inaccurate on independent re-verification — not published, noted in tool-digest.md as a caution.
+
+### AgentLens — trajectory-level nightly regression detection
+- **Source:** Scan mode, general web search (arXiv 2607.06624, July 2026; GitHub repo confirmed independently).
+- **What it is:** Scores full agent trajectories via LLM-written, evidence-linked reviews plus formal verification, built for nightly production-regression detection rather than one-time benchmark ranking.
+- **Status:** triaged, published as [A leaderboard score is not a regression test](/writing/a-leaderboard-score-is-not-a-regression-test).
+
+### truth — deterministic claim verification for agent self-reports
+- **Source:** Scan mode, general web search; repo and all cited figures independently confirmed via direct README fetch.
+- **What it is:** Parses an agent's self-reported claim into a structured statement, checks it against the real diff/command runs/logs with a fixed-rule engine, returns Supported/Contradicted/Unproven/Refused. Caught 17% of claimed-success lies across 84 real failed SWE-bench tasks at zero false accusations.
+- **Status:** triaged, published as [The agent cannot talk its way out of a verdict](/writing/the-agent-cannot-talk-its-way-out-of-a-verdict).
+
+### BudgetGuard MCP — pre-request hard budget block
+- **Source:** Scan mode, Show HN (~18 days old at scan time).
+- **What it is:** An MCP server enforcing hard per-session/per-day token/dollar ceilings before a request is sent, rejecting the agent's own tool-call loop rather than just logging spend after the fact.
+- **Status:** seed, not yet triaged into a published article — real find, worth a future digest entry once a second look confirms the comparables (AgentFleet, Helicone, LiteLLM budget manager) hold up the same way truth/AgentLens's did on re-check.
+
 ### BAND — shared-room multi-agent coordination
 - **Source:** LinkedIn, Samanth (Founder/CEO @ Devable), Oct 27 post, 160 likes / 29 comments / 23 reposts.
 - **What it is:** A tool letting Claude Code, Codex, Hermes and other coding agents share context, tasks and handoffs in one "room" instead of isolated sessions. Planner → coder → reviewer handoff pattern, human approval gate built in.

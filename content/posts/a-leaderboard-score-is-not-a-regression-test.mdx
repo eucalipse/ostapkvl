@@ -1,0 +1,27 @@
+---
+title: "A leaderboard score is not a regression test"
+date: "2026-10-30"
+dek: "Benchmarks rank which agent is best once. Production needs to know if last night's update made this agent worse than it was yesterday."
+readTime: "3 min read"
+category: "Digest"
+tags: ["Agent architecture", "Reliability", "Digest"]
+ogGraphic: "graph"
+---
+
+Most agent benchmarks answer one question: which agent, or which harness around a model, scores highest on a fixed task set today. That's useful for choosing a tool. It says nothing about whether the agent you're already running got better or worse after an update, because a benchmark run once has no yesterday to compare against.
+
+A project called AgentLens is built for that different question. Instead of a pass/fail score, it scores a full agent trajectory — the tool calls, the self-checks, how it recovered from an error along the way — through LLM-written reviews that cite specific evidence, paired with formal verification where one is available. The target use case is explicit: a nightly job that compares today's trajectories against yesterday's and flags regressions before they reach anyone.
+
+## A different axis than the existing benchmarks
+
+This isn't a competitor to a leaderboard tool so much as a different axis entirely. OpenBench compares harnesses against each other at a point in time — which run-loop, tool set and permission policy performs best right now. AgentEvalBench asks a narrower question: can an agent write its own evaluation code well enough that the generated eval actually runs and means something. Neither one is set up to answer "is the agent I ship tomorrow worse than the one I shipped yesterday," because neither keeps the kind of evidence-linked trajectory record that comparison requires.
+
+That gap matters for the same reason [A retro only counts if you can measure it](/writing/a-retro-only-counts-if-you-can-measure-it) argues a harness-improving retro needs its own evaluation step: a claimed improvement that nobody re-tests is a guess wearing the clothes of a result. AgentLens is the measurement layer that claim would need — not proof the claim is true, but a place where it could be checked rather than taken on faith.
+
+## What I'm taking from it
+
+The useful distinction isn't "AgentLens versus OpenBench," it's leaderboard-shaped evaluation versus regression-shaped evaluation, and most teams only have the first one. A one-time benchmark score tells you which agent to adopt. It tells you nothing the morning after you change a prompt, a tool, or a model version. If an agent is already in production, the question that matters daily is the regression question, not the leaderboard question — and that needs its own evidence trail, not a reused benchmark score.
+
+## Sources and further reading
+
+[AgentLens](https://github.com/agent-lens/agent-lens-bench) (Apache-2.0). Its method is described in the paper [AgentLens: Production-Assessed Trajectory Reviews for Coding Agent Evaluation](https://arxiv.org/abs/2607.06624). I have not run the tool myself; this note reflects its published description and paper, not a trial.
