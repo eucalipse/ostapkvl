@@ -105,6 +105,19 @@ Context: SWE-bench Verified leaders cluster within about 1 point of each other (
 
 → Cross-link: this is the measurement layer **harness-retro** implicitly needs — a retro can't credibly claim it improved the harness without an eval harness like this to measure before and after. The two pair naturally: eval detects regression or improvement, harness-retro acts on it.
 
+## Rubric: Portable agent expertise across platforms
+
+**[Stato](https://pypi.org/project/stato/)** — packages what an agent learned in a session into a portable snapshot (`stato crystallize`), with slice (extract one skill), graft (add an external skill to a project) and merge (combine from multiple sources) operations. Explicitly cross-platform: plan in one tool, build in another. (Source: Show HN, found via idea-triage scan mode, ~32 days before this entry.)
+
+Similar/competing:
+- **[Hivemind](https://github.com/hivementality-ai/hivemind)** — the clearest design fork from Stato: a self-hosted "shared brain" that automatically mines recurring patterns from live sessions across a team's agents and propagates them to every connected agent in real time, with an optional approval gate before a pattern spreads. Claims (vendor-reported, `unverified`) 25% lower cost, 1.7x fewer tokens, 31% fewer turns on the LoCoMo long-context memory benchmark versus no shared memory. The fork: continuous/automatic propagation versus Stato's explicit, person-curated export.
+- **AGENTS.md** — not a competitor, an adjacent standard: a universal project-context file now read by every major agent (60,000+ repos by April 2026, stewarded by the Agentic AI Foundation under the Linux Foundation). Describes what a project *is*, not what an agent *learned* doing the work on it — useful contrast, different problem.
+- **Agent Skills (portable skill format)** — the "write once, run on Cursor, Claude Code, Copilot without modification" layer referenced alongside AGENTS.md. Thinner on independent verification than Stato or Hivemind, but shows the ecosystem converging on portability as a category, not a one-off idea from either tool.
+
+→ Cross-link: this is the same checkpoint-quality question as harness-retro and the memory-garden entries, applied across tool boundaries instead of across sessions in one tool — a snapshot that survives leaving the tool that produced it has the same obligation to carry its evidence and boundaries, not just a generalized-sounding conclusion.
+
 ## Cross-category synthesis (updated)
 
 A third thread runs beneath the first two (approval-as-checkpoint; memory/verification convergence): **isolation and measurement are the infrastructure layer underneath the other categories.** Sandboxing makes adversarial verification safe to run. Eval harnesses make harness-retro's claimed improvements checkable rather than self-reported. Cost guardrails are the budget-side mirror of approval gates — the same "don't let it run unbounded" instinct, applied to a different resource.
+
+A fourth, newer thread: **automatic versus curated propagation of what an agent learned** shows up as the same fork whether the scope is one repo's harness (harness-retro) or a person's expertise moving across tools entirely (Stato vs. Hivemind). Automatic catches more; curated keeps a visible point where a person, not the pattern itself, decides it's worth keeping.

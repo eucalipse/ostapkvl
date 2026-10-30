@@ -11,6 +11,18 @@ Ostap spots tool launches and trend posts on LinkedIn and wants a fast, repeatab
 
 - Ostap shares a screenshot, link, or description of something he saw (LinkedIn post, tool, trend) and wants it considered as article material.
 - Before promoting any entry in `content/research/idea-backlog.md` to an actual draft in `content/posts/`.
+- Ostap asks to scan, check, or look for new ideas/tools himself (e.g. "find new digest ideas", "scan the sources", "what's new"), without having a specific one in hand yet. Run **Scan mode** below instead of waiting for him to bring one.
+
+## Scan mode (proactive sourcing)
+
+Run this when asked to find new ideas rather than triage one already in hand:
+
+1. Check the five sources under "Where to look," in order. For each, look specifically for a tool or trend from the last 1-2 weeks that is NOT already covered in `content/research/tool-digest.md` (read that file first to know what's covered) and does not overlap an existing `content/posts/*.mdx` angle.
+2. Stop at the first genuinely new, well-evidenced candidate per run — do not try to surface many at once. One good idea with real comparables beats three thin ones.
+3. For the candidate, find 2-3 real similar/competing tools (same bar as the rest of this skill: must solve the same specific mechanism, not just "also AI-related"), open-source status, and any claimed metric marked `unverified` unless independently confirmed.
+4. Run the NDA check on it (see below) before reporting it at all — a candidate that fails NDA is simply skipped, not reported with the legal angle removed.
+5. Add it to `content/research/idea-backlog.md` as a `seed, not triaged` entry with full source attribution (channel, date, link), then run it through the regular Steps below to reach a verdict.
+6. Report the verdict to Ostap in a few lines, same as regular triage. **Never draft, publish, or post anything from a scan run without his explicit go-ahead on that specific idea** — scan mode finds and files ideas, it does not greenlight them.
 
 ## Where to look
 

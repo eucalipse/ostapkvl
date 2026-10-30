@@ -1,0 +1,35 @@
+---
+title: "Expertise trapped in a session"
+date: "2026-10-30"
+dek: "An agent learns something true about your codebase, then the session ends and takes it with it. A new tool treats that as a packaging problem, not a memory problem."
+readTime: "4 min read"
+category: "Digest"
+tags: ["Memory", "Agent architecture", "Digest"]
+ogGraphic: "graph"
+---
+
+A tool called Stato starts from a specific complaint: an agent session is stateless, so whatever it figured out — which migration script is safe to rerun, which test actually covers the retry path, which config flag nobody documented — disappears when the session ends, unless someone happens to write it down somewhere the next session will read.
+
+Stato's answer is to make that writing-down a deliberate, portable action. `stato crystallize` packages what an agent learned into a snapshot. From there you can slice out one specific skill, graft an external one onto a different project, or merge expertise gathered from more than one source. The explicit pitch is cross-platform: plan in one tool, build in another, carry the snapshot with you rather than starting over.
+
+## A design fork, not just a new format
+
+The useful comparison here isn't a feature list, it's a fork in how "don't make the agent re-learn this" gets solved at all. A tool called Hivemind takes the other path: a shared, self-hosted store that automatically mines patterns from live sessions across a team's agents and propagates them to every connected agent in real time, with an optional approval step before a pattern spreads. Continuous and automatic versus explicit and curated — the same underlying problem, opposite defaults about who decides what gets kept.
+
+I don't think one of these is simply correct. An automatic system catches what nobody thought to write down. A curated snapshot can't silently promote a fluke from one session into a rule everyone inherits. The second property matters more to me, for the same reason I keep coming back to it in [A retro only counts if you can measure it](/writing/a-retro-only-counts-if-you-can-measure-it): a finding that sounds right after one session is still a guess until something checks it again. Automatic propagation makes that check easier to skip, not harder.
+
+AGENTS.md sits next to both of these without competing with either — it describes what a project is (how to build it, what the conventions are), not what an agent learned doing the work. Useful context, different problem.
+
+## The same checkpoint question, now portable
+
+[What to keep before an agent forgets](/writing/what-to-keep-before-an-agent-forgets) argues that a good checkpoint preserves the goal, the exact evidence, and the rejected assumptions — not just a plausible summary. Stato's crystallize step is the same obligation with a new constraint: the snapshot now has to survive leaving the tool that produced it. A summary that only makes sense inside one agent's internal state doesn't travel. Evidence and a stated boundary do.
+
+That portability is the part I'd actually test before trusting it on anything real: not whether the snapshot format is clean, but whether a skill grafted from one project onto an unrelated one carries its original boundary conditions with it, or just the parts that sounded generalizable at export time.
+
+## What I'm taking from it
+
+The fork itself, more than either tool. Before adopting a shared-memory or portable-expertise system, I'd want a straight answer to one question: when a pattern moves from one place to another, did a person decide that, or did the system decide it on the pattern's behalf? Automatic is not free — it trades a visible decision for a convenient one.
+
+## Sources and further reading
+
+[Stato](https://pypi.org/project/stato/), shared on Show HN. [Hivemind](https://github.com/hivementality-ai/hivemind), the automatic-propagation comparison; its reported cost and token-reduction figures are the project's own numbers, not independently checked by me. I have not run either tool myself.
