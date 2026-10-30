@@ -12,4 +12,8 @@ export const articleLaunches: Record<string, { order: number; caption: string }>
     order: 3,
     caption: `“The implementation is complete. One test remains.”\n\nThat is a plausible session summary. It leaves the next agent with some important questions: which revision, which test, and what did the last failure say?\n\nI wrote about checkpoints that preserve the goal, exact evidence, rejected assumptions, and the next bounded action.\n\nThe test I care about is whether the next agent can resume and verify its work without rebuilding the missing history.\n\nhttps://ostapkvl.com/writing/what-to-keep-before-an-agent-forgets\n\nWhat do you keep outside the conversation before handing a task to another agent?`,
   },
+  "the-agent-is-waiting-for-you": {
+    order: 4,
+    caption: `Picture a back office run by six AI agents.\n\nOne checks invoices against orders. One sorts the inbox. One drafts a refund reply. And one has stopped, because it found two different bank accounts for the same supplier and does not know which one to use.\n\nFrom a distance all six look busy. Only one needs you, and it is the quiet one.\n\nCoding tools already solved this for engineers: one view that shows which agent session actually needs a human. Business teams running agents need the same idea, but tuned for money and data instead of code diffs.\n\nI wrote about what that console should look like, and why the “amber badge” pattern is not enough when one item needs a choice, one needs a read, and one needs an honest warning that something stopped responding.\n\nhttps://ostapkvl.com/writing/the-agent-is-waiting-for-you\n\nIf you run more than one agent today, how do you find the one that is actually stuck?`,
+  },
 };

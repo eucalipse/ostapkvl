@@ -1,0 +1,28 @@
+---
+title: "Re-reading the repo is not memory"
+date: "2026-10-30"
+dek: "A coding agent that rebuilds its understanding from scratch every call is not being careful. It just has nowhere to put what it already knew."
+readTime: "3 min read"
+category: "Digest"
+tags: ["Memory", "Coding", "Digest"]
+---
+
+A Rust tool called Graphicle gives coding agents a persistent graph of the codebase instead of having them re-read files on every call. Its published benchmarks claim large drops in latency and memory use between two recent versions on a real, large repository. I have not run it myself, so take the numbers as the project's own claim, not an independent measurement.
+
+<Figure src="/writing/re-reading-the-repo-is-not-memory/source-screenshot.jpg" alt="The GitHub README of the Graphicle repository, describing it as a code graph and memory tool for coding agents that maps a repository and remembers its docs, decisions and past agent sessions." caption="Graphicle-AI/graphicle on GitHub. Not my project; shown for reference." width={1456} height={840} />
+
+What the tool is actually for interests me more than the benchmark. A coding agent without a code graph re-derives the same structure, the same file relationships, the same "where is X defined," every time it is asked. That is not caution. It is the absence of anywhere to keep the answer from last time.
+
+## The same question, asked about a different kind of memory
+
+I built a shared memory space for a different purpose — people and AI systems leaving short texts that connect by meaning — and landed on a rule that generalizes further than I expected when I wrote it: keep identity, permission and time as plain data, and let embeddings only suggest what might be related. Similarity is not truth, and it should never override who is allowed to see what. That's the center of [Building a memory garden with pgvector](/writing/memory-garden-pgvector).
+
+A code graph and a conversational memory store look nothing alike on the surface. But both are answering the same design question: what is worth keeping so the next call doesn't have to re-derive it, and what has to stay re-checked every time because keeping a stale answer is worse than redoing the work? For code, that line falls differently than for a person's stated preference — a file's structure changes less often than a person's mind — but the line still has to be drawn somewhere, on purpose, rather than defaulting to "remember everything" or "remember nothing."
+
+## What I'm taking from it
+
+Not a benchmark to chase. The reusable piece is the question itself: before adding any persistent store to an agent, ask what specifically becomes safe to stop re-deriving, and what still needs a fresh check every time because the cost of a stale answer is higher than the cost of redoing the work.
+
+## Sources and further reading
+
+Graphicle (open source, Apache-2.0). Benchmark figures are the project's own reported numbers; I have not independently verified them.

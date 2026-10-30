@@ -122,6 +122,7 @@ export const de: Copy = {
     intro: "KI-Agenten im Produktivbetrieb, dazu Experimente zu Gedächtnis, Präsenz und der Interaktion zwischen Mensch und KI.",
     categoriesLabel: "Kategorien",
     category: "Bewusstsein und KI",
+    digestCategory: "Digest",
     topicsLabel: "Artikel nach Thema filtern",
     all: "Alle",
     languageLabel: "Sprache",

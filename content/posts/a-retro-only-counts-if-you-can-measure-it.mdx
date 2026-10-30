@@ -1,0 +1,28 @@
+---
+title: "A retro only counts if you can measure it"
+date: "2026-10-30"
+dek: "A skill that updates its own rules after every session is a good idea with a missing half: proof the update actually helped."
+readTime: "3 min read"
+category: "Digest"
+tags: ["Agent architecture", "Reliability", "Digest"]
+---
+
+Alfonso Graziano, who works on AI-native software engineering and speaks publicly about what he calls harness engineering, shared a skill that runs a retro after every agent session: read the transcript, propose findings ("this script always stops the bastion"), and let a person approve updates to the project's rules and skills before the next session starts. The pitch is direct — the repo should learn from its own mistakes instead of making the same one twice.
+
+<Figure src="/writing/a-retro-only-counts-if-you-can-measure-it/source-screenshot.jpg" alt="The GitHub README of Alfonso Graziano's skills repository, listing the harness-retro skill alongside its description: it looks back at an agent session and proposes fixes to the repo's harness." caption="alfonsograziano/skills on GitHub. Not my project; shown for reference." width={1456} height={840} />
+
+I like the shape of this more than most "self-improving agent" pitches, because the approval step is explicit. A finding is proposed, not applied. A person decides whether the rule is actually true before it becomes permanent. That single gate separates this from the version of the same idea that quietly rewrites its own instructions and occasionally rewrites them wrong.
+
+## The missing half
+
+What the pitch does not show is how anyone knows the retro helped. A proposed rule that sounds right ("always use the script, never query the database directly") can still be wrong, redundant, or only true in the one session that produced it. Without a before-and-after measurement — does the next session actually avoid the mistake, does it avoid a new one the rule didn't anticipate — "the repo got smarter" is an assertion, not an observation.
+
+This is the same gap [What to keep before an agent forgets](/writing/what-to-keep-before-an-agent-forgets) is about, from the other direction. A good checkpoint preserves the goal, the exact evidence, and the rejected assumptions — not just a plausible-sounding summary of what happened. "The implementation is complete, one test remains" tells the next agent nothing about which test or what the last failure said. A retro finding has the same obligation: it needs to carry the evidence it was built on, not just the conclusion, or there is no way to check later whether it was right.
+
+## What I'm taking from it
+
+The approval gate is worth keeping. The part I would add before trusting this pattern on anything that matters: pair every retro with a rerun of the same failure case against the updated rules, and keep the result next to the rule it justified. A rule nobody re-tests is a guess that got promoted to policy.
+
+## Sources and further reading
+
+[Alfonso Graziano's skills repository](https://github.com/alfonsograziano/skills) (open source, MIT license), which includes harness-retro. I have not run the skill myself; this note reflects its published description, not a trial.

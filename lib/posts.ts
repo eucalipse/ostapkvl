@@ -10,7 +10,7 @@ export type PostMeta = {
   date: string;
   dek: string;
   readTime: string;
-  category?: "Production" | "Experiments" | "Consciousness & AI";
+  category?: "Production" | "Experiments" | "Consciousness & AI" | "Digest";
   draft?: boolean;
   /** BCP 47 language of the article body; defaults to "en". */
   lang: string;

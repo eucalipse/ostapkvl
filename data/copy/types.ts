@@ -58,6 +58,7 @@ export type Copy = {
     intro: string;
     categoriesLabel: string;
     category: string;
+    digestCategory: string;
     topicsLabel: string;
     all: string;
     languageLabel: string;

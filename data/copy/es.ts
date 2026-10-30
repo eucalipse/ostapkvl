@@ -122,6 +122,7 @@ export const es: Copy = {
     intro: "Agentes de IA en producción, además de experimentos sobre memoria, presencia e interacción humano–IA.",
     categoriesLabel: "Categorías",
     category: "Consciencia e IA",
+    digestCategory: "Digest",
     topicsLabel: "Filtrar artículos por tema",
     all: "Todos",
     languageLabel: "Idioma",

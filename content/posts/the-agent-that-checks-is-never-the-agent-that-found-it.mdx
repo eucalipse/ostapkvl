@@ -1,0 +1,32 @@
+---
+title: "The agent that checks is never the agent that found it"
+date: "2026-10-30"
+dek: "A security-audit skill makes a simple rule explicit: a claim and its check cannot share an author. The same rule applies anywhere an agent's output needs trust."
+readTime: "3 min read"
+category: "Digest"
+tags: ["Agent architecture", "Human review", "Digest"]
+---
+
+Cloudflare open-sourced a security-audit skill built around one rule: the agent that finds a vulnerability is never the agent that confirms it. A separate run has to try to disprove the finding before it gets reported. The project states the goal plainly — cut false positives from a single agent grading its own work.
+
+<Figure src="/writing/the-agent-that-checks-is-never-the-agent-that-found-it/source-screenshot.jpg" alt="The GitHub README of Cloudflare's security-audit-skill repository, showing its six-phase audit process: reconnaissance, coverage-led hunting, candidate validation, and independent record verification." caption="cloudflare/security-audit-skill on GitHub, 53.4k stars at the time of this screenshot. Not my project; shown for reference." width={1456} height={840} />
+
+The rule exists because the failure mode is real and already visible elsewhere. curl ended its bug-bounty program in January 2026 after what its maintainer called a flood of "AI slop" reports. Google paused new submissions to its open-source vulnerability reward program in October 2026 for the same reason. HackerOne's own Internet Bug Bounty paused submissions in March 2026. In each case, a model found a "bug" and nothing independent checked whether the bug was real before a human had to.
+
+## The same shape, a different domain
+
+I wrote about this exact problem for code review, not security scanning. In [Review the decision, not just the diff](/writing/review-the-decision-not-just-the-diff), the proposed second step is a different agent whose only job is to find a counterexample — a concurrent retry, a changed payload, a case the first agent's patch does not cover. Agreement between the author and a reviewer that shares its assumptions proves nothing. The check only counts if it was built to fail the claim, not confirm it.
+
+[Three models, one answer](/writing/three-models-one-answer) runs into the same limit from the consensus side: models from the same vendor, or models prompted the same way, can agree for the wrong reason. Cross-vendor disagreement is more informative than same-vendor agreement, precisely because the failure modes are less likely to be shared.
+
+Cloudflare's skill states the principle for one domain — code vulnerabilities — as a fixed pipeline: hunt, then independently try to disprove, then report with a confidence level. Worth noting before borrowing the pattern elsewhere: a second agent trying to disprove a claim still needs a sandbox boundary to run safely against untrusted code, and still needs its own evaluation to confirm the disproof attempt was actually adversarial rather than another pass that happens to agree.
+
+## What I'm taking from it
+
+Not the tool itself — I have no production security-scanning use case. The transferable part is the one-sentence design rule: if verification can be satisfied by repeating the original claim, it isn't verification. Any review step I design next, agent or human, gets checked against that sentence first.
+
+## Sources and further reading
+
+Cloudflare's security-audit skill (open source, MIT license). I have not run it myself; this note reflects its published description, not a trial.
+
+[curl ends its bug-bounty program after a flood of "AI slop" reports](https://www.bleepingcomputer.com/news/security/curl-ending-bug-bounty-program-after-flood-of-ai-slop-reports/) and [Google pauses its open-source bug-bounty program](https://www.bleepingcomputer.com/news/google/google-halts-open-source-bug-bounty-program-amid-ai-spam-surge), both BleepingComputer.

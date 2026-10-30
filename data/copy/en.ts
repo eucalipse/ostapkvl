@@ -68,6 +68,7 @@ export const en: Copy = {
     intro: "Production AI agents, plus experiments in memory, presence and human–AI interaction.",
     categoriesLabel: "Writing categories",
     category: "Consciousness & AI",
+    digestCategory: "Digest",
     topicsLabel: "Filter articles by topic",
     all: "All",
     languageLabel: "Language",

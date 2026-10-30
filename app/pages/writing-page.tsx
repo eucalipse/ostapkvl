@@ -12,8 +12,9 @@ export function WritingPage({ locale }: { locale: SiteLocale }) {
       <h1 className="font-serif text-4xl font-medium tracking-tight sm:text-5xl">{c.title}</h1>
       <p className="mt-4 text-lg text-muted">{c.intro}</p>
       {c.englishNote && <p className="mt-3 text-sm text-muted">{c.englishNote}</p>}
-      <nav aria-label={c.categoriesLabel} className="mt-6 text-sm">
+      <nav aria-label={c.categoriesLabel} className="mt-6 flex flex-wrap gap-x-4 gap-y-1 text-sm">
         <Link href="/writing/category/consciousness-and-ai" hrefLang="en" className="text-accent underline underline-offset-4">{c.category}{locale !== "en" ? " (EN)" : ""}</Link>
+        <Link href="/writing/category/digest" hrefLang="en" className="text-accent underline underline-offset-4">{c.digestCategory}{locale !== "en" ? " (EN)" : ""}</Link>
       </nav>
       <PostList posts={posts} locale={locale} labels={c} />
     </main>
