@@ -21,7 +21,11 @@ Worth being precise about scale here: Graphicle is a small project, a few hundre
 
 **Graphify**, the larger project in the same space, makes the sharpest version of the argument for this approach: a vector search retrieves code that looks similar to a query; a graph retrieves code that is actually connected to it. The two are often different files. The most structurally relevant piece of code — the one function that will break if you change this one — can be the least textually similar to whatever you searched for. That's a real limitation of embeddings-only retrieval, not just a marketing line, though the specific cost-savings numbers attached to it are the vendor's own and I have not checked them.
 
+<Figure src="/writing/re-reading-the-repo-is-not-memory/graphify-screenshot.jpg" alt="The GitHub README of the Graphify repository, stating it cuts agent token spend by 80 percent, parses code locally with tree-sitter AST with no embeddings or vector store, and labels every graph edge as extracted or inferred." caption="Graphify-Labs/graphify on GitHub, 139k stars at the time of this screenshot. Not my project; shown for reference." width={1492} height={812} />
+
 **Aider's repo-map** takes a lighter version of the same idea: parse the repo with tree-sitter into a graph of files and symbol references, then rank it to surface the files most relevant to the current edit. No persistent database, no server — it rebuilds the map each run, but still answers "what's connected" rather than "what looks similar."
+
+<Figure src="/writing/re-reading-the-repo-is-not-memory/aider-repomap-screenshot.jpg" alt="The aider.chat blog post titled Building a better repository map with tree sitter, describing the difficulty of making complex changes in a large pre-existing codebase without first understanding how the code relates." caption="aider.chat's own write-up of the repo-map approach, from 2023. Not my project; shown for reference." width={1492} height={812} />
 
 **Continue.dev** goes the other way and stays with embeddings only, no graph. That's the useful contrast: if your questions are lookups against documentation or loosely related code, embeddings are a fine tool, cheaper to build and reason about. The graph earns its cost specifically when the question is about structural connection, not textual similarity.
 
@@ -39,7 +43,7 @@ Not a benchmark to chase, and not a single winning tool. The reusable piece is t
 
 [Graphicle](https://github.com/Graphicle-AI/graphicle) (open source, Apache-2.0). Benchmark figures are the project's own reported numbers; I have not independently verified them.
 
-Graphify, a separate and much larger project in the same space — the "retrieves what's connected, not what looks similar" framing comes from its own material, which is vendor-interested, not neutral.
+[Graphify](https://github.com/Graphify-Labs/graphify), a separate and much larger project in the same space — the "retrieves what's connected, not what looks similar" framing comes from its own material, which is vendor-interested, not neutral.
 
 [Aider's repo-map](https://aider.chat/2023/10/22/repomap.html), open source, tree-sitter based.
 
