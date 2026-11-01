@@ -1,0 +1,10 @@
+[
+  {"slug": "graphicle", "repo": "Graphicle-AI/graphicle"},
+  {"slug": "graphify", "repo": "Graphify-Labs/graphify"},
+  {"slug": "cloudflare-security-audit-skill", "repo": "cloudflare/security-audit-skill"},
+  {"slug": "alfonsograziano-skills", "repo": "alfonsograziano/skills"},
+  {"slug": "truth", "repo": "blasrodri/truth"},
+  {"slug": "agent-lens-bench", "repo": "agent-lens/agent-lens-bench"},
+  {"slug": "hivemind", "repo": "hivementality-ai/hivemind"},
+  {"slug": "counter-sign", "repo": "countersign-labs/counter-sign"}
+]

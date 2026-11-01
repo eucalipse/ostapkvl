@@ -1,0 +1,58 @@
+[
+  {
+    "collected_at": "2026-11-01T14:57:35.129860+00:00",
+    "date": "2026-11-01",
+    "repo": "Graphicle-AI/graphicle",
+    "slug": "graphicle",
+    "stars": 484
+  },
+  {
+    "collected_at": "2026-11-01T14:57:48.072575+00:00",
+    "date": "2026-11-01",
+    "repo": "Graphify-Labs/graphify",
+    "slug": "graphify",
+    "stars": 140349
+  },
+  {
+    "collected_at": "2026-11-01T14:57:49.498692+00:00",
+    "date": "2026-11-01",
+    "repo": "cloudflare/security-audit-skill",
+    "slug": "cloudflare-security-audit-skill",
+    "stars": 56018
+  },
+  {
+    "collected_at": "2026-11-01T14:57:50.897238+00:00",
+    "date": "2026-11-01",
+    "repo": "alfonsograziano/skills",
+    "slug": "alfonsograziano-skills",
+    "stars": 13
+  },
+  {
+    "collected_at": "2026-11-01T14:57:52.281269+00:00",
+    "date": "2026-11-01",
+    "repo": "blasrodri/truth",
+    "slug": "truth",
+    "stars": 1
+  },
+  {
+    "collected_at": "2026-11-01T14:57:53.717477+00:00",
+    "date": "2026-11-01",
+    "repo": "agent-lens/agent-lens-bench",
+    "slug": "agent-lens-bench",
+    "stars": 10
+  },
+  {
+    "collected_at": "2026-11-01T14:57:55.163276+00:00",
+    "date": "2026-11-01",
+    "repo": "hivementality-ai/hivemind",
+    "slug": "hivemind",
+    "stars": 87
+  },
+  {
+    "collected_at": "2026-11-01T14:57:56.589917+00:00",
+    "date": "2026-11-01",
+    "repo": "countersign-labs/counter-sign",
+    "slug": "counter-sign",
+    "stars": 0
+  }
+]
