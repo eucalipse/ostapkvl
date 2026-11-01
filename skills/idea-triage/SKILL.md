@@ -19,10 +19,10 @@ Run this when asked to find new ideas rather than triage one already in hand:
 
 1. Check the five sources under "Where to look," in order. For each, look specifically for a tool or trend from the last 1-2 weeks that is NOT already covered in `content/research/tool-digest.md` (read that file first to know what's covered) and does not overlap an existing `content/posts/*.mdx` angle.
 2. Stop at the first genuinely new, well-evidenced candidate per run — do not try to surface many at once. One good idea with real comparables beats three thin ones.
-3. For the candidate, find 2-3 real similar/competing tools (same bar as the rest of this skill: must solve the same specific mechanism, not just "also AI-related"), open-source status, and any claimed metric marked `unverified` unless independently confirmed.
-4. Run the NDA check on it (see below) before reporting it at all — a candidate that fails NDA is simply skipped, not reported with the legal angle removed.
+3. For the candidate, find 2-3 real similar/competing tools (same bar as the rest of this skill: must solve the same specific mechanism, not just "also AI-related"), open-source status, and any claimed metric marked `unverified` unless independently confirmed. **Apply the source-verification step from Steps below to every single tool before including it** — scan runs surface the most unconfirmed names precisely because they cover many sources quickly; do not relax this check just because the run is broad.
+4. Run the NDA check on it (see Steps below) before reporting it at all — a candidate that fails NDA is simply skipped, not reported with the legal angle removed.
 5. Add it to `content/research/idea-backlog.md` as a `seed, not triaged` entry with full source attribution (channel, date, link), then run it through the regular Steps below to reach a verdict.
-6. Report the verdict to Ostap in a few lines, same as regular triage. **Never draft, publish, or post anything from a scan run without his explicit go-ahead on that specific idea** — scan mode finds and files ideas, it does not greenlight them.
+6. Report the verdict to Ostap in a few lines, same as regular triage. **Never draft, publish, or post anything from a scan run without his explicit go-ahead on that specific idea** — scan mode finds and files ideas, it does not greenlight them. A scan that finds nothing verifiable is a valid, useful result — report the clean miss rather than stretch an unconfirmed name into a finding.
 
 ## Where to look
 
@@ -40,19 +40,22 @@ Skip Product Hunt's AI category and generic "best AI newsletter" lists — check
 
 1. **Capture the seed first.** Before judging it, add (or update) an entry in `content/research/idea-backlog.md` under today's date: source (who/where/engagement numbers if visible), what the thing is in one or two sentences, and status `seed, not triaged`. Never skip this step even if the idea looks weak — the backlog is the record, judgment can change later.
 
-2. **NDA check.** Confirm the idea has no path into law-firm/legal-industry framing or content (see the global NDA rule). If the source material itself is legal-industry (e.g. a legal-tech tool), drop it or flag it clearly as excluded — do not draft around it.
+2. **Source verification — fetch before trusting.** Before treating any tool name, mechanism, URL, or metric as a fact, fetch the actual GitHub README or project page directly (WebFetch, not a search-result snippet) and confirm it says what's being reported. A tool mentioned only in a search snippet, a secondary blog post, or another model's inference is not yet confirmed — it may not exist, or its real mechanism may differ from what the snippet implies. This matters because it has already gone wrong once: a prior scan reported "groundtruth" and "AgentHarness verifier" as real comparables that turned out not to exist on independent re-check, and misdescribed a real tool (counter-sign) based on its name alone rather than its actual README, which described something else entirely (a human-approval protocol, not a claims-verification tool). If a tool can't be confirmed by fetching its own page, drop it from the report rather than pass it along as a finding — a shorter, verified list beats a longer, partly fabricated one.
 
-3. **Overlap check.** Grep `content/posts/*.mdx` for existing articles covering the same mechanism or claim. List which posts already cover adjacent ground. An idea that purely restates an existing post's argument is not a new draft — it's either a non-starter or a case for updating/cross-linking the existing post instead.
+3. **NDA check.** Confirm the idea has no path into law-firm/legal-industry framing or content (see the global NDA rule). If the source material itself is legal-industry (e.g. a legal-tech tool), drop it or flag it clearly as excluded — do not draft around it.
 
-4. **Angle check — the core filter.** A tool launch or trend post is not an article idea by itself. Ask: what's the underlying design question or tradeoff this surfaces that connects to Ostap's actual work (business agents, approval gates, memory, verification, multi-agent coordination — not coding-tool reviews)? If you can't state this in one sentence that isn't just a summary of the source, the idea fails triage. Record the angle (or its absence) in the backlog entry.
+4. **Overlap check.** Grep `content/posts/*.mdx` for existing articles covering the same mechanism or claim. List which posts already cover adjacent ground. An idea that purely restates an existing post's argument is not a new draft — it's either a non-starter or a case for updating/cross-linking the existing post instead.
 
-5. **Verdict.** Mark the backlog entry's status as one of:
+5. **Angle check — the core filter.** A tool launch or trend post is not an article idea by itself. Ask: what's the underlying design question or tradeoff this surfaces that connects to Ostap's actual work (business agents, approval gates, memory, verification, multi-agent coordination — not coding-tool reviews)? If you can't state this in one sentence that isn't just a summary of the source, the idea fails triage. Record the angle (or its absence) in the backlog entry.
+
+6. **Verdict.** Mark the backlog entry's status as one of:
    - `promising — angle: <one sentence>` (ready to discuss drafting)
    - `overlap — see <slug>` (too close to an existing post; consider a cross-link instead)
    - `excluded — NDA` (legal-industry entanglement)
    - `weak — no angle` (just a tool summary, no fit)
+   - `unconfirmed — could not verify` (the tool itself, or its described mechanism, could not be confirmed by fetching its own page — do not promote to a draft)
 
-6. **Report, don't draft.** Summarize the verdict(s) to Ostap in a few lines. Only start drafting an MDX file if he explicitly asks for a draft next — this skill's job ends at the verdict.
+7. **Report, don't draft.** Summarize the verdict(s) to Ostap in a few lines. Only start drafting an MDX file if he explicitly asks for a draft next — this skill's job ends at the verdict.
 
 ## Notes
 
