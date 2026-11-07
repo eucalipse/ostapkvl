@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
-import { site } from "@/data/site";
+import { forwardSubmission } from "@/lib/submissions";
 
+// Forwards to Control Room's shared Submission table instead of emailing
+// Ostap directly per message — see lib/submissions.ts. Control Room's
+// weekly digest cron covers notification.
 export async function POST(request: Request) {
   let body: { name?: string; email?: string; message?: string; company?: string };
   try {
@@ -24,44 +27,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
-    return NextResponse.json(
-      { error: "Sending is not configured. Email me directly instead." },
-      { status: 500 }
-    );
-  }
+  await forwardSubmission({ type: "contact", email, name, message, source: "contact-form" });
 
-  let res: Response;
-  try {
-    res = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        // Resend can only send from a verified domain (eucalipse.com is verified;
-        // ostapkvl.com is not), so the from stays here while replies go to site.email.
-        from: "Ostap Kovalisko <contact@eucalipse.com>",
-        to: [site.email],
-        reply_to: email,
-        subject: `ostapkvl.com contact from ${name}`,
-        text: `Name: ${name}\nEmail: ${email}\n\n${message}`,
-      }),
-    });
-  } catch {
-    return NextResponse.json(
-      { error: "Could not send right now. Email me directly instead." },
-      { status: 502 }
-    );
-  }
-
-  if (!res.ok) {
-    return NextResponse.json(
-      { error: "Could not send right now. Email me directly instead." },
-      { status: 502 }
-    );
-  }
   return NextResponse.json({ ok: true });
 }

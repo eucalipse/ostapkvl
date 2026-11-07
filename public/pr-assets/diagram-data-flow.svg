@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">One shared memory, three ways to act</title>
+  <desc id="desc">Gmail, Calendar, GitHub, Notion, and Slack feed a central Postgres store with vector embeddings. The shared store supplies a proactive queue, chat, and CRM and tasks.</desc>
+  <defs>
+    <marker id="arrow-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#69707A"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#2E4EC4"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="675" fill="#ECEEF1"/>
+  <text x="48" y="62" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#1A1815">One shared memory, three ways to act</text>
+  <g font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">
+    <text x="48" y="92" font-size="17" fill="#69707A">Connected tools feed the assistant’s working context</text>
+    <text x="64" y="151" font-size="14" letter-spacing="1.3" fill="#69707A">TOOLS</text>
+    <text x="616" y="151" text-anchor="middle" font-size="14" letter-spacing="1.3" fill="#69707A">SHARED STORE</text>
+    <text x="920" y="151" font-size="14" letter-spacing="1.3" fill="#69707A">OUTPUTS</text>
+
+    <g fill="none" stroke="#69707A" stroke-width="1.7">
+      <path d="M274,213 H334 V533 H274"/>
+      <path d="M274,293 H334 M274,373 H430 M274,453 H334"/>
+      <line x1="352" y1="373" x2="430" y2="373" marker-end="url(#arrow-gray)"/>
+    </g>
+    <g fill="#69707A">
+      <circle cx="334" cy="293" r="3"/>
+      <circle cx="334" cy="373" r="4"/>
+      <circle cx="334" cy="453" r="3"/>
+    </g>
+
+    <g fill="#F3F5F7" stroke="#D9DEE4" stroke-width="1.5">
+      <rect x="64" y="184" width="210" height="58" rx="7"/>
+      <rect x="64" y="264" width="210" height="58" rx="7"/>
+      <rect x="64" y="344" width="210" height="58" rx="7"/>
+      <rect x="64" y="424" width="210" height="58" rx="7"/>
+      <rect x="64" y="504" width="210" height="58" rx="7"/>
+    </g>
+    <g fill="none" stroke="#69707A" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="85" y="204" width="24" height="18" rx="2"/>
+      <path d="M86,205 L97,214 L108,205"/>
+      <rect x="86" y="284" width="22" height="20" rx="2"/>
+      <path d="M86,290 H108 M91,280 V287 M103,280 V287 M92,296 H96 M100,296 H102"/>
+      <path d="M91,364 V382 M103,366 V371 Q103,377 97,377 H91"/>
+      <circle cx="91" cy="362" r="3" fill="#F3F5F7"/>
+      <circle cx="91" cy="384" r="3" fill="#F3F5F7"/>
+      <circle cx="103" cy="363" r="3" fill="#F3F5F7"/>
+      <path d="M87,441 H101 L108,448 V465 H87 Z M101,441 V448 H108 M92,453 H102 M92,459 H100"/>
+      <path d="M92,523 L90,543 M103,523 L101,543 M86,529 H108 M85,537 H107"/>
+    </g>
+    <g font-size="20" fill="#1A1815">
+      <text x="126" y="220">Gmail</text>
+      <text x="126" y="300">Calendar</text>
+      <text x="126" y="380">GitHub</text>
+      <text x="126" y="460">Notion</text>
+      <text x="126" y="540">Slack</text>
+    </g>
+
+    <path d="M430,296 C430,281 513,269 616,269 C719,269 802,281 802,296 V450 C802,465 719,477 616,477 C513,477 430,465 430,450 Z" fill="#F3F5F7" stroke="#69707A" stroke-width="1.7"/>
+    <ellipse cx="616" cy="296" rx="186" ry="27" fill="#ECEEF1" stroke="#69707A" stroke-width="1.7"/>
+    <path d="M430,428 C430,443 513,455 616,455 C719,455 802,443 802,428" fill="none" stroke="#D9DEE4" stroke-width="1.5"/>
+    <text x="616" y="369" text-anchor="middle" font-size="24" fill="#1A1815">Postgres +</text>
+    <text x="616" y="402" text-anchor="middle" font-size="24" fill="#1A1815">vector embeddings</text>
+
+    <g fill="none" stroke="#2E4EC4" stroke-width="1.8">
+      <path d="M802,373 H860 V253 H920" marker-end="url(#arrow-blue)"/>
+      <path d="M860,373 H920" marker-end="url(#arrow-blue)"/>
+      <path d="M860,373 V493 H920" marker-end="url(#arrow-blue)"/>
+    </g>
+    <circle cx="860" cy="373" r="4" fill="#2E4EC4"/>
+    <g fill="#F3F5F7" stroke="#D9DEE4" stroke-width="1.5">
+      <rect x="920" y="221" width="224" height="64" rx="7"/>
+      <rect x="920" y="341" width="224" height="64" rx="7"/>
+      <rect x="920" y="461" width="224" height="64" rx="7"/>
+    </g>
+    <g fill="#2E4EC4">
+      <circle cx="944" cy="253" r="4"/>
+      <circle cx="944" cy="373" r="4"/>
+      <circle cx="944" cy="493" r="4"/>
+    </g>
+    <g font-size="20" fill="#1A1815">
+      <text x="962" y="260">Proactive queue</text>
+      <text x="962" y="380">Chat</text>
+      <text x="962" y="500">CRM + Tasks</text>
+    </g>
+    <text x="64" y="606" font-size="17" fill="#69707A">Shared context supports every way the assistant helps.</text>
+  </g>
+  <text x="1172" y="653" font-family="Menlo, Consolas, monospace" font-size="15" fill="#69707A" text-anchor="end" letter-spacing="0.5">ostavio.com</text>
+</svg>

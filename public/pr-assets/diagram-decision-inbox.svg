@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Decisions belong in one inbox</title>
+  <desc id="desc">Agents grouped into Finance, Operations, and Inbox and admin feed a shared inbox. A blocked refund decision is ranked first, above an invoice ready for review and an unknown or stale supplier update.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#2E4EC4"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="675" fill="#ECEEF1"/>
+  <text x="48" y="62" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#1A1815">Decisions belong in one inbox</text>
+  <g font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">
+    <text x="48" y="92" font-size="17" fill="#69707A">Business agents · ordered by what needs attention</text>
+
+    <text x="64" y="151" font-size="14" letter-spacing="1.3" fill="#69707A">BUSINESS AGENTS</text>
+    <rect x="64" y="174" width="330" height="372" rx="10" fill="#F3F5F7" stroke="#D9DEE4" stroke-width="1.5"/>
+    <line x1="88" y1="298" x2="370" y2="298" stroke="#D9DEE4" stroke-width="1.5"/>
+    <line x1="88" y1="422" x2="370" y2="422" stroke="#D9DEE4" stroke-width="1.5"/>
+
+    <circle cx="104" cy="236" r="16" fill="#ECEEF1" stroke="#2E4EC4" stroke-width="1.5"/>
+    <circle cx="104" cy="236" r="4" fill="#2E4EC4"/>
+    <text x="138" y="228" font-size="18" fill="#69707A">Finance</text>
+    <text x="138" y="258" font-size="20" fill="#1A1815">Invoices · Refunds</text>
+
+    <circle cx="104" cy="360" r="16" fill="#ECEEF1" stroke="#2E4EC4" stroke-width="1.5"/>
+    <circle cx="104" cy="360" r="4" fill="#2E4EC4"/>
+    <text x="138" y="352" font-size="18" fill="#69707A">Operations</text>
+    <text x="138" y="382" font-size="20" fill="#1A1815">Suppliers</text>
+
+    <circle cx="104" cy="484" r="16" fill="#ECEEF1" stroke="#2E4EC4" stroke-width="1.5"/>
+    <circle cx="104" cy="484" r="4" fill="#2E4EC4"/>
+    <text x="138" y="476" font-size="18" fill="#69707A">Inbox &amp; admin</text>
+    <text x="138" y="506" font-size="20" fill="#1A1815">Email · Follow-ups</text>
+
+    <g fill="none" stroke="#2E4EC4" stroke-width="1.8">
+      <path d="M394,236 H474 V484 H394"/>
+      <line x1="394" y1="360" x2="564" y2="360" marker-end="url(#arrow)"/>
+    </g>
+    <circle cx="474" cy="360" r="4" fill="#2E4EC4"/>
+
+    <text x="582" y="151" font-size="14" letter-spacing="1.3" fill="#69707A">ONE SHARED INBOX</text>
+    <rect x="582" y="174" width="554" height="372" rx="10" fill="#F3F5F7" stroke="#D9DEE4" stroke-width="1.5"/>
+    <text x="608" y="211" font-size="21" fill="#1A1815">Needs attention</text>
+    <text x="1110" y="210" text-anchor="end" font-size="14" fill="#69707A">Priority</text>
+
+    <rect x="608" y="232" width="502" height="88" rx="7" fill="#ECEEF1" stroke="#B7791F" stroke-width="1.8"/>
+    <line x1="610" y1="247" x2="610" y2="305" stroke="#B7791F" stroke-width="4"/>
+    <circle cx="638" cy="276" r="13" fill="none" stroke="#B7791F" stroke-width="1.8"/>
+    <path d="M638,269 V278" fill="none" stroke="#B7791F" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="638" cy="283" r="1.5" fill="#B7791F"/>
+    <text x="666" y="270" font-size="22" fill="#1A1815">Blocked decision</text>
+    <text x="666" y="297" font-size="17" fill="#69707A">Refund approval</text>
+    <text x="1086" y="282" text-anchor="end" font-size="18" fill="#B7791F">01</text>
+
+    <rect x="608" y="334" width="502" height="84" rx="7" fill="#F3F5F7" stroke="#D9DEE4" stroke-width="1.5"/>
+    <circle cx="638" cy="376" r="13" fill="none" stroke="#3F7D5A" stroke-width="1.8"/>
+    <circle cx="638" cy="376" r="4" fill="#3F7D5A"/>
+    <text x="666" y="370" font-size="22" fill="#1A1815">Ready to review</text>
+    <text x="666" y="397" font-size="17" fill="#69707A">Invoice prepared</text>
+    <text x="1086" y="382" text-anchor="end" font-size="18" fill="#69707A">02</text>
+
+    <rect x="608" y="432" width="502" height="88" rx="7" fill="#F3F5F7" stroke="#69707A" stroke-width="1.3" stroke-dasharray="7 6"/>
+    <circle cx="638" cy="476" r="13" fill="none" stroke="#69707A" stroke-width="1.6" stroke-dasharray="3 3"/>
+    <text x="638" y="482" text-anchor="middle" font-size="18" fill="#69707A">?</text>
+    <text x="666" y="470" font-size="22" fill="#69707A">Unknown / stale</text>
+    <text x="666" y="497" font-size="17" fill="#69707A">Supplier update missing</text>
+    <text x="1086" y="482" text-anchor="end" font-size="18" fill="#69707A">03</text>
+
+    <text x="64" y="596" font-size="17" fill="#69707A">A decision that blocks work comes first.</text>
+  </g>
+  <text x="1172" y="653" font-family="Menlo, Consolas, monospace" font-size="15" fill="#69707A" text-anchor="end" letter-spacing="0.5">heedroom.com</text>
+</svg>

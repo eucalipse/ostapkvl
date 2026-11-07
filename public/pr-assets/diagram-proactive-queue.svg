@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Surfacing: deciding what deserves attention</title>
+  <desc id="desc">An overdue email reply, a stalled task with a buried reason, and a meeting needing preparation pass through background relevance checks into a ranked proactive queue. The overdue reply needs attention first, meeting preparation is next, and the stalled task remains lower priority until its context is refreshed.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 Z" fill="#2E4EC4"/></marker>
+    <style>
+      .title { font-family: Georgia, 'Times New Roman', serif; fill: #1A1815; }
+      .label { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #69707A; }
+      .flow { fill: none; stroke: #2E4EC4; stroke-width: 1.8; marker-end: url(#arrow); }
+      .icon { fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+  </defs>
+  <rect width="1200" height="675" fill="#ECEEF1"/>
+  <text x="64" y="80" class="title" font-size="34">Surfacing: deciding what deserves attention</text>
+  <text x="64" y="116" class="label" font-size="18">From background processing to the proactive queue</text>
+
+  <text x="64" y="179" class="label" font-size="13" letter-spacing="1.6">BACKGROUND SIGNALS</text>
+  <rect x="64" y="202" width="302" height="88" rx="12" fill="#F5F6F8" stroke="#C9CDD3" stroke-width="1.5"/>
+  <circle cx="101" cy="246" r="21" fill="#ECEEF1" stroke="#B7791F" stroke-width="1.5"/>
+  <g class="icon" stroke="#B7791F"><rect x="90" y="238" width="22" height="16" rx="2"/><path d="m91 240 10 7 10-7"/></g>
+  <text x="136" y="241" class="title" font-size="20">Overdue email reply</text>
+  <text x="136" y="265" class="label" font-size="15">A person is waiting</text>
+
+  <rect x="64" y="312" width="302" height="88" rx="12" fill="none" stroke="#A8AEB7" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <circle cx="101" cy="356" r="21" fill="#ECEEF1" stroke="#69707A" stroke-width="1.5"/>
+  <g class="icon" stroke="#69707A"><path d="M96 348v16m10-16v16"/></g>
+  <text x="136" y="351" class="title" font-size="20">Stalled task</text>
+  <text x="136" y="375" class="label" font-size="15">Reason buried in old notes</text>
+
+  <rect x="64" y="422" width="302" height="88" rx="12" fill="#F5F6F8" stroke="#C9CDD3" stroke-width="1.5"/>
+  <circle cx="101" cy="466" r="21" fill="#ECEEF1" stroke="#3F7D5A" stroke-width="1.5"/>
+  <g class="icon" stroke="#3F7D5A"><rect x="91" y="458" width="20" height="18" rx="2"/><path d="M96 454v7m10-7v7m-15 3h20m-14 6 3 3 6-6"/></g>
+  <text x="136" y="461" class="title" font-size="20">Meeting needing prep</text>
+  <text x="136" y="485" class="label" font-size="15">Tomorrow, 10:00</text>
+
+  <path d="M366 246H394L449 329" class="flow"/>
+  <path d="M366 356H449" class="flow"/>
+  <path d="M366 466H394L449 383" class="flow"/>
+  <text x="553" y="229" text-anchor="middle" class="label" font-size="17">background processing</text>
+  <text x="553" y="254" text-anchor="middle" class="label" font-size="17">checks relevance</text>
+  <path d="M459 302H568L638 338V374L568 410H459Z" fill="#F5F6F8" stroke="#2E4EC4" stroke-width="1.8" stroke-linejoin="round"/>
+  <text x="533" y="337" text-anchor="middle" class="label" font-size="15">Timing</text>
+  <text x="533" y="361" text-anchor="middle" class="label" font-size="15">Impact</text>
+  <text x="533" y="385" text-anchor="middle" class="label" font-size="15">Context</text>
+  <path d="M638 356H721" class="flow"/>
+  <text x="553" y="453" text-anchor="middle" class="label" font-size="14">Select · rank · surface</text>
+
+  <text x="743" y="179" class="label" font-size="13" letter-spacing="1.6">PROACTIVE QUEUE</text>
+  <rect x="737" y="202" width="399" height="322" rx="16" fill="none" stroke="#C9CDD3" stroke-width="1.5"/>
+  <rect x="751" y="216" width="371" height="103" rx="10" fill="#F4EBDD" stroke="#B7791F" stroke-width="1.8"/>
+  <circle cx="782" cy="249" r="16" fill="#B7791F"/>
+  <text x="782" y="255" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#FFFFFF" font-size="16">1</text>
+  <text x="812" y="248" class="title" font-size="21">Reply to the overdue email</text>
+  <text x="812" y="276" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#B7791F" font-size="16">needs attention first</text>
+  <text x="812" y="300" class="label" font-size="14">Someone is blocked on your answer</text>
+
+  <rect x="751" y="331" width="371" height="79" rx="10" fill="#F5F6F8" stroke="#C9CDD3" stroke-width="1.5"/>
+  <circle cx="782" cy="362" r="16" fill="none" stroke="#3F7D5A" stroke-width="1.5"/>
+  <text x="782" y="368" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#3F7D5A" font-size="16">2</text>
+  <text x="812" y="361" class="title" font-size="21">Prepare for tomorrow</text>
+  <text x="812" y="388" class="label" font-size="15">Relevant now · ready to act</text>
+
+  <rect x="751" y="422" width="371" height="88" rx="10" fill="none" stroke="#A8AEB7" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <circle cx="782" cy="454" r="16" fill="none" stroke="#A8AEB7" stroke-width="1.5"/>
+  <text x="782" y="460" text-anchor="middle" class="label" font-size="16">3</text>
+  <text x="812" y="453" class="label" font-size="20">Revisit the stalled task</text>
+  <text x="812" y="481" class="label" font-size="15">Lower priority · context needs refresh</text>
+
+  <path d="M64 565H1136" stroke="#CDD1D7" stroke-width="1.5"/>
+  <text x="64" y="606" class="title" font-size="23">Not every stored memory should turn into an alert.</text>
+  <text x="1136" y="642" text-anchor="end" font-family="Menlo, Consolas, monospace" fill="#69707A" letter-spacing="0.5" font-size="15">ostavio.com</text>
+</svg>

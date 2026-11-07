@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Silence is an unknown state</title>
+  <desc id="desc">A timeline proceeds from Agent running to Connection lost, through a dashed Unknown interval, and then to Reconnected, state confirmed. A separate status key shows that stale status means unknown, not a green success checkmark.</desc>
+  <defs>
+    <marker id="arrow-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#69707A"/>
+    </marker>
+    <marker id="arrow-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#B7791F"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="675" fill="#ECEEF1"/>
+  <text x="48" y="62" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#1A1815">Silence is an unknown state</text>
+  <g font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">
+    <text x="48" y="92" font-size="17" fill="#69707A">Agent status follows the latest confirmed observation</text>
+
+    <text x="64" y="164" font-size="14" letter-spacing="1.3" fill="#69707A">OBSERVATION TIMELINE</text>
+    <rect x="478" y="212" width="360" height="228" rx="10" fill="#F3F5F7" stroke="#B7791F" stroke-width="1.5" stroke-dasharray="7 6"/>
+    <text x="658" y="256" text-anchor="middle" font-size="18" letter-spacing="0.7" fill="#B7791F">UNKNOWN INTERVAL</text>
+
+    <line x1="96" y1="330" x2="378" y2="330" stroke="#3F7D5A" stroke-width="2"/>
+    <line x1="402" y1="330" x2="618" y2="330" stroke="#B7791F" stroke-width="2" stroke-dasharray="6 6" marker-end="url(#arrow-amber)"/>
+    <line x1="698" y1="330" x2="994" y2="330" stroke="#B7791F" stroke-width="2" stroke-dasharray="6 6" marker-end="url(#arrow-amber)"/>
+    <line x1="1018" y1="330" x2="1126" y2="330" stroke="#69707A" stroke-width="2" marker-end="url(#arrow-gray)"/>
+
+    <circle cx="154" cy="330" r="12" fill="#3F7D5A"/>
+    <text x="154" y="276" text-anchor="middle" font-size="21" fill="#1A1815">Agent running</text>
+    <text x="154" y="382" text-anchor="middle" font-size="17" fill="#69707A">Live observation</text>
+
+    <circle cx="390" cy="330" r="12" fill="#ECEEF1" stroke="#B7791F" stroke-width="2"/>
+    <circle cx="390" cy="330" r="4" fill="#B7791F"/>
+    <text x="382" y="276" text-anchor="middle" font-size="21" fill="#1A1815">Connection lost</text>
+    <text x="382" y="382" text-anchor="middle" font-size="17" fill="#69707A">Updates stop</text>
+
+    <circle cx="658" cy="330" r="30" fill="#F3F5F7" stroke="#B7791F" stroke-width="1.8"/>
+    <text x="658" y="342" text-anchor="middle" font-size="34" fill="#B7791F">?</text>
+    <text x="658" y="400" text-anchor="middle" font-size="18" fill="#69707A">No current observation</text>
+
+    <circle cx="1006" cy="330" r="12" fill="#ECEEF1" stroke="#3F7D5A" stroke-width="2"/>
+    <circle cx="1006" cy="330" r="5" fill="#3F7D5A"/>
+    <text x="1006" y="250" text-anchor="middle" font-size="21" fill="#1A1815">Reconnected,</text>
+    <text x="1006" y="278" text-anchor="middle" font-size="21" fill="#1A1815">state confirmed</text>
+    <text x="1006" y="382" text-anchor="middle" font-size="17" fill="#69707A">Fresh snapshot</text>
+
+    <line x1="64" y1="500" x2="1136" y2="500" stroke="#D9DEE4" stroke-width="1.5"/>
+    <text x="64" y="554" font-size="19" fill="#69707A">Stale status:</text>
+    <rect x="212" y="522" width="202" height="50" rx="7" fill="#F3F5F7" stroke="#B7791F" stroke-width="1.5" stroke-dasharray="7 6"/>
+    <text x="238" y="555" font-size="23" fill="#B7791F">?</text>
+    <text x="270" y="554" font-size="20" fill="#1A1815">Unknown</text>
+    <g fill="none" stroke="#69707A" stroke-width="2" stroke-linecap="round">
+      <path d="M444,540 H466 M444,552 H466 M464,531 L446,561"/>
+    </g>
+    <circle cx="506" cy="547" r="14" fill="none" stroke="#3F7D5A" stroke-width="1.7"/>
+    <path d="M499,547 L504,552 L513,541" fill="none" stroke="#3F7D5A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <line x1="489" y1="564" x2="523" y2="530" stroke="#69707A" stroke-width="2"/>
+    <text x="536" y="554" font-size="20" fill="#69707A">Success</text>
+    <text x="1136" y="553" text-anchor="end" font-size="17" fill="#69707A">Confirm before showing green.</text>
+  </g>
+  <text x="1172" y="653" font-family="Menlo, Consolas, monospace" font-size="15" fill="#69707A" text-anchor="end" letter-spacing="0.5">heedroom.com</text>
+</svg>
